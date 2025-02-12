@@ -9,13 +9,21 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class SubmitionService {
   private submitions = Urls.submitions;
  constructor(private http:HttpClient) { }
- submitSolution(problemId: number, code: string): Observable<string> {
-  return this.http.post<string>(`${this.submitions}submit/${problemId}`, { code }).pipe(
+ submitSolution(problemId?: number, code?: string): Observable<string> {
+  console.log('code',code )
+  return this.http.post<string>(
+    `${this.submitions}submit/${problemId}`, 
+    code, // Send plain string instead of an object
+    { headers: { 'Content-Type': 'text/plain' },
+    responseType: 'text'  as 'json'
+} 
+  ).pipe(
     catchError(error => {
       console.error('Error occurred:', error);
       return throwError(error);
     })
   );
+  
 }
 
 }

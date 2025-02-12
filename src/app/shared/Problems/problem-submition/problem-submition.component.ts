@@ -31,7 +31,7 @@ get(id:number):void{
     );
 }
 submit(code:string):void{
-  this.submitionService.submitSolution(this.problemId!, code).subscribe(data => {
+  this.submitionService.submitSolution(this.problem?.id, code).subscribe(data => {
     this.output = data; 
   });
   
