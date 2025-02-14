@@ -1,41 +1,34 @@
-
 <div class="submission-container">
-    <!-- Problem description section -->
-    <div class="problem-description">
-      <h2>{{ problem?.title}}</h2>
-      <div class="problem-statement">
-        <p><strong>Description:</strong> {{problem?.description}}</p>
-      </div>
-    </div>
-  
-    <!-- Solution input area -->
-    <div class="solution-box">
-      <h3>Your Solution</h3>
-      <!-- Static textarea for solution submission -->
-      <textarea [(ngModel)]="solutionCode"
-        id="solution"
-        rows="10"
-        placeholder="Write your solution here..."
-        class="solution-textarea"
-       
-      >
-        function sumArray(arr) {
-          return arr.reduce((a, b) => a + b, 0);
-        }
-      </textarea>
-    </div>
-  
-    <!-- Buttons for testing and submission -->
-    <div class="buttons">
-      <button class="test-button">Test Solution</button>
-      <button class="submit-button" disabled>Submit</button>
-      <button (click)="submit(solutionCode)" class="submit-button" [disabled]="!solutionCode.trim()">Submit</button>
-
-    </div>
-  
-    <!-- Static feedback message -->
-    <div class="submission-feedback">
-      <p>{{output}}!</p>
+  <!-- Left Section: Problem Description -->
+  <div class="problem-description">
+    <h2>{{ problem?.title }}</h2>
+    <div class="problem-statement">
+      <p><strong>Description:</strong> {{ problem?.description }}</p>
     </div>
   </div>
-  
+
+  <!-- Right Section: Solution Input -->
+  <div class="solution-box">
+    <h3>Your Solution</h3>
+    <textarea [(ngModel)]="solutionCode"
+      id="solution"
+      rows="10"
+      placeholder="Write your solution here..."
+      class="solution-textarea">
+      function sumArray(arr) {
+        return arr.reduce((a, b) => a + b, 0);
+      }
+    </textarea>
+
+    <!-- Buttons Section -->
+    <div class="buttons">
+      <button class="test-button">Test Solution</button>
+      <button (click)="submit(solutionCode)" class="submit-button" [disabled]="!solutionCode.trim()">Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- Feedback Section -->
+<div class="submission-feedback">
+  <p>{{ output }}!</p>
+</div>

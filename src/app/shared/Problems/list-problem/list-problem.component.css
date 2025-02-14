@@ -11,6 +11,18 @@
     margin: 0 auto;
 }
 
+
+h2 {
+    font-size: 36px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+
 .problem-card {
     padding: 1rem;
     border-radius: 8px;
@@ -57,4 +69,7 @@
 
 .hard {
     background-color: #f44336;
+}
+a{
+    color: #ffffff;
 }

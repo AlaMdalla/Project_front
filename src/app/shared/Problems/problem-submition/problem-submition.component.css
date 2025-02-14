@@ -1,103 +1,119 @@
 /* Main container */
 .submission-container {
-    padding: 30px;
-    max-width: 1000px;
-    margin: 0 auto;
-    background-color: #f7f8fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .problem-description {
-    margin-bottom: 30px;
-  }
-  
-  .problem-description h2 {
-    font-size: 28px;
-    color: #333;
-    font-weight: 600;
-  }
-  
-  .problem-statement p {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.6;
-  }
-  
-  .solution-box {
-    margin-top: 30px;
-  }
-  
-  .solution-box h3 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .solution-textarea {
-    width: 100%;
+  display: flex;
+  padding: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #f7f8fa; /* Same background color as hero section */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Left section: Problem description */
+.problem-description {
+  flex: 1;
+  margin-right: 30px;
+}
+
+.problem-description h2 {
+  font-size: 28px;
+  color: #333;
+  font-weight: 600;
+}
+
+.problem-statement p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Right section: Solution input */
+.solution-box {
+  flex: 1;
+}
+
+.solution-box h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.solution-textarea {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  font-family: "Courier New", Courier, monospace;
+  resize: vertical;
+  white-space: pre-wrap;
+}
+
+.solution-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Buttons Section */
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.test-button,
+.submit-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #ff5722; /* Same as hero section */
+  color: white;
+}
+
+.test-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.test-button:hover {
+  background-color: #e0e0e0;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.submit-button:disabled {
+  background-color: #c0c0c0;
+  cursor: not-allowed;
+}
+
+/* Feedback Section */
+.submission-feedback {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.submission-feedback p {
+  font-weight: bold;
+  color: #28a745;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .submission-container {
+    flex-direction: column;
     padding: 15px;
-    font-size: 16px;
-    border: 1px solid #dcdcdc;
-    border-radius: 5px;
-    background-color: #f4f4f4;
-    font-family: "Courier New", Courier, monospace;
-    resize: vertical;
-    white-space: pre-wrap; /* Keeps line breaks */
   }
-  
-  .solution-textarea:focus {
-    outline: none;
-    border-color: #007bff;
+
+  .problem-description,
+  .solution-box {
+    margin-right: 0;
+    margin-bottom: 20px;
   }
-  
-  .buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .test-button,
-  .submit-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .test-button {
-    background-color: #f0f0f0;
-    color: #333;
-  }
-  
-  .submit-button {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .test-button:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .submit-button:disabled {
-    background-color: #c0c0c0;
-    cursor: not-allowed;
-  }
-  
-  .submission-feedback {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 18px;
-  }
-  
-  .submission-feedback p {
-    font-weight: bold;
-    color: #28a745;
-  }
-  
+}

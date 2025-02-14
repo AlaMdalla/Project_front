@@ -1,6 +1,7 @@
 export const Urls = {
     Problems : 'http://localhost:8560/problems/',
     submitions : 'http://localhost:8560/submitions/',
+    Competition : 'http://localhost:8560/Competitions/',
 
    /* Subscription_add : 'http://localhost:8082/api/subscription/add',
     Subscription_getById : 'http://localhost:8082/api/subscription/getById/',

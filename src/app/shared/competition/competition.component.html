@@ -1,0 +1,16 @@
+<section class="competitions-section">
+  <h2>Competitions</h2>
+  <div class="competitions-list">
+    <div class="competition-card" *ngFor="let competition of competitions">
+      <h3>{{ competition.title }}</h3>
+      <p>{{ competition.description }}</p>
+      
+      <div class="prices">
+        <span *ngFor="let price of competition.prices" class="price-tag">{{ price }}</span>
+      </div>
+      
+      <!-- Join button -->
+      <button class="join-button">Join</button>
+    </div>
+  </div>
+</section>

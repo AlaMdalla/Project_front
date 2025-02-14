@@ -1,0 +1,108 @@
+/* General Competitions Section Styling */
+.competitions-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 20px;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  min-height: 100vh; /* Ensure it takes full height of the screen */
+}
+
+
+.competitions-section h2 {
+  font-size: 36px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.competitions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 1200px; /* Set a max width for the list */
+}
+
+.competition-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  text-align: center;
+  width: 100%;
+  max-width: 320px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.competition-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  background-color: #fafafa;
+}
+
+.competition-card h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.competition-card p {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.prices {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.price-tag {
+  background-color: #ff5722;
+  color: #fff;
+  padding: 6px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.join-button {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 220px;
+}
+
+.join-button:hover {
+  background-color: #e64a19;
+  transform: translateY(-2px);
+}

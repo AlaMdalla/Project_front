@@ -12,11 +12,19 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProblemSubmitionComponent } from './shared/Problems/problem-submition/problem-submition.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './shared/header/header.component';
+import { FooterComponent } from './shared/footer/footer.component';
+import { HomeComponent } from './shared/home/home.component';
+import { CompetitionComponent } from './shared/competition/competition.component';
 @NgModule({
   declarations: [
     AppComponent,
     ListProblemComponent,
-    ProblemSubmitionComponent
+    ProblemSubmitionComponent,
+    HeaderComponent,
+    FooterComponent,
+    HomeComponent,
+    CompetitionComponent,
   ],
   imports: [
     BrowserModule,
