@@ -4,16 +4,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 20px;
+  padding: 40px 20px;
   font-family: 'Inter', sans-serif;
-  color: #333;
+  color: #333; /* Dark text for contrast */
   min-height: 100vh; /* Ensure it takes full height of the screen */
+  background-color: #f0f4f8; /* Light, soft gray-blue background */
 }
 
-
+/* Heading Styling */
 .competitions-section h2 {
   font-size: 36px;
-  color: #333;
+  color: #333; /* Dark text */
   text-align: center;
   margin-bottom: 50px;
   font-weight: bold;
@@ -21,6 +22,7 @@
   text-transform: uppercase;
 }
 
+/* Competitions List Styling */
 .competitions-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -31,10 +33,11 @@
   max-width: 1200px; /* Set a max width for the list */
 }
 
+/* Competition Card Styling */
 .competition-card {
-  background-color: #fff;
+  background-color: #ffffff; /* Soft off-white card background */
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); /* Subtle shadow */
   padding: 25px;
   text-align: center;
   width: 100%;
@@ -49,26 +52,32 @@
 
 .competition-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-  background-color: #fafafa;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+  background-color: #fafafa; /* Slightly lighter background on hover */
 }
 
+/* Competition Card Title */
 .competition-card h3 {
   font-size: 24px;
-  color: #333;
+  color: #333; /* Dark text */
   margin-bottom: 15px;
   font-weight: bold;
   text-transform: capitalize;
 }
 
+/* Competition Card Description */
 .competition-card p {
   font-size: 16px;
-  color: #777;
+  color: #666; /* Medium gray text for readability */
   margin-bottom: 25px;
   line-height: 1.6;
   font-weight: 400;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* Price Tags Styling */
 .prices {
   display: flex;
   gap: 12px;
@@ -78,7 +87,7 @@
 }
 
 .price-tag {
-  background-color: #ff5722;
+  background-color: #6cace4; /* Soft pastel blue for price tags */
   color: #fff;
   padding: 6px 15px;
   border-radius: 8px;
@@ -87,8 +96,9 @@
   font-weight: bold;
 }
 
+/* Join Button Styling */
 .join-button {
-  background-color: #ff5722;
+  background: linear-gradient(135deg, #6cace4 0%, #4a8bb2 100%); /* Muted blue gradient */
   color: #fff;
   border: none;
   padding: 12px 25px;
@@ -96,13 +106,13 @@
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-top: 10px;
   width: 100%;
   max-width: 220px;
 }
 
 .join-button:hover {
-  background-color: #e64a19;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 172, 228, 0.3); /* Soft blue shadow on hover */
 }
