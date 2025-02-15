@@ -1,0 +1,87 @@
+/* Center the card on the page */
+.center-card {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+  }
+  
+  /* Form container */
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* Space between form fields */
+  }
+  
+  /* Form field styling */
+  .form-field {
+    width: 100%;
+  }
+  
+  /* Outline appearance for form fields */
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: #f5f5f5; /* Light gray background */
+    border-radius: 8px;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    border-color: #3f51b5; /* Primary color for focus state */
+  }
+  
+  /* Icons inside form fields */
+  .mat-icon[matPrefix] {
+    margin-right: 8px;
+    color: #666;
+  }
+  
+  /* Textarea styling */
+  mat-form-field textarea {
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 120px; /* Minimum height for the textarea */
+  }
+  
+  /* Button container */
+  .button-container {
+    display: flex;
+    justify-content: flex-end; /* Align button to the right */
+    margin-top: 24px;
+  }
+  
+  /* Custom button styling */
+  .submit-button {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    background-color: #3f51b5; /* Primary color */
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #303f9f; /* Darker shade for hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3); /* Shadow on hover */
+  }
+  
+  .submit-button:active {
+    transform: translateY(0); /* Reset lift effect on click */
+  }
+  
+  .submit-button[disabled] {
+    background-color: #ccc; /* Gray for disabled state */
+    color: #666;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+  
+  /* Card hover effect */
+  .center-card:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover */
+  }

@@ -6,12 +6,10 @@
         <img src="https://www.myfreax.com/content/images/2022/11/introduction-to-javascript-syntax.webp" alt="Course Image" class="course-image" />
         
         <h3>{{ course.title }}</h3>
-        <p>{{ course.description }}</p>
+        <p>{{ course.content }}</p>
         
-        <div class="prices">
-          <span *ngFor="let price of course.prices" class="price-tag">{{ price }}</span>
-        </div>
-        
+        <mat-card-subtitle> Posted On : {{course.trainingdate | date: 'medium'}}</mat-card-subtitle>
+
         <!-- Join button -->
         <button class="join-button">Join Now</button>
       </div>
