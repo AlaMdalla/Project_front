@@ -4,12 +4,14 @@ import { ListProblemComponent } from "./shared/Problems/list-problem/list-proble
 import { ProblemSubmitionComponent } from "./shared/Problems/problem-submition/problem-submition.component";
 import { HomeComponent } from "./shared/home/home.component";
 import { CoursesComponent } from "./shared/courses/courses.component";
+import { CompetionComponent } from "./shared/Competion/competion/competion.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
     {path : "courses",component:CoursesComponent},
-
     {path : "problemSubmission/:id",component:ProblemSubmitionComponent},
+
+    {path : "Competition/:id",component:CompetionComponent},
     {path : "",component:HomeComponent},
 
 

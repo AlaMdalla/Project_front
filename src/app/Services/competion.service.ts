@@ -14,4 +14,7 @@ export class CompetionService {
    getCompetitions():Observable<Competition[]>{
       return this.http.get<Competition[]>(this.Competitions);
         }
+        getCompetition(id?:number ):Observable<Competition>{
+          return this.http.get<Competition>(this.Competitions+`${id}`);
+            }
 }

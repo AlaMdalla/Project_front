@@ -2,6 +2,8 @@
   <h2>Competitions</h2>
   <div class="competitions-list">
     <div class="competition-card" *ngFor="let competition of competitions">
+      <h3>{{ competition.id }}</h3>
+
       <h3>{{ competition.title }}</h3>
       <p>{{ competition.description }}</p>
       
@@ -9,8 +11,9 @@
         <span *ngFor="let price of competition.prices" class="price-tag">{{ price }}</span>
       </div>
       
-      <!-- Join button -->
+      <a [routerLink]="['/Competition', competition.id]">
       <button class="join-button">Join</button>
+    </a>
     </div>
   </div>
 </section>

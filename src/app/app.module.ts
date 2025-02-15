@@ -17,6 +17,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './shared/home/home.component';
 import { CompetitionComponent } from './shared/competition/competition.component';
 import { CoursesComponent } from './shared/courses/courses.component';
+import { CompetionComponent } from './shared/Competion/competion/competion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { CoursesComponent } from './shared/courses/courses.component';
     HomeComponent,
     CompetitionComponent,
     CoursesComponent,
+    CompetionComponent,
   ],
   imports: [
     BrowserModule,
