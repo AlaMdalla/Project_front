@@ -3,11 +3,11 @@ import { Competition } from 'src/app/models/Competition';
 import { CompetionService } from 'src/app/Services/competion.service';
 
 @Component({
-  selector: 'app-competition',
-  templateUrl: './competition.component.html',
-  styleUrls: ['./competition.component.css']
+  selector: 'app-competitions',
+  templateUrl: './competitions.component.html',
+  styleUrls: ['./competitions.component.css']
 })
-export class CompetitionComponent {
+export class CompetitionsComponent {
   constructor(private competionService:CompetionService){}
   competitions: Competition[] =[];
   refrech():void{

@@ -1,0 +1,45 @@
+<app-sidebar></app-sidebar>
+<div id="content">
+    <!-- Problem Header Section -->
+    <div class="problem-container">
+      <h2>Add a New Problem</h2>
+      <form [formGroup]="problemForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input id="title" formControlName="title" placeholder="Enter title" />
+        </div>
+  
+        <div class="form-group">
+          <label for="difficulty">Difficulty:</label>
+          <select id="difficulty" formControlName="difficulty">
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="tags">Tags:</label>
+          <input id="tags" formControlName="tags" (keydown.enter)="addTag(tagInput.value)" #tagInput placeholder="Enter tags" />
+          <div class="tag-list">
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" formControlName="description" placeholder="Enter description"></textarea>
+        </div>
+  
+        <div class="form-group">
+          <label for="mainClass">Path to Main Class:</label>
+          <input id="mainClass" formControlName="mainClass" placeholder="Enter Path to main class" />
+        </div>
+  
+        <div class="form-actions">
+          <button type="submit" [disabled]="problemForm.invalid">Save Problem</button>
+          <button type="button" (click)="closeForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+    <app-list-problem> </app-list-problem> 
+  </div>

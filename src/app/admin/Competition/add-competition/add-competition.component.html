@@ -1,0 +1,46 @@
+<app-sidebar></app-sidebar>
+<div id="content">
+    <div class="competition-container">
+      <h2>Add a New Competition</h2>
+      
+      <form [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
+        <!-- Title -->
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input id="title" formControlName="title" placeholder="Enter competition title" />
+        </div>
+  
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" formControlName="description" placeholder="Enter description"></textarea>
+        </div>
+  
+        <!-- Prices -->
+        <div class="form-group">
+          <label for="prices">Prices:</label>
+          <input id="prices" #priceInput (keydown.enter)="addPrice(priceInput.value)" placeholder="Enter price and press Enter" />
+          <div class="price-list">
+            <span *ngFor="let price in competitionForm.get('prices')" class="tag">
+              {{ price }}
+              <button type="button" (click)="removePrice(price)">×</button>
+            </span>
+          </div>
+        </div>
+  
+        <!-- Problems Selection -->
+        <div class="form-group">
+          <label for="problems">Select Problems:</label>
+          <select id="problems">
+            <option *ngFor="let problem of availableProblems" [value]="problem.title">{{ problem.title }}</option>
+          </select>
+       </div>
+       <div class="form-actions">
+        <button type="submit" [disabled]="">Save Problem</button>
+        <button type="button" (click)="closeForm()">Cancel</button>
+      </div>
+    </form>
+
+    </div>
+        
+  
