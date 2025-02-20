@@ -32,6 +32,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { AddPostComponent } from './shared/blog/add-post/add-post.component';
 import { ViewAllComponent } from './shared/blog/view-all/view-all.component';
 import { ViewPostComponent } from './shared/blog/view-post/view-post.component';
+import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
+import { AddEvaluationComponent } from './add-evaluation/add-evaluation.component';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +50,10 @@ import { ViewPostComponent } from './shared/blog/view-post/view-post.component';
     AddPostComponent,
     ViewAllComponent,
     ViewPostComponent,
+    EvaluationComponent,
+    AddEvaluationComponent,
+
+
   ],
   imports: [
     BrowserModule,

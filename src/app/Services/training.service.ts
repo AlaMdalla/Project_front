@@ -11,6 +11,6 @@ export class TrainingService {
   private trainings = Urls.training;
   constructor(private http:HttpClient) { }
 gettrainings():Observable<Training[]>{
-    return this.http.get<Training[]>(this.trainings);
+    return this.http.get<Training[]>(this.trainings+"retrieve-all-trainings");
       }
 }

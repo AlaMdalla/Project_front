@@ -1,6 +1,9 @@
 export const Urls = {
     Problems : 'http://localhost:8560/problems/',
     training : 'http://localhost:8560/e-learning/trainings/',
+    evaluation:'http://localhost:8560/e-learning/evaluation/',
+
+
 
     submitions : 'http://localhost:8560/submitions/',
     Competition : 'http://localhost:8560/Competitions/',

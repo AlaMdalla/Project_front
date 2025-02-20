@@ -8,11 +8,16 @@ import { CompetionComponent } from "./shared/Competion/competion/competion.compo
 import { AddPostComponent } from "./shared/blog/add-post/add-post.component";
 import { ViewAllComponent } from "./shared/blog/view-all/view-all.component";
 import { ViewPostComponent } from "./shared/blog/view-post/view-post.component";
+import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
+import {BrowserModule} from "@angular/platform-browser";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
     {path : "courses",component:CoursesComponent},
-    {path : "problemSubmission/:id",component:ProblemSubmitionComponent},
+  { path: 'evaluations', component: EvaluationComponent },
+ // { path: 'evaluations/all', component: EvaluationListComponent },
+
+  {path : "problemSubmission/:id",component:ProblemSubmitionComponent},
     {path: 'Posts' , component: ViewAllComponent},
     {path : "Competition/:id",component:CompetionComponent},
     {path : "",component:HomeComponent},
@@ -23,9 +28,10 @@ const routes: Routes = [
 ]
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  //imports: [BrowserModule, AppRoutingModule, EvaluationsModule],
+  exports: [RouterModule]
   })
-  
-  export class AppRoutingModule { 
-  
+
+  export class AppRoutingModule {
+
   }

@@ -1,0 +1,18 @@
+<section class="evaluations-section">
+  <h2>Evaluations</h2>
+  <div class="evaluations-list">
+    <div class="evaluation-card" *ngFor="let evaluation of evaluations">
+      <h3>{{ evaluation.description }}</h3>
+      <p><strong>Type :</strong> {{ evaluation.type }}</p>
+      <p><strong>Durée :</strong> {{ evaluation.evaluationDuration}}</p>
+      <p><strong>Score :</strong> {{ evaluation.score }} / 100</p>
+      <p><strong>Créé le :</strong> {{ evaluation.createdAt | date: 'medium' }}</p>
+      <p><strong>Certificat :</strong> {{ evaluation.certificat ? '✅ Oui' : '❌ Non' }}</p>
+      <a routerLink="/evaluation">View All Evaluations</a>
+      <!-- Boutons d'action -->
+      <button class="btn modify-btn" (click)="editEvaluation(evaluation)">Modifier</button>
+      <button class="btn delete-btn" (click)="deleteEvaluation(evaluation.idEvaluation)">Supprimer</button>
+    </div>
+  </div>
+</section>
+
