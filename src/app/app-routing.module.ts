@@ -12,6 +12,11 @@ import { AddProblemComponent } from "./admin/add-problem/add-problem.component";
 import { CompetionComponent } from "./shared/Competition/competion/competion.component";
 import { CompetitionsComponent } from "./shared/Competition/competitions/competitions.component";
 import { AddCompetitionComponent } from "./admin/Competition/add-competition/add-competition.component";
+import { AddTrainingsComponent } from "./admin/Trainings/add-trainings/add-trainings.component";
+import { CandidatListComponent } from "./shared/Candidats/candidat-list/candidat-list.component";
+import { CandidatFormComponent } from "./shared/Candidats/candidat-form/candidat-form.component";
+import { JobListComponent } from "./shared/Job/job-list/job-list.component";
+import { JobFormComponent } from "./shared/Job/job-form/job-form.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
@@ -22,10 +27,20 @@ const routes: Routes = [
     {path : "Competition/:id",component:CompetionComponent},
     {path : "",component:HomeComponent},
     {path: 'addPost' , component: AddPostComponent},
+    {path: 'addtraining' , component: AddTrainingsComponent},
+
     {path: 'addProblem' , component: AddProblemComponent},
     {path: 'addCompetition' , component: AddCompetitionComponent},
     {path: 'view-post/:id' , component: ViewPostComponent},
-    {path: 'admin' , component: HomeAdminComponent}
+    {path: 'admin' , component: HomeAdminComponent},
+    //candidate routes
+    { path: 'jobs', component: JobListComponent },
+    { path: 'jobs/new', component: JobFormComponent },
+    { path: 'jobs/edit/:id', component: JobFormComponent },
+    { path: 'candidates', component: CandidatListComponent },
+    { path: 'candidates/new', component: CandidatFormComponent },
+    { path: 'candidates/edit/:id', component: CandidatFormComponent },
+    { path: '**', redirectTo: '' } 
 
 
 

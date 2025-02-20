@@ -1,0 +1,16 @@
+<h2>Competitions</h2>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let competition of competitions">
+    <td>{{ competition.title }}</td>
+    <td>{{ competition.description }}</td>
+    <td>
+      <button (click)="editCompetition(competition)">✏️ Edit</button>
+      <button (click)="deleteCompetition(competition.id)">🗑️ Delete</button>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,56 @@
+<app-sidebar></app-sidebar>
+
+<div class="training-container">
+    <h2>Add a New Training</h2>
+  
+    <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
+      <!-- Title -->
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input id="title" formControlName="title" placeholder="Enter training title" />
+      </div>
+  
+      <!-- Content -->
+      <div class="form-group">
+        <label for="content">Content:</label>
+        <textarea id="content" formControlName="content" placeholder="Enter training content"></textarea>
+      </div>
+  
+      <!-- Training Date -->
+      <div class="form-group">
+        <label for="trainingDate">Training Date:</label>
+        <input id="trainingDate" type="date" formControlName="trainingDate" />
+      </div>
+  
+      <div class="form-actions">
+        <button type="submit" [disabled]="trainingForm.invalid">Save Training</button>
+        <button type="button" >Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div class="table-container">
+    <h2>Training List</h2>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Training Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let training of Trainings">
+          <td>{{ training.title }}</td>
+          <td>{{ training.content }}</td>
+          <td>{{ training.trainingdate | date:'yyyy-MM-dd' }}</td>
+          <td class="action-buttons">
+            <button class="edit" >✏️</button>
+            <button class="delete">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

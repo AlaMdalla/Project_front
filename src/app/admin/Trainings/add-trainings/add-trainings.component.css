@@ -1,0 +1,114 @@
+/* Training Container */
+.training-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Form Fields */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+    transition: 0.3s;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #3C91E6;
+    background: #fff;
+    outline: none;
+  }
+  
+  /* Buttons */
+  .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .form-actions button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .form-actions button[type="submit"] {
+    background-color: #3C91E6;
+    color: #fff;
+  }
+  
+  .form-actions button[type="submit"]:hover {
+    background-color: #2a70b8;
+  }
+  
+  .form-actions button[type="button"] {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .form-actions button[type="button"]:hover {
+    background-color: #aaa;
+  }
+  
+  /* Training List Table */
+  .table-container {
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #3C91E6;
+    color: white;
+    text-transform: uppercase;
+  }
+  
+  .table tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Action Buttons */

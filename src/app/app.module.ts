@@ -36,6 +36,12 @@ import { AddProblemComponent } from './admin/add-problem/add-problem.component';
 import { SidebarComponent } from './admin/sidebar/sidebar.component';
 import { CompetitionsComponent } from './shared/Competition/competitions/competitions.component';
 import { AddCompetitionComponent } from './admin/Competition/add-competition/add-competition.component';
+import { ListCompetitionComponent } from './admin/Competition/list-competition/list-competition.component';
+import { AddTrainingsComponent } from './admin/Trainings/add-trainings/add-trainings.component';
+import { CandidatFormComponent } from './shared/Candidats/candidat-form/candidat-form.component';
+import { CandidatListComponent } from './shared/Candidats/candidat-list/candidat-list.component';
+import { JobListComponent } from './shared/Job/job-list/job-list.component';
+import { JobFormComponent } from './shared/Job/job-form/job-form.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +61,12 @@ import { AddCompetitionComponent } from './admin/Competition/add-competition/add
     SidebarComponent,
     CompetitionsComponent,
     AddCompetitionComponent,
+    ListCompetitionComponent,
+    AddTrainingsComponent,
+    CandidatFormComponent,
+    CandidatListComponent,
+    JobListComponent,
+    JobFormComponent,
   ],
   imports: [
     BrowserModule,
