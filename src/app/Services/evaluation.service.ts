@@ -9,8 +9,8 @@ import {Urls} from "../config/Urls";
   providedIn: 'root'
 })
 export class EvaluationService {
-  private apiUrl =  Urls.evaluation
-  ;
+  private apiUrl =  Urls.evaluation;
+
 
   constructor(private http: HttpClient) {}
 
@@ -24,8 +24,12 @@ export class EvaluationService {
   }
 
   addEvaluation(evaluation: Evaluation): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.apiUrl}/add`, evaluation);
+    return this.http.post<Evaluation>(`${this.apiUrl} yadd`, evaluation);
   }
+
+ // addEvaluation(evaluation: Evaluation): Observable<Evaluation> {
+   // return this.http.post<Evaluation>(`${this.apiUrl}/add`, evaluation);
+  //}
 
   updateEvaluation(id: number, evaluation: Evaluation): Observable<Evaluation> {
     return this.http.put<Evaluation>(`${this.apiUrl}/update/{idEvaluation}`, evaluation);

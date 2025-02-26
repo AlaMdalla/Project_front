@@ -10,12 +10,13 @@ import { ViewAllComponent } from "./shared/blog/view-all/view-all.component";
 import { ViewPostComponent } from "./shared/blog/view-post/view-post.component";
 import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
 import {BrowserModule} from "@angular/platform-browser";
+import {AddEvaluationComponent} from "./add-evaluation/add-evaluation.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
     {path : "courses",component:CoursesComponent},
   { path: 'evaluations', component: EvaluationComponent },
- // { path: 'evaluations/all', component: EvaluationListComponent },
+  { path: 'evaluations/add', component: AddEvaluationComponent },
 
   {path : "problemSubmission/:id",component:ProblemSubmitionComponent},
     {path: 'Posts' , component: ViewAllComponent},

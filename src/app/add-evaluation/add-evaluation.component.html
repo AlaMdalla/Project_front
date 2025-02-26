@@ -1,1 +1,40 @@
-<p>add-evaluation works!</p>
+<h2> Manage Evaluations</h2>
+
+<!-- Add Evaluation Form -->
+<form (ngSubmit)="addEvaluation()">
+  <label>Description:</label>
+  <input type="text" [(ngModel)]="newEvaluation.description" name="description" required />
+
+  <label>Type:</label>
+  <input type="text" [(ngModel)]="newEvaluation.type" name="type" required />
+
+  <label>Duration:</label>
+  <input type="text" [(ngModel)]="newEvaluation.evaluationDuration" name="evaluationDuration" required />
+
+  <label>Score:</label>
+  <input type="number" [(ngModel)]="newEvaluation.score" name="score" required />
+
+  <button type="submit">Add Evaluation</button>
+</form>
+
+<!-- List of Evaluations -->
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Duration</th>
+    <th>Score</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let evaluation of evaluations">
+    <td>{{ evaluation.idEvaluation }}</td>
+    <td>{{ evaluation.description }}</td>
+    <td>{{ evaluation.type }}</td>
+    <td>{{ evaluation.evaluationDuration }}</td>
+    <td>{{ evaluation.score }}</td>
+    <td>
+      <button (click)="deleteEvaluation(evaluation.idEvaluation)">Delete</button>
+    </td>
+  </tr>
+</table>
