@@ -8,6 +8,9 @@ import { PoblemService } from 'src/app/Services/poblem.service';
   styleUrls: ['./list-problem.component.css']
 })
 export class ListProblemComponent {
+deleteProblem(arg0: number) {
+throw new Error('Method not implemented.');
+}
 constructor(private problemsS:PoblemService){}
 problems: Problem[]=[];
 ngOnInit(): void {
@@ -21,8 +24,13 @@ refrech():void{
 }
 delete(id:number):void{
   this.problemsS.deleteProblem(id).subscribe(data =>
-    {this.problems=data;}
+    
+    {
+      this.problems=data;
+      
+    }
     );
+    
 }
 
 }

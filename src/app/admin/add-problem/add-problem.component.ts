@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PoblemService } from 'src/app/Services/poblem.service';
 
 @Component({
   selector: 'app-add-problem',
@@ -13,30 +14,35 @@ export class AddProblemComponent {
   ];
   isAddProblem = false;
   problemForm!: FormGroup;
-
-  constructor(private fb: FormBuilder) {}
+  tags=null
+  constructor(private fb: FormBuilder,private problemService:PoblemService) {}
 
   ngOnInit() {
     this.problemForm = this.fb.group({
       title: ['', Validators.required],
       difficulty: ['', Validators.required],
-      tags: [''],
       description: ['', Validators.required],
       mainClass: ['', Validators.required]
     });
   }
 
+
+
   onSubmit() {
     if (this.problemForm.valid) {
-      this.problems.push(this.problemForm.value);
-      this.isAddProblem = false;
-      this.problemForm.reset();
+      this.problemService.addProblem(this.problemForm.value).subscribe(
+        res =>{
+          console.log(res ,'added succssefuly');
+        },
+        error =>{
+console.log(error);
+        }
+      )
     }
   }
 
-  addTag(tag: string) {
-   
-  }
+
+ 
 
   closeForm() {
     this.isAddProblem = false;

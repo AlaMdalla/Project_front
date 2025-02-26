@@ -20,5 +20,8 @@ export class PoblemService {
           getProblem(id? :number):Observable<Problem>{
             return this.http.get<Problem>(this.Problems+`${id}`);
               }
+              addProblem(problem:Problem):Observable<Problem>{
+                return this.http.post<Problem>(this.Problems,problem);
+              }
               
 }
