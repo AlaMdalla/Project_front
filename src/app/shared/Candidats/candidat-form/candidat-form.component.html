@@ -1,32 +1,95 @@
-<app-sidebar></app-sidebar>
-<h2>{{ isEditMode ? 'Edit' : 'Add' }} Candidate</h2>
+<div class="sidebar">
+  <app-sidebar></app-sidebar>
+</div>
 
-<form (ngSubmit)="onSubmit()" #candidateForm="ngForm">
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Edit Candidate' : 'Add New Candidate' }}</h2>
 
- 
+  <form (ngSubmit)="onSubmit()" #candidateForm="ngForm" class="candidate-form">
+    <div class="form-group">
+      <label for="phone">Phone <span class="required">*</span></label>
+      <input 
+        type="text" 
+        id="phone" 
+        class="form-control" 
+        [(ngModel)]="candidate.phone" 
+        name="phone" 
+        required 
+        placeholder="e.g., (123) 456-7890" 
+      />
+    </div>
 
-  <label>Phone:</label>
-  <input type="text" [(ngModel)]="candidate.phone" name="phone" required />
+    <div class="form-group">
+      <label for="resumeUrl">Resume URL <span class="required">*</span></label>
+      <input 
+        type="url" 
+        id="resumeUrl" 
+        class="form-control" 
+        [(ngModel)]="candidate.resumeUrl" 
+        name="resumeUrl" 
+        required 
+        placeholder="e.g., https://example.com/resume.pdf" 
+      />
+    </div>
 
-  <label>Resume URL:</label>
-  <input type="text" [(ngModel)]="candidate.resumeUrl" name="resumeUrl" required />
+    <div class="form-group">
+      <label for="applicationDate">Application Date <span class="required">*</span></label>
+      <input 
+        type="datetime-local" 
+        id="applicationDate" 
+        class="form-control" 
+        [(ngModel)]="candidate.applicationDate" 
+        name="applicationDate" 
+        required 
+      />
+    </div>
 
-  <label>Application Date:</label>
-  <input type="datetime-local" [(ngModel)]="candidate.applicationDate" name="applicationDate" required />
+    <div class="form-group">
+      <label for="status">Status <span class="required">*</span></label>
+      <select 
+        id="status" 
+        class="form-control" 
+        [(ngModel)]="candidate.status" 
+        name="status" 
+        required
+      >
+        <option value="applied">Applied</option>
+        <option value="reviewed">Reviewed</option>
+        <option value="interviewed">Interviewed</option>
+        <option value="hired">Hired</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </div>
 
-  <label>Status:</label>
-  <select [(ngModel)]="candidate.status" name="status" required>
-    <option value="applied">Applied</option>
-    <option value="reviewed">Reviewed</option>
-    <option value="interviewed">Interviewed</option>
-    <option value="hired">Hired</option>
-    <option value="rejected">Rejected</option>
-  </select>
+    <div class="form-group">
+      <label for="jobId">Job <span class="required">*</span></label>
+      <select 
+        id="jobId" 
+        class="form-control" 
+        [(ngModel)]="candidate.jobId" 
+        name="jobId" 
+        required
+      >
+        <option value="" disabled>Select a job</option>
+        <option *ngFor="let job of jobs" [value]="job.jobId">{{ job.title }} ({{ job.department }})</option>
+      </select>
+    </div>
 
-  <label>Job:</label>
-  <select [(ngModel)]="candidate.jobId" name="jobId" required>
-    <option *ngFor="let job of jobs" [value]="job.jobId">{{ job.title }}</option>
-  </select>
-
-  <button type="submit">{{ isEditMode ? 'Update' : 'Create' }} Candidate</button>
-</form>
+    <div class="button-container">
+      <button 
+        type="submit" 
+        class="btn-primary" 
+        [disabled]="candidateForm.invalid"
+      >
+        {{ isEditMode ? 'Update Candidate' : 'Create Candidate' }}
+      </button>
+      <button 
+        type="button" 
+        class="btn-secondary" 
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

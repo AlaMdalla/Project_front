@@ -1,18 +1,64 @@
-<app-sidebar></app-sidebar>
-<div class="header-container">
-    <button routerLink="/candidates/new" class="add-button">➕ Add Candidate</button>
+<div class="sidebar">
+  <app-sidebar></app-sidebar>
+</div>
+
+<div class="candidate-container">
+  <div class="header-container">
+    <h2>Candidate List</h2>
+    <div class="search-container">
+      <input 
+        type="text" 
+        placeholder="Search candidates..." 
+        [(ngModel)]="searchTerm" 
+        (input)="filterCandidates()"
+      />
+    </div>
+    <button routerLink="/candidates/new" class="btn-primary">➕ Add Candidate</button>
   </div>
-  
-  <ul *ngIf="candidates.length > 0; else noCandidates">
-    <li *ngFor="let candidate of candidates">
-      <span>{{ candidate.resumeUrl ?? 'No Resume URL' }}</span>
-      <button [routerLink]="['/candidates/edit', candidate.id]">Edit</button>
-      <button class="delete" (click)="deleteCandidate(candidate.id)">Delete</button>
-    </li>
-  </ul>
-  
-  <ng-template #noCandidates>
-    <p>No candidates found.</p>
-  </ng-template>
-  
-  
+
+  <div class="candidate-grid">
+    <mat-card 
+      *ngFor="let candidate of filteredCandidates" 
+      class="candidate-card" 
+      [ngClass]="{
+        'applied': candidate.status === 'applied',
+        'reviewed': candidate.status === 'reviewed',
+        'interviewed': candidate.status === 'interviewed',
+        'hired': candidate.status === 'hired',
+        'rejected': candidate.status === 'rejected'
+      }"
+    >
+      <mat-card-header>
+        <mat-card-title>{{ candidate.email || 'Unnamed Candidate' }}</mat-card-title>
+        <mat-card-subtitle>{{ candidate.phone }} | Job ID: {{ candidate.jobId }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p class="resume"><strong>Resume:</strong> <a [href]="candidate.resumeUrl" target="_blank">{{ candidate.resumeUrl || 'No Resume URL' }}</a></p>
+        <p class="application-date">Applied: {{ candidate.applicationDate | date:'mediumDate' }}</p>
+        <p class="status">Status: {{ candidate.status | titlecase }}</p>
+      </mat-card-content>
+
+      <mat-card-actions class="actions">
+        <button 
+          mat-button 
+          color="primary" 
+          [routerLink]="['/candidates/edit', candidate.id]"
+        >
+          Edit
+        </button>
+        <button 
+          mat-button 
+          color="warn" 
+          (click)="deleteCandidate(candidate.id)"
+        >
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <div class="no-candidates" *ngIf="filteredCandidates.length === 0">
+      <p>No candidates found.</p>
+    </div>
+  </div>
+</div>
