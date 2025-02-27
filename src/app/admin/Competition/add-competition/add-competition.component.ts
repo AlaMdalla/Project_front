@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Competition } from 'src/app/models/Competition';
 import { Problem } from 'src/app/models/Problem';
+import { CompetionService } from 'src/app/Services/competion.service';
 
 @Component({
   selector: 'app-add-competition',
@@ -11,8 +12,8 @@ import { Problem } from 'src/app/models/Problem';
 export class AddCompetitionComponent {
   competitionForm: FormGroup;
   availableProblems: Problem[] = [];
-
-  constructor(private fb: FormBuilder) {
+  competitions: Competition[] =[];
+  constructor(private fb: FormBuilder,private competionService:CompetionService) {
     this.competitionForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -44,11 +45,34 @@ export class AddCompetitionComponent {
     this.competitionForm.get('problems')?.setValue(this.competitionForm.get('problems')?.value.filter((p: Problem) => p.id !== problem.id));
   }
 
+
   onSubmit() {
     if (this.competitionForm.valid) {
+
       const newCompetition: Competition = this.competitionForm.value;
+      this.competionService.addCompetition(newCompetition).subscribe(
+        res=>{
+
+          console.log(res)
+          
+        },
+        error=>{
+console.error(error)
+
+        }
+        
+      )
+      window.location.reload(); 
+
       console.log('Competition Submitted:', newCompetition);
     }
+  }
+    refrech():void{
+    this.competionService.getCompetitions().subscribe(data =>
+      
+      {
+        this.competitions=data;}
+      );
   }
 
   closeForm() {

@@ -1,9 +1,10 @@
 <app-sidebar></app-sidebar>
 <div id="content">
-    <div class="competition-container">
-      <h2>Add a New Competition</h2>
-      
+  <div class="competition-container">
+    <div class="card">
       <form [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
+        <h2>Add a New Competition</h2> <!-- Moved inside form, before inputs -->
+        
         <!-- Title -->
         <div class="form-group">
           <label for="title">Title:</label>
@@ -21,26 +22,26 @@
           <label for="prices">Prices:</label>
           <input id="prices" #priceInput (keydown.enter)="addPrice(priceInput.value)" placeholder="Enter price and press Enter" />
           <div class="price-list">
-            <span *ngFor="let price in competitionForm.get('prices')" class="tag">
+            <span *ngFor="let price in competitionForm.get('prices')?.value" class="tag">
               {{ price }}
               <button type="button" (click)="removePrice(price)">×</button>
             </span>
           </div>
         </div>
   
-        <!-- Problems Selection -->
-        <div class="form-group">
-          <label for="problems">Select Problems:</label>
-          <select id="problems">
-            <option *ngFor="let problem of availableProblems" [value]="problem.title">{{ problem.title }}</option>
-          </select>
-       </div>
-       <div class="form-actions">
-        <button type="submit" [disabled]="">Save Problem</button>
-        <button type="button" (click)="closeForm()">Cancel</button>
-      </div>
-    </form>
-
+        <button
+          type="submit"
+          [disabled]="competitionForm.invalid || !competitionForm.get('prices')?.value.length"
+          class="btn-primary"
+        >
+          Save Competition
+        </button>
+        <button type="button" (click)="closeForm()" class="btn-secondary">
+          Cancel
+        </button>
+      </form>
     </div>
-        
-  <app-list-competition>
+  </div>
+  <app-list-competition></app-list-competition>
+
+</div>

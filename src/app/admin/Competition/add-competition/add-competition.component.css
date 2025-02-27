@@ -1,132 +1,147 @@
-/* Main Content */
 #content {
-    margin-left: 280px; /* Sidebar width */
-    padding: 20px;
-    transition: margin-left 0.3s ease;
+  padding: 20px;
+  background: #f5f7fa;
+  min-height: 100vh;
+}
+
+.competition-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 10px; /* Adjusted to fit within form-group spacing */
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  color: #34495e;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #dfe6e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #2d3436;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #0984e3;
+  box-shadow: 0 0 8px rgba(9, 132, 227, 0.2);
+  outline: none;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+input.invalid,
+textarea.invalid {
+  border-color: #e74c3c;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.price-list {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: #0984e3;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.tag button {
+  margin-left: 8px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.tag button:hover {
+  color: #ff6b6b; /* Optional hover effect for visibility */
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background: #0984e3;
+  color: white;
+}
+
+.btn-primary:disabled {
+  background: #b2bec3;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #636e72;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled),
+.btn-secondary:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  /* When sidebar is hidden */
-  #sidebar.hide ~ #content {
-    margin-left: 60px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Competition Form Container */
-  .competition-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: bold;
-  }
-  
-  /* Form Fields */
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-  }
-  
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: #3C91E6;
-    outline: none;
-  }
-  
-  /* Tag List */
-  .price-list,
-  .problem-list {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
-  
-  .tag {
-    background-color: #e0f7fa;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .tag button {
-    margin-left: 5px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: red;
-    font-size: 16px;
-  }
-  
-  /* Buttons */
-  .form-actions {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .form-actions button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .form-actions button[type="submit"] {
-    background-color: #3C91E6;
-    color: #fff;
-  }
-  
-  .form-actions button[type="button"] {
-    background-color: #ccc;
-    color: #333;
-  }
-  
-  .form-actions button:hover {
-    opacity: 0.9;
-  }
-  
-  .form-actions button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  /* Responsive */
-  @media screen and (max-width: 768px) {
-    #content {
-      margin-left: 0;
-    }
-  
-    .competition-container {
-      width: 100%;
-      padding: 15px;
-    }
-  }
-  
+}

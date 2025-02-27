@@ -1,16 +1,30 @@
-<h2>Competitions</h2>
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Actions</th>
-  </tr>
-  <tr *ngFor="let competition of competitions">
-    <td>{{ competition.title }}</td>
-    <td>{{ competition.description }}</td>
-    <td>
-      <button (click)="editCompetition(competition)">✏️ Edit</button>
-      <button (click)="deleteCompetition(competition.id)">🗑️ Delete</button>
-    </td>
-  </tr>
-</table>
+<div class="table-container">
+  <h2>Competitions</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let competition of displayedCompetitions" class="competition-row">
+        <td>{{ competition.title }}</td>
+        <td>{{ competition.description }}</td>
+        <td class="actions-cell">
+          <button class="btn-edit" (click)="editCompetition(competition)">✏️ Edit</button>
+          <span class="divider"></span>
+          <button class="btn-delete" (click)="deleteCompetition(competition.id)">🗑️ Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div class="pagination" *ngIf="totalItems > 0">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
+  </div>
+</div>

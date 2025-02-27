@@ -8,7 +8,7 @@ import { TrainingService } from 'src/app/Services/training.service';
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent {
-  courses :Training[]=[]
+  courses : Training[]=[]
 
   constructor(private trainingService:TrainingService) { }
 

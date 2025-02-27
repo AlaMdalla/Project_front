@@ -12,6 +12,12 @@ export class CandidateService {
 
   constructor(private http: HttpClient) {}
 
+  // New method for paginated candidates
+  getCandidatesPaginated(page: number, pageSize: number): Observable<{ candidates: Candidate[]; total: number }> {
+    const url = `${this.apiUrl}?page=${page}&pageSize=${pageSize}`;
+    return this.http.get<{ candidates: Candidate[]; total: number }>(url);
+  }
+
   getCandidates(): Observable<Candidate[]> {
     return this.http.get<Candidate[]>(this.apiUrl);
   }
@@ -27,14 +33,8 @@ export class CandidateService {
   updateCandidate(id: number, candidate: Candidate): Observable<Candidate> {
     return this.http.put<Candidate>(`${this.apiUrl}/${id}`, candidate);
   }
-  
-  
-
 
   deleteCandidate(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl+`${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`); // Fixed concatenation
   }
-  
-  
-  
 }

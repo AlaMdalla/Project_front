@@ -2,31 +2,90 @@
 <h2>{{ isEditMode ? 'Edit' : 'Add' }} Candidate</h2>
 
 <form (ngSubmit)="onSubmit()" #candidateForm="ngForm">
+  <div class="form-group">
+    <label>Phone:</label>
+    <input
+      type="text"
+      [(ngModel)]="candidate.phone"
+      name="phone"
+      #phone="ngModel"
+      required
+      pattern="^[0-9]{8,15}$"
+    />
+    <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger">
+      <div *ngIf="phone.errors?.['required']">Phone number is required.</div>
+      <div *ngIf="phone.errors?.['pattern']">Phone must be 8-15 digits (numbers only).</div>
+    </div>
+  </div>
 
- 
+  <div class="form-group">
+    <label>Resume URL:</label>
+    <input
+      type="text"
+      [(ngModel)]="candidate.resumeUrl"
+      name="resumeUrl"
+      #resumeUrl="ngModel"
+      required
+      pattern="https?://.+"
+    />
+    <div *ngIf="resumeUrl.invalid && (resumeUrl.dirty || resumeUrl.touched)" class="text-danger">
+      <div *ngIf="resumeUrl.errors?.['required']">Resume URL is required.</div>
+      <div *ngIf="resumeUrl.errors?.['pattern']">Please enter a valid URL (e.g., http:// or https://).</div>
+    </div>
+  </div>
 
-  <label>Phone:</label>
-  <input type="text" [(ngModel)]="candidate.phone" name="phone" required />
+  <div class="form-group">
+    <label>Application Date:</label>
+    <input
+      type="datetime-local"
+      [(ngModel)]="candidate.applicationDate"
+      name="applicationDate"
+      #applicationDate="ngModel"
+      required
+    />
+    <div *ngIf="applicationDate.invalid && (applicationDate.dirty || applicationDate.touched)" class="text-danger">
+      <div *ngIf="applicationDate.errors?.['required']">Application Date is required.</div>
+    </div>
+  </div>
 
-  <label>Resume URL:</label>
-  <input type="text" [(ngModel)]="candidate.resumeUrl" name="resumeUrl" required />
+  <div class="form-group">
+    <label>Status:</label>
+    <select
+      [(ngModel)]="candidate.status"
+      name="status"
+      #status="ngModel"
+      required
+    >
+      <option value="applied">Applied</option>
+      <option value="reviewed">Reviewed</option>
+      <option value="interviewed">Interviewed</option>
+      <option value="hired">Hired</option>
+      <option value="rejected">Rejected</option>
+    </select>
+    <div *ngIf="status.invalid && (status.dirty || status.touched)" class="text-danger">
+      <div *ngIf="status.errors?.['required']">Status is required.</div>
+    </div>
+  </div>
 
-  <label>Application Date:</label>
-  <input type="datetime-local" [(ngModel)]="candidate.applicationDate" name="applicationDate" required />
+  <div class="form-group">
+    <label>Job:</label>
+    <select
+      [(ngModel)]="candidate.jobId"
+      name="jobId"
+      #jobId="ngModel"
+      required
+    >
+      <option *ngFor="let job of jobs" [value]="job.jobId">{{ job.title }}</option>
+    </select>
+    <div *ngIf="jobId.invalid && (jobId.dirty || jobId.touched)" class="text-danger">
+      <div *ngIf="jobId.errors?.['required']">Job selection is required.</div>
+    </div>
+  </div>
 
-  <label>Status:</label>
-  <select [(ngModel)]="candidate.status" name="status" required>
-    <option value="applied">Applied</option>
-    <option value="reviewed">Reviewed</option>
-    <option value="interviewed">Interviewed</option>
-    <option value="hired">Hired</option>
-    <option value="rejected">Rejected</option>
-  </select>
-
-  <label>Job:</label>
-  <select [(ngModel)]="candidate.jobId" name="jobId" required>
-    <option *ngFor="let job of jobs" [value]="job.jobId">{{ job.title }}</option>
-  </select>
-
-  <button type="submit">{{ isEditMode ? 'Update' : 'Create' }} Candidate</button>
+  <button
+    type="submit"
+    [disabled]="candidateForm.invalid"
+  >
+    {{ isEditMode ? 'Update' : 'Create' }} Candidate
+  </button>
 </form>
