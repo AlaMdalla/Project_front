@@ -1,14 +1,14 @@
-/* General Courses Section Styling */
+/* 🌟 Section Générale des Cours */
 .courses-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 60px 20px;
-  background-color: #f5f5f5; /* Light gray background */
+  background: linear-gradient(to right, #f9f9f9, #eceff1); /* Dégradé doux */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
-  min-height: 100vh; /* Ensure it takes full height of the screen */
+  min-height: 100vh; /* Prend toute la hauteur de l'écran */
 }
 
 .courses-section h2 {
@@ -21,6 +21,7 @@
   text-transform: uppercase;
 }
 
+/* 🌟 Mise en page des cartes */
 .courses-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -28,91 +29,124 @@
   justify-items: center;
   margin-top: 20px;
   width: 100%;
-  max-width: 1200px; /* Set a max width for the list */
+  max-width: 1200px;
 }
 
+/* 🌟 Style des Cartes */
 .course-card {
-  background-color: #fff;
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 15px;  /* Reduce padding */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   text-align: center;
   width: 100%;
   max-width: 320px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Start from the top */
+  justify-content: flex-start;
   align-items: center;
-  height: auto; /* Allow height to adjust based on content */
-  max-height: 450px; /* Set a maximum height */
+  height: auto;
+  max-height: 470px;
 }
 
+/* 🎭 Effet de survol */
 .course-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-  background-color: #fafafa;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+  background: #fafafa;
 }
 
+/* 🌟 Titre des Cours */
 .course-card h3 {
-  font-size: 22px; /* Reduce font size */
-  color: #333;
-  margin-bottom: 10px; /* Reduce margin */
+  font-size: 22px;
+  color: #222;
+  margin-bottom: 10px;
   font-weight: bold;
   text-transform: capitalize;
 }
 
+/* 🌟 Description du Cours */
 .course-card p {
-  font-size: 14px; /* Reduce font size */
-  color: #777;
-  margin-bottom: 15px; /* Reduce margin */
-  line-height: 1.4;
-  font-weight: 400;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.5;
 }
 
+/* 🌟 Prix */
 .prices {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 20px; /* Reduce margin */
+  margin-bottom: 20px;
 }
 
 .price-tag {
-  background-color: #ff5722;
+  background: #ff5722;
   color: #fff;
-  padding: 6px 12px; /* Adjust padding */
+  padding: 6px 14px;
   border-radius: 8px;
   font-size: 14px;
   text-transform: uppercase;
   font-weight: bold;
+  letter-spacing: 1px;
 }
 
+/* 🌟 Bouton d'inscription */
 .join-button {
-  background-color: #ff5722;
+  background: #ff5722;
   color: #fff;
   border: none;
-  padding: 10px 20px; /* Reduce padding */
-  border-radius: 6px;
-  font-size: 14px; /* Reduce font size */
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-top: 10px;
+  margin-top: 12px;
   width: 100%;
   max-width: 200px;
 }
 
+/* 🎨 Effet Hover sur le Bouton */
 .join-button:hover {
-  background-color: #e64a19;
-  transform: translateY(-2px);
+  background: #e64a19;
+  transform: scale(1.05);
 }
 
-/* Styling for Course Images */
+/* 🌟 Image du Cours */
 .course-image {
   width: 100%;
-  height: 150px;  /* Make image height shorter */
+  height: 170px;
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 15px; /* Reduce margin */
+  margin-bottom: 15px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* 🎭 Effet Hover sur l'Image */
+.course-card:hover .course-image {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  .courses-list {
+    grid-template-columns: 1fr;
+  }
+
+  .course-card {
+    padding: 15px;
+  }
+
+  .course-card h3 {
+    font-size: 20px;
+  }
+
+  .course-card p {
+    font-size: 13px;
+  }
 }

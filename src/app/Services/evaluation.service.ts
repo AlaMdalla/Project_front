@@ -24,18 +24,19 @@ export class EvaluationService {
   }
 
   addEvaluation(evaluation: Evaluation): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.apiUrl} add`, evaluation);
+    return this.http.post<Evaluation>(`${this.apiUrl}evaluations`, evaluation);
   }
 
- // addEvaluation(evaluation: Evaluation): Observable<Evaluation> {
+
+  // addEvaluation(evaluation: Evaluation): Observable<Evaluation> {
    // return this.http.post<Evaluation>(`${this.apiUrl}/add`, evaluation);
   //}
 
   updateEvaluation(id: number, evaluation: Evaluation): Observable<Evaluation> {
-    return this.http.put<Evaluation>(`${this.apiUrl}/update/{idEvaluation}`, evaluation);
+    return this.http.put<Evaluation>(`${this.apiUrl}/update/{id}`, evaluation);
   }
 
   deleteEvaluation(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete/{idEvaluation}`);
+    return this.http.delete<void>(`${this.apiUrl}/delete/{id}`);
   }
 }
