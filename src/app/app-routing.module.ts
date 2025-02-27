@@ -17,7 +17,7 @@ const routes: Routes = [
     {path : "courses",component:CoursesComponent},
   { path: 'evaluations', component: EvaluationComponent },
   { path: 'evaluations/add', component: AddEvaluationComponent },
-
+  {path: 'admin' , component: HomeComponent},
   {path : "problemSubmission/:id",component:ProblemSubmitionComponent},
     {path: 'Posts' , component: ViewAllComponent},
     {path : "Competition/:id",component:CompetionComponent},

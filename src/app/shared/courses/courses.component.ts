@@ -13,12 +13,14 @@ export class CoursesComponent {
   constructor(private trainingService:TrainingService) { }
 
   ngOnInit(): void {
-    this.refrech();
-  
-   }
-  refrech():void{
-    this.trainingService.gettrainings().subscribe(data =>
-      {this.courses=data;}
-      );
+    // Récupération des formations depuis le backend via le service
+    this.trainingService.gettrainings().subscribe(
+      (data: Training[]) => {
+        this.courses = data;
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des formations :', error);
+      }
+    );
   }
 }

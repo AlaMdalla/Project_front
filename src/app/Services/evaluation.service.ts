@@ -24,7 +24,7 @@ export class EvaluationService {
   }
 
   addEvaluation(evaluation: Evaluation): Observable<Evaluation> {
-    return this.http.post<Evaluation>(`${this.apiUrl} yadd`, evaluation);
+    return this.http.post<Evaluation>(`${this.apiUrl} add`, evaluation);
   }
 
  // addEvaluation(evaluation: Evaluation): Observable<Evaluation> {
