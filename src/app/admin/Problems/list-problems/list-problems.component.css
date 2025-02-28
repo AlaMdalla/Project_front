@@ -1,0 +1,140 @@
+.table-container {
+    padding: 20px;
+    background: #f5f7fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  thead tr {
+    background: #0984e3;
+    color: white;
+    font-weight: 500;
+  }
+  
+  th {
+    padding: 12px 15px;
+    font-size: 1rem;
+    text-align: left;
+  }
+  
+  tbody tr {
+    border-bottom: 1px solid #dfe6e9;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  tbody tr:hover {
+    background: #eef2f7;
+    transform: translateY(-2px);
+  }
+  
+  td {
+    padding: 12px 15px;
+    font-size: 0.95rem;
+    color: #2d3436;
+  }
+  
+  .actions-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between buttons */
+  }
+  
+  .divider {
+    width: 1px;
+    height: 20px;
+    background: #dfe6e9; /* Matches border color */
+  }
+  
+  .btn-edit,
+  .btn-delete {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .btn-edit {
+    background: #0984e3;
+    color: white;
+  }
+  
+  .btn-edit:hover {
+    background: #0773c4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(9, 132, 227, 0.3);
+  }
+  
+  .btn-delete {
+    background: #e74c3c;
+    color: white;
+  }
+  
+  .btn-delete:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #2c3e50;
+  }
+  
+  .btn-page {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #0984e3;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .btn-page:disabled {
+    background: #b2bec3;
+    cursor: not-allowed;
+  }
+  
+  .btn-page:hover:not(:disabled) {
+    background: #0773c4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(9, 132, 227, 0.3);
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

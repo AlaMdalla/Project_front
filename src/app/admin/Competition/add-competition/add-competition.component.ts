@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Competition } from 'src/app/models/Competition';
 import { Problem } from 'src/app/models/Problem';
 import { CompetionService } from 'src/app/Services/competion.service';
@@ -11,9 +12,14 @@ import { CompetionService } from 'src/app/Services/competion.service';
 })
 export class AddCompetitionComponent {
   competitionForm: FormGroup;
+
+  competitionId:number | null = null;;
   availableProblems: Problem[] = [];
   competitions: Competition[] =[];
-  constructor(private fb: FormBuilder,private competionService:CompetionService) {
+  constructor(private fb: FormBuilder,private competionService:CompetionService,
+        private route: ActivatedRoute,
+        private router: Router
+  ) {
     this.competitionForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -21,7 +27,16 @@ export class AddCompetitionComponent {
       problems: [[]]
     });
   }
-
+  ngOnInit() {
+    
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.competitionId = +id; 
+        this.loadCompetion(this.competitionId);
+      }
+    });
+  }
   addPrice(price: string) {
     if (price.trim()) {
       this.competitionForm.get('prices')?.value.push(price);
@@ -46,27 +61,56 @@ export class AddCompetitionComponent {
   }
 
 
+
+
   onSubmit() {
+  
     if (this.competitionForm.valid) {
-
       const newCompetition: Competition = this.competitionForm.value;
-      this.competionService.addCompetition(newCompetition).subscribe(
-        res=>{
-
-          console.log(res)
+      if (this.competitionId) {
+        this.competionService.updateProblem(this.competitionId, newCompetition).subscribe(
+          res => {
+            console.log('Updated successfully', res);
+            this.router.navigate(['/addCompetition']); 
+          },
+          error => console.error('Error updating:', error)
+        );
+      }
+      else{
+        this.competionService.addCompetition(newCompetition).subscribe(
+          res=>{
+  
+            console.log(res)
+            
+          },
+          error=>{
+  console.error(error)
+  
+          },
           
-        },
-        error=>{
-console.error(error)
-
-        }
-        
-      )
-      window.location.reload(); 
-
-      console.log('Competition Submitted:', newCompetition);
-    }
+          
+        )
+        window.location.reload(); 
+  
+        console.log('Competition Submitted:', newCompetition);
+      }
+      }
+     
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
     refrech():void{
     this.competionService.getCompetitions().subscribe(data =>
       
@@ -75,7 +119,13 @@ console.error(error)
       );
   }
 
+
   closeForm() {
     this.competitionForm.reset();
+  }
+  loadCompetion(id: number) {
+    this.competionService.getCompetition(id).subscribe(competion => {
+      this.competitionForm.patchValue(competion);
+    });
   }
 }

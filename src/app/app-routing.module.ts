@@ -28,9 +28,11 @@ const routes: Routes = [
     {path : "",component:HomeComponent},
     {path: 'addPost' , component: AddPostComponent},
     {path: 'addtraining' , component: AddTrainingsComponent},
-
+    { path: 'problem/edit/:id', component: AddProblemComponent },
     {path: 'addProblem' , component: AddProblemComponent},
     {path: 'addCompetition' , component: AddCompetitionComponent},
+    { path: 'Competition/edit/:id', component: AddCompetitionComponent },
+
     {path: 'view-post/:id' , component: ViewPostComponent},
     {path: 'admin' , component: HomeAdminComponent},
     //candidate routes

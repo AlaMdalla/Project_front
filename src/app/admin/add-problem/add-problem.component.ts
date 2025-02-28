@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Problem } from 'src/app/models/Problem';
 import { tags } from 'src/app/models/tags';
 import { PoblemService } from 'src/app/Services/poblem.service';
@@ -9,15 +10,19 @@ import { PoblemService } from 'src/app/Services/poblem.service';
   templateUrl: './add-problem.component.html',
   styleUrls: ['./add-problem.component.css']
 })
-export class AddProblemComponent {
-  isAddProblem = false;
+export class AddProblemComponent implements OnInit {
   problemForm!: FormGroup;
-  problem!: Problem;
+  problemId: number | null = null; // Store the problem ID if updating
+  tags = Object.values(tags); 
+  selectedTags: string[] = [];
+  isAddProblem!: boolean;
 
-  tags = Object.values(tags); // Convert Enum to Array
-  selectedTags: string[] = []; // Changed to string[] to match HTML usage
-
-  constructor(private fb: FormBuilder, private problemService: PoblemService) {}
+  constructor(
+    private fb: FormBuilder,
+    private problemService: PoblemService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.problemForm = this.fb.group({
@@ -26,11 +31,26 @@ export class AddProblemComponent {
       description: ['', [Validators.required, Validators.minLength(10)]],
       mainClass: ['', [Validators.required, Validators.minLength(3)]]
     });
+
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.problemId = +id; 
+        this.loadProblem(this.problemId);
+      }
+    });
+  }
+
+  loadProblem(id: number) {
+    this.problemService.getProblem(id).subscribe(problem => {
+      this.problemForm.patchValue(problem);
+      this.selectedTags = problem.tags || [];
+    });
   }
 
   onTagChange(event: Event) {
     const selectedOptions = (event.target as HTMLSelectElement).selectedOptions;
-    this.selectedTags = Array.from(selectedOptions).map(option => option.value); // Simplified to string values
+    this.selectedTags = Array.from(selectedOptions).map(option => option.value);
   }
 
   removeTag(tag: string) {
@@ -38,34 +58,36 @@ export class AddProblemComponent {
   }
 
   onSubmit() {
-    if (this.problemForm.valid && this.selectedTags.length) { // Added check for tags
-      this.problem = {
+    if (this.problemForm.valid && this.selectedTags.length) {
+      const problemData = {
         ...this.problemForm.value,
         tags: this.selectedTags
       };
 
-      this.problemService.addProblem(this.problem).subscribe(
-        res => {
-          console.log(res, 'added successfully');
-          window.location.reload();
-        },
-        error => {
-          console.log(error);
-          window.location.reload();
-        }
-      );
+      if (this.problemId) {
+        this.problemService.updateProblem(this.problemId, problemData).subscribe(
+          res => {
+            console.log('Updated successfully', res);
+            this.router.navigate(['/addProblem']); 
+          },
+          error => console.error('Error updating:', error)
+        );
+      } else {
+        // Create new problem
+        this.problemService.addProblem(problemData).subscribe(
+          res => {
+            console.log('Added successfully', res);
+            this.router.navigate(['/problems']); 
+          },
+          error => console.error('Error adding:', error)
+        );
+      }
     }
   }
-
+  
   closeForm() {
     this.isAddProblem = false;
     this.problemForm.reset();
     this.selectedTags = []; // Reset tags on close
   }
-
-  toggleAddProblem() {
-    this.isAddProblem = !this.isAddProblem;
-  }
-
-  // Removed submitTags as it's no longer needed with the integrated form
 }

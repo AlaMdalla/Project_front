@@ -96,11 +96,11 @@
         </div>
 
         <div class="form-actions">
-          <button type="submit" [disabled]="problemForm.invalid || !selectedTags.length" class="btn-primary">Save Problem</button>
+          <button type="submit" [disabled]="problemForm.invalid || !selectedTags.length" class="btn-primary"> {{ problemId ? 'Update Problem' : 'Save Problem' }}</button>
           <button type="button" (click)="closeForm()" class="btn-secondary">Cancel</button>
         </div>
       </form>
     </div>
   </div>
-  <app-list-problem></app-list-problem>
+  <app-list-problems></app-list-problems>
 </div>

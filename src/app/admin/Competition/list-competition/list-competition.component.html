@@ -13,7 +13,7 @@
         <td>{{ competition.title }}</td>
         <td>{{ competition.description }}</td>
         <td class="actions-cell">
-          <button class="btn-edit" (click)="editCompetition(competition)">✏️ Edit</button>
+          <button class="btn-edit" (click)="editCompetition(competition.id)">✏️ Edit</button>
           <span class="divider"></span>
           <button class="btn-delete" (click)="deleteCompetition(competition.id)">🗑️ Delete</button>
         </td>

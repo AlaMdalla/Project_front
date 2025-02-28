@@ -22,18 +22,6 @@ refrech():void{
     {this.problems=data;}
     );
 }
-delete(id:number):void{
-  this.problemsS.deleteProblem(id).subscribe(data =>
-    
-    {
-      
-      this.problems=data;
-      window.location.reload(); 
 
-      
-    }
-    );
- 
-}
 
 }

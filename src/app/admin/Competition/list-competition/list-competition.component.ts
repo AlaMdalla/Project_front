@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Competition } from 'src/app/models/Competition';
 import { CompetionService } from 'src/app/Services/competion.service';
 
@@ -8,7 +9,7 @@ import { CompetionService } from 'src/app/Services/competion.service';
   styleUrls: ['./list-competition.component.css']
 })
 export class ListCompetitionComponent {
- constructor(private competionService:CompetionService){}
+ constructor(private competionService:CompetionService,private router:Router){}
   competitions: Competition[] =[];
   displayedCompetitions: Competition[] = []; // Subset of competitions to display
   currentPage: number = 1; 
@@ -29,9 +30,9 @@ export class ListCompetitionComponent {
     this.refrech();
   
    }
-   editCompetition(competition: any) {
-    // Logic to edit a competition
-  }
+   editCompetition(id: number) {
+    this.router.navigate(['/Competition/edit', id]);}
+  
 
   deleteCompetition(id: number) {
     if (confirm('Are you sure you want to delete this competition?')) {
