@@ -42,6 +42,7 @@ import { CandidatFormComponent } from './shared/Candidats/candidat-form/candidat
 import { CandidatListComponent } from './shared/Candidats/candidat-list/candidat-list.component';
 import { JobListComponent } from './shared/Job/job-list/job-list.component';
 import { JobFormComponent } from './shared/Job/job-form/job-form.component';
+import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { JobFormComponent } from './shared/Job/job-form/job-form.component';
     CandidatListComponent,
     JobListComponent,
     JobFormComponent,
+    EvaluationComponent,
   ],
   imports: [
     BrowserModule,

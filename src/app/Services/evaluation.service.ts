@@ -9,7 +9,7 @@ import {Urls} from "../config/Urls";
   providedIn: 'root'
 })
 export class EvaluationService {
-  private apiUrl =  Urls.evaluation
+  private apiUrl =  Urls.evaluations
   ;
 
   constructor(private http: HttpClient) {}
