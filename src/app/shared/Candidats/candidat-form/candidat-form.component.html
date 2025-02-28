@@ -1,0 +1,32 @@
+<app-sidebar></app-sidebar>
+<h2>{{ isEditMode ? 'Edit' : 'Add' }} Candidate</h2>
+
+<form (ngSubmit)="onSubmit()" #candidateForm="ngForm">
+
+ 
+
+  <label>Phone:</label>
+  <input type="text" [(ngModel)]="candidate.phone" name="phone" required />
+
+  <label>Resume URL:</label>
+  <input type="text" [(ngModel)]="candidate.resumeUrl" name="resumeUrl" required />
+
+  <label>Application Date:</label>
+  <input type="datetime-local" [(ngModel)]="candidate.applicationDate" name="applicationDate" required />
+
+  <label>Status:</label>
+  <select [(ngModel)]="candidate.status" name="status" required>
+    <option value="applied">Applied</option>
+    <option value="reviewed">Reviewed</option>
+    <option value="interviewed">Interviewed</option>
+    <option value="hired">Hired</option>
+    <option value="rejected">Rejected</option>
+  </select>
+
+  <label>Job:</label>
+  <select [(ngModel)]="candidate.jobId" name="jobId" required>
+    <option *ngFor="let job of jobs" [value]="job.jobId">{{ job.title }}</option>
+  </select>
+
+  <button type="submit">{{ isEditMode ? 'Update' : 'Create' }} Candidate</button>
+</form>

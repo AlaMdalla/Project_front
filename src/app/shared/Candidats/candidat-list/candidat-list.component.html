@@ -1,0 +1,18 @@
+<app-sidebar></app-sidebar>
+<div class="header-container">
+    <button routerLink="/candidates/new" class="add-button">➕ Add Candidate</button>
+  </div>
+  
+  <ul *ngIf="candidates.length > 0; else noCandidates">
+    <li *ngFor="let candidate of candidates">
+      <span>{{ candidate.resumeUrl ?? 'No Resume URL' }}</span>
+      <button [routerLink]="['/candidates/edit', candidate.id]">Edit</button>
+      <button class="delete" (click)="deleteCandidate(candidate.id)">Delete</button>
+    </li>
+  </ul>
+  
+  <ng-template #noCandidates>
+    <p>No candidates found.</p>
+  </ng-template>
+  
+  

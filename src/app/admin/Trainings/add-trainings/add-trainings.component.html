@@ -1,0 +1,87 @@
+<app-sidebar></app-sidebar>
+
+<div class="training-container">
+    <h2>{{ selectedTraining ? 'Edit Training' : 'Add a New Training' }}</h2>
+
+    <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
+        <!-- Title -->
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input id="title" formControlName="title" placeholder="Enter training title" />
+        </div>
+
+        <!-- Content -->
+        <div class="form-group">
+            <label for="content">Content:</label>
+            <textarea id="content" formControlName="content" placeholder="Enter training content"></textarea>
+        </div>
+
+        <!-- Training Date -->
+        <div class="form-group">
+            <label for="trainingdate">Training Date:</label>
+            <input id="trainingdate" type="date" formControlName="trainingdate" />
+        </div>
+
+        <!-- Duration -->
+        <div class="form-group">
+            <label for="duration">Duration:</label>
+            <input id="duration" type="text" formControlName="duration" placeholder="Enter training duration" />
+        </div>
+
+        <!-- Status -->
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" formControlName="status">
+                <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+            </select>
+        </div>
+
+        <!-- Level -->
+        <div class="form-group">
+            <label for="level">Level:</label>
+            <select id="level" formControlName="level">
+                <option *ngFor="let level of levelOptions" [value]="level">{{ level }}</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" [disabled]="trainingForm.invalid">
+                {{ selectedTraining ? 'Save Changes' : 'Save Training' }}
+            </button>
+            <button type="button" (click)="closeForm()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div class="table-container">
+    <h2>Training List</h2>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Training Date</th>
+            <th>Duration</th>
+            <th>Status</th>
+            <th>Level</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let training of Trainings">
+            <td>{{ training.title }}</td>
+            <td>{{ training.content }}</td>
+            <td>{{ training.trainingdate | date:'yyyy-MM-dd' }}</td>
+            <td>{{ training.duration }}</td>
+            <td>{{ training.status }}</td>
+            <td>{{ training.level }}</td>
+            <td class="action-buttons">
+                <button class="edit" (click)="editTraining(training)">✏️</button>
+                <button class="delete" (click)="training.idTraining ? deleteTraining(training.idTraining) : null">🗑️</button>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
