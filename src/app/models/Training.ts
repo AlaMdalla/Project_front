@@ -1,22 +1,21 @@
-export enum Status {
-  PLANNED = 'PLANNED',
-  ONGOING = 'ONGOING',
-  COMPLETED = 'COMPLETED'
+export enum status
+{ Planned,
+  InProgress,
+  Finished
 }
 
-export enum Level {
-  BEGINNER = 'BEGINNER',
-  INTERMEDIATE = 'INTERMEDIATE',
-  ADVANCED = 'ADVANCED'
+export enum level {
+  Beginner,
+  Intermediate,
+  Advanced
 }
-
 export interface Training {
   idTraining?: number;
   title: string;
   content: string;
   trainingdate: string;  // ⚠️ Format YYYY-MM-DD
   duration: string;
-  status: Status;
-  level: Level;
+  status: status;
+  level: level;
 }
 

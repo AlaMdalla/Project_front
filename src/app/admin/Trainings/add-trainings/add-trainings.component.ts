@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TrainingService } from 'src/app/Services/training.service';
-import { Training, Status, Level } from 'src/app/models/Training';
+import { Training, status, level } from 'src/app/models/Training';
 
 @Component({
   selector: 'app-add-trainings',
@@ -12,8 +12,8 @@ export class AddTrainingsComponent implements OnInit {
   trainingForm!: FormGroup;
   Trainings: Training[] = [];
   selectedTraining: Training | null = null;  // Stocke la formation en cours de modification
-  statusOptions = Object.values(Status);
-  levelOptions = Object.values(Level);
+  statusOptions = Object.values(status);
+  levelOptions = Object.values(level);
 
   constructor(private fb: FormBuilder, private trainingService: TrainingService) {}
 
@@ -66,10 +66,11 @@ export class AddTrainingsComponent implements OnInit {
   addTraining(trainingData: Training): void {
     this.trainingService.addTraining(trainingData).subscribe(response => {
       console.log('Formation ajoutée avec succès:', response);
-      this.loadTrainings();  // Rafraîchir la liste des formations
-      this.trainingForm.reset();  // Réinitialiser le formulaire
+      this.Trainings.push(trainingData);
+      this.trainingForm.reset();  // Reset the form after submission
     }, error => {
       console.error('Erreur lors de l\'ajout de la formation:', error);
+
     });
   }
 
