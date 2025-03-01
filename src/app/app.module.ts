@@ -43,6 +43,8 @@ import { CandidatListComponent } from './shared/Candidats/candidat-list/candidat
 import { JobListComponent } from './shared/Job/job-list/job-list.component';
 import { JobFormComponent } from './shared/Job/job-form/job-form.component';
 import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
+import { AddQuestionComponent } from './add-question/add-question.component';
+
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
     JobListComponent,
     JobFormComponent,
     EvaluationComponent,
+    AddQuestionComponent,
+   
   ],
   imports: [
     BrowserModule,

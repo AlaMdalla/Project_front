@@ -1,0 +1,31 @@
+<div class="question-container">
+  <h2>{{ selectedQuestion ? 'Edit Question' : 'Add a New Question' }}</h2>
+
+  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+    <!-- Question Text -->
+    <div class="form-group">
+      <label for="questionText">Question Text:</label>
+      <input id="questionText" formControlName="questionText" placeholder="Enter question text" />
+    </div>
+
+    <!-- Type -->
+    <div class="form-group">
+      <label for="type">Type:</label>
+      <select id="type" formControlName="type">
+        <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="questionForm.invalid">{{ selectedQuestion ? 'Save Changes' : 'Save Question' }}</button>
+  </form>
+</div>
+
+<!-- Liste des questions ajoutées -->
+<div class="questions-list">
+  <h3>List of Questions</h3>
+  <ul>
+    <li *ngFor="let question of questions">
+      {{ question.questionId }} - {{ question.questionText }} ({{ question.type }})
+    </li>
+  </ul>
+</div>

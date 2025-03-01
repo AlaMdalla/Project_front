@@ -18,6 +18,8 @@ import { CandidatFormComponent } from "./shared/Candidats/candidat-form/candidat
 import { JobListComponent } from "./shared/Job/job-list/job-list.component";
 import { JobFormComponent } from "./shared/Job/job-form/job-form.component";
 import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
+import {AddQuestionComponent} from "./add-question/add-question.component";
+
 
 const routes: Routes = [
   { path: "Problems", component: ListProblemComponent },
@@ -30,6 +32,7 @@ const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: 'addPost', component: AddPostComponent },
   { path: 'add-trainings', component: AddTrainingsComponent },
+  { path: 'add-question', component: AddQuestionComponent },
 
   { path: 'addProblem', component: AddProblemComponent },
   { path: 'addCompetition', component: AddCompetitionComponent },
