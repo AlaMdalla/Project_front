@@ -1,62 +1,184 @@
+/* General Styles */
 * {
-    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Changed font */
 }
 
-.problems-container {
+.competition-details {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #fff;
+    border: 1px solid #e1e8ed;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
+}
+
+/* Header Section */
+.competition-header {
+    padding: 20px;
+    border-bottom: 1px solid #e1e8ed;
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    border-radius: 10px 10px 0 0;
+}
+
+.image-container {
+    margin-right: 20px; /* Add space between image and title */
+}
+
+.competition-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.competition-image:hover {
+    transform: scale(1.05);
+}
+
+.title-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    max-width: 800px;
-    margin: 0 auto;
 }
 
+.competition-title {
+    font-size: 2rem;
+    color: #000000;
+    font-weight: 700;
+    margin-bottom: 10px; /* Add space below the title */
+}
 
-h2 {
-    font-size: 36px;
-    color: #333;
-    text-align: center;
-    margin-bottom: 50px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-  
+.competition-stats {
+    font-size: 1rem;
+    color: #555; /* Changed stats color */
+    display: flex;
+    gap: 15px;
+}
+
+.stat-item i {
+    font-size: 1.2rem;
+    margin-right: 5px; /* Add space between icon and text */
+}
+
+/* Description Section */
+.competition-description {
+    padding: 20px;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    border-bottom: 1px solid #e1e8ed;
+    grid-column: 1 / 2;
+}
+
+.bonus-prizes {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #d4a017;
+}
+
+.bonus-prizes ul {
+    list-style: none;
+    margin-left: 20px;
+}
+
+.bonus-prizes li {
+    font-size: 1rem;
+    color: #666;
+    margin: 8px 0;
+}
+
+/* Prizes Section */
+.competition-prices {
+    padding: 20px;
+    background: #f5f8fa;
+    border-left: 1px solid #e1e8ed;
+    border-radius: 0 10px 10px 0;
+    grid-column: 2 / 3;
+}
+
+.competition-prices h3 {
+    font-size: 1.5rem;
+    color: #d4a017;
+    font-weight: 600;
+}
+
+.competition-prices ul {
+    list-style: none;
+    padding: 0;
+}
+
+.competition-prices li {
+    font-size: 1rem;
+    color: #666;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.competition-prices li span {
+    color: #d4a017;
+}
+
+/* Problem Cards */
+.problems-container {
+    grid-column: 1 / -1; /* Make problems span both columns */
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 20px;
+}
 
 .problem-card {
-    padding: 1rem;
-    border-radius: 8px;
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.problem-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    background-color: #f7f7f7;
 }
 
 .problem-info {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.8rem;
 }
 
 .problem-title {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-weight: 700;
     color: #333;
+    text-decoration: none;
 }
 
 .problem-stats {
-    font-size: 14px;
+    font-size: 1rem;
     color: #666;
 }
 
 .difficulty {
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: 500;
-    padding: 4px 8px;
-    border-radius: 12px;
-    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
     text-transform: uppercase;
+    color: white;
 }
 
 .easy {
@@ -70,6 +192,8 @@ h2 {
 .hard {
     background-color: #f44336;
 }
-a{
-    color: #ffffff;
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
