@@ -10,6 +10,8 @@ import { CompetionService } from 'src/app/Services/competion.service';
 export class CompetitionsComponent {
   constructor(private competionService:CompetionService){}
   competitions: Competition[] =[];
+  isLightMode = true;
+  isLoading = true;
   refrech():void{
     this.competionService.getCompetitions().subscribe(data =>
       {this.competitions=data;}

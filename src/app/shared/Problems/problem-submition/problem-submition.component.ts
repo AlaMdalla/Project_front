@@ -1,4 +1,5 @@
-import { Component, HostListener } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Problem } from 'src/app/models/Problem';
 import { PoblemService } from 'src/app/Services/poblem.service';
@@ -7,14 +8,24 @@ import { SubmitionService } from 'src/app/Services/submition.service';
 @Component({
   selector: 'app-problem-submition',
   templateUrl: './problem-submition.component.html',
-  styleUrls: ['./problem-submition.component.css']
+  styleUrls: ['./problem-submition.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({ opacity: 0 })),
+      transition(':enter', [
+        animate('1s ease-in', style({ opacity: 1 }))
+      ])
+    ])
+  ]
+
 })
-export class ProblemSubmitionComponent {
+export class ProblemSubmitionComponent implements AfterViewInit {
 problemId? :number|null =null
 problem? :Problem
 fullS:boolean=false
 solutionCode: string = '';
 output : string ='';
+
 constructor(private route: ActivatedRoute,private problemsS :PoblemService,private submitionService:SubmitionService) {}
 ngOnInit(): void {
  const id = this.route.snapshot.paramMap.get('id');
@@ -87,4 +98,34 @@ exitFullScreen() {
     (document as any).msExitFullscreen();
   }
 }
+@ViewChild('outputRef') outputRef!: ElementRef; // Reference to <p> element
+
+ ngAfterViewInit() {
+  setTimeout(() => {
+    if (this.outputRef && this.outputRef.nativeElement) {
+      const outputText = this.outputRef.nativeElement.textContent.trim();
+      if (outputText === "✅ All test cases passed!!") {
+        this.createConfetti();
+      }
+    }
+  });
+}
+
+  private createConfetti(): void {
+    const colors = ["red", "blue", "yellow", "green", "purple", "orange"];
+    const confettiContainer = document.getElementById("confetti-container");
+
+    if (!confettiContainer) return; // Avoid errors if the container is missing
+
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.animationDuration = (Math.random() * 2 + 1) + "s";
+      confetti.style.setProperty("--color", colors[Math.floor(Math.random() * colors.length)]);
+      confettiContainer.appendChild(confetti);
+
+      setTimeout(() => confetti.remove(), 3000);
+    }
+  }
 }

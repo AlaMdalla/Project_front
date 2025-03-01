@@ -29,7 +29,10 @@ export class AddProblemComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(3)]],
       difficulty: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      mainClass: ['', [Validators.required, Validators.minLength(3)]]
+      mainClass: ['', [Validators.required, Validators.minLength(3)]],
+      linkTotestcases: ['', [Validators.required, Validators.minLength(3)]] // <-- Add this line
+
+      
     });
 
     this.route.paramMap.subscribe(params => {

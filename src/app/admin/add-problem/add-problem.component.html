@@ -76,6 +76,24 @@
         </div>
 
         <div class="form-group">
+          <label for="linkTotestcases">Path to testcases</label>
+          <input
+            id="linkTotestcases"
+            formControlName="linkTotestcases"
+            placeholder="e.g., com.example.Main"
+            [class.invalid]="problemForm.get('linkTotestcases')?.invalid && (problemForm.get('linkTotestcases')?.dirty || problemForm.get('linkTotestcases')?.touched)"
+          />
+          <div
+            class="error-message"
+            *ngIf="problemForm.get('linkTotestcases')?.invalid && (problemForm.get('linkTotestcases')?.dirty || problemForm.get('linkTotestcases')?.touched)"
+          >
+            <span *ngIf="problemForm.get('linkTotestcases')?.errors?.['required']">testcases Class path is required.</span>
+            <span *ngIf="problemForm.get('linkTotestcases')?.errors?.['minlength']">Path must be at least 3 characters.</span>
+          </div>
+        </div>
+
+
+        <div class="form-group">
           <label for="tags">Tags</label>
           <select
             id="tags"
@@ -96,7 +114,7 @@
         </div>
 
         <div class="form-actions">
-          <button type="submit" [disabled]="problemForm.invalid || !selectedTags.length" class="btn-primary"> {{ problemId ? 'Update Problem' : 'Save Problem' }}</button>
+          <button type="submit" [disabled]="problemForm.invalid || !selectedTags.length" class="btn-primary">Save Problem</button>
           <button type="button" (click)="closeForm()" class="btn-secondary">Cancel</button>
         </div>
       </form>

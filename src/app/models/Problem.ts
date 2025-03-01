@@ -4,5 +4,6 @@ export interface Problem {
     difficulty:string;
     tags: any[];
     description: string;
+    linkTotestcases? :string;
   }
   

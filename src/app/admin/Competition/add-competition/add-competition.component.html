@@ -28,10 +28,15 @@
             </span>
           </div>
         </div>
-  
+  <!-- Image Upload -->
+<div class="form-group">
+  <label for="image">Upload Image:</label>
+  <input type="file" id="image" (change)="onFileSelected($event)" accept="image/*" />
+</div>
+
         <button
           type="submit"
-          [disabled]="competitionForm.invalid || !competitionForm.get('prices')?.value.length"
+          [disabled]="competitionForm.invalid "
           class="btn-primary"
         >
           Save Competition

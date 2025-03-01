@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,8 +43,10 @@ import { CandidatListComponent } from './shared/Candidats/candidat-list/candidat
 import { JobListComponent } from './shared/Job/job-list/job-list.component';
 import { JobFormComponent } from './shared/Job/job-form/job-form.component';
 import { ListProblemsComponent } from './admin/Problems/list-problems/list-problems.component';
+import { ClarityModule } from '@clr/angular';
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     ListProblemComponent,
@@ -90,6 +92,7 @@ import { ListProblemsComponent } from './admin/Problems/list-problems/list-probl
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatMenuModule,
+    ClarityModule,
     MatGridListModule
   ],
   providers: [],
