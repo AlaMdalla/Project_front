@@ -28,10 +28,12 @@ export class EvaluationService {
   }
 
   updateEvaluation(id: number, evaluation: Evaluation): Observable<Evaluation> {
-    return this.http.put<Evaluation>(`${this.apiUrl}/update/{idEvaluation}`, evaluation);
+    return this.http.put<Evaluation>(`${this.apiUrl}/update/${id}`, evaluation);
   }
 
   deleteEvaluation(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete/{idEvaluation}`);
+    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
+
+
 }

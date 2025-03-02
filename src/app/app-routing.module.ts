@@ -17,15 +17,16 @@ import { CandidatListComponent } from "./shared/Candidats/candidat-list/candidat
 import { CandidatFormComponent } from "./shared/Candidats/candidat-form/candidat-form.component";
 import { JobListComponent } from "./shared/Job/job-list/job-list.component";
 import { JobFormComponent } from "./shared/Job/job-form/job-form.component";
-import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
+//import {EvaluationsComponent, EvaluationsComponent} from "./shared/evaluation/evaluation.component";
 import {AddQuestionComponent} from "./add-question/add-question.component";
-
+import {AddEvaluationComponent} from "./add-evaluation/add-evaluation.component";
+import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
 
 const routes: Routes = [
   { path: "Problems", component: ListProblemComponent },
   { path: "Competition", component: CompetitionsComponent },
   { path: "courses", component: CoursesComponent },
-  { path: "evaluations", component:EvaluationComponent },
+  { path: "evaluation", component: EvaluationComponent },
   { path: "problemSubmission/:id", component: ProblemSubmitionComponent },
   { path: 'Posts', component: ViewAllComponent },
   { path: "Competition/:id", component: CompetionComponent },
@@ -33,6 +34,8 @@ const routes: Routes = [
   { path: 'addPost', component: AddPostComponent },
   { path: 'add-trainings', component: AddTrainingsComponent },
   { path: 'add-question', component: AddQuestionComponent },
+  { path: 'add-evaluation', component: AddEvaluationComponent },
+
 
   { path: 'addProblem', component: AddProblemComponent },
   { path: 'addCompetition', component: AddCompetitionComponent },

@@ -1,36 +1,92 @@
+/* Section principale centrée */
 .evaluations-section {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  min-height: 100vh;
 }
 
+/* Titre */
+.evaluations-section h2 {
+  font-size: 36px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Liste des évaluations en ligne */
 .evaluations-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row; /* FORCE l'affichage horizontal */
+  flex-wrap: nowrap; /* Empêche le retour à la ligne */
+  overflow-x: auto; /* Ajoute un scroll horizontal si nécessaire */
   gap: 20px;
+  padding: 10px;
   justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
+/* Carte d'évaluation */
 .evaluation-card {
-  border: 1px solid #ddd;
-  padding: 15px;
-  border-radius: 8px;
-  width: 300px;
-  background: #f9f9f9;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 320px;
+  flex: 0 0 auto; /* Empêche les cartes de s'étirer */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.evaluation-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  background-color: #fafafa;
+}
+
+/* Boutons */
+.button-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .btn {
-  margin: 5px;
-  padding: 8px 12px;
+  padding: 10px 15px;
   border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
-  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .modify-btn {
   background-color: #ffcc00;
+  color: #333;
+}
+
+.modify-btn:hover {
+  background-color: #e6b800;
+  transform: translateY(-2px);
 }
 
 .delete-btn {
   background-color: #ff4444;
   color: white;
+}
+
+.delete-btn:hover {
+  background-color: #cc0000;
+  transform: translateY(-2px);
 }
