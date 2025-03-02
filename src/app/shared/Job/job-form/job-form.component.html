@@ -1,129 +1,50 @@
 <app-sidebar></app-sidebar>
 <div class="form-container">
-  <h2>{{ job.jobId ? 'Edit' : 'Add' }} Job</h2>
-
-  <form (ngSubmit)="saveJob()" #jobForm="ngForm">
-    <div class="form-group">
-      <label>Title</label>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="job.title"
-        name="title"
-        #title="ngModel"
-        required
-        minlength="3"
-      />
-      <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger">
-        <div *ngIf="title.errors?.['required']">Title is required.</div>
-        <div *ngIf="title.errors?.['minlength']">Title must be at least 3 characters long.</div>
+    <h2>{{ job.jobId ? 'Edit' : 'Add' }} Job</h2>
+  
+    <form (ngSubmit)="saveJob()" #jobForm="ngForm">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" [(ngModel)]="job.title" name="title" required />
       </div>
-    </div>
-
-    <div class="form-group">
-      <label>Department</label>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="job.department"
-        name="department"
-        #department="ngModel"
-        required
-        minlength="2"
-      />
-      <div *ngIf="department.invalid && (department.dirty || department.touched)" class="text-danger">
-        <div *ngIf="department.errors?.['required']">Department is required.</div>
-        <div *ngIf="department.errors?.['minlength']">Department must be at least 2 characters long.</div>
+  
+      <div class="form-group">
+        <label>Department</label>
+        <input type="text" class="form-control" [(ngModel)]="job.department" name="department" required />
       </div>
-    </div>
-
-    <div class="form-group">
-      <label>Location</label>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="job.location"
-        name="location"
-        #location="ngModel"
-        required
-        minlength="2"
-      />
-      <div *ngIf="location.invalid && (location.dirty || location.touched)" class="text-danger">
-        <div *ngIf="location.errors?.['required']">Location is required.</div>
-        <div *ngIf="location.errors?.['minlength']">Location must be at least 2 characters long.</div>
+  
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" class="form-control" [(ngModel)]="job.location" name="location" required />
       </div>
-    </div>
-
-    <div class="form-group">
-      <label>Description</label>
-      <textarea
-        class="form-control"
-        [(ngModel)]="job.description"
-        name="description"
-        #description="ngModel"
-        required
-        minlength="10"
-      ></textarea>
-      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
-        <div *ngIf="description.errors?.['required']">Description is required.</div>
-        <div *ngIf="description.errors?.['minlength']">Description must be at least 10 characters long.</div>
+  
+      <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control" [(ngModel)]="job.description" name="description" required></textarea>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label>Requirements</label>
-      <textarea
-        class="form-control"
-        [(ngModel)]="job.requirements"
-        name="requirements"
-        #requirements="ngModel"
-        minlength="5"
-      ></textarea>
-      <div *ngIf="requirements.invalid && (requirements.dirty || requirements.touched)" class="text-danger">
-        <div *ngIf="requirements.errors?.['minlength']">Requirements must be at least 5 characters long.</div>
+  
+      <div class="form-group">
+        <label>Requirements</label>
+        <textarea class="form-control" [(ngModel)]="job.requirements" name="requirements"></textarea>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label>Posted Date</label>
-      <input
-        type="datetime-local"
-        class="form-control"
-        [(ngModel)]="job.postedDate"
-        name="postedDate"
-        #postedDate="ngModel"
-        required
-      />
-      <div *ngIf="postedDate.invalid && (postedDate.dirty || postedDate.touched)" class="text-danger">
-        <div *ngIf="postedDate.errors?.['required']">Posted Date is required.</div>
+  
+      <div class="form-group">
+        <label>Posted Date</label>
+        <input type="datetime-local" class="form-control" [(ngModel)]="job.postedDate" name="postedDate" required />
       </div>
-    </div>
-
-    <div class="form-group">
-      <label>Status</label>
-      <select
-        class="form-control"
-        [(ngModel)]="job.status"
-        name="status"
-        #status="ngModel"
-        required
-      >
-        <option value="Open">Open</option>
-        <option value="Closed">Closed</option>
-      </select>
-      <div *ngIf="status.invalid && (status.dirty || status.touched)" class="text-danger">
-        <div *ngIf="status.errors?.['required']">Status is required.</div>
+  
+      <div class="form-group">
+        <label>Status</label>
+        <select class="form-control" [(ngModel)]="job.status" name="status">
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+        </select>
       </div>
-    </div>
-
-    <div class="button-container">
-      <button
-        type="submit"
-        class="btn-primary"
-        [disabled]="jobForm.invalid"
-      >
-        {{ job.jobId ? 'Update' : 'Create' }} Job
-      </button>
-    </div>
-  </form>
-</div>
+  
+      <div class="button-container">
+        <button type="submit" class="btn-primary">
+          {{ job.jobId ? 'Update' : 'Create' }} Job
+        </button>
+      </div>
+    </form>
+  </div>

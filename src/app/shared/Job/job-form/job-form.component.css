@@ -51,19 +51,6 @@
     cursor: pointer;
     transition: 0.3s;
   }
-  .text-danger {
-    color: red;
-    font-size: 0.9em;
-    margin-top: 5px;
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .form-control.ng-invalid.ng-touched {
-    border-color: red;
-  }
   
   .btn-primary:hover {
     background: #0056b3;

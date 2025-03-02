@@ -2,7 +2,9 @@ import { Job } from "../models/Job";
 
 export const Urls = {
     Problems : 'http://localhost:8560/problems/',
-    training : 'http://localhost:8560/e-learning/trainings',
+    training : 'http://localhost:8560/e-learning/trainings/',
+   evaluations:'http://localhost:8560/e-learning/evaluation',
+  questions:'http://localhost:8560/e-learning/question',
     candidates : 'http://localhost:8560/job/api/candidates',
     job : 'http://localhost:8560/job/api/jobs',
     submitions : 'http://localhost:8560/submitions/',

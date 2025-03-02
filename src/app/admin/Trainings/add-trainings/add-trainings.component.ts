@@ -1,45 +1,117 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Training } from 'src/app/models/Training';
 import { TrainingService } from 'src/app/Services/training.service';
+import { Training, status, level } from 'src/app/models/Training';
 
 @Component({
   selector: 'app-add-trainings',
   templateUrl: './add-trainings.component.html',
   styleUrls: ['./add-trainings.component.css']
 })
-export class AddTrainingsComponent {
+export class AddTrainingsComponent implements OnInit {
   trainingForm!: FormGroup;
-  levelOptions = "" //Object.values(Level); // Get the string values of the enum
+  Trainings: Training[] = [];
+  selectedTraining: Training | null = null;  // Stocke la formation en cours de modification
+  statusOptions = Object.values(status);
+  levelOptions = Object.values(level);
 
-  constructor(private fb: FormBuilder, private trainingService: TrainingService) {
+  constructor(private fb: FormBuilder, private trainingService: TrainingService) {}
+
+  ngOnInit(): void {
+    this.initializeForm();
+    this.loadTrainings();  // Charger les formations au démarrage du composant
+  }
+
+  // Initialiser le formulaire avec les champs obligatoires
+  initializeForm(): void {
     this.trainingForm = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required],
       trainingdate: ['', Validators.required],
+      duration: ['', Validators.required],
+      status: ['', Validators.required],
       level: ['', Validators.required]
     });
   }
 
-  onSubmit() {
+  // Charger les formations depuis le backend
+  loadTrainings(): void {
+    this.trainingService.gettrainings().subscribe(data => {
+      this.Trainings = data;
+    }, error => {
+      console.error('Erreur lors du chargement des formations:', error);
+    });
+  }
+
+  // Soumettre le formulaire pour ajouter ou modifier une formation
+  onSubmit(): void {
     if (this.trainingForm.valid) {
-      const trainingData = this.trainingForm.value;
-     // trainingData.level = Level[trainingData.level as keyof typeof Level]; // Convert string to enum
-     // this.trainingService.addTraining(trainingData); // Use the service to add the training
-      this.trainingForm.reset(); // Clear the form after submission
+      const trainingData: Training = this.trainingForm.value;
+
+      // ✅ Convertir trainingdate au format YYYY-MM-DD
+      trainingData.trainingdate = new Date(trainingData.trainingdate).toISOString().split('T')[0];
+
+      console.log('Data being sent to backend:', JSON.stringify(trainingData, null, 2));
+
+      if (this.selectedTraining) {
+        trainingData.idTraining = this.selectedTraining.idTraining;
+        this.modifyTraining(trainingData);
+      } else {
+        this.addTraining(trainingData);
+      }
     }
   }
-  Trainings :Training[]=[]
-  
-  
-    ngOnInit(): void {
-      this.refrech();
-    
-     }
-    refrech():void{
-      this.trainingService.gettrainings().subscribe(data =>
-        {this.Trainings=data;}
-        );
-    }
 
+  // Ajouter une nouvelle formation
+  addTraining(trainingData: Training): void {
+    this.trainingService.addTraining(trainingData).subscribe(response => {
+      console.log('Formation ajoutée avec succès:', response);
+      this.Trainings.push(trainingData);
+      this.trainingForm.reset();  // Reset the form after submission
+    }, error => {
+      console.error('Erreur lors de l\'ajout de la formation:', error);
+
+    });
+  }
+
+  // Modifier une formation existante
+  modifyTraining(trainingData: Training): void {
+    this.trainingService.modifyTraining(trainingData).subscribe(response => {
+      console.log('Formation mise à jour avec succès:', response);
+      this.loadTrainings();  // Rafraîchir la liste des formations
+      this.trainingForm.reset();  // Réinitialiser le formulaire
+      this.selectedTraining = null;  // Réinitialiser la sélection
+    }, error => {
+      console.error('Erreur lors de la mise à jour de la formation:', error);
+    });
+  }
+
+  // Supprimer une formation
+  deleteTraining(trainingId: number): void {
+    this.trainingService.deleteTraining(trainingId).subscribe(() => {
+      console.log('Formation supprimée avec succès');
+      this.loadTrainings();  // Rafraîchir la liste après suppression
+    }, error => {
+      console.error('Erreur lors de la suppression de la formation:', error);
+    });
+  }
+
+  // Sélectionner une formation pour la modification
+  editTraining(training: Training): void {
+    this.selectedTraining = training;
+    this.trainingForm.patchValue({
+      title: training.title,
+      content: training.content,
+      trainingdate: training.trainingdate,
+      duration: training.duration,
+      status: training.status,
+      level: training.level
+    });
+  }
+
+  // Fermer le formulaire et réinitialiser
+  closeForm(): void {
+    this.trainingForm.reset();
+    this.selectedTraining = null;
+  }
 }

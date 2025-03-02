@@ -1,114 +1,181 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7fa; /* Fond léger et doux */
+  color: #333;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* Training Container */
 .training-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  /* Form Fields */
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: #f9f9f9;
-    transition: 0.3s;
-  }
-  
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: #3C91E6;
-    background: #fff;
-    outline: none;
-  }
-  
-  /* Buttons */
-  .form-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-  }
-  
-  .form-actions button {
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .form-actions button[type="submit"] {
-    background-color: #3C91E6;
-    color: #fff;
-  }
-  
-  .form-actions button[type="submit"]:hover {
-    background-color: #2a70b8;
-  }
-  
-  .form-actions button[type="button"] {
-    background-color: #ccc;
-    color: #333;
-  }
-  
-  .form-actions button[type="button"]:hover {
-    background-color: #aaa;
-  }
-  
-  /* Training List Table */
-  .table-container {
-    margin-top: 30px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  .table th, .table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .table th {
-    background-color: #3C91E6;
-    color: white;
-    text-transform: uppercase;
-  }
-  
-  .table tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  /* Action Buttons */
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.training-container:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); /* Effet de survol subtil */
+}
+
+/* Titre */
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: left; /* Aligné à gauche pour une apparence professionnelle */
+  margin-bottom: 25px;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+/* Form Fields */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #3498db;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.4);
+  outline: none;
+}
+
+/* Buttons */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.form-actions button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-actions button[type="submit"] {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.form-actions button[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+.form-actions button[type="button"] {
+  background-color: #ecf0f1;
+  color: #34495e;
+}
+
+.form-actions button[type="button"]:hover {
+  background-color: #bdc3c7;
+}
+
+/* Training List Table */
+.table-container {
+  margin-top: 30px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.3s ease-in-out;
+}
+
+.table-container:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); /* Effet de survol sur le tableau */
+}
+
+.table {
+  width: 65%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden; /* S'assurer que les coins sont arrondis */
+}
+
+.table th, .table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #3498db;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.table tr {
+  transition: background-color 0.3s ease;
+}
+
+.table tr:hover {
+  background-color: #f2f2f2;
+}
+
+/* Action Buttons */
+.action-btns {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.action-btns button {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-btns button:hover {
+  background-color: #27ae60;
+}
