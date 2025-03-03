@@ -1,77 +1,62 @@
-<div *ngIf="postData" class="card-container">
-    <mat-card>
-        <mat-card-header>
-            <div mat-card-avatar class="avatar-container">
-                <img [src]="postData.avatar" alt="Avatar" class="avatar-img">
-            </div>
-            <mat-card-title>{{ postData.title }}</mat-card-title>
-            <mat-card-subtitle>
-                Posted By : {{ postData.postedBy }} | Posted On : {{ postData.date | date: 'medium' }}
-            </mat-card-subtitle>
-        </mat-card-header>
+<div *ngIf="postData">
+    <!-- Post Card -->
+    <div class="post-card">
+        <div class="post-header">
+            <img class="avatar-img" [src]="postData.avatar" alt="Avatar">
+            <h3>{{ postData.title }}</h3>
+            <p>Posted By: {{ postData.postedBy }} | Posted On: {{ postData.date | date: 'medium' }}</p>
+        </div>
 
-        <mat-grid-list cols="5">
-            <mat-grid-tile [colspan]="2" [rowspan]="1">
-                <img mat-card-image [src]="postData.img" class="post-img" alt="Card Image" />
-            </mat-grid-tile>
-            <mat-grid-tile [colspan]="3" [rowspan]="1">
-                {{ postData.content }}
-            </mat-grid-tile>
-        </mat-grid-list>
+        <div class="post-content">
+            <div class="post-image">
+                <img [src]="postData.img" alt="Card Image">
+            </div>
+            <div class="post-text">
+                <p>{{ postData.content }}</p>
+            </div>
+        </div>
 
         <hr>
 
-        <mat-card-actions>
-            <button mat-raised-button color="primary">
-                {{ postData.likeCount }}
-                <mat-icon>favorite</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;">
-                {{ postData.viewCount }}
-                <mat-icon>remove_red_eye</mat-icon>
-            </button>
-        </mat-card-actions>
-    </mat-card>
+        <div class="post-actions">
+            <button>{{ postData.likeCount }} Likes</button>
+            <button>{{ postData.viewCount }} Views</button>
+        </div>
+    </div>
 
-    <!-- 🔹 Section des Commentaires 🔹 -->
-    <mat-card class="comment-card">
-        <mat-card-content>
+    <!-- 🔹 Comments Section 🔹 -->
+    <div class="comment-section">
+        <div class="comment-form">
             <h4>💬 Publish Your Comment</h4>
             <form [formGroup]="CommentForm">
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Your Comment</mat-label>
-                    <textarea matInput formControlName="content" placeholder="Write your comment here..." required></textarea>
-                </mat-form-field>
+                <div class="form-group">
+                    <label for="content">Your Comment</label>
+                    <textarea id="content" formControlName="content" placeholder="Write your comment here..." required></textarea>
+                </div>
 
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Your Name</mat-label>
-                    <input matInput formControlName="postedBy" placeholder="Write your name here" required>
-                </mat-form-field>
+                <div class="form-group">
+                    <label for="postedBy">Your Name</label>
+                    <input id="postedBy" formControlName="postedBy" placeholder="Write your name here" required>
+                </div>
 
                 <div class="button-container">
-                    <button mat-raised-button (click)="publishComment()" color="primary" [disabled]="!CommentForm.valid">
-                        <mat-icon>send</mat-icon> Publish
-                    </button>
+                    <button (click)="publishComment()" [disabled]="!CommentForm.valid">Publish</button>
                 </div>
             </form>
-        </mat-card-content>
-    </mat-card>
-    <div style="margin-top: 10px;">
-        <h4>Comments</h4>
-        <mat-card style="margin-top: 10px;" *ngFor="let comment of comments">
-          <mat-card-header>
-            <div mat-card-avatar class="avatar-container">
-              <img [src]="comment.avatar" alt="Avatar" class="avatar-img">
+        </div>
+
+        <div class="comments-list">
+            <h4>Comments</h4>
+            <div class="comment" *ngFor="let comment of comments">
+                <div class="comment-header">
+                    <img class="avatar-img" [src]="comment.avatar" alt="Avatar">
+                    <h5>{{ comment.postedBy }}</h5>
+                    <p>{{ comment.createdAt | date: 'medium' }}</p>
+                </div>
+                <div class="comment-content">
+                    <p>{{ comment.content }}</p>
+                </div>
             </div>
-            <mat-card-title>{{comment.postedBy}}</mat-card-title>
-            <mat-card-subtitle>
-              {{ comment.createdAt | date: 'medium' }}
-            </mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            {{comment.content}}
-          </mat-card-content>
-        </mat-card>
-      </div>
-      
+        </div>
+    </div>
 </div>

@@ -1,113 +1,118 @@
-/* Main content area (lighter background for user-facing page) */
+/* Ensure content area accounts for the fixed header */
 :host {
-    padding: 40px; /* Spacious feel for user-facing page */
+    padding: 40px; /* Slightly more padding for a spacious feel */
     min-height: 100vh;
     background: #f9fafb; /* Lighter background for home page */
 }
 
-/* Card container */
+/* Post container */
 .card-container {
     max-width: 900px; /* Match typical content width for user-facing pages */
-    margin: 0 auto 30px auto; /* Space between cards */
+    margin: 0 auto;
 }
 
-/* Card */
-mat-card {
+/* Post card */
+.post-card {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    background: #ffffff; /* White cards for a clean, professional look */
+    background: #ffffff; /* White cards for a clean look */
+    margin-bottom: 30px; /* Space below the post card */
 }
 
-mat-card:hover {
-    transform: translateY(-2px); /* Slightly less pronounced lift for a professional feel */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-mat-card::before {
+.post-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Deep navy blue gradient */
+    background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
 }
 
-/* Card header */
-mat-card-header {
+.post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Post header */
+.post-header {
     padding: 20px;
     background: #fff;
     border-bottom: 1px solid #eee;
     display: flex;
     align-items: center;
+    gap: 15px; /* Space between avatar and text */
 }
 
-/* Avatar */
-.avatar-container {
+/* Avatar image */
+.post-header img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    overflow: hidden;
-    margin-right: 15px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
-.avatar-container:hover {
-    transform: scale(1.05); /* Subtle scale for professional interaction */
+.post-header img:hover {
+    transform: scale(1.05);
 }
 
-.avatar-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Card title */
-mat-card-title {
+/* Post title */
+.post-header h3 {
     font-size: 18px;
     font-weight: 600;
-    color: #1e3a8a; /* Deep navy blue for titles */
-    margin-bottom: 5px;
+    color: #3b82f6; /* Lighter slate blue for a friendlier tone */
+    margin: 0;
+    padding-bottom: 5px;
 }
 
-/* Card subtitle */
-mat-card-subtitle {
-    font-size: 13px;
-    color: #6b7280; /* Slightly darker gray for contrast */
+/* Post subtitle */
+.post-header p {
+    font-size: 14px;
+    color: #666;
     font-weight: 500;
-}
-
-/* Grid layout for image and content */
-mat-grid-list {
-    padding: 0 20px;
-}
-
-mat-grid-tile {
-    padding: 10px 0;
-}
-
-/* Post image */
-.post-img {
-    width: 100%;
-    height: 120px; /* Fixed height for consistency */
-    object-fit: cover;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.post-img:hover {
-    transform: scale(1.02); /* Subtle zoom on hover */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 0;
 }
 
 /* Post content */
-mat-grid-tile:not(:first-child) {
+.post-content {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+}
+
+/* Post image */
+.post-image {
+    flex: 2; /* Roughly 2/5 of the space */
+}
+
+.post-image img {
+    width: 100%;
+    height: 120px; /* Fixed height for consistency */
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.post-image img:hover {
+    transform: scale(1.02);
+}
+
+/* Post text */
+.post-text {
+    flex: 3; /* Roughly 3/5 of the space */
+}
+
+.post-text p {
     font-size: 14px;
-    color: #1f2937; /* Darker gray for better readability */
+    color: #333;
     line-height: 1.6;
+    margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 4; /* Limit to 4 lines */
     -webkit-box-orient: vertical;
@@ -119,62 +124,283 @@ mat-grid-tile:not(:first-child) {
 hr {
     border: 0;
     border-top: 1px solid #eee;
-    margin: 15px 0;
+    margin: 10px 0;
 }
 
-/* Card actions */
-mat-card-actions {
+/* Post actions */
+.post-actions {
     padding: 15px 20px;
     display: flex;
     justify-content: flex-start;
     background: #fff;
+    border-top: 1px solid #eee;
     gap: 10px; /* Space between buttons */
 }
 
 /* Action buttons */
-mat-card-actions button[mat-raised-button] {
-    background: #1e3a8a; /* Solid deep navy blue */
+.post-actions button {
+    background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
     color: white;
-    padding: 8px 14px;
+    padding: 8px 16px;
+    border: none;
     border-radius: 6px;
     font-size: 13px;
     font-weight: 600;
+    cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.post-actions button:hover {
+    background: #2dd4bf; /* Softer teal on hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
+}
+
+.post-actions button:active {
+    background: #2563eb; /* Slightly darker blue for active state */
+    transform: scale(1);
+}
+
+/* Comment section */
+.comment-section {
+    margin-top: 30px;
+}
+
+/* Comment form */
+.comment-section .comment-form {
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.comment-section .comment-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #2dd4bf; /* Softer teal for comment section */
+}
+
+/* Comment form header */
+.comment-section .comment-form h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2dd4bf; /* Softer teal */
+    margin-bottom: 20px;
+}
+
+/* Form group */
+.comment-section .comment-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.comment-section .comment-form .form-group label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #3b82f6; /* Lighter slate blue for labels */
+}
+
+.comment-section .comment-form .form-group textarea,
+.comment-section .comment-form .form-group input {
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1f2937;
+    background: #fafafa;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.comment-section .comment-form .form-group textarea:focus,
+.comment-section .comment-form .form-group input:focus {
+    border-color: #2dd4bf;
+    background: #ffffff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(45, 212, 191, 0.2);
+}
+
+.comment-section .comment-form .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Comment form button container */
+.comment-section .comment-form .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Comment form Publish button */
+.comment-section .comment-form .button-container button {
+    background: #2dd4bf; /* Softer teal */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
-mat-card-actions button[mat-raised-button]:hover {
-    background: #2dd4bf; /* Solid muted teal on hover */
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
+.comment-section .comment-form .button-container button:disabled {
+    background: #b2bec3;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.7;
 }
 
-mat-card-actions button[mat-raised-button]:active {
-    background: #1e40af; /* Slightly darker navy blue for active state */
+.comment-section .comment-form .button-container button:not(:disabled):hover {
+    background: #5eead4;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+.comment-section .comment-form .button-container button:not(:disabled):active {
+    background: #1e40af;
     transform: scale(1);
 }
 
-/* Ensure margin-left is applied correctly */
-mat-card-actions button[mat-raised-button] + button[mat-raised-button] {
-    margin-left: 0; /* Override inline style */
+/* Comments list */
+.comments-list {
+    margin-top: 30px;
 }
 
-/* Icons inside buttons */
-mat-card-actions button[mat-raised-button] mat-icon {
-    font-size: 18px;
-    height: 18px;
-    width: 18px;
-    line-height: 18px;
+/* Comments list header */
+.comments-list h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #3b82f6; /* Lighter slate blue */
+    margin-bottom: 20px;
 }
 
-/* View Posts button (specific styling) */
-mat-card-actions button[mat-raised-button]:last-child {
-    background: #2dd4bf; /* Solid muted teal for View Posts */
+/* Comment card */
+.comments-list .comment {
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    background: #fafafa; /* Light gray background for comments */
+    transition: all 0.3s ease;
 }
 
-mat-card-actions button[mat-raised-button]:last-child:hover {
-    background: #5eead4; /* Lighter teal on hover */
+.comments-list .comment:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Comment header */
+.comments-list .comment-header {
+    padding: 15px 20px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.comments-list .comment-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.comments-list .comment-header img:hover {
+    transform: scale(1.05);
+}
+
+.comments-list .comment-header h5 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2dd4bf; /* Softer teal for commenter name */
+    margin: 0;
+}
+
+.comments-list .comment-header p {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Comment content */
+.comments-list .comment-content {
+    padding: 15px 20px;
+    font-size: 14px;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    :host {
+        padding: 20px 10px;
+    }
+
+    .card-container {
+        max-width: 100%;
+    }
+
+    .post-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .post-header img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .post-content {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .post-image,
+    .post-text {
+        flex: 1;
+    }
+
+    .post-actions {
+        justify-content: space-between;
+        gap: 5px;
+    }
+
+    .post-actions button {
+        flex: 1;
+        text-align: center;
+    }
+
+    .comment-section .comment-form {
+        padding: 15px;
+    }
+
+    .comments-list .comment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .comments-list .comment-header img {
+        width: 32px;
+        height: 32px;
+    }
 }

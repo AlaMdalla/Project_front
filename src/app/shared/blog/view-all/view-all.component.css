@@ -1,115 +1,124 @@
-/* Main content area (lighter background for user-facing page) */
+/* Ensure content area accounts for the fixed header */
 :host {
-  padding: 40px; /* Spacious feel for user-facing page */
+  padding: 40px; /* Slightly more padding for a spacious feel */
   min-height: 100vh;
   background: #f9fafb; /* Lighter background for home page */
 }
 
-/* Card container */
-.card-container {
-  max-width: 900px; /* Match typical content width for user-facing pages */
-  margin: 0 auto 30px auto; /* Space between cards, matching Competitions Section */
+/* Post container (ul acts as the container) */
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 1200px; /* Wider for home page to accommodate grid layout */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 20px; /* Space between cards */
 }
 
-/* Post card */
-mat-card {
+/* Post card (li acts as the card) */
+li {
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12); /* Match Competitions Section shadow */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   background: #ffffff; /* White cards for a clean look */
 }
 
-mat-card:hover {
-  transform: translateY(-5px); /* Match Competitions Section hover lift */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Match Competitions Section hover shadow */
-}
-
-mat-card::before {
+li::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Deep navy blue gradient, matching Competitions Section */
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
 }
 
-/* Card header */
-mat-card-header {
+li:hover {
+  transform: translateY(-3px); /* Slightly more pronounced lift for home page */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Post header */
+.post-header {
   padding: 20px;
   background: #fff;
   border-bottom: 1px solid #eee;
   display: flex;
   align-items: center;
+  gap: 15px; /* Space between avatar and text */
 }
 
-/* Avatar */
-.avatar-container {
+/* Avatar image */
+.post-header img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  overflow: hidden;
-  margin-right: 15px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
-.avatar-container:hover {
-  transform: scale(1.05); /* Subtle scale for professional interaction, matching Problems List */
+.post-header img:hover {
+  transform: scale(1.05); /* Subtle zoom on hover */
 }
 
-.avatar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Card title */
-mat-card-title {
+/* Post title */
+.post-header h3 {
   font-size: 18px;
   font-weight: 600;
-  color: #1e3a8a; /* Deep navy blue for titles, matching Competitions Section */
-  margin-bottom: 5px;
+  color: #3b82f6; /* Lighter slate blue for a friendlier tone */
+  margin: 0;
+  padding-bottom: 5px;
 }
 
-/* Card subtitle */
-mat-card-subtitle {
-  font-size: 13px;
-  color: #6b7280; /* Slightly darker gray for contrast, matching Competitions Section */
+/* Post subtitle */
+.post-header p {
+  font-size: 14px;
+  color: #666; /* Slightly darker gray for contrast */
   font-weight: 500;
-}
-
-/* Grid layout for image and content */
-mat-grid-list {
-  padding: 0 20px;
-}
-
-mat-grid-tile {
-  padding: 10px 0;
-}
-
-/* Post image */
-.post-img {
-  width: 100%;
-  height: 120px; /* Fixed height for consistency, matching Posts List */
-  object-fit: cover;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.post-img:hover {
-  transform: scale(1.02); /* Subtle zoom on hover, matching Competitions Section */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 0;
 }
 
 /* Post content */
-mat-grid-tile:not(:first-child) {
+.post-content {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+}
+
+/* Post image */
+.post-image {
+  flex: 2; /* Roughly 2/5 of the space */
+}
+
+.post-image img {
+  width: 100%;
+  height: 120px; /* Fixed height for consistency, matching user-facing Job List */
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.post-image img:hover {
+  transform: scale(1.02); /* Subtle zoom on hover */
+}
+
+/* Post text */
+.post-text {
+  flex: 3; /* Roughly 3/5 of the space */
+}
+
+.post-text p {
   font-size: 14px;
-  color: #1f2937; /* Darker gray for better readability, matching Problems List */
+  color: #333;
   line-height: 1.6;
+  margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 4; /* Limit to 4 lines, matching previous design */
+  -webkit-line-clamp: 4; /* Limit to 4 lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -119,62 +128,96 @@ mat-grid-tile:not(:first-child) {
 hr {
   border: 0;
   border-top: 1px solid #eee;
-  margin: 15px 0;
+  margin: 10px 0; /* Reduced margin to tighten layout */
 }
 
-/* Card actions */
-mat-card-actions {
+/* Post actions */
+.post-actions {
   padding: 15px 20px;
   display: flex;
   justify-content: flex-start;
   background: #fff;
-  gap: 10px; /* Space between buttons, matching Competitions Section */
+  border-top: 1px solid #eee;
+  gap: 10px; /* Space between buttons */
 }
 
 /* Action buttons */
-mat-card-actions button[mat-raised-button] {
-  background: #1e3a8a; /* Solid deep navy blue, matching Problems List */
+.post-actions button {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
   color: white;
-  padding: 8px 14px;
+  padding: 8px 16px;
+  border: none;
   border-radius: 6px;
   font-size: 13px;
   font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3);
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
-mat-card-actions button[mat-raised-button]:hover {
-  background: #2dd4bf; /* Muted teal on hover, matching Competitions Section */
+.post-actions button:hover {
+  background: #2dd4bf; /* Softer teal on hover */
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
 }
 
-mat-card-actions button[mat-raised-button]:active {
-  background: #1e40af; /* Slightly darker navy blue for active state, matching Competitions Section */
+.post-actions button:active {
+  background: #2563eb; /* Slightly darker blue for active state */
   transform: scale(1);
 }
 
-/* Ensure margin-left is applied correctly */
-mat-card-actions button[mat-raised-button] + button[mat-raised-button] {
-  margin-left: 0; /* Override inline style */
+/* View Posts button */
+.post-actions button[routerLink] {
+  background: #2dd4bf; /* Softer teal for View Posts */
 }
 
-/* Icons inside buttons */
-mat-card-actions button[mat-raised-button] mat-icon {
-  font-size: 18px;
-  height: 18px;
-  width: 18px;
-  line-height: 18px;
+.post-actions button[routerLink]:hover {
+  background: #5eead4; /* Lighter teal on hover */
 }
 
-/* View Posts button (specific styling) */
-mat-card-actions button[mat-raised-button]:last-child {
-  background: #2dd4bf; /* Solid muted teal for View Posts, matching Competitions Section */
-}
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  :host {
+      padding: 20px 10px; /* Reduce padding for smaller screens */
+  }
 
-mat-card-actions button[mat-raised-button]:last-child:hover {
-  background: #5eead4; /* Lighter teal on hover, matching Competitions Section */
+  ul {
+      max-width: 100%; /* Allow full width on mobile */
+  }
+
+  li {
+      padding: 15px; /* Reduce padding for mobile */
+      gap: 8px; /* Smaller gap on mobile */
+  }
+
+  .post-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+  }
+
+  .post-header img {
+      width: 32px; /* Slightly smaller avatar on mobile */
+      height: 32px;
+  }
+
+  .post-content {
+      flex-direction: column;
+      gap: 8px;
+  }
+
+  .post-image,
+  .post-text {
+      flex: 1; /* Stack vertically on mobile */
+  }
+
+  .post-actions {
+      justify-content: space-between;
+      gap: 5px;
+  }
+
+  .post-actions button {
+      flex: 1; /* Stretch buttons to fill space on mobile */
+      text-align: center;
+  }
 }
