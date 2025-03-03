@@ -26,4 +26,9 @@ export class CommentService {
     return this.http.get(BASIC_URL + `blog/comments/${postId}`);
 
   }
+  replyToComment(parentCommentId: number, postedBy: string, content: string): Observable<any> {
+    const params = { parentCommentId, postedBy, content };
+    return this.http.post(BASIC_URL + `blog/comments/reply`, null, { params });
+  }
+  
 }

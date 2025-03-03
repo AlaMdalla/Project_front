@@ -1,106 +1,41 @@
-/* Container for each post card */
 .card-container {
-    margin: 20px auto;
-    max-width: 800px;
-    padding: 0 10px;
-  }
-  
-  /* Style the Angular Material card */
-  .mat-card {
-    margin-bottom: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  /* Hover effect for a card */
-  .mat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Avatar container inside the card header */
-  .avatar-container {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Avatar image styling */
-  .avatar-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  /* Post image within the grid tile */
-  .post-img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-  }
-  
-  /* Adjust card header spacing */
-  .mat-card-header {
-    align-items: center;
-  }
-  
-  /* Add some left margin for title and subtitle if needed */
-  .mat-card-title,
-  .mat-card-subtitle {
-    margin-left: 10px;
-  }
-  
-  /* Style the grid list for layout spacing */
-  mat-grid-list {
-    margin: 10px 0;
-  }
-  
-  /* Ensure grid tiles center their content */
-  mat-grid-tile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-  }
-  
-  /* Style card actions to align buttons to the right */
-  .mat-card-actions {
-    display: flex;
-    justify-content: flex-end;
-    padding: 8px;
-  }
-  
-  /* Style the buttons inside card actions */
-  .mat-card-actions button {
-    margin-left: 8px;
-    text-transform: none;
-    display: flex;
-    align-items: center;
-  }
-  
-  /* Style for the like button */
-  .like-button {
-    background-color: #ffffff; /* Material Red */
-    color: white;
-  }
-  
-  /* Style for the view button */
-  .view-button {
-    background-color: #ffffff; /* Material Blue */
-    color: white;
-  }
-  
-  /* Style for the view post button */
-  .view-post-button {
-    background-color: #4caf50; /* Material Green */
-    color: white;
-  }
-  
-  /* Optional: style the icons inside buttons */
-  .mat-icon {
-    margin-right: 5px;
-  }
-  
+  max-width: 60%;
+  margin: 20px auto; /* Utilise auto pour centrer horizontalement */
+  padding-bottom: 30px;
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center; /* Centrer verticalement */
+}
+mat-card{
+  padding: 10px;
+  position: relative; /* Permet au bouton d'être positionné par rapport à la carte */
+  padding: 10px;
+}
+.avatar-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+mat-card-footer{
+  margin-left: 20px;
+}
+.post-img{
+  width: 300px;
+  height: 200px;
+  object-fit: contain;
+  margin-top: 15px;
+}
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+

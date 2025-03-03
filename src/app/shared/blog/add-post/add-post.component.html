@@ -1,49 +1,41 @@
 <mat-card class="center-card">
-    <mat-card-content>
-      <div class="form-container">
-        <form [formGroup]="postForm">
-          <!-- Title Field -->
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Title</mat-label>
-            <input matInput formControlName="title" />
-            <mat-icon matPrefix>title</mat-icon>
-          </mat-form-field>
-  
-          <!-- Image Field -->
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Image URL</mat-label>
-            <input matInput formControlName="img" />
-            <mat-icon matPrefix>image</mat-icon>
-          </mat-form-field>
-  
-          <!-- Posted By Field -->
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Posted By</mat-label>
-            <input matInput formControlName="postedBy" />
-            <mat-icon matPrefix>person</mat-icon>
-          </mat-form-field>
-  
-          <!-- Content Field -->
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Content</mat-label>
-            <textarea matInput rows="5" formControlName="content"></textarea>
-            <mat-icon matPrefix>description</mat-icon>
-          </mat-form-field>
-  
-          <!-- Submit Button -->
-          <div class="button-container">
-            <button
-              mat-raised-button
-              color="primary"
-              class="submit-button"
-              [disabled]="!postForm.valid"
-              (click)="createPost()"
-            >
-              <mat-icon>post_add</mat-icon>
-              <span>Create New Post</span>
-            </button>
-          </div>
-        </form>
+  <mat-card-content>
+      <div>
+          <form [formGroup]="postForm" >
+             
+
+              <mat-form-field appearance="fill">
+                  <mat-label>Title</mat-label>
+                  <input matInput formControlName="title">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                  <mat-label>Posted By</mat-label>
+                  <input matInput formControlName="postedBy">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                  <mat-label>Category</mat-label>
+                  <input matInput formControlName="category">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                  <mat-label>Content</mat-label>
+                  <textarea matInput rows="5" formControlName="content"></textarea>
+              </mat-form-field>
+              <mat-label>Image</mat-label>
+              
+              <input type="file" (change)="onFileChanged($event)">
+              <div class="col-md-6">
+                  <input type="button" (click)="onUpload()" value="upload">
+              </div>
+              <img *ngIf="previewUrl" [src]="previewUrl" alt="Prévisualisation" width="200">
+
+                  <hr />
+   
+              <button mat-raised-button color="primary" style="float: right;" [disabled]="!postForm.valid" (click)="createPost()">
+                  Create New Post
+                </button>
+                
+          </form>
       </div>
-    </mat-card-content>
-  </mat-card>
+  </mat-card-content>
+</mat-card>

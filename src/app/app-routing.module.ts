@@ -17,6 +17,9 @@ import { CandidatListComponent } from "./shared/Candidats/candidat-list/candidat
 import { CandidatFormComponent } from "./shared/Candidats/candidat-form/candidat-form.component";
 import { JobListComponent } from "./shared/Job/job-list/job-list.component";
 import { JobFormComponent } from "./shared/Job/job-form/job-form.component";
+import { ReclamationComponent } from "./shared/blog/reclamation/reclamation.component";
+import { UpdatePostComponent } from "./shared/blog/update-post/update-post.component";
+import { ListereclamationComponent } from "./shared/blog/listereclamation/listereclamation.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
@@ -27,6 +30,9 @@ const routes: Routes = [
     {path : "Competition/:id",component:CompetionComponent},
     {path : "",component:HomeComponent},
     {path: 'addPost' , component: AddPostComponent},
+    {path: 'update-post/:id' , component: UpdatePostComponent},
+    { path: 'reclamation/:id', component: ReclamationComponent },
+    { path: 'list-reclamations', component: ListereclamationComponent },
     {path: 'addtraining' , component: AddTrainingsComponent},
     { path: 'problem/edit/:id', component: AddProblemComponent },
     {path: 'addProblem' , component: AddProblemComponent},

@@ -43,6 +43,9 @@ import { CandidatListComponent } from './shared/Candidats/candidat-list/candidat
 import { JobListComponent } from './shared/Job/job-list/job-list.component';
 import { JobFormComponent } from './shared/Job/job-form/job-form.component';
 import { ListProblemsComponent } from './admin/Problems/list-problems/list-problems.component';
+import { ReclamationComponent } from './shared/blog/reclamation/reclamation.component';
+import { UpdatePostComponent } from './shared/blog/update-post/update-post.component';
+import { ListereclamationComponent } from './shared/blog/listereclamation/listereclamation.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +72,9 @@ import { ListProblemsComponent } from './admin/Problems/list-problems/list-probl
     JobListComponent,
     JobFormComponent,
     ListProblemsComponent,
+    ReclamationComponent,
+    UpdatePostComponent,
+    ListereclamationComponent,
   ],
   imports: [
     BrowserModule,

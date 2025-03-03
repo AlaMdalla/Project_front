@@ -1,77 +1,111 @@
 <div *ngIf="postData" class="card-container">
     <mat-card>
-        <mat-card-header>
-            <div mat-card-avatar class="avatar-container">
-                <img [src]="postData.avatar" alt="Avatar" class="avatar-img">
-            </div>
-            <mat-card-title>{{ postData.title }}</mat-card-title>
-            <mat-card-subtitle>
-                Posted By : {{ postData.postedBy }} | Posted On : {{ postData.date | date: 'medium' }}
-            </mat-card-subtitle>
-        </mat-card-header>
-
-        <mat-grid-list cols="5">
-            <mat-grid-tile [colspan]="2" [rowspan]="1">
-                <img mat-card-image [src]="postData.img" class="post-img" alt="Card Image" />
-            </mat-grid-tile>
-            <mat-grid-tile [colspan]="3" [rowspan]="1">
-                {{ postData.content }}
-            </mat-grid-tile>
-        </mat-grid-list>
-
-        <hr>
-
-        <mat-card-actions>
-            <button mat-raised-button color="primary">
-                {{ postData.likeCount }}
-                <mat-icon>favorite</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;">
-                {{ postData.viewCount }}
-                <mat-icon>remove_red_eye</mat-icon>
-            </button>
-        </mat-card-actions>
+      <mat-card-header>
+        <div mat-card-avatar class="avatar-container">
+          <img [src]="postData.avatar" alt="Avatar" class="avatar-img">
+        </div>
+        <mat-card-title>{{ postData.title }}</mat-card-title>
+        <mat-card-subtitle>
+          Posted By: {{ postData.postedBy }} | Category: {{ postData.category }} | Posted On: {{ postData.date | date: 'medium' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+  
+      <mat-grid-list cols="5">
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <img *ngIf="postData.picByte" [src]="'data:image/jpeg;base64,' + postData.picByte" alt="Post Image" />
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+          {{ postData.content }}
+        </mat-grid-tile>
+      </mat-grid-list>
+  
+      <hr>
+  
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="reactPost('like')">
+          {{ postData.likeCount || 0 }} <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" (click)="reactPost('laugh')" style="margin-left: 5px;">
+          {{ postData.laught || 0 }} <mat-icon>mood</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" (click)="reactPost('angry')" style="margin-left: 5px;">
+          {{ postData.angry || 0 }} <mat-icon>mood_bad</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" style="margin-left: 5px;">
+          {{ postData.viewCount || 0 }} <mat-icon>remove_red_eye</mat-icon>
+        </button>
+        <button mat-raised-button color="warn" (click)="goToReclamationForm()" style="margin-left: 490px;">
+          <mat-icon>report</mat-icon> Report
+        </button>
+      </mat-card-actions>
     </mat-card>
-
-    <!-- 🔹 Section des Commentaires 🔹 -->
-    <mat-card class="comment-card">
-        <mat-card-content>
-            <h4>💬 Publish Your Comment</h4>
-            <form [formGroup]="CommentForm">
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Your Comment</mat-label>
-                    <textarea matInput formControlName="content" placeholder="Write your comment here..." required></textarea>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Your Name</mat-label>
-                    <input matInput formControlName="postedBy" placeholder="Write your name here" required>
-                </mat-form-field>
-
-                <div class="button-container">
-                    <button mat-raised-button (click)="publishComment()" color="primary" [disabled]="!CommentForm.valid">
-                        <mat-icon>send</mat-icon> Publish
-                    </button>
-                </div>
-            </form>
-        </mat-card-content>
-    </mat-card>
+  
     <div style="margin-top: 10px;">
-        <h4>Comments</h4>
-        <mat-card style="margin-top: 10px;" *ngFor="let comment of comments">
-          <mat-card-header>
-            <div mat-card-avatar class="avatar-container">
-              <img [src]="comment.avatar" alt="Avatar" class="avatar-img">
-            </div>
-            <mat-card-title>{{comment.postedBy}}</mat-card-title>
-            <mat-card-subtitle>
-              {{ comment.createdAt | date: 'medium' }}
-            </mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            {{comment.content}}
-          </mat-card-content>
-        </mat-card>
-      </div>
-      
-</div>
+      <h4>Comments</h4>
+      <mat-card *ngFor="let comment of comments" style="margin-top: 10px;">
+        <mat-card-header>
+          <div mat-card-avatar class="avatar-container">
+            <img [src]="comment.avatar" alt="Avatar" class="avatar-img">
+          </div>
+          <mat-card-title>{{ comment.postedBy }}</mat-card-title>
+          <mat-card-subtitle>{{ comment.createdAt | date: 'medium' }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>{{ comment.content }}</mat-card-content>
+  
+        <!-- Reply Button and Form -->
+        <mat-card-actions>
+          <button mat-button (click)="comment.showReply = !comment.showReply">
+            <mat-icon>reply</mat-icon> Reply
+          </button>
+        </mat-card-actions>
+  
+        <div *ngIf="comment.showReply" class="reply-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Write a reply...</mat-label>
+            <input matInput [(ngModel)]="comment.replyContent" placeholder="Type your reply...">
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="replyToComment(comment.id); comment.showReply = false">
+            Submit Reply
+          </button>
+        </div>
+  
+        <!-- Display Replies (if implemented in backend) -->
+        <div *ngIf="comment.replies?.length" style="margin-left: 30px; margin-top: 10px;">
+          <mat-card *ngFor="let reply of comment.replies">
+            <mat-card-header>
+              <div mat-card-avatar class="avatar-container">
+                <img [src]="reply.avatar || 'assets/img/default-avatar.jpg'" alt="Avatar" class="avatar-img">
+              </div>
+              <mat-card-title>{{ reply.postedBy }}</mat-card-title>
+              <mat-card-subtitle>{{ reply.createdAt | date: 'medium' }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>{{ reply.content }}</mat-card-content>
+          </mat-card>
+        </div>
+      </mat-card>
+    </div>
+  
+    <!-- Publish Comment Form -->
+    <mat-card class="comment-card">
+      <mat-card-content>
+        <h4>💬 Publish Your Comment</h4>
+        <form [formGroup]="CommentForm">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Your Comment</mat-label>
+            <textarea matInput formControlName="content" placeholder="Write your comment here..." required></textarea>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Your Name</mat-label>
+            <input matInput formControlName="postedBy" placeholder="Write your name here" required>
+          </mat-form-field>
+  
+          <div class="button-container">
+            <button mat-raised-button (click)="publishComment()" color="primary" [disabled]="!CommentForm.valid">
+              <mat-icon>send</mat-icon> Publish
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>

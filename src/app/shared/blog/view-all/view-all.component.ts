@@ -1,15 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostService } from 'src/app/Services/post.service';
+
+interface Post {
+
+  postedBy: string;
+  id: number;
+  // Add other post properties as needed
+}
 
 @Component({
   selector: 'app-view-all',
   templateUrl: './view-all.component.html',
   styleUrls: ['./view-all.component.css']
 })
-export class ViewAllComponent {
+export class ViewAllComponent implements OnInit {
   avatar: any;
   allPosts: any;
+  
+  
 
   constructor(private postService: PostService, private snackBar: MatSnackBar) {}
 
@@ -28,6 +37,10 @@ export class ViewAllComponent {
       this.snackBar.open("Something went wrong!!", "Close", { duration: 3000 });
     });
   }
+  
+  
+  
+  
 
   deletePost(postId: number) {
     if (confirm("Are you sure you want to delete this post?")) {
