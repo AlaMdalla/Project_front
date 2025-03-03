@@ -25,12 +25,15 @@ export class UpdateuserComponent implements OnInit {
     userId: any;
     userData: any = {}
     errorMessage:string = ''
-
+isAdmin:boolean =false;
 
   ngOnInit(): void {
     this.getUserById()
       
   }
+  
+  isLoading = false;
+
 /*
   async getUserById(){
       this.userId = this.route.snapshot.paramMap.get('id')
@@ -88,6 +91,10 @@ export class UpdateuserComponent implements OnInit {
         let userDataResponse = await this.userService.getOwnUsersById(this.userId);
         const { name, email, role, city } = userDataResponse.ourUsers;
         this.userData = { name, email, role, city };
+        if(role==='ADMIN')
+        {
+          this.isAdmin=true
+        }
       } catch (error: any) {
         this.showError(error.message);
       }

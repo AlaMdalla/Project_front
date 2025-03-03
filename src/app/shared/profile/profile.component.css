@@ -1,44 +1,134 @@
-.container {
-    max-width: 500px;
-    margin: 40px auto;
+.profile-container {
+    max-width: 450px;
+    margin: 50px auto;
     padding: 20px;
-    font-size: 18px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    
-    .container h2 {
+    background: linear-gradient(135deg, #ffffff, #f9f9f9); /* Subtle gradient */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    font-family: 'Arial', sans-serif;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #ff5722;
     font-size: 24px;
+    margin: 0;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.status-dot.active {
+    background-color: #ff5722; /* Orange for ADMIN */
+}
+
+.status-dot:not(.active) {
+    background-color: #757575; /* Gray for non-ADMIN */
+}
+
+.error-message {
+    color: #e64a19;
+    background-color: #ffebee;
+    padding: 10px;
+    border-radius: 6px;
     margin-bottom: 20px;
     text-align: center;
-    }
-    
-    .container p {
-    margin-bottom: 10px;
-    }
-    
-    .container button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    font-size: 20px;
+    font-size: 14px;
+}
+
+.profile-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px); /* Subtle lift on hover */
+}
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ff5722, #f4511e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.avatar-initial {
     color: #fff;
-    background-color: #007bff;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.profile-details {
+    flex: 1;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.label {
+    color: #ff5722;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.value {
+    color: #333;
+    font-size: 14px;
+    text-align: right;
+}
+
+.update-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #ff5722, #f4511e); /* Gradient button */
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    }
-    
-    .container button:hover {
-    background-color: #0056b3;
-    }
-    
-    .error-message {
-    color: #dc3545;
-    font-size: 20px;
-    margin: 10px;
-    text-align: center;
-    }
-    
+    font-size: 16px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.update-btn:hover {
+    background: linear-gradient(90deg, #f4511e, #e64a19);
+    transform: scale(1.02); /* Slight scale on hover */
+}
+
+.update-btn:active {
+    background: #e64a19;
+    transform: scale(0.98);
+}

@@ -1,12 +1,35 @@
-<div class="container">
-
+<div class="profile-container">
+    <div class="profile-header">
+        <h2>Profile Information</h2>
+        <span class="status-dot" [ngClass]="{'active': profileInfo?.ourUsers?.role === 'ADMIN'}"></span>
+    </div>
     <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
-    <h2>Profile Information</h2>
-    <p>Name: {{profileInfo?.ourUsers?.id}}</p>
-    <p>Name: {{profileInfo?.ourUsers?.role}}</p>
-
-    <p>Name: {{profileInfo?.ourUsers?.name}}</p>
-    <p>Email: {{profileInfo?.ourUsers?.email}}</p>
-    <p>City: {{profileInfo?.ourUsers?.city}}</p>
-    <button   (click)="updateProfile(profileInfo?.ourUsers?.id)">Update Profile</button>
+    <div class="profile-card">
+        <div class="profile-avatar">
+            <span class="avatar-initial">{{ profileInfo?.ourUsers?.name?.charAt(0) | uppercase }}</span>
+        </div>
+        <div class="profile-details">
+            <div class="detail-item">
+                <span class="label">ID</span>
+                <span class="value">{{profileInfo?.ourUsers?.id || 'N/A'}}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Name</span>
+                <span class="value">{{profileInfo?.ourUsers?.name || 'N/A'}}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Email</span>
+                <span class="value">{{profileInfo?.ourUsers?.email || 'N/A'}}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">City</span>
+                <span class="value">{{profileInfo?.ourUsers?.city || 'N/A'}}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Role</span>
+                <span class="value">{{profileInfo?.ourUsers?.role || 'N/A'}}</span>
+            </div>
+        </div>
+    </div>
+    <button class="update-btn" (click)="updateProfile(profileInfo?.ourUsers?.id)">Update Profile</button>
 </div>
