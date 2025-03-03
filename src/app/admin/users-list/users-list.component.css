@@ -1,0 +1,208 @@
+/* Table container styling */
+.table-container {
+    max-width: 950px; /* Match Management Page container width */
+    margin: 50px auto; /* Match margin for consistent spacing */
+    padding: 25px; /* Match padding for consistency */
+    background: #fff; /* Pure white for a cleaner look, matching Management Page */
+    border-radius: 16px; /* Match border-radius */
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08); /* Match shadow for depth */
+    font-family: 'Arial', sans-serif; /* Match font-family */
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out; /* Keep the fade-in animation */
+}
+
+.table-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px; /* Increase to match Management Page */
+    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+}
+
+/* Header */
+h2 {
+    font-size: 26px; /* Match Management Page h2 size */
+    color: #1e3a8a; /* Darker slate blue, already matching */
+    margin-bottom: 25px; /* Match Management Page margin-bottom */
+    position: relative;
+    font-weight: 700; /* Match Management Page font-weight */
+    text-align: left; /* Match Management Page alignment */
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0; /* Match Management Page alignment */
+    transform: none; /* Remove the centering transform */
+    width: 40px;
+    height: 3px;
+    background: #00695c; /* Teal underline */
+    border-radius: 2px;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+    background: white; /* Already matching */
+    border-radius: 8px; /* Keep existing border-radius */
+    overflow: hidden;
+}
+
+thead tr {
+    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient, already matching */
+    color: white;
+    font-weight: 500;
+}
+
+th {
+    padding: 14px 16px; /* Match Management Page padding */
+    font-size: 12px; /* Match Management Page font-size */
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+thead th:first-child {
+    border-top-left-radius: 10px; /* Already matching */
+}
+
+thead th:last-child {
+    border-top-right-radius: 10px; /* Already matching */
+}
+
+tbody tr {
+    background: #fafafa; /* Already matching */
+    transition: all 0.3s ease; /* Already matching */
+}
+
+tbody tr:hover {
+    background: #f5f5f5; /* Already matching */
+    transform: translateY(-1px); /* Match Management Page translateY */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Match Management Page shadow */
+}
+
+td {
+    padding: 14px 16px; /* Match Management Page padding */
+    border-bottom: 1px solid #eee; /* Already matching */
+    color: #333; /* Already matching */
+    font-weight: 500; /* Already matching */
+}
+
+tbody tr:last-child td {
+    border-bottom: none; /* Already matching */
+}
+
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px; /* Already matching */
+}
+
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px; /* Already matching */
+}
+
+/* Actions cell */
+.actions-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Match Management Page gap */
+}
+
+.divider {
+    width: 1px;
+    height: 20px;
+    background: #00695c; /* Teal divider, already matching */
+}
+
+/* Edit and Delete buttons */
+.btn-edit,
+.btn-delete {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Match Management Page gap */
+}
+
+.btn-edit {
+    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient, already matching */
+    color: white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btn-edit:hover {
+    background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover, already matching */
+    transform: scale(1.05); /* Match Management Page transform */
+    box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
+}
+
+.btn-delete {
+    background: #dc3545; /* Red, already matching */
+    color: white;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-delete:hover {
+    background: #c82333; /* Darker red on hover, already matching */
+    transform: scale(1.05); /* Match Management Page transform */
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    font-size: 14px; /* Match Management Page font-size */
+    color: #666; /* Match a more neutral tone */
+    font-weight: 500;
+}
+
+.btn-page {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px; /* Match Management Page button border-radius */
+    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient, already matching */
+    color: white;
+    font-size: 13px; /* Match Management Page button font-size */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btn-page:disabled {
+    background: #b2bec3;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-page:hover:not(:disabled) {
+    background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover, already matching */
+    transform: translateY(-2px); /* Match Management Page transform */
+    box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -43,6 +43,7 @@ import { CandidatListComponent } from './shared/Candidats/candidat-list/candidat
 import { JobListComponent } from './shared/Job/job-list/job-list.component';
 import { JobFormComponent } from './shared/Job/job-form/job-form.component';
 import { ListProblemsComponent } from './admin/Problems/list-problems/list-problems.component';
+import { UsersListComponent } from './admin/users-list/users-list.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -71,6 +72,7 @@ import { ListProblemsComponent } from './admin/Problems/list-problems/list-probl
     JobListComponent,
     JobFormComponent,
     ListProblemsComponent,
+    UsersListComponent,
   ],
   imports: [
     BrowserModule,

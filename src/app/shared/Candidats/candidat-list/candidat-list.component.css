@@ -1,73 +1,165 @@
+/* Ensure content area accounts for sidebar */
+app-sidebar {
+  display: block; /* Ensure the sidebar component takes up space */
+}
+
+/* Main content area */
+:host {
+  margin-left: 250px; /* Match sidebar width */
+  padding: 30px;
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+
+/* Header container */
 .header-container {
-    display: flex;
-    justify-content: flex-end; /* Aligner à droite */
-    margin-bottom: 15px;
-  }
-  
-  .add-button {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.3s;
-  }
-  
-  .add-button:hover {
-    background: #218838;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-    max-width: 600px;
-    margin: auto;
-  }
-  
-  li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-radius: 8px;
-    background: #f4f4f4;
-    margin-bottom: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  span {
-    flex-grow: 1;
-    font-size: 16px;
-  }
-  
-  button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    margin-left: 8px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-  }
-  
-  button:hover {
-    background: #0056b3;
-  }
-  
-  button.delete {
-    background: #dc3545;
-  }
-  
-  button.delete:hover {
-    background: #c82333;
-  }
-  
-  p {
-    text-align: center;
-    font-size: 18px;
-    color: #666;
-  }
-  
+  max-width: 900px; /* Match typical admin content width */
+  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Add button */
+.add-button {
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+}
+
+.add-button:hover {
+  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 202, 40, 0.4);
+}
+
+.add-button:active {
+  background: #1e40af; /* Darker blue */
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* List container */
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 900px; /* Match header width */
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+}
+
+/* List items */
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li:hover {
+  background: #f5f5f5;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Candidate info */
+span {
+  flex-grow: 1;
+  font-size: 15px;
+  color: #2d3436;
+  font-weight: 500;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Action buttons */
+button {
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin-left: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+button:hover {
+  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
+}
+
+button:active {
+  background: #1e40af; /* Darker blue */
+  transform: scale(1);
+}
+
+button.delete {
+  background: #dc3545; /* Red, consistent with app cautionary color */
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+button.delete:hover {
+  background: #c82333; /* Darker red on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+}
+
+button.delete:active {
+  background: #b91c1c;
+  transform: scale(1);
+}
+
+/* No candidates message */
+p {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  max-width: 900px;
+  margin: 0 auto;
+  font-weight: 500;
+}

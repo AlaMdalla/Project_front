@@ -22,7 +22,7 @@ import { RegisterComponent } from "./shared/register/register.component";
 import { adminGuard, usersGuard } from "./Services/users.guard";
 import { ProfileComponent } from "./shared/profile/profile.component";
 import { UpdateuserComponent } from "./shared/updateuser/updateuser.component";
-import { UserslistComponent } from "./admin/userslist/userslist.component";
+import { UsersListComponent } from "./admin/users-list/users-list.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
@@ -52,7 +52,7 @@ const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'profile', component: ProfileComponent, canActivate: [usersGuard]},
     {path: 'update/:id', component: UpdateuserComponent, canActivate: [adminGuard]},
-   {path: 'users', component: UserslistComponent, canActivate:[adminGuard]},
+   {path: 'users', component: UsersListComponent, canActivate:[adminGuard]},
     {path: '**', component: LoginComponent},
     {path: '', redirectTo: '/login', pathMatch: 'full'},
     { path: '**', redirectTo: '' } 

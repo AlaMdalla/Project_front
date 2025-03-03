@@ -1,19 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { UsersService } from 'src/app/Services/users.service';
-
-
+import { SidebarComponent } from '../sidebar/sidebar.component';
 @Component({
-  selector: 'app-userslist',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './userslist.component.html',
-  styleUrls: ['./userslist.component.css']
+  selector: 'app-users-list',
+  templateUrl: './users-list.component.html',
+  styleUrls: ['./users-list.component.css']
 })
-
-
-export class UserslistComponent implements OnInit {
+export class UsersListComponent {
 
   users: any[] = [];
   errorMessage: string = ''

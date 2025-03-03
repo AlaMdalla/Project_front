@@ -8,12 +8,14 @@
 
 /* Dashboard header */
 .dashboard-header {
-  background: linear-gradient(90deg, #ff5722, #f4511e);
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
   padding: 30px;
   border-radius: 12px;
   color: white;
   text-align: center;
   margin-bottom: 30px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3); /* Blue shadow */
 }
 
 .dashboard-header h1 {
@@ -42,16 +44,29 @@
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #00695c, #ffca28); /* Teal to amber gradient */
 }
 
 .kpi-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .kpi-card h3 {
   font-size: 28px;
-  color: #ff5722;
+  color: #3b82f6; /* Blue for the numbers */
   margin: 0 0 10px;
 }
 
@@ -67,11 +82,11 @@
 }
 
 .kpi-card .trend.up {
-  color: #28a745;
+  color: #28a745; /* Green for up trend */
 }
 
 .kpi-card .trend.down {
-  color: #dc3545;
+  color: #dc3545; /* Red for down trend */
 }
 
 .kpi-card .trend i {
@@ -95,7 +110,7 @@
 
 .recent-activities h2 {
   font-size: 20px;
-  color: #ff5722;
+  color: #3b82f6; /* Blue for headers */
   margin-bottom: 20px;
   position: relative;
 }
@@ -107,7 +122,7 @@
   left: 0;
   width: 30px;
   height: 3px;
-  background: #ff5722;
+  background: #00695c; /* Teal underline */
   border-radius: 2px;
 }
 
@@ -121,6 +136,11 @@
   align-items: center;
   padding: 15px 0;
   border-bottom: 1px solid #eee;
+  transition: background 0.3s ease;
+}
+
+.activity-item:hover {
+  background: #f9fafb;
 }
 
 .activity-item:last-child {
@@ -130,13 +150,18 @@
 .activity-icon {
   width: 40px;
   height: 40px;
-  background: #ff5722;
+  background: #3b82f6; /* Blue for icons */
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 15px;
+  transition: transform 0.3s ease;
+}
+
+.activity-item:hover .activity-icon {
+  transform: scale(1.1);
 }
 
 .activity-icon i {
@@ -172,7 +197,7 @@
 
 .status.pending {
   background: #fff3e0;
-  color: #f57c00;
+  color: #ffca28; /* Amber instead of orange */
 }
 
 .status.in-progress {
@@ -190,7 +215,7 @@
 
 .quick-actions h2 {
   font-size: 20px;
-  color: #ff5722;
+  color: #3b82f6; /* Blue for headers */
   margin-bottom: 20px;
   position: relative;
 }
@@ -202,7 +227,7 @@
   left: 0;
   width: 30px;
   height: 3px;
-  background: #ff5722;
+  background: #00695c; /* Teal underline */
   border-radius: 2px;
 }
 
@@ -213,7 +238,7 @@
 
 .action-btn {
   padding: 12px 15px;
-  background: #ff5722;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Blue gradient */
   color: white;
   border: none;
   border-radius: 6px;
@@ -224,12 +249,13 @@
   gap: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(255, 87, 34, 0.3);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .action-btn:hover {
-  background: #f4511e;
+  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
   transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
 }
 
 .action-btn i {

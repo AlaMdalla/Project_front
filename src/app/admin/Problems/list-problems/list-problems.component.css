@@ -7,12 +7,24 @@
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   font-family: 'Arial', sans-serif;
+  position: relative;
+}
+
+/* Add a top border gradient */
+.table-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
 }
 
 /* Header */
 .table-container h2 {
   font-size: 24px;
-  color: #ff5722;
+  color: #1e3a8a; /* Darker slate blue for the title */
   margin-bottom: 20px;
   position: relative;
 }
@@ -24,7 +36,7 @@
   left: 0;
   width: 40px;
   height: 3px;
-  background: #ff5722;
+  background: #00695c; /* Teal underline */
   border-radius: 2px;
 }
 
@@ -37,7 +49,7 @@
 }
 
 .table-container thead th {
-  background: linear-gradient(90deg, #ff5722, #f4511e);
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
   color: white;
   padding: 14px 16px;
   text-align: left;
@@ -95,7 +107,7 @@
 .divider {
   width: 1px;
   height: 20px;
-  background: #ddd;
+  background: #00695c; /* Teal divider */
 }
 
 /* Edit and Delete buttons */
@@ -114,36 +126,36 @@
 }
 
 .btn-edit {
-  background: #ff5722;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
   color: white;
-  box-shadow: 0 2px 8px rgba(255, 87, 34, 0.3);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .btn-edit:hover {
-  background: #f4511e;
+  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
 }
 
 .btn-edit:active {
-  background: #e64a19;
+  background: #1e40af; /* Darker blue */
   transform: scale(1);
 }
 
 .btn-delete {
-  background: #e64a19;
+  background: #dc3545; /* Red, matching existing cautionary color */
   color: white;
-  box-shadow: 0 2px 8px rgba(228, 74, 25, 0.3);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
 }
 
 .btn-delete:hover {
-  background: #d32f2f;
+  background: #c82333; /* Darker red on hover */
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
 }
 
 .btn-delete:active {
-  background: #b0002a;
+  background: #b91c1c;
   transform: scale(1);
 }
 
@@ -164,7 +176,7 @@
 
 .btn-page {
   padding: 8px 16px;
-  background: #ff5722;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
   color: white;
   border: none;
   border-radius: 6px;
@@ -172,7 +184,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(255, 87, 34, 0.3);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .btn-page:disabled {
@@ -182,12 +194,12 @@
 }
 
 .btn-page:not(:disabled):hover {
-  background: #f4511e;
+  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
 }
 
 .btn-page:not(:disabled):active {
-  background: #e64a19;
+  background: #1e40af; /* Darker blue */
   transform: scale(1);
 }

@@ -1,75 +1,164 @@
-/* Candidate Form Styling */
+/* Ensure content area accounts for sidebar */
+app-sidebar {
+  display: block; /* Ensure the sidebar component takes up space */
+}
+
+/* Main content area */
+:host {
+  display: block;
+  margin-left: 250px; /* Match sidebar width */
+  padding: 30px;
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+
+/* Form container */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Top border gradient */
+form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+}
+
+/* Header */
 h2 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center; /* Center the heading */
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    width: 400px; /* Adjust as needed */
-    margin: 0 auto; /* Center the form horizontally */
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  }
-  
-  label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  input[type="text"],
-  input[type="datetime-local"],
-  select {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1em;
-  }
-  
-  select {
-    height: 40px; /* Consistent height for select */
-  }
-  
-  button[type="submit"] {
-    padding: 12px 15px;
-    background-color: #007bff; /* Blue */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease; /* Smooth transition */
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  /* Optional: Add some spacing between form elements */
-  form > * {
-    margin-bottom: 10px;
-  }
-  
-  /* Optional: Add some visual feedback for required fields */
-  input:invalid:required, select:invalid:required {
-    border-color: #f00; /* Red border for invalid required fields */
-  }
-  
-  input:invalid:required:focus, select:invalid:required:focus {
-    outline: none; /* remove default browser focus outlines */
-    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Add a red shadow on focus */
-  }
-  
-  /* Responsive adjustments (optional) */
-  @media (max-width: 600px) {
-    form {
-      width: 90%; /* Make the form responsive on smaller screens */
-    }
-  } 
+  font-size: 26px;
+  color: #1e3a8a; /* Darker slate blue */
+  margin-bottom: 25px;
+  position: relative;
+  font-weight: 700;
+  text-align: center;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #00695c; /* Teal underline */
+  border-radius: 2px;
+}
+
+/* Form group */
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #00695c; /* Teal for labels */
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.form-group label:hover {
+  color: #ffca28; /* Amber on hover */
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.form-group select {
+  padding: 10px 15px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3b82f6; /* Blue focus ring */
+  background: white;
+  outline: none;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
+  transform: scale(1.01);
+}
+
+.form-group input.ng-invalid.ng-touched,
+.form-group select.ng-invalid.ng-touched {
+  border-color: #dc3545; /* Red for invalid state */
+  background: #fff5f5;
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
+}
+
+/* Error messages */
+.form-group .text-danger {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 6px;
+  display: block;
+  font-weight: 500;
+  background: #ffebee;
+  padding: 5px 10px;
+  border-radius: 4px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Fade-in animation for error messages */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Submit button */
+button[type="submit"] {
+  width: 100%;
+  padding: 12px 25px;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+}
+
+button[type="submit"]:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+button[type="submit"]:not(:disabled):hover {
+  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 202, 40, 0.4);
+}
+
+button[type="submit"]:not(:disabled):active {
+  background: #1e40af; /* Darker blue */
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
