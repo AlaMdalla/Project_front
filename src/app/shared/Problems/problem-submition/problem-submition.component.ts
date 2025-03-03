@@ -49,7 +49,7 @@ disableRightClick(event: MouseEvent) {
 @HostListener('document:keydown', ['$event'])
 handleKeyboardEvent(event: KeyboardEvent) {
   // Disable opening new tabs via Ctrl+T or Ctrl+N
-  if (event.ctrlKey && (event.key === 't' || event.key === 'n')) {
+  if (event.ctrlKey && (event.key === 'c' || event.key === 'v')) {
     event.preventDefault();
   }
 
