@@ -17,6 +17,11 @@ import { CandidatListComponent } from "./shared/Candidats/candidat-list/candidat
 import { CandidatFormComponent } from "./shared/Candidats/candidat-form/candidat-form.component";
 import { JobListComponent } from "./shared/Job/job-list/job-list.component";
 import { JobFormComponent } from "./shared/Job/job-form/job-form.component";
+import { LoginComponent } from "./shared/login/login.component";
+import { RegisterComponent } from "./shared/register/register.component";
+import { adminGuard, usersGuard } from "./Services/users.guard";
+import { ProfileComponent } from "./shared/profile/profile.component";
+import { UpdateuserComponent } from "./shared/updateuser/updateuser.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
@@ -42,6 +47,13 @@ const routes: Routes = [
     { path: 'candidates', component: CandidatListComponent },
     { path: 'candidates/new', component: CandidatFormComponent },
     { path: 'candidates/edit/:id', component: CandidatFormComponent },
+    {path: 'login', component: LoginComponent},
+    {path: 'register', component: RegisterComponent},
+    {path: 'profile', component: ProfileComponent, canActivate: [usersGuard]},
+    {path: 'update/:id', component: UpdateuserComponent, canActivate: [adminGuard]},
+   // {path: 'users', component: UserslistComponent, canActivate:[adminGuard]},
+    {path: '**', component: LoginComponent},
+    {path: '', redirectTo: '/login', pathMatch: 'full'},
     { path: '**', redirectTo: '' } 
 
 

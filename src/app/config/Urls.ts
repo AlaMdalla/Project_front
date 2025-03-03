@@ -9,7 +9,8 @@ export const Urls = {
     job : 'http://localhost:8560/job/api/jobs',
     submitions : 'http://localhost:8560/submitions/',
     Competition : 'http://localhost:8560/Competitions/',
-    BASIC_URL : 'http://localhost:8560/',
+    Users : 'http://localhost:8560/Users',
+    BASIC_URL : 'http://localhost:8560',
 
 
 
