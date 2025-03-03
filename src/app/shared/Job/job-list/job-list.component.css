@@ -1,36 +1,153 @@
+/* Main content area (lighter background for home page) */
+:host {
+  padding: 40px; /* Slightly more padding for a spacious feel */
+  min-height: 100vh;
+  background: #f9fafb; /* Lighter background for home page */
+}
+
+/* Job container */
 .job-container {
-    max-width: 800px;
-    margin: 20px auto;
-    text-align: center;
-  }
-  
-  .job-card {
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-  }
-  
-  .job-card:hover {
-    transform: scale(1.02);
-  }
-  
-  mat-card-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  
-  mat-card-subtitle {
-    color: gray;
-  }
-  
-  mat-card-content p {
-    font-size: 0.95rem;
-  }
-  
-  mat-card-actions {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
+  max-width: 1200px; /* Wider for home page to accommodate grid layout */
+  margin: 0 auto;
+}
+
+/* Header */
+.job-container h2 {
+  font-size: 28px; /* Slightly larger for prominence */
+  color: #3b82f6; /* Lighter slate blue for a friendlier tone */
+  margin-bottom: 30px;
+  position: relative;
+  font-weight: 700;
+  text-align: center;
+}
+
+.job-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #2dd4bf; /* Softer teal underline */
+  border-radius: 2px;
+}
+
+/* Job cards (grid layout for home page) */
+.job-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 20px; /* Space between cards */
+}
+
+/* Job card */
+.job-card {
+  margin-bottom: 0; /* Remove margin-bottom since grid handles spacing */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff; /* White cards for a clean look */
+}
+
+.job-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+}
+
+.job-card:hover {
+  transform: translateY(-3px); /* Slightly more pronounced lift for home page */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Status-specific styling */
+.job-card.open-job {
+  border-left: 4px solid #28a745; /* Green for open jobs */
+}
+
+.job-card.closed-job {
+  border-left: 4px solid #dc3545; /* Red for closed jobs */
+  opacity: 0.8; /* Slightly faded to indicate closed status */
+}
+
+/* Card header */
+.job-card mat-card-header {
+  padding: 20px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.job-card mat-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #3b82f6; /* Lighter slate blue for a friendlier tone */
+  margin-bottom: 5px;
+}
+
+.job-card mat-card-subtitle {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Card content */
+.job-card mat-card-content {
+  padding: 20px;
+}
+
+.job-card mat-card-content p {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Card actions */
+.job-card mat-card-actions {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: flex-end;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+
+/* Apply Now button */
+.job-card button[mat-button] {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.job-card button[mat-button]:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
+}
+
+.job-card button[mat-button]:active:not(:disabled) {
+  background: #2563eb; /* Slightly darker blue for active state */
+  transform: scale(1);
+}
+
+.job-card button[mat-button]:disabled {
+  background: #b2bec3;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}

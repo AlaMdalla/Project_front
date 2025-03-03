@@ -18,16 +18,22 @@ export class ViewAllComponent {
   }
 
   getAllPosts() {
-    this.postService.getAllPosts().subscribe(res => {
-      console.log(res);
-      this.allPosts = res.map((post: { postedBy: string; }) => ({
-        ...post,
-        avatar: `assets/img/avatar${post.postedBy}.jpg`   
-      }));
-    }, error => {
-      this.snackBar.open("Something went wrong!!", "Close", { duration: 3000 });
-    });
+    console.log("Fetching posts...");
+    this.postService.getAllPosts().subscribe(
+      res => {
+        console.log("API Response:", res);
+        this.allPosts = res.map((post: { postedBy: string; }) => ({
+          ...post,
+          avatar: `assets/img/avatar${post.postedBy}.jpg`
+        }));
+      },
+      error => {
+        console.error("API Error:", error);  // Log the full error
+        this.snackBar.open("Something went wrong!!", "Close", { duration: 3000 });
+      }
+    );
   }
+  
 
   deletePost(postId: number) {
     if (confirm("Are you sure you want to delete this post?")) {

@@ -10,7 +10,7 @@ export const Urls = {
     submitions : 'http://localhost:8560/submitions/',
     Competition : 'http://localhost:8560/Competitions/',
     Users : 'http://localhost:8560/Users',
-    BASIC_URL : 'http://localhost:8560',
+    BASIC_URL : 'http://localhost:8560/',
 
 
 

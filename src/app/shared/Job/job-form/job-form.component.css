@@ -1,58 +1,176 @@
+/* Ensure content area accounts for sidebar */
+app-sidebar {
+  display: block; /* Ensure the sidebar component takes up space */
+}
+
+/* Main content area */
+:host {
+  margin-left: 250px; /* Match sidebar width */
+  padding: 30px;
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+
+/* Form container */
 .form-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px; /* Match width of other forms */
+  margin: 0 auto;
+}
+
+/* Form styling */
+form {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Top border gradient */
+form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+}
+
+/* Header */
+h2 {
+  font-size: 26px;
+  color: #1e3a8a; /* Darker slate blue */
+  margin-bottom: 25px;
+  position: relative;
+  font-weight: 700;
+  text-align: center;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #00695c; /* Teal underline */
+  border-radius: 2px;
+}
+
+/* Form group */
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #00695c; /* Teal for labels */
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.form-group label:hover {
+  color: #ffca28; /* Amber on hover */
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.form-group textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.form-group select {
+  padding: 10px 15px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #3b82f6; /* Blue focus ring */
+  background: white;
+  outline: none;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
+  transform: scale(1.01);
+}
+
+/* Invalid state (requires ngModel directives to apply dynamically) */
+.form-group input.ng-invalid.ng-touched,
+.form-group textarea.ng-invalid.ng-touched,
+.form-group select.ng-invalid.ng-touched {
+  border-color: #dc3545; /* Red for invalid state */
+  background: #fff5f5;
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
+}
+
+/* Button container */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+/* Submit button */
+.btn-primary {
+  width: 100%; /* Match other forms */
+  padding: 12px 25px;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+.btn-primary:not(:disabled):hover {
+  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 202, 40, 0.4);
+}
+
+.btn-primary:not(:disabled):active {
+  background: #1e40af; /* Darker blue */
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
   }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+  to {
+      opacity: 1;
+      transform: translateY(0);
   }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  input, textarea, select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-  
-  .button-container {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .btn-primary {
-    background: #007bff;
-    color: white;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .btn-primary:hover {
-    background: #0056b3;
-  }
-  
+}

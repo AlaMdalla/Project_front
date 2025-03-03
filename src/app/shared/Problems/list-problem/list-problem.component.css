@@ -2,27 +2,61 @@
     font-family: 'Inter', sans-serif;
 }
 
+/* Problems container */
 .problems-container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
-    max-width: 800px;
+    max-width: 900px; /* Match typical content width for user-facing pages */
     margin: 0 auto;
 }
 
+/* Header section (containing title and difficulty filter) */
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+}
 
+/* Section title */
 h2 {
     font-size: 36px;
-    color: #333;
+    color: #1e3a8a; /* Deep navy blue for title */
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 0; /* Remove bottom margin since it's in a flex container */
     font-weight: bold;
     letter-spacing: 1px;
     text-transform: uppercase;
-  }
-  
+}
 
+/* Difficulty filter */
+.header-section .difficulty-filter {
+    flex: 0 0 auto;
+}
+
+.header-section .difficulty-filter select {
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1f2937;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    outline: none;
+    width: 150px; /* Fixed width for filter */
+}
+
+.header-section .difficulty-filter select:hover {
+    border-color: #2dd4bf; /* Muted teal on hover */
+}
+
+/* Problem card */
 .problem-card {
     padding: 1rem;
     border-radius: 8px;
@@ -31,25 +65,35 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: all 0.3s ease;
 }
 
+.problem-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Problem info */
 .problem-info {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
+/* Problem title */
 .problem-title {
     font-size: 18px;
     font-weight: 600;
-    color: #333;
+    color: #1e3a8a; /* Deep navy blue for titles */
 }
 
+/* Problem stats */
 .problem-stats {
     font-size: 14px;
-    color: #666;
+    color: #6b7280;
 }
 
+/* Difficulty badge */
 .difficulty {
     font-size: 14px;
     font-weight: 500;
@@ -60,16 +104,24 @@ h2 {
 }
 
 .easy {
-    background-color: #4caf50;
+    background-color: #4caf50; /* Green for Easy */
 }
 
 .medium {
-    background-color: #ff9800;
+    background-color: #ff9800; /* Orange for Medium */
 }
 
 .hard {
-    background-color: #f44336;
+    background-color: #f44336; /* Red for Hard */
 }
-a{
-    color: #ffffff;
+
+/* Link styling */
+a {
+    color: #1e3a8a; /* Deep navy blue for links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #2dd4bf; /* Muted teal on hover */
 }

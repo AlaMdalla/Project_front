@@ -1,5 +1,4 @@
 <div class="job-container">
-    <h2>Job List</h2>
     <mat-card *ngFor="let job of jobs" class="job-card" [ngClass]="{'open-job': job.status === 'Open', 'closed-job': job.status === 'Closed'}">
       <mat-card-header>
         <mat-card-title>{{ job.title }}</mat-card-title>
