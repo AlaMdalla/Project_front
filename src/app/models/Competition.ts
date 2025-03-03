@@ -5,5 +5,8 @@ export interface Competition {
     title: string;          
     description: string;    
     prices: string[];  
-    problems: Problem[];    
+    problems: Problem[];  
+    image: string; 
+
+      
   }

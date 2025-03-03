@@ -24,7 +24,8 @@ export class AddCompetitionComponent {
       title: ['', Validators.required],
       description: ['', Validators.required],
       prices: [[]],
-      problems: [[]]
+      problems: [[]],
+      image: ['']
     });
   }
   ngOnInit() {
@@ -60,11 +61,23 @@ export class AddCompetitionComponent {
     this.competitionForm.get('problems')?.setValue(this.competitionForm.get('problems')?.value.filter((p: Problem) => p.id !== problem.id));
   }
 
-
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64String = (reader.result as string).split(',')[1]; // Extract Base64 part
+        console.log("Base64 Image:", base64String); // 🔍 Debugging
+        this.competitionForm.patchValue({ image: base64String });
+        console.log("Form after patch:", this.competitionForm.value); // 🔍 Debugging
+      };
+    }
+  }
+  
 
 
   onSubmit() {
-  
     if (this.competitionForm.valid) {
       const newCompetition: Competition = this.competitionForm.value;
       if (this.competitionId) {
@@ -76,27 +89,20 @@ export class AddCompetitionComponent {
           error => console.error('Error updating:', error)
         );
       }
-      else{
-        this.competionService.addCompetition(newCompetition).subscribe(
-          res=>{
+      console.log("Submitting Competition:", newCompetition); // 🟢 Debugging: See if image exists
   
-            console.log(res)
-            
-          },
-          error=>{
-  console.error(error)
-  
-          },
-          
-          
-        )
-        window.location.reload(); 
-  
-        console.log('Competition Submitted:', newCompetition);
-      }
-      }
-     
+      this.competionService.addCompetition(newCompetition).subscribe(
+        res => {
+          console.log('Competition saved:', res);
+          window.location.reload();
+        },
+        error => {
+          console.error('Error saving competition:', error);
+        }
+      );
+    }
   }
+  
 
 
 

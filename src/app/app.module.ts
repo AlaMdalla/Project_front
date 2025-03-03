@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -45,6 +45,8 @@ import { JobFormComponent } from './shared/Job/job-form/job-form.component';
 import { ListProblemsComponent } from './admin/Problems/list-problems/list-problems.component';
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   declarations: [
     AppComponent,
     ListProblemComponent,

@@ -1,14 +1,49 @@
-
-<div class="problems-container">
-    <h2>Problems</h2>
-    <div *ngFor="let problem of problems" class="problem-card">
-        <div class="problem-info">
-            <a [routerLink]="['/problemSubmission', problem.id]">
-                <div id="problem-title" class="problem-title">{{ problem.title }}</div>
-              </a>
-              
-                          <div class="problem-stats">65% </div>
+<div class="competition-details">
+    <div class="competition-header">
+        <div class="image-container">
+            <img *ngIf="competition?.image" [src]="'data:image/png;base64,' + competition?.image" 
+                 alt="Competition Image" class="competition-image">
+         
         </div>
-        <div class="difficulty {{ problem.difficulty.toLowerCase() }}">{{ problem.difficulty }}</div>
+        <div class="title-container">
+            <div class="competition-title">{{ competition?.title }}</div>
+            <div class="competition-stats">
+                <span class="stat-item">
+                    <i class="fas fa-users"></i> 120 Participants
+                </span>
+                <span class="stat-item">
+                    <i class="fas fa-clock"></i> 2 Days Left
+                </span>
+            </div>
+        </div>
     </div>
+
+    <div class="competition-description">
+        {{ competition?.description }}
+    </div>
+
+    <div class="competition-prices">
+        <h3>Prizes</h3>
+        <ul>
+            <li *ngFor="let price of competition?.prices">{{ price }}</li>
+        </ul>
+    </div>
+
+    <div class="problems-container">
+        <div *ngFor="let problem of problems" class="problem-card">
+            <div class="problema-info">
+                <a [routerLink]="['/problemSubmission', problem.id]">
+                    <div class="problem-title">{{ problem.title }}</div>
+                </a>
+            </div>
+            <div class="difficulty" [ngClass]="{
+                'easy': problem.difficulty === 'Easy',
+                'medium': problem.difficulty === 'Medium',
+                'hard': problem.difficulty === 'Hard'
+            }">
+                {{ problem.difficulty }}
+            </div>
+        </div>
+    </div>
+    
 </div>

@@ -1,119 +1,96 @@
-/* General Competitions Section Styling */
 .competitions-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-    font-family: 'Inter', sans-serif;
-    color: #333; /* Dark text for contrast */
-    min-height: 100vh; /* Ensure it takes full height of the screen */
-    background-color: #f0f4f8; /* Light, soft gray-blue background */
-  }
-  
-  /* Heading Styling */
-  .competitions-section h2 {
-    font-size: 36px;
-    color: #333; /* Dark text */
-    text-align: center;
-    margin-bottom: 50px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-  
-  /* Competitions List Styling */
-  .competitions-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    justify-items: center;
-    margin-top: 20px;
-    width: 100%;
-    max-width: 1200px; /* Set a max width for the list */
-  }
-  
-  /* Competition Card Styling */
-  .competition-card {
-    background-color: #ffffff; /* Soft off-white card background */
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); /* Subtle shadow */
-    padding: 25px;
-    text-align: center;
-    width: 100%;
-    max-width: 320px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-  }
-  
-  .competition-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
-    background-color: #fafafa; /* Slightly lighter background on hover */
-  }
-  
-  /* Competition Card Title */
-  .competition-card h3 {
-    font-size: 24px;
-    color: #333; /* Dark text */
-    margin-bottom: 15px;
-    font-weight: bold;
-    text-transform: capitalize;
-  }
-  
-  /* Competition Card Description */
-  .competition-card p {
-    font-size: 16px;
-    color: #666; /* Medium gray text for readability */
-    margin-bottom: 25px;
-    line-height: 1.6;
-    font-weight: 400;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  /* Price Tags Styling */
-  .prices {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 25px;
-  }
-  
-  .price-tag {
-    background-color: #6cace4; /* Soft pastel blue for price tags */
-    color: #fff;
-    padding: 6px 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-  
-  /* Join Button Styling */
-  .join-button {
-    background: linear-gradient(135deg, #6cace4 0%, #4a8bb2 100%); /* Muted blue gradient */
-    color: #fff;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 10px;
-    width: 100%;
-    max-width: 220px;
-  }
-  
-  .join-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(108, 172, 228, 0.3); /* Soft blue shadow on hover */
-  }
-  
+  padding: 30px; /* Increased padding for better spacing */
+  border-radius: 12px; /* Slightly more rounded corners */
+  background-color: #f4f4f4; /* Slightly softer background */
+  color: #333; /* Darker text for better contrast */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px; /* Increased margin */
+  border-bottom: 1px solid #e0e0e0; /* Subtle bottom border */
+  padding-bottom: 15px; /* Padding below the border */
+}
+
+.section-title {
+  font-size: 1.8rem; /* Larger title */
+  font-weight: 600; /* Slightly lighter bold */
+  color: #2c3e50; /* More sophisticated title color */
+}
+
+.competitions-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px; /* Increased gap */
+}
+
+.competition-card {
+  background: white;
+  border-radius: 12px; /* More rounded corners */
+  width: 350px; /* Slightly wider cards */
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12); /* Slightly stronger shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition shadow too */
+}
+
+.competition-card:hover {
+  transform: translateY(-5px); /* Subtle lift on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+.competition-image img {
+  width: 100%;
+  height: 200px; /* Larger image height */
+  object-fit: cover;
+}
+
+.competition-content {
+  padding: 20px; /* Increased padding */
+}
+
+.competition-title {
+  font-size: 1.1rem; /* Slightly larger title */
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px; /* Added margin */
+}
+
+.competition-date {
+  font-size: 0.9rem;
+  color: #777;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Increased gap */
+  margin-bottom: 12px; /* Added margin */
+}
+
+.join-button {
+  display: inline-block;
+  background-color: #4f8ef7; /* Slightly brighter blue */
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px; /* Increased padding */
+  border-radius: 6px; /* Slightly more rounded */
+  font-size: 0.95rem; /* Slightly larger font */
+  margin-top: 12px; /* Increased margin */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.join-button:hover {
+  background-color: #3b76e0;
+}
+
+.no-competitions {
+  text-align: center;
+  font-size: 1.1rem; /* Slightly larger font */
+  color: #777;
+  margin-top: 30px; /* Increased margin */
+  padding: 20px; /* Added padding */
+  background-color: #fff; /* Added background */
+  border-radius: 8px; /* Added border radius */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* Added shadow */
+}
