@@ -1,18 +1,23 @@
-/* Main content area (lighter background for home page) */
+/* Ensure content area accounts for the fixed header */
 :host {
   padding: 40px; /* Slightly more padding for a spacious feel */
   min-height: 100vh;
   background: #f9fafb; /* Lighter background for home page */
 }
 
-/* Job container */
-.job-container {
+/* Job container (ul acts as the container) */
+ul {
+  list-style: none;
+  padding: 0;
   max-width: 1200px; /* Wider for home page to accommodate grid layout */
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 20px; /* Space between cards */
 }
 
 /* Header */
-.job-container h2 {
+h2 {
   font-size: 28px; /* Slightly larger for prominence */
   color: #3b82f6; /* Lighter slate blue for a friendlier tone */
   margin-bottom: 30px;
@@ -21,7 +26,7 @@
   text-align: center;
 }
 
-.job-container h2::after {
+h2::after {
   content: '';
   position: absolute;
   bottom: -8px;
@@ -33,16 +38,31 @@
   border-radius: 2px;
 }
 
-/* Job cards (grid layout for home page) */
-.job-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
-  gap: 20px; /* Space between cards */
+/* Add Job button */
+button[routerLink="/jobs/new"] {
+  display: block;
+  background: #2dd4bf; /* Solid muted teal */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
+  margin: 0 auto 40px auto;
+  text-decoration: none;
 }
 
-/* Job card */
-.job-card {
-  margin-bottom: 0; /* Remove margin-bottom since grid handles spacing */
+button[routerLink="/jobs/new"]:hover {
+  background: #5eead4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+/* Job card (li acts as the card) */
+li {
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
@@ -51,7 +71,7 @@
   background: #ffffff; /* White cards for a clean look */
 }
 
-.job-card::before {
+li::before {
   content: '';
   position: absolute;
   top: 0;
@@ -61,47 +81,112 @@
   background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
 }
 
-.job-card:hover {
-  transform: translateY(-3px); /* Slightly more pronounced lift for home page */
+li:hover {
+  transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Status-specific styling */
-.job-card.open-job {
-  border-left: 4px solid #28a745; /* Green for open jobs */
+/* Card content (job details) */
+li {
+  padding: 15px; /* Reduced padding to minimize empty space */
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Reduced gap to tighten layout */
 }
 
-.job-card.closed-job {
-  border-left: 4px solid #dc3545; /* Red for closed jobs */
-  opacity: 0.8; /* Slightly faded to indicate closed status */
-}
-
-/* Card header */
-.job-card mat-card-header {
-  padding: 20px;
-  background: #fff;
-  border-bottom: 1px solid #eee;
-}
-
-.job-card mat-card-title {
+/* Job title section */
+li .job-title {
   font-size: 18px;
   font-weight: 600;
   color: #3b82f6; /* Lighter slate blue for a friendlier tone */
-  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee; /* Add border to separate sections */
 }
 
-.job-card mat-card-subtitle {
+li .job-title::before {
+  content: '📋'; /* Icon to indicate title */
+  font-size: 16px;
+}
+
+/* Job details (department, location, status) */
+li .job-details {
   font-size: 14px;
-  color: #666;
+  color: #666; /* Slightly darker gray for contrast */
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px 0;
+  background: #fafafa; /* Slight background to differentiate section */
+  border-radius: 6px;
 }
 
-/* Card content */
-.job-card mat-card-content {
-  padding: 20px;
+/* Department */
+li .job-department {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.job-card mat-card-content p {
+li .job-department::before {
+  content: '🏢'; /* Icon to indicate department */
+  font-size: 14px;
+}
+
+/* Location */
+li .job-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+li .job-location::before {
+  content: '📍'; /* Icon to indicate location */
+  font-size: 14px;
+}
+
+li .job-location a {
+  color: #3b82f6; /* Lighter slate blue for links */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+li .job-location a:hover {
+  color: #2dd4bf; /* Softer teal on hover */
+}
+
+/* Status */
+li .job-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+li .job-status::before {
+  content: '📊'; /* Icon to indicate status */
+  font-size: 14px;
+}
+
+li .job-status.open {
+  color: #28a745; /* Green for Open status */
+}
+
+li .job-status.closed {
+  color: #dc3545; /* Red for Closed status */
+}
+
+/* Job description */
+li .job-description {
+  padding: 8px 0;
+  border-top: 1px solid #eee; /* Add border to separate sections */
+}
+
+li .job-description p {
   font-size: 14px;
   color: #333;
   line-height: 1.6;
@@ -113,41 +198,95 @@
   text-overflow: ellipsis;
 }
 
-/* Card actions */
-.job-card mat-card-actions {
-  padding: 15px 20px;
-  display: flex;
-  justify-content: flex-end;
-  background: #fff;
-  border-top: 1px solid #eee;
+li .job-description p::before {
+  content: '📜'; /* Icon to indicate description */
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 14px;
 }
 
-/* Apply Now button */
-.job-card button[mat-button] {
+/* Job image preview */
+li .job-image {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px solid #eee; /* Add border to separate sections */
+}
+
+li .job-image::before {
+  content: '🖼️'; /* Icon to indicate image */
+  font-size: 14px;
+}
+
+li .job-image img {
+  max-width: 100px; /* As specified */
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+li .job-image img:hover {
+  transform: scale(1.05); /* Subtle zoom on hover */
+}
+
+/* Apply button */
+li .job-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+  border-top: 1px solid #eee; /* Add border to separate sections */
+}
+
+li .job-actions button {
   background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
   color: white;
   padding: 8px 16px;
+  border: none;
   border-radius: 6px;
   font-size: 13px;
   font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
-.job-card button[mat-button]:hover:not(:disabled) {
-  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
-}
-
-.job-card button[mat-button]:active:not(:disabled) {
-  background: #2563eb; /* Slightly darker blue for active state */
-  transform: scale(1);
-}
-
-.job-card button[mat-button]:disabled {
+li .job-actions button.disabled {
   background: #b2bec3;
   cursor: not-allowed;
   box-shadow: none;
   opacity: 0.7;
+}
+
+li .job-actions button:not(.disabled):hover {
+  background: #2dd4bf; /* Softer teal on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
+}
+
+li .job-actions button:not(.disabled):active {
+  background: #2563eb; /* Slightly darker blue for active state */
+  transform: scale(1);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  :host {
+      padding: 20px 10px; /* Reduce padding for smaller screens */
+  }
+
+  ul {
+      max-width: 100%; /* Allow full width on mobile */
+  }
+
+  li {
+      padding: 15px; /* Reduce padding for mobile */
+      gap: 8px; /* Smaller gap on mobile */
+  }
+
+  li .job-actions button {
+      align-self: stretch; /* Stretch button to full width on mobile */
+      text-align: center;
+  }
 }

@@ -1,55 +1,46 @@
-/* Ensure content area accounts for sidebar */
-app-sidebar {
-  display: block; /* Ensure the sidebar component takes up space */
-}
-
-/* Main content area */
+/* Ensure content area accounts for the fixed header */
 :host {
-  margin-left: 250px; /* Match sidebar width */
-  padding: 30px;
-  min-height: 100vh;
-  background: #f5f6fa;
+  margin-top: 80px; /* Match the header height to avoid overlap */
+  display: block;
+  padding: 40px 20px; /* Add padding for spacing */
 }
 
-/* Form container */
-.form-container {
-  max-width: 600px; /* Match width of other forms */
+/* Container for the job form */
+.container {
+  max-width: 500px; /* Match width of Login and Registration forms */
   margin: 0 auto;
-}
-
-/* Form styling */
-form {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12); /* Match Competitions Section shadow */
+  font-family: 'Inter', sans-serif; /* Match typography from Problems List */
   position: relative;
   overflow: hidden;
-  animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Top border gradient */
-form::before {
+.container::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+  height: 3px;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Deep navy blue gradient */
 }
 
-/* Header */
-h2 {
-  font-size: 26px;
-  color: #1e3a8a; /* Darker slate blue */
-  margin-bottom: 25px;
-  position: relative;
-  font-weight: 700;
+/* Form header */
+.container h2 {
+  font-size: 36px;
+  color: #1e3a8a; /* Deep navy blue for title */
   text-align: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
 }
 
-h2::after {
+.container h2::after {
   content: '';
   position: absolute;
   bottom: -8px;
@@ -57,120 +48,127 @@ h2::after {
   transform: translateX(-50%);
   width: 50px;
   height: 4px;
-  background: #00695c; /* Teal underline */
+  background: #2dd4bf; /* Muted teal underline */
   border-radius: 2px;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Consistent spacing between form elements */
 }
 
 /* Form group */
 .form-group {
-  margin-bottom: 25px;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between label and input */
 }
 
 .form-group label {
-  display: block;
   font-size: 15px;
   font-weight: 600;
-  color: #00695c; /* Teal for labels */
-  margin-bottom: 10px;
-  transition: color 0.3s ease;
-}
-
-.form-group label:hover {
-  color: #ffca28; /* Amber on hover */
+  color: #1e3a8a; /* Deep navy blue for labels */
+  margin-bottom: 5px;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 14px;
-  background: #fafafa;
-  transition: all 0.3s ease;
-  box-sizing: border-box;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
-}
-
-.form-group textarea {
-  min-height: 140px;
-  resize: vertical;
-}
-
-.form-group select {
   padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #fafafa; /* Light gray background */
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border-color: #3b82f6; /* Blue focus ring */
-  background: white;
+  border-color: #2dd4bf; /* Muted teal focus border */
+  background: #ffffff;
   outline: none;
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
-  transform: scale(1.01);
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.2); /* Match Login form focus state */
 }
 
-/* Invalid state (requires ngModel directives to apply dynamically) */
-.form-group input.ng-invalid.ng-touched,
-.form-group textarea.ng-invalid.ng-touched,
-.form-group select.ng-invalid.ng-touched {
-  border-color: #dc3545; /* Red for invalid state */
-  background: #fff5f5;
-  box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
+/* File input specific styling */
+.form-group input[type="file"] {
+  padding: 8px 15px; /* Adjust padding for file input */
+  background: #ffffff; /* White background for file input */
 }
 
-/* Button container */
-.button-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 30px;
+/* Image preview */
+.form-group img {
+  max-width: 200px; /* As specified */
+  height: auto;
+  margin-top: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.form-group img:hover {
+  transform: scale(1.05); /* Subtle zoom on hover */
+}
+
+/* Textarea specific styling */
+.form-group textarea {
+  min-height: 100px; /* Match previous forms */
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Select dropdown specific styling */
+.form-group select {
+  cursor: pointer;
+  appearance: none; /* Remove default dropdown arrow */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="#1e3a8a" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* Custom dropdown arrow */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.form-group select:hover {
+  border-color: #2dd4bf; /* Muted teal on hover */
 }
 
 /* Submit button */
 .btn-primary {
-  width: 100%; /* Match other forms */
-  padding: 12px 25px;
-  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+  background: #2dd4bf; /* Solid muted teal */
   color: white;
+  padding: 12px 24px;
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
+  border-radius: 6px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
+  align-self: center; /* Center the button */
+  margin-top: 20px; /* Add top margin for spacing */
 }
 
-.btn-primary:disabled {
-  background: #cccccc;
-  cursor: not-allowed;
-  box-shadow: none;
-  opacity: 0.7;
+.btn-primary:hover {
+  background: #5eead4; /* Lighter teal on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
 }
 
-.btn-primary:not(:disabled):hover {
-  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 202, 40, 0.4);
+.btn-primary:active {
+  background: #1e40af; /* Slightly darker navy blue for active state */
+  transform: scale(1);
 }
 
-.btn-primary:not(:disabled):active {
-  background: #1e40af; /* Darker blue */
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
-}
-
-/* Animation */
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-      transform: translateY(20px);
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  :host {
+      padding: 20px 10px; /* Reduce padding for smaller screens */
   }
-  to {
-      opacity: 1;
-      transform: translateY(0);
+
+  .container {
+      max-width: 100%; /* Allow form to take full width on mobile */
   }
 }

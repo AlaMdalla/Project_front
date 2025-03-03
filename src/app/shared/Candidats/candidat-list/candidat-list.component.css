@@ -1,63 +1,66 @@
-/* Ensure content area accounts for sidebar */
-app-sidebar {
-  display: block; /* Ensure the sidebar component takes up space */
-}
-
-/* Main content area */
+/* Ensure content area accounts for the fixed header */
 :host {
-  margin-left: 250px; /* Match sidebar width */
-  padding: 30px;
-  min-height: 100vh;
-  background: #f5f6fa;
+  margin-top: 80px; /* Match the header height to avoid overlap */
+  display: block;
+  padding: 40px 20px; /* Add padding for spacing */
 }
 
-/* Header container */
-.header-container {
-  max-width: 900px; /* Match typical admin content width */
-  margin: 0 auto 20px auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Header section */
+h2 {
+  font-size: 36px;
+  color: #1e3a8a; /* Deep navy blue for title */
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
 }
 
-/* Add button */
-.add-button {
-  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #2dd4bf; /* Muted teal underline */
+  border-radius: 2px;
+}
+
+/* Add Candidate button */
+button[routerLink="/candidates/new"] {
+  display: block;
+  background: #2dd4bf; /* Solid muted teal */
   color: white;
-  border: none;
   padding: 10px 20px;
+  border: none;
   border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
+  margin: 0 auto 30px auto; /* Center the button with bottom margin */
+  text-decoration: none; /* Ensure no underline since it's a button */
 }
 
-.add-button:hover {
-  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
+button[routerLink="/candidates/new"]:hover {
+  background: #5eead4; /* Lighter teal on hover */
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 202, 40, 0.4);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
 }
 
-.add-button:active {
-  background: #1e40af; /* Darker blue */
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-}
-
-/* List container */
+/* Candidate list */
 ul {
   list-style: none;
   padding: 0;
-  max-width: 900px; /* Match header width */
+  max-width: 900px; /* Match typical content width */
   margin: 0 auto;
-  background: white;
+  background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12); /* Match Competitions Section shadow */
   overflow: hidden;
   position: relative;
 }
@@ -69,7 +72,7 @@ ul::before {
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Deep navy blue gradient */
 }
 
 /* List items */
@@ -78,88 +81,75 @@ li {
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  background: #fafafa;
-  border-bottom: 1px solid #eee;
+  background: #fafafa; /* Light gray background */
+  border-bottom: 1px solid #e0e0e0;
   transition: all 0.3s ease;
+  font-size: 14px;
+  color: #1f2937; /* Darker gray for readability */
 }
 
 li:last-child {
-  border-bottom: none;
+  border-bottom: none; /* Remove border for the last item */
 }
 
 li:hover {
-  background: #f5f5f5;
-  transform: translateY(-1px);
+  background: #f5f5f5; /* Slightly darker gray on hover */
+  transform: translateY(-2px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Candidate info */
-span {
-  flex-grow: 1;
-  font-size: 15px;
-  color: #2d3436;
+/* Resume link */
+li a {
+  color: #1e3a8a; /* Deep navy blue for links */
+  text-decoration: none;
   font-weight: 500;
-  padding: 0 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  transition: color 0.3s ease;
+  margin: 0 10px;
 }
 
-/* Action buttons */
-button {
-  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
+li a:hover {
+  color: #2dd4bf; /* Muted teal on hover */
+}
+
+/* Action buttons (Edit and Delete) */
+li button {
+  background: #1e3a8a; /* Solid deep navy blue */
   color: white;
-  border: none;
   padding: 8px 14px;
-  margin-left: 10px;
+  border: none;
   border-radius: 6px;
-  cursor: pointer;
   font-size: 13px;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3);
+  margin-left: 10px;
 }
 
-button:hover {
-  background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover */
+li button:hover {
+  background: #2dd4bf; /* Muted teal on hover */
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
+  box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
 }
 
-button:active {
-  background: #1e40af; /* Darker blue */
+li button:active {
+  background: #1e40af; /* Slightly darker navy blue for active state */
   transform: scale(1);
 }
 
-button.delete {
-  background: #dc3545; /* Red, consistent with app cautionary color */
-  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+/* Delete button specific styling */
+li button:nth-child(2) {
+  background: #f44336; /* Red for delete, matching Hard difficulty badge */
+  box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
 }
 
-button.delete:hover {
-  background: #c82333; /* Darker red on hover */
+li button:nth-child(2):hover {
+  background: #ef5350; /* Lighter red on hover */
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+  box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4);
 }
 
-button.delete:active {
-  background: #b91c1c;
+li button:nth-child(2):active {
+  background: #d32f2f; /* Darker red for active state */
   transform: scale(1);
-}
-
-/* No candidates message */
-p {
-  text-align: center;
-  font-size: 18px;
-  color: #666;
-  padding: 20px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  max-width: 900px;
-  margin: 0 auto;
-  font-weight: 500;
 }

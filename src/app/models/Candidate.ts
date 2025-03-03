@@ -1,12 +1,15 @@
-import { Job } from './Job';
-
 export class Candidate {
-  id?: number;
+  id: number = 0;
   email: string = '';
   phone: string = '';
   resumeUrl: string = '';
-  applicationDate: string = '';
-  status: string = ''; 
-  jobId: number | null = null; 
-}
+  applicationDate: string | null = ''; // Allow null
+  status: string = '';
+  jobId: number | null = null;
+  jobTitle?: string;
 
+  constructor() {
+    this.applicationDate = new Date().toISOString().slice(0, 16);
+    this.status = 'applied';
+  }
+}

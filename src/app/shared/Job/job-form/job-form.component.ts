@@ -22,18 +22,46 @@ export class JobFormComponent {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.jobService.getJobById(+id).subscribe((data) => (this.job = data));
+      this.jobService.getJobById(+id).subscribe({
+        next: (data) => {
+          this.job = data;
+        },
+        error: (err) => console.error('Error fetching job:', err),
+      });
     }
   }
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image too large! Max 5MB.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.job.image = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onDateChange(dateValue: string): void {
+    this.job.postedDate = dateValue ? new Date(dateValue) : new Date();
+  }
+
   saveJob(): void {
+    const jobToSave = { ...this.job };
     if (this.job.jobId) {
-      this.jobService.updateJob(this.job.jobId, this.job).subscribe(() => {
-        this.router.navigate(['/jobs']);
+      this.jobService.updateJob(this.job.jobId, jobToSave).subscribe({
+        next: () => this.router.navigate(['/jobs']),
+        error: (err) => console.error('Error updating job:', err),
       });
     } else {
-      this.jobService.createJob(this.job).subscribe(() => {
-        this.router.navigate(['/jobs']);
+      this.jobService.createJob(jobToSave).subscribe({
+        next: () => this.router.navigate(['/jobs']),
+        error: (err) => console.error('Error creating job:', err),
       });
     }
   }
