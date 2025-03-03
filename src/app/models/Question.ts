@@ -16,4 +16,7 @@ export interface Question {
   questionId: number;
   questionText: string;
   type: type;
+  reponseCorrecte: string;
+  enonce: string;
+  options: string[];
 }

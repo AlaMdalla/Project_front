@@ -45,6 +45,10 @@ import { JobFormComponent } from './shared/Job/job-form/job-form.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import {AddEvaluationComponent} from "./add-evaluation/add-evaluation.component";
 import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
+import { CourseDetailComponent } from './course-detail/course-detail.component';
+import {SafePipe} from "./models/safe.pipe";
+import { ReponseComponent } from './reponse/reponse.component';
+import { QuestionListComponent } from './question-list/question-list.component';
 
 
 @NgModule({
@@ -74,6 +78,11 @@ import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
     EvaluationComponent,
     AddQuestionComponent,
     AddEvaluationComponent,
+    CourseDetailComponent,
+    CourseDetailComponent,
+
+    ReponseComponent,
+     QuestionListComponent,
 
   ],
   imports: [

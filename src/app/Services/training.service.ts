@@ -13,6 +13,13 @@ export class TrainingService {
 gettrainings():Observable<Training[]>{
     return this.http.get<Training[]>(this.trainings+"retrieve-all-trainings");
       }
+  // Récupérer un cours par son ID
+  getTrainingById(id: number): Observable<Training> {
+    return this.http.get<Training>(`${this.trainings}retrieve-training/${id}`);
+  }
+
+
+
   // Add new training
   addTraining(trainingData: Training): Observable<Training> {
     return this.http.post<Training>(`${this.trainings}add-training`, trainingData);

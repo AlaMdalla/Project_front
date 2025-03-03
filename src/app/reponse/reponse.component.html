@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Évaluation QCM</h2>
+
+  <form (ngSubmit)="submitReponses()">
+    <div *ngFor="let question of questions">
+      <h3>{{ question.contenu }}</h3> <!-- Affiche le texte de la question -->
+
+      <div *ngFor="let choix of question.choixPossibles">
+        <input
+          type="radio"
+          [name]="'question_' + question.idQuestion"
+          [value]="choix"
+          [(ngModel)]="selectedAnswers[question.idQuestion]"
+        />
+        <label>{{ choix }}</label>
+      </div>
+    </div>
+
+    <button type="submit">Soumettre</button>
+  </form>
+</div>

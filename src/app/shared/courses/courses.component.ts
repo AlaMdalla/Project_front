@@ -14,7 +14,7 @@ export class CoursesComponent {
 
   ngOnInit(): void {
     this.refrech();
-  
+
    }
   refrech():void{
     this.trainingService.gettrainings().subscribe(data =>

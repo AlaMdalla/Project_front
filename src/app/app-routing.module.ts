@@ -21,6 +21,9 @@ import { JobFormComponent } from "./shared/Job/job-form/job-form.component";
 import {AddQuestionComponent} from "./add-question/add-question.component";
 import {AddEvaluationComponent} from "./add-evaluation/add-evaluation.component";
 import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
+import {CourseDetailComponent} from "./course-detail/course-detail.component";
+import {ReponseComponent} from "./reponse/reponse.component";
+import {QuestionListComponent} from "./question-list/question-list.component";
 
 const routes: Routes = [
   { path: "Problems", component: ListProblemComponent },
@@ -35,12 +38,15 @@ const routes: Routes = [
   { path: 'add-trainings', component: AddTrainingsComponent },
   { path: 'add-question', component: AddQuestionComponent },
   { path: 'add-evaluation', component: AddEvaluationComponent },
+  { path: 'reponses', component: ReponseComponent },
+
 
 
   { path: 'addProblem', component: AddProblemComponent },
   { path: 'addCompetition', component: AddCompetitionComponent },
   { path: 'view-post/:id', component: ViewPostComponent },
   { path: 'admin', component: HomeAdminComponent },
+  { path: 'questions', component: QuestionListComponent },
 
   // candidate routes
   { path: 'jobs', component: JobListComponent },
@@ -49,6 +55,7 @@ const routes: Routes = [
   { path: 'candidates', component: CandidatListComponent },
   { path: 'candidates/new', component: CandidatFormComponent },
   { path: 'candidates/edit/:id', component: CandidatFormComponent },
+  { path: 'course/:id', component: CourseDetailComponent },
 
   // wildcard route for undefined paths
   { path: '**', redirectTo: '' }
