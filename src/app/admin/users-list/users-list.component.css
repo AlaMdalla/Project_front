@@ -1,208 +1,291 @@
-/* Table container styling */
-.table-container {
-    max-width: 950px; /* Match Management Page container width */
-    margin: 50px auto; /* Match margin for consistent spacing */
-    padding: 25px; /* Match padding for consistency */
-    background: #fff; /* Pure white for a cleaner look, matching Management Page */
-    border-radius: 16px; /* Match border-radius */
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08); /* Match shadow for depth */
-    font-family: 'Arial', sans-serif; /* Match font-family */
-    position: relative;
-    animation: fadeIn 0.5s ease-in-out; /* Keep the fade-in animation */
+/* Ensure content area accounts for the sidebar and fixed header */
+:host {
+    margin-top: 80px; /* Match the header height to avoid overlap */
+    margin-left: 250px; /* Match sidebar width */
+    display: block;
+    padding: 40px 20px; /* Add padding for spacing */
+    min-height: 100vh;
+    background: #f9fafb; /* Lighter background for home page */
 }
 
-.table-container::before {
+/* Sidebar styling (assumed to be a fixed sidebar) */
+app-sidebar {
+    display: block; /* Ensure sidebar takes up space */
+}
+
+/* Container */
+.container {
+    max-width: 1200px; /* Wider for home page to accommodate table */
+    margin: 0 auto;
+}
+
+/* Management header */
+.management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* Header title */
+.management-header h2 {
+    font-size: 28px; /* Slightly larger for prominence */
+    color: #3b82f6; /* Lighter slate blue for a friendlier tone */
+    position: relative;
+    font-weight: 700;
+    text-align: center;
+}
+
+.management-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 4px;
+    background: #2dd4bf; /* Softer teal underline */
+    border-radius: 2px;
+}
+
+/* Add User button */
+.management-header .reg-button {
+    background: #2dd4bf; /* Softer teal */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
+    text-decoration: none; /* Ensure no underline */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.management-header .reg-button:hover {
+    background: #5eead4; /* Lighter teal on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+/* Error message */
+.error-message {
+    color: #dc3545; /* Red for error */
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Filter section */
+.filter-section {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+/* Filter group */
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Filter label */
+.filter-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3b82f6; /* Lighter slate blue for labels */
+}
+
+/* Filter input */
+.filter-group input {
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1f2937;
+    background: #fafafa; /* Light gray background */
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.filter-group input:focus {
+    border-color: #2dd4bf; /* Softer teal focus border */
+    background: #ffffff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(45, 212, 191, 0.2);
+}
+
+/* Table wrapper */
+.table-wrapper {
+    overflow-x: auto; /* Enable horizontal scrolling on small screens */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    position: relative;
+}
+
+.table-wrapper::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px; /* Increase to match Management Page */
-    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient */
-}
-
-/* Header */
-h2 {
-    font-size: 26px; /* Match Management Page h2 size */
-    color: #1e3a8a; /* Darker slate blue, already matching */
-    margin-bottom: 25px; /* Match Management Page margin-bottom */
-    position: relative;
-    font-weight: 700; /* Match Management Page font-weight */
-    text-align: left; /* Match Management Page alignment */
-}
-
-h2::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0; /* Match Management Page alignment */
-    transform: none; /* Remove the centering transform */
-    width: 40px;
     height: 3px;
-    background: #00695c; /* Teal underline */
-    border-radius: 2px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
 }
 
 /* Table styling */
 table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    font-size: 14px;
-    background: white; /* Already matching */
-    border-radius: 8px; /* Keep existing border-radius */
-    overflow: hidden;
+    border-collapse: collapse;
 }
 
-thead tr {
-    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient, already matching */
-    color: white;
-    font-weight: 500;
+/* Table header */
+thead {
+    background: #fafafa; /* Light gray background for header */
 }
 
 th {
-    padding: 14px 16px; /* Match Management Page padding */
-    font-size: 12px; /* Match Management Page font-size */
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #3b82f6; /* Lighter slate blue for headers */
     text-align: left;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-thead th:first-child {
-    border-top-left-radius: 10px; /* Already matching */
+th:hover {
+    background: #f1f5f9; /* Slightly darker gray on hover */
 }
 
-thead th:last-child {
-    border-top-right-radius: 10px; /* Already matching */
+/* Sort icon */
+.sort-icon {
+    margin-left: 5px;
+    font-size: 12px;
+    color: #2dd4bf; /* Softer teal for sort icon */
 }
 
+/* Table body */
 tbody tr {
-    background: #fafafa; /* Already matching */
-    transition: all 0.3s ease; /* Already matching */
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
 }
 
 tbody tr:hover {
-    background: #f5f5f5; /* Already matching */
-    transform: translateY(-1px); /* Match Management Page translateY */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Match Management Page shadow */
+    background: #f9fafc; /* Slightly lighter background on hover */
 }
 
+/* Table cells */
 td {
-    padding: 14px 16px; /* Match Management Page padding */
-    border-bottom: 1px solid #eee; /* Already matching */
-    color: #333; /* Already matching */
-    font-weight: 500; /* Already matching */
+    padding: 15px;
+    font-size: 14px;
+    color: #333;
 }
 
-tbody tr:last-child td {
-    border-bottom: none; /* Already matching */
-}
-
-tbody tr:last-child td:first-child {
-    border-bottom-left-radius: 10px; /* Already matching */
-}
-
-tbody tr:last-child td:last-child {
-    border-bottom-right-radius: 10px; /* Already matching */
-}
-
-/* Actions cell */
-.actions-cell {
+/* Action buttons */
+.action-buttons {
     display: flex;
-    align-items: center;
-    gap: 12px; /* Match Management Page gap */
+    gap: 10px;
 }
 
-.divider {
-    width: 1px;
-    height: 20px;
-    background: #00695c; /* Teal divider, already matching */
-}
-
-/* Edit and Delete buttons */
-.btn-edit,
-.btn-delete {
-    padding: 8px 14px;
+/* Update and Delete buttons */
+.action-buttons button {
+    background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+    color: white;
+    padding: 8px 16px;
     border: none;
     border-radius: 6px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
     display: flex;
     align-items: center;
-    gap: 6px; /* Match Management Page gap */
+    gap: 6px;
 }
 
-.btn-edit {
-    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient, already matching */
-    color: white;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+.action-buttons button:hover {
+    background: #2dd4bf; /* Softer teal on hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
 }
 
-.btn-edit:hover {
-    background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover, already matching */
-    transform: scale(1.05); /* Match Management Page transform */
-    box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
+.action-buttons button:active {
+    background: #2563eb; /* Slightly darker blue for active state */
+    transform: scale(1);
 }
 
-.btn-delete {
-    background: #dc3545; /* Red, already matching */
-    color: white;
+/* Delete button specific styling */
+.action-buttons .delete-button {
+    background: #dc3545; /* Red for Delete */
     box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
 }
 
-.btn-delete:hover {
-    background: #c82333; /* Darker red on hover, already matching */
-    transform: scale(1.05); /* Match Management Page transform */
-    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+.action-buttons .delete-button:hover {
+    background: #ef5350; /* Lighter red on hover */
+    box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4);
 }
 
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-    font-size: 14px; /* Match Management Page font-size */
-    color: #666; /* Match a more neutral tone */
-    font-weight: 500;
+.action-buttons .delete-button:active {
+    background: #c0392b; /* Darker red for active state */
 }
 
-.btn-page {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px; /* Match Management Page button border-radius */
-    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Slate blue gradient, already matching */
-    color: white;
-    font-size: 13px; /* Match Management Page button font-size */
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-}
-
-.btn-page:disabled {
-    background: #b2bec3;
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
-.btn-page:hover:not(:disabled) {
-    background: linear-gradient(90deg, #ffca28, #ffb300); /* Amber gradient on hover, already matching */
-    transform: translateY(-2px); /* Match Management Page transform */
-    box-shadow: 0 4px 12px rgba(255, 202, 40, 0.4);
-}
-
-/* Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    :host {
+        margin-left: 0; /* Remove sidebar margin on mobile */
+        padding: 20px 10px;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    .container {
+        max-width: 100%;
+    }
+
+    .management-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .management-header .reg-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .filter-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-group input {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .action-buttons button {
+        width: 100%;
+        text-align: center;
     }
 }

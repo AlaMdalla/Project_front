@@ -1,30 +1,53 @@
-<div class="table-container">
-  <h2>Competitions</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let competition of displayedCompetitions" class="competition-row">
-        <td>{{ competition.title }}</td>
-        <td>{{ competition.description }}</td>
-        <td class="actions-cell">
-          <button class="btn-edit" (click)="editCompetition(competition.id)">✏️ Edit</button>
-          <span class="divider"></span>
-          <button class="btn-delete" (click)="deleteCompetition(competition.id)">🗑️ Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="competitions-container">
+  <div class="management-header">
+      <h2>Competitions</h2>
+  </div>
+  
+  <!-- Filter Section -->
+  <div class="filter-section">
+      <div class="filter-group">
+          <label for="search">Search Competitions:</label>
+          <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterCompetitions()" placeholder="Search by title or description..." />
+      </div>
+  </div>
+  
+  <!-- Table -->
+  <div class="table-wrapper">
+      <table>
+          <thead>
+              <tr>
+                  <th (click)="sortColumn('title')">
+                      Title
+                      <span class="sort-icon">{{ sortColumnName === 'title' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                  </th>
+                  <th (click)="sortColumn('description')">
+                      Description
+                      <span class="sort-icon">{{ sortColumnName === 'description' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                  </th>
+                  <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let competition of displayedCompetitions" class="table-row">
+                  <td>{{ competition.title }}</td>
+                  <td>{{ competition.description }}</td>
+                  <td class="action-buttons">
+                      <button class="btn-edit" (click)="editCompetition(competition.id)">
+                          <span class="btn-icon">✏️</span> Edit
+                      </button>
+                      <button class="btn-delete" (click)="deleteCompetition(competition.id)">
+                          <span class="btn-icon">🗑️</span> Delete
+                      </button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
 
   <!-- Pagination Controls -->
   <div class="pagination" *ngIf="totalItems > 0">
-    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
-    <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
+      <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
   </div>
 </div>

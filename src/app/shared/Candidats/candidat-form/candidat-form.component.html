@@ -1,53 +1,158 @@
 <app-sidebar></app-sidebar>
-<h2>{{ isEditMode ? 'Edit' : 'Add' }} Candidate</h2>
+<div id="content">
+    <div class="candidate-container">
+        <div class="card">
+            <h2>{{ isEditMode ? 'Edit Candidate' : 'Add Candidate' }}</h2>
+            <form (ngSubmit)="onSubmit()" #candidateForm="ngForm">
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        class="form-control"
+                        [(ngModel)]="candidate.email"
+                        name="email"
+                        required
+                        email
+                        [class.invalid]="candidateForm.submitted && candidateForm.form.controls['email']?.invalid"
+                    />
+                    <div
+                        class="error-message"
+                        *ngIf="candidateForm.submitted && candidateForm.form.controls['email']?.invalid"
+                    >
+                        <span *ngIf="candidateForm.form.controls['email']?.errors?.['required']">
+                            Email is required.
+                        </span>
+                        <span *ngIf="candidateForm.form.controls['email']?.errors?.['email']">
+                            Please enter a valid email address.
+                        </span>
+                    </div>
+                </div>
 
-<form (ngSubmit)="onSubmit()" #candidateForm="ngForm">
-  <div class="form-group">
-    <label>Email:</label>
-    <input type="email" class="form-control" [(ngModel)]="candidate.email" name="email" required />
-  </div>
+                <!-- Phone -->
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input
+                        type="text"
+                        id="phone"
+                        class="form-control"
+                        [(ngModel)]="candidate.email"
+                        name="phone"
+                        required
+                        pattern="\+?[1-9]\d{1,14}"
+                        [class.invalid]="candidateForm.submitted && candidateForm.form.controls['phone']?.invalid"
+                    />
+                    <div
+                        class="error-message"
+                        *ngIf="candidateForm.submitted && candidateForm.form.controls['phone']?.invalid"
+                    >
+                        <span *ngIf="candidateForm.form.controls['phone']?.errors?.['required']">
+                            Phone number is required.
+                        </span>
+                        <span *ngIf="candidateForm.form.controls['phone']?.errors?.['pattern']">
+                            Please enter a valid phone number (e.g., +1234567890).
+                        </span>
+                    </div>
+                </div>
 
-  <div class="form-group">
-    <label>Phone:</label>
-    <input type="text" class="form-control" [(ngModel)]="candidate.phone" name="phone" required />
-  </div>
+                <!-- Resume -->
+                <div class="form-group">
+                    <label for="resume">Resume</label>
+                    <input
+                        type="file"
+                        id="resume"
+                        class="form-control"
+                        (change)="onFileSelected($event)"
+                        accept=".pdf"
+                    />
+                    <a *ngIf="candidate.resumeUrl" [href]="candidate.resumeUrl" target="_blank">View Resume</a>
+                </div>
 
-  <div class="form-group">
-    <label>Resume:</label>
-    <input type="file" class="form-control" (change)="onFileSelected($event)" accept=".pdf" />
-    <a *ngIf="candidate.resumeUrl" [href]="candidate.resumeUrl" target="_blank">View Resume</a>
-  </div>
+                <!-- Application Date -->
+                <div class="form-group">
+                    <label for="applicationDate">Application Date</label>
+                    <input
+                        type="datetime-local"
+                        id="applicationDate"
+                        class="form-control"
+                        [(ngModel)]="candidate.applicationDate"
+                        name="applicationDate"
+                        required
+                        [class.invalid]="candidateForm.submitted && candidateForm.form.controls['applicationDate']?.invalid"
+                    />
+                    <div
+                        class="error-message"
+                        *ngIf="candidateForm.submitted && candidateForm.form.controls['applicationDate']?.invalid"
+                    >
+                        <span *ngIf="candidateForm.form.controls['applicationDate']?.errors?.['required']">
+                            Application Date is required.
+                        </span>
+                    </div>
+                </div>
 
-  <div class="form-group">
-    <label>Application Date:</label>
-    <input
-      type="datetime-local"
-      class="form-control"
-      [(ngModel)]="candidate.applicationDate"
-      name="applicationDate"
-      required
-    />
-  </div>
+                <!-- Status -->
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select
+                        id="status"
+                        class="form-control"
+                        [(ngModel)]="candidate.status"
+                        name="status"
+                        required
+                        [class.invalid]="candidateForm.submitted && candidateForm.form.controls['status']?.invalid"
+                    >
+                        <option value="" disabled>Select status</option>
+                        <option value="applied">Applied</option>
+                        <option value="reviewed">Reviewed</option>
+                        <option value="interviewed">Interviewed</option>
+                        <option value="hired">Hired</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <div
+                        class="error-message"
+                        *ngIf="candidateForm.submitted && candidateForm.form.controls['status']?.invalid"
+                    >
+                        <span *ngIf="candidateForm.form.controls['status']?.errors?.['required']">
+                            Status is required.
+                        </span>
+                    </div>
+                </div>
 
-  <div class="form-group">
-    <label>Status:</label>
-    <select class="form-control" [(ngModel)]="candidate.status" name="status" required>
-      <option value="applied">Applied</option>
-      <option value="reviewed">Reviewed</option>
-      <option value="interviewed">Interviewed</option>
-      <option value="hired">Hired</option>
-      <option value="rejected">Rejected</option>
-    </select>
-  </div>
+                <!-- Job -->
+                <div class="form-group">
+                    <label for="jobId">Job</label>
+                    <select
+                        id="jobId"
+                        class="form-control"
+                        [(ngModel)]="candidate.jobId"
+                        name="jobId"
+                        required
+                        [class.invalid]="candidateForm.submitted && candidateForm.form.controls['jobId']?.invalid"
+                    >
+                        <option value="" disabled>Select a job</option>
+                        <option *ngFor="let job of jobs" [value]="job.jobId">{{ job.title }}</option>
+                    </select>
+                    <div
+                        class="error-message"
+                        *ngIf="candidateForm.submitted && candidateForm.form.controls['jobId']?.invalid"
+                    >
+                        <span *ngIf="candidateForm.form.controls['jobId']?.errors?.['required']">
+                            Job selection is required.
+                        </span>
+                    </div>
+                </div>
 
-  <div class="form-group">
-    <label>Job:</label>
-    <select class="form-control" [(ngModel)]="candidate.jobId" name="jobId" required>
-      <option *ngFor="let job of jobs" [value]="job.jobId">{{ job.title }}</option>
-    </select>
-  </div>
-
-  <button type="submit" class="btn btn-primary">
-    {{ isEditMode ? 'Update' : 'Create' }} Candidate
-  </button>
-</form>
+                <!-- Form Actions -->
+                <div class="button-container">
+                    <button type="submit" class="btn-primary" [disabled]="candidateForm.invalid">
+                        {{ isEditMode ? 'Update Candidate' : 'Create Candidate' }}
+                    </button>
+                    <button type="button"  class="btn-secondary">Cancel</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+    <app-candidat-list></app-candidat-list>
+</div>

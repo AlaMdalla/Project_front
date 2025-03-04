@@ -7,19 +7,41 @@
         </button>
     </div>
     <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="filter-group">
+            <label for="search">Search Users:</label>
+            <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterUsers()" placeholder="Search by name, email, or city..." />
+        </div>
+    </div>
+    
+    <!-- Table -->
     <div class="table-wrapper">
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>City</th>
+                    <th (click)="sortColumn('id')">
+                        ID
+                        <span class="sort-icon">{{ sortColumnName === 'id' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th (click)="sortColumn('name')">
+                        Name
+                        <span class="sort-icon">{{ sortColumnName === 'name' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th (click)="sortColumn('email')">
+                        Email
+                        <span class="sort-icon">{{ sortColumnName === 'email' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th (click)="sortColumn('city')">
+                        City
+                        <span class="sort-icon">{{ sortColumnName === 'city' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of users" [attr.key]="user.id" class="table-row">
+                <tr *ngFor="let user of filteredUsers" [attr.key]="user.id" class="table-row">
                     <td>{{ user.id }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>

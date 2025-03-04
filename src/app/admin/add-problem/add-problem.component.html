@@ -1,107 +1,119 @@
 <app-sidebar></app-sidebar>
 <div id="content">
-  <div class="problem-container">
-    <div class="card">
-      <h2>Add a New Problem</h2>
-      <form [formGroup]="problemForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input
-            id="title"
-            formControlName="title"
-            placeholder="Enter problem title"
-            [class.invalid]="problemForm.get('title')?.invalid && (problemForm.get('title')?.dirty || problemForm.get('title')?.touched)"
-          />
-          <div
-            class="error-message"
-            *ngIf="problemForm.get('title')?.invalid && (problemForm.get('title')?.dirty || problemForm.get('title')?.touched)"
-          >
-            <span *ngIf="problemForm.get('title')?.errors?.['required']">Title is required.</span>
-            <span *ngIf="problemForm.get('title')?.errors?.['minlength']">Title must be at least 3 characters.</span>
-          </div>
-        </div>
+    <div class="problem-container">
+        <div class="card">
+            <h2>{{ problemId ? 'Update Problem' : 'Add a New Problem' }}</h2>
+            <form [formGroup]="problemForm" (ngSubmit)="onSubmit()">
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input
+                        id="title"
+                        formControlName="title"
+                        placeholder="Enter problem title"
+                        [class.invalid]="problemForm.get('title')?.invalid && (problemForm.get('title')?.dirty || problemForm.get('title')?.touched)"
+                    />
+                    <div
+                        class="error-message"
+                        *ngIf="problemForm.get('title')?.invalid && (problemForm.get('title')?.dirty || problemForm.get('title')?.touched)"
+                    >
+                        <span *ngIf="problemForm.get('title')?.errors?.['required']">Title is required.</span>
+                        <span *ngIf="problemForm.get('title')?.errors?.['minlength']">Title must be at least 3 characters.</span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-          <label for="difficulty">Difficulty</label>
-          <select
-            id="difficulty"
-            formControlName="difficulty"
-            [class.invalid]="problemForm.get('difficulty')?.invalid && (problemForm.get('difficulty')?.dirty || problemForm.get('difficulty')?.touched)"
-          >
-            <option value="" disabled>Select difficulty</option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-          </select>
-          <div
-            class="error-message"
-            *ngIf="problemForm.get('difficulty')?.invalid && (problemForm.get('difficulty')?.dirty || problemForm.get('difficulty')?.touched)"
-          >
-            <span *ngIf="problemForm.get('difficulty')?.errors?.['required']">Difficulty is required.</span>
-          </div>
-        </div>
+                <!-- Difficulty -->
+                <div class="form-group">
+                    <label for="difficulty">Difficulty</label>
+                    <select
+                        id="difficulty"
+                        formControlName="difficulty"
+                        [class.invalid]="problemForm.get('difficulty')?.invalid && (problemForm.get('difficulty')?.dirty || problemForm.get('difficulty')?.touched)"
+                    >
+                        <option value="" disabled>Select difficulty</option>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                    <div
+                        class="error-message"
+                        *ngIf="problemForm.get('difficulty')?.invalid && (problemForm.get('difficulty')?.dirty || problemForm.get('difficulty')?.touched)"
+                    >
+                        <span *ngIf="problemForm.get('difficulty')?.errors?.['required']">Difficulty is required.</span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-          <label for="description">Description</label>
-          <textarea
-            id="description"
-            formControlName="description"
-            placeholder="Describe the problem"
-            [class.invalid]="problemForm.get('description')?.invalid && (problemForm.get('description')?.dirty || problemForm.get('description')?.touched)"
-          ></textarea>
-          <div
-            class="error-message"
-            *ngIf="problemForm.get('description')?.invalid && (problemForm.get('description')?.dirty || problemForm.get('description')?.touched)"
-          >
-            <span *ngIf="problemForm.get('description')?.errors?.['required']">Description is required.</span>
-            <span *ngIf="problemForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters.</span>
-          </div>
-        </div>
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea
+                        id="description"
+                        formControlName="description"
+                        placeholder="Describe the problem"
+                        [class.invalid]="problemForm.get('description')?.invalid && (problemForm.get('description')?.dirty || problemForm.get('description')?.touched)"
+                    ></textarea>
+                    <div
+                        class="error-message"
+                        *ngIf="problemForm.get('description')?.invalid && (problemForm.get('description')?.dirty || problemForm.get('description')?.touched)"
+                    >
+                        <span *ngIf="problemForm.get('description')?.errors?.['required']">Description is required.</span>
+                        <span *ngIf="problemForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters.</span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-          <label for="mainClass">Path to Main Class</label>
-          <input
-            id="mainClass"
-            formControlName="mainClass"
-            placeholder="e.g., com.example.Main"
-            [class.invalid]="problemForm.get('mainClass')?.invalid && (problemForm.get('mainClass')?.dirty || problemForm.get('mainClass')?.touched)"
-          />
-          <div
-            class="error-message"
-            *ngIf="problemForm.get('mainClass')?.invalid && (problemForm.get('mainClass')?.dirty || problemForm.get('mainClass')?.touched)"
-          >
-            <span *ngIf="problemForm.get('mainClass')?.errors?.['required']">Main Class path is required.</span>
-            <span *ngIf="problemForm.get('mainClass')?.errors?.['minlength']">Path must be at least 3 characters.</span>
-          </div>
-        </div>
+                <!-- Main Class -->
+                <div class="form-group">
+                    <label for="mainClass">Path to Main Class</label>
+                    <input
+                        id="mainClass"
+                        formControlName="mainClass"
+                        placeholder="e.g., com.example.Main"
+                        [class.invalid]="problemForm.get('mainClass')?.invalid && (problemForm.get('mainClass')?.dirty || problemForm.get('mainClass')?.touched)"
+                    />
+                    <div
+                        class="error-message"
+                        *ngIf="problemForm.get('mainClass')?.invalid && (problemForm.get('mainClass')?.dirty || problemForm.get('mainClass')?.touched)"
+                    >
+                        <span *ngIf="problemForm.get('mainClass')?.errors?.['required']">Main Class path is required.</span>
+                        <span *ngIf="problemForm.get('mainClass')?.errors?.['minlength']">Path must be at least 3 characters.</span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-          <label for="tags">Tags</label>
-          <select
-            id="tags"
-            multiple
-            (change)="onTagChange($event)"
-            [class.invalid]="!selectedTags.length && (problemForm.touched || problemForm.dirty)"
-          >
-            <option *ngFor="let tag of tags" [value]="tag">{{ tag }}</option>
-          </select>
-          <div class="tags-container" *ngIf="selectedTags.length">
-            <span class="tag" *ngFor="let tag of selectedTags">
-              {{ tag }} <i class="remove-tag" (click)="removeTag(tag)">×</i>
-            </span>
-          </div>
-          <div class="error-message" *ngIf="!selectedTags.length && (problemForm.touched || problemForm.dirty)">
-            <span>At least one tag is required.</span>
-          </div>
-        </div>
+                <!-- Tags -->
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <select
+                        id="tags"
+                        multiple
+                        (change)="onTagChange($event)"
+                        [class.invalid]="!selectedTags.length && (problemForm.touched || problemForm.dirty)"
+                    >
+                        <option *ngFor="let tag of tags" [value]="tag">{{ tag }}</option>
+                    </select>
+                    <div class="tags-container" *ngIf="selectedTags.length">
+                        <span class="tag" *ngFor="let tag of selectedTags">
+                            {{ tag }}
+                            <i class="remove-tag" (click)="removeTag(tag)">×</i>
+                        </span>
+                    </div>
+                    <div class="error-message" *ngIf="!selectedTags.length && (problemForm.touched || problemForm.dirty)">
+                        <span>At least one tag is required.</span>
+                    </div>
+                </div>
 
-        <div class="form-actions">
-          <button type="submit" [disabled]="problemForm.invalid || !selectedTags.length" class="btn-primary"> {{ problemId ? 'Update Problem' : 'Save Problem' }}</button>
-          <button type="button" (click)="closeForm()" class="btn-secondary">Cancel</button>
+                <!-- Form Actions -->
+                <div class="button-container">
+                    <button
+                        type="submit"
+                        [disabled]="problemForm.invalid || !selectedTags.length"
+                        class="btn-primary"
+                    >
+                        {{ problemId ? 'Update Problem' : 'Save Problem' }}
+                    </button>
+                    <button type="button" (click)="closeForm()" class="btn-secondary">Cancel</button>
+                </div>
+            </form>
         </div>
-      </form>
+        <app-list-problems></app-list-problems>
     </div>
-    <app-list-problems></app-list-problems>
-
-  </div>
 </div>

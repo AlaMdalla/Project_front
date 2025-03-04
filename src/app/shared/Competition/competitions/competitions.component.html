@@ -14,13 +14,12 @@
           <clr-icon shape="search"></clr-icon>
         </button>
       </div>
-      
     </div>
   </div>
 
   <!-- Competitions grid -->
-  <div class="competitions-grid" *ngIf="filteredCompetitions.length > 0; else noCompetitions">
-    <div class="competition-card" *ngFor="let competition of filteredCompetitions">
+  <div class="competitions-grid" *ngIf="displayedCompetitions.length > 0; else noCompetitions" (scroll)="onScroll($event)" #competitionsGrid>
+    <div class="competition-card" *ngFor="let competition of displayedCompetitions">
       <div class="competition-image">
         <img *ngIf="competition.image" [src]="'data:image/png;base64,' + competition.image" alt="Competition Image" />
       </div>
@@ -33,6 +32,11 @@
         <a [routerLink]="['/Competition', competition.id]" class="join-button">Join</a>
       </div>
     </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div class="loading-indicator" *ngIf="isLoadingMore">
+    <p>Loading more competitions...</p>
   </div>
 
   <ng-template #noCompetitions>

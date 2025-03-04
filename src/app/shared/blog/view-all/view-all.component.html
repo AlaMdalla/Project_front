@@ -1,26 +1,58 @@
-<ul>
-    <li *ngFor="let item of allPosts">
-        <div class="post-header">
-            <img class="avatar-img" [src]="item.img" alt="Avatar">
-            <h3>{{item.title}}</h3>
-            <p>Posted By: {{item.postedBy}} | Posted On: {{item.date | date: 'medium'}}</p>
+<div id="content">
+    <div class="posts-container">
+        <div class="management-header">
+            <h2>All Posts</h2>
+            <button routerLink="/posts/new" class="reg-button">
+                <span class="btn-icon">+</span> Add Post
+            </button>
         </div>
 
-        <div class="post-content">
-            <div class="post-image">
-                <img [src]="item.img" alt="Card Image">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-group">
+                <label for="search">Search Posts:</label>
+                <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterPosts()" placeholder="Search by title..." />
             </div>
-            <div class="post-text">
-                <p>{{item.content}}</p>
+            <div class="filter-group">
+                <label for="sortFilter">Sort By:</label>
+                <select id="sortFilter" [(ngModel)]="sortFilter" (ngModelChange)="applySortFilter()">
+                    <option value="none">None</option>
+                    <option value="likes">Most Liked</option>
+                    <option value="views">Most Viewed</option>
+                </select>
             </div>
         </div>
 
-        <hr>
-
-        <div class="post-actions">
-            <button>{{item.likeCount}} Likes</button>
-            <button>{{item.viewCount}} Views</button>
-            <button routerLink="/view-post/{{item.id}}">View Posts</button>
+        <!-- Posts Grid -->
+        <div class="posts-grid">
+            <div *ngFor="let item of displayedPosts" class="post-card">
+                <div class="post-header">
+                    <img class="avatar-img" [src]="item.avatar" alt="Avatar">
+                    <div class="post-meta">
+                        <a class="post-title" routerLink="/view-post/{{item.id}}">{{ item.title }}</a>
+                        <p class="post-info">Posted by {{ item.postedBy }} on {{ item.date | date: 'mediumDate' }}</p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image" *ngIf="item.img">
+                        <img [src]="item.img" alt="Post Image">
+                    </div>
+                    <p class="post-text">{{ item.content }}</p>
+                </div>
+                <div class="post-actions">
+                    <span class="action-info">{{ item.likeCount }} Likes</span>
+                    <span class="action-info">{{ item.viewCount }} Views</span>
+                    <button class="action-btn btn-view" routerLink="/view-post/{{item.id}}">View Post</button>
+                    <button class="action-btn btn-delete" (click)="deletePost(item.id)">Delete</button>
+                </div>
+            </div>
         </div>
-    </li>
-</ul>
+
+        <!-- Pagination Controls -->
+        <div class="pagination" *ngIf="totalItems > 0">
+            <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
+        </div>
+    </div>
+</div>

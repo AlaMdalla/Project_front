@@ -31,8 +31,9 @@
 
     <div class="problems-container">
         <div *ngFor="let problem of problems" class="problem-card">
+            
             <div class="problema-info">
-                <a [routerLink]="['/problemSubmission', problem.id]">
+                <a *ngIf="problem.id" [routerLink]="['/problemSubmission', problem.id]">
                     <div class="problem-title">{{ problem.title }}</div>
                 </a>
             </div>

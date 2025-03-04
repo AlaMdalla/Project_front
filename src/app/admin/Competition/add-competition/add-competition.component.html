@@ -1,52 +1,46 @@
 <app-sidebar></app-sidebar>
 <div id="content">
-  <div class="competition-container">
-    <div class="card">
-      <form [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
-        <h2>Add a New Competition</h2> <!-- Moved inside form, before inputs -->
+    <div class="competition-container">
+        <div class="card">
+            <form [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
+                <h2>Add a New Competition</h2>
+                
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input id="title" formControlName="title" placeholder="Enter competition title" />
+                </div>
         
-        <!-- Title -->
-        <div class="form-group">
-          <label for="title">Title:</label>
-          <input id="title" formControlName="title" placeholder="Enter competition title" />
-        </div>
-  
-        <!-- Description -->
-        <div class="form-group">
-          <label for="description">Description:</label>
-          <textarea id="description" formControlName="description" placeholder="Enter description"></textarea>
-        </div>
-  
-        <!-- Prices -->
-        <div class="form-group">
-          <label for="prices">Prices:</label>
-          <input id="prices" #priceInput (keydown.enter)="addPrice(priceInput.value)" placeholder="Enter price and press Enter" />
-          <div class="price-list">
-            <span *ngFor="let price in competitionForm.get('prices')?.value" class="tag">
-              {{ price }}
-              <button type="button" (click)="removePrice(price)">×</button>
-            </span>
-          </div>
-        </div>
-  <!-- Image Upload -->
-<div class="form-group">
-  <label for="image">Upload Image:</label>
-  <input type="file" id="image" (change)="onFileSelected($event)" accept="image/*" />
-</div>
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" formControlName="description" placeholder="Enter description"></textarea>
+                </div>
+        
+                <!-- Prices -->
+                <div class="form-group">
+                    <label for="prices">Prices:</label>
+                    <input id="prices" #priceInput (keydown.enter)="addPrice(priceInput.value)" placeholder="Enter price and press Enter" />
+                    <div class="price-list">
+                        <span *ngFor="let price of competitionForm.get('prices')?.value" class="price-tag">
+                            {{ price }}
+                            <button type="button" (click)="removePrice(price)" class="remove-price">×</button>
+                        </span>
+                    </div>
+                </div>
 
-        <button
-          type="submit"
-          [disabled]="competitionForm.invalid "
-          class="btn-primary"
-        >
-          Save Competition
-        </button>
-        <button type="button" (click)="closeForm()" class="btn-secondary">
-          Cancel
-        </button>
-      </form>
+                <!-- Image Upload -->
+                <div class="form-group">
+                    <label for="image">Upload Image:</label>
+                    <input type="file" id="image" (change)="onFileSelected($event)" accept="image/*" />
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" [disabled]="competitionForm.invalid" class="btn-primary">Save Competition</button>
+                    <button type="button" (click)="closeForm()" class="btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
-  <app-list-competition></app-list-competition>
-
+    <app-list-competition></app-list-competition>
 </div>
