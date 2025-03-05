@@ -5,6 +5,16 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { CommentService } from "src/app/Services/comment.service";
 import { PostService } from "src/app/Services/post.service";
 import { ReclamationService } from "src/app/Services/reclamation.service";
+
+// Optional: Add a simple client-side bad word filter (mirror the backend for consistency)
+const BAD_WORDS = ['bad', 'trash', 'hate', 'damn', 'crap', 'fool', 'jerk', 'stupid', 'idiot'];
+
+function containsBadWords(content: string): boolean {
+  if (!content) return false;
+  const lowerCaseContent = content.toLowerCase();
+  return BAD_WORDS.some(badWord => lowerCaseContent.includes(badWord.toLowerCase()));
+}
+
 @Component({
   selector: 'app-view-post',
   templateUrl: './view-post.component.html',
@@ -34,24 +44,36 @@ export class ViewPostComponent implements OnInit {
     this.getPostById();
     this.CommentForm = this.fb.group({
       postedBy: [null, Validators.required],
-      content: [null, Validators.required],
+      content: [null, [Validators.required, Validators.maxLength(500)]], // Added max length
     });
   }
+
   hoverReaction(reaction: string | null) {
-    this.hoveredReaction = reaction; // Update hovered reaction state
+    this.hoveredReaction = reaction;
   }
 
   publishComment() {
     const postedBy = this.CommentForm.get('postedBy')?.value;
     const content = this.CommentForm.get('content')?.value;
+
+    // Optional: Client-side bad word check
+    if (containsBadWords(content)) {
+      this.matSnackBar.open("Your comment contains inappropriate language. Please revise it.", "Close", { duration: 5000 });
+      return;
+    }
+
     this.commentService.createComment(this.postId, postedBy, content).subscribe(
       res => {
-        this.matSnackBar.open("Comment Published Successfully", "Ok");
+        this.matSnackBar.open("Comment Published Successfully", "Ok", { duration: 3000 });
         this.CommentForm.reset();
         this.getCommentByPost();
       },
       error => {
-        this.matSnackBar.open("Something Went Wrong!!", "Close", { duration: 3000 });
+        const errorMessage = error.error || "Something Went Wrong!!";
+        this.matSnackBar.open(errorMessage, "Close", { duration: 5000 });
+        if (errorMessage.includes("inappropriate language")) {
+          this.CommentForm.get('content')?.setErrors({ invalid: true });
+        }
       }
     );
   }
@@ -123,8 +145,11 @@ export class ViewPostComponent implements OnInit {
           this.getCommentByPost();
         },
         error => {
-          console.error('Reply error:', error);
-          this.matSnackBar.open("Error posting reply!", "Close", { duration: 3000 });
+          const errorMessage = error.error || "Error posting reply!";
+          this.matSnackBar.open(errorMessage, "Close", { duration: 5000 });
+          if (errorMessage.includes("inappropriate language")) {
+            comment.replyContent = ''; // Clear invalid reply
+          }
         }
       );
     }
