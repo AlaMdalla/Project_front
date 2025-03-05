@@ -1,132 +1,246 @@
-/* Main Content */
-#content {
-    margin-left: 280px; /* Sidebar width */
-    padding: 20px;
-    transition: margin-left 0.3s ease;
+/* Ensure content area accounts for the sidebar and fixed header */
+:host {
+  margin-top: 80px; /* Match the header height to avoid overlap */
+  margin-left: 250px; /* Match sidebar width */
+  display: block;
+  padding: 40px 20px; /* Add padding for spacing */
+  min-height: 100vh;
+  background: #f9fafb; /* Lighter background for home page */
+}
+
+/* Sidebar styling (assumed to be a fixed sidebar) */
+app-sidebar {
+  display: block; /* Ensure sidebar takes up space */
+}
+
+/* Competition container */
+.competition-container {
+  max-width: 600px; /* Match width of other forms */
+  margin: 0 auto;
+}
+
+/* Card */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Form header */
+.card h2 {
+  font-size: 28px;
+  color: #3b82f6; /* Lighter slate blue for a friendlier tone */
+  margin-bottom: 30px;
+  position: relative;
+  font-weight: 700;
+  text-align: center;
+}
+
+.card h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #2dd4bf; /* Softer teal underline */
+  border-radius: 2px;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Consistent spacing between form elements */
+}
+
+/* Form group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between label and input */
+}
+
+/* Labels */
+.form-group label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #3b82f6; /* Lighter slate blue for labels */
+  margin-bottom: 5px;
+}
+
+/* Inputs and textarea */
+.form-group input,
+.form-group textarea {
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #fafafa; /* Light gray background */
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #2dd4bf; /* Softer teal focus border */
+  background: #ffffff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.2);
+}
+
+/* File input specific styling */
+.form-group input[type="file"] {
+  padding: 8px 15px; /* Adjust padding for file input */
+  background: #ffffff; /* White background for file input */
+}
+
+/* Textarea specific styling */
+.form-group textarea {
+  min-height: 100px; /* Match other forms */
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Price list */
+.price-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Price tag */
+.price-tag {
+  background: #2dd4bf; /* Softer teal */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+.price-tag:hover {
+  background: #5eead4; /* Lighter teal on hover */
+}
+
+/* Remove price button */
+.price-tag .remove-price {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.price-tag .remove-price:hover {
+  color: #ffca28; /* Amber for hover effect */
+}
+
+/* Button container */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Save and Cancel buttons */
+.button-container button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Save button */
+.button-container .btn-primary {
+  background: #2dd4bf; /* Softer teal */
+  color: white;
+}
+
+.button-container .btn-primary:disabled {
+  background: #b2bec3;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+.button-container .btn-primary:not(:disabled):hover {
+  background: #5eead4; /* Lighter teal on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+.button-container .btn-primary:not(:disabled):active {
+  background: #1e40af;
+  transform: scale(1);
+}
+
+/* Cancel button */
+.button-container .btn-secondary {
+  background: #dc3545; /* Red for Cancel */
+  color: white;
+}
+
+.button-container .btn-secondary:hover {
+  background: #ef5350; /* Lighter red on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4);
+}
+
+.button-container .btn-secondary:active {
+  background: #c0392b; /* Darker red for active state */
+  transform: scale(1);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  :host {
+      margin-left: 0; /* Remove sidebar margin on mobile */
+      padding: 20px 10px; /* Reduce padding for smaller screens */
   }
-  
-  /* When sidebar is hidden */
-  #sidebar.hide ~ #content {
-    margin-left: 60px;
-  }
-  
-  /* Competition Form Container */
+
   .competition-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 100%; /* Allow form to take full width on mobile */
   }
-  
-  h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: bold;
+
+  .button-container {
+      flex-direction: column;
+      gap: 5px;
   }
-  
-  /* Form Fields */
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-  }
-  
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: #3C91E6;
-    outline: none;
-  }
-  
-  /* Tag List */
-  .price-list,
-  .problem-list {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
-  
-  .tag {
-    background-color: #e0f7fa;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .tag button {
-    margin-left: 5px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: red;
-    font-size: 16px;
-  }
-  
-  /* Buttons */
-  .form-actions {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .form-actions button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .form-actions button[type="submit"] {
-    background-color: #3C91E6;
-    color: #fff;
-  }
-  
-  .form-actions button[type="button"] {
-    background-color: #ccc;
-    color: #333;
-  }
-  
-  .form-actions button:hover {
-    opacity: 0.9;
-  }
-  
-  .form-actions button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  /* Responsive */
-  @media screen and (max-width: 768px) {
-    #content {
-      margin-left: 0;
-    }
-  
-    .competition-container {
+
+  .button-container button {
       width: 100%;
-      padding: 15px;
-    }
+      text-align: center;
   }
-  
+}

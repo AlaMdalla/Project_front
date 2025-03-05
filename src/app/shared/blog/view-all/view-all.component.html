@@ -1,40 +1,58 @@
-<div class="card-container" *ngFor="let item of allPosts">
-    <mat-card>
+<div id="content">
+    <div class="posts-container">
+        <div class="management-header">
+            <h2>All Posts</h2>
+            <button routerLink="/posts/new" class="reg-button">
+                <span class="btn-icon">+</span> Add Post
+            </button>
+        </div>
 
-
-        <mat-card-header>
-            <div mat-card-avatar class="avatar-container">
-                <img [src]="item.img" alt="Avatar" class="avatar-img">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-group">
+                <label for="search">Search Posts:</label>
+                <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterPosts()" placeholder="Search by title..." />
             </div>
+            <div class="filter-group">
+                <label for="sortFilter">Sort By:</label>
+                <select id="sortFilter" [(ngModel)]="sortFilter" (ngModelChange)="applySortFilter()">
+                    <option value="none">None</option>
+                    <option value="likes">Most Liked</option>
+                    <option value="views">Most Viewed</option>
+                </select>
+            </div>
+        </div>
 
-            <mat-card-title>{{item.title}}</mat-card-title>
-            <mat-card-subtitle>Posted By : {{item.postedBy}} | Posted On : {{item.date | date: 'medium'}}</mat-card-subtitle>
-        </mat-card-header>
+        <!-- Posts Grid -->
+        <div class="posts-grid">
+            <div *ngFor="let item of displayedPosts" class="post-card">
+                <div class="post-header">
+                    <img class="avatar-img" [src]="item.avatar" alt="Avatar">
+                    <div class="post-meta">
+                        <a class="post-title" routerLink="/view-post/{{item.id}}">{{ item.title }}</a>
+                        <p class="post-info">Posted by {{ item.postedBy }} on {{ item.date | date: 'mediumDate' }}</p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image" *ngIf="item.img">
+                        <img [src]="item.img" alt="Post Image">
+                    </div>
+                    <p class="post-text">{{ item.content }}</p>
+                </div>
+                <div class="post-actions">
+                    <span class="action-info">{{ item.likeCount }} Likes</span>
+                    <span class="action-info">{{ item.viewCount }} Views</span>
+                    <button class="action-btn btn-view" routerLink="/view-post/{{item.id}}">View Post</button>
+                    <button class="action-btn btn-delete" (click)="deletePost(item.id)">Delete</button>
+                </div>
+            </div>
+        </div>
 
-        <mat-grid-list cols="5">
-            <mat-grid-tile [colspan]="2" [rowspan]="1">
-                <img mat-card-image [src]="item.img" class="post-img" alt="Card Image"/>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan]="3" [rowspan]="1">
-                {{item.content}}
-            </mat-grid-tile>
-        </mat-grid-list>
-
-        <hr>
-
-        <mat-card-actions>
-            <button mat-raised-button color="primary">{{item.likeCount}}
-                <mat-icon>favorite</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;">
-                {{item.viewCount}}
-                <mat-icon>remove_red_eye</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;" routerLink="/view-post/{{item.id}}">
-                View Posts
-            </button>
-            
-        </mat-card-actions>
-    </mat-card>
-    
+        <!-- Pagination Controls -->
+        <div class="pagination" *ngIf="totalItems > 0">
+            <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
+        </div>
+    </div>
 </div>

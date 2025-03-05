@@ -1,92 +1,164 @@
-/* Section principale centrée */
-.evaluations-section {
+/* Style global */
+:root {
+  --primary-color: #2F6CAD; /* Bleu professionnel */
+  --primary-light: #93b9e1;
+  --primary-dark: #1e4670;
+  --text-color: #333;
+  --bg-color: #f4f7fc;
+  --card-bg: #fff;
+  --border-color: #ccc;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Appliquer un fond clair et une mise en page centrée */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px 20px;
-  background-color: #f5f5f5;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
   min-height: 100vh;
-}
-
-/* Titre */
-.evaluations-section h2 {
-  font-size: 36px;
-  color: #333;
-  text-align: center;
-  margin-bottom: 30px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* Liste des évaluations en ligne */
-.evaluations-list {
-  display: flex;
-  flex-direction: row; /* FORCE l'affichage horizontal */
-  flex-wrap: nowrap; /* Empêche le retour à la ligne */
-  overflow-x: auto; /* Ajoute un scroll horizontal si nécessaire */
-  gap: 20px;
-  padding: 10px;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-/* Carte d'évaluation */
-.evaluation-card {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 20px;
+}
+
+/* Conteneur principal */
+.evaluation-container {
+  background: var(--card-bg);
+  padding: 2em;
+  max-width: 800px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+/* Titres */
+h2 {
+  font-size: 1.8em;
+  color: var(--primary-dark);
+  margin-bottom: 1em;
   text-align: center;
-  width: 320px;
-  flex: 0 0 auto; /* Empêche les cartes de s'étirer */
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-.evaluation-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-  background-color: #fafafa;
+h3 {
+  font-size: 1.5em;
+  margin-top: 1.5em;
+  color: var(--primary-color);
 }
 
-/* Boutons */
-.button-group {
+h4 {
+  font-size: 1.2em;
+  margin-top: 1em;
+  color: var(--text-color);
+}
+
+/* Informations de l'évaluation */
+.evaluation-info p {
+  font-size: 1.1em;
+  margin: 0.5em 0;
+}
+
+/* Questions */
+.questions {
+  margin-top: 1.5em;
+  padding: 1em;
+  border-left: 4px solid var(--primary-color);
+  background: rgba(47, 108, 173, 0.05);
+  border-radius: 5px;
+}
+
+/* Liste des options */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  margin: 0.5em 0;
+}
+
+/* Styles des options */
+label {
   display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 10px;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
 }
 
-.btn {
-  padding: 10px 15px;
+/* Input radio stylisé */
+input[type="radio"] {
+  accent-color: var(--primary-color);
+  margin-right: 10px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/* Effet hover sur les options */
+label:hover {
+  background-color: var(--primary-light);
+  transition: background 0.3s;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .evaluation-container {
+    padding: 1.5em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  h3 {
+    font-size: 1.3em;
+  }
+  h4 {
+    font-size: 1.1em;
+  }
+}
+/* ✅ Bouton stylisé */
+.submit-btn {
+  background: #4CAF50; /* Vert */
+  color: white;
+  font-size: 18px;
+  padding: 12px 20px;
   border: none;
   border-radius: 6px;
-  font-size: 14px;
-  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: block;
+  margin: 20px auto;
+  transition: background 0.3s ease;
 }
 
-.modify-btn {
-  background-color: #ffcc00;
-  color: #333;
+.submit-btn:hover {
+  background: #388E3C; /* Vert foncé */
 }
 
-.modify-btn:hover {
-  background-color: #e6b800;
-  transform: translateY(-2px);
+/* ✅ Résultat du test */
+.result-box {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 6px;
+  width: 60%;
+  margin: 20px auto;
 }
 
-.delete-btn {
-  background-color: #ff4444;
-  color: white;
+/* ✅ Succès (vert) */
+.success {
+  background-color: #DFF2BF;
+  color: #4F8A10;
+  border: 2px solid #4F8A10;
 }
 
-.delete-btn:hover {
-  background-color: #cc0000;
-  transform: translateY(-2px);
+/* ✅ Échec (rouge) */
+.fail {
+  background-color: #FFBABA;
+  color: #D8000C;
+  border: 2px solid #D8000C;
 }

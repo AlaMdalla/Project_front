@@ -17,6 +17,5 @@ export interface Training {
   duration: string;
   status: status;
   level: level;
-  videoUrl?: string;
 }
 

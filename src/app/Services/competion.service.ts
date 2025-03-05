@@ -17,4 +17,14 @@ export class CompetionService {
         getCompetition(id?:number ):Observable<Competition>{
           return this.http.get<Competition>(this.Competitions+`${id}`);
             }
+             addCompetition(competition:Competition):Observable<Competition>{
+                            return this.http.post<Competition>(this.Competitions,competition);
+                          }
+                          deleteCompetitionById(competitionId: number): Observable<string> {
+                            return this.http.delete(this.Competitions + competitionId, { responseType: 'text' });
+                          }
+                                 updateProblem(id: number, competition: Competition): Observable<Competition> {
+                                          return this.http.put<Competition>(`${this.Competitions}/${id}`, competition);
+                                        }
+                          
 }

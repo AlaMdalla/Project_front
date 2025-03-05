@@ -16,14 +16,16 @@ export class JobService {
     return this.http.get<Job[]>(this.apiUrl);
   }
 
-
-
   getJobById(id: number): Observable<Job> {
     return this.http.get<Job>(`${this.apiUrl}/${id}`);
   }
 
-  createJob(job: Job): Observable<Job> {
-    return this.http.post<Job>(this.apiUrl, job);
+  getJobImage(id: number): Observable<string> {
+    return this.http.get<string>(`${this.apiUrl}/${id}/image`, { responseType: 'text' as 'json' });
+  }
+
+  createJob(job: Job): Observable<void> {
+    return this.http.post<void>(this.apiUrl, job);
   }
 
   updateJob(id: number, job: Job): Observable<Job> {

@@ -1,10 +1,9 @@
-export interface Evaluation {
-  idEvaluation: number;
-}
+import {Question} from './Question';
+import {Evaluation} from "./Evaluation";
 
-export interface Question {
-  idQuestion: number;
-}
+
+
+
 
 export interface Reponse {
   idReponse?: number;

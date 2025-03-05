@@ -1,71 +1,301 @@
-/* Competitions Table Styling */
+/* Ensure content area accounts for the fixed header */
+:host {
+  margin-top: 80px; /* Match the header height to avoid overlap */
+  display: block;
+  padding: 40px 20px; /* Add padding for spacing */
+  min-height: 100vh;
+  background: #f9fafb; /* Lighter background for home page */
+}
+
+/* Competitions container */
+.competitions-container {
+  max-width: 1200px; /* Wider for home page to accommodate table */
+  margin: 0 auto;
+}
+
+/* Management header */
+.management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+/* Header title */
+.management-header h2 {
+  font-size: 28px; /* Slightly larger for prominence */
+  color: #3b82f6; /* Lighter slate blue for a friendlier tone */
+  position: relative;
+  font-weight: 700;
+  text-align: center;
+}
+
+.management-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #2dd4bf; /* Softer teal underline */
+  border-radius: 2px;
+}
+
+/* Filter section */
+.filter-section {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+/* Filter group */
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Filter label */
+.filter-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3b82f6; /* Lighter slate blue for labels */
+}
+
+/* Filter input */
+.filter-group input {
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #fafafa; /* Light gray background */
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.filter-group input:focus {
+  border-color: #2dd4bf; /* Softer teal focus border */
+  background: #ffffff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.2);
+}
+
+/* Table wrapper */
+.table-wrapper {
+  overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  position: relative;
+}
+
+.table-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+}
+
+/* Table styling */
 table {
-    width: 100%;
-    border-collapse: collapse; /* Collapse borders for a cleaner look */
-    margin-bottom: 20px; /* Add some space below the table */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Table header */
+thead {
+  background: #fafafa; /* Light gray background for header */
+}
+
+th {
+  padding: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3b82f6; /* Lighter slate blue for headers */
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+th:hover {
+  background: #f1f5f9; /* Slightly darker gray on hover */
+}
+
+/* Sort icon */
+.sort-icon {
+  margin-left: 5px;
+  font-size: 12px;
+  color: #2dd4bf; /* Softer teal for sort icon */
+}
+
+/* Table body */
+tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+tbody tr:hover {
+  background: #f9fafc; /* Slightly lighter background on hover */
+}
+
+/* Table cells */
+td {
+  padding: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Edit and Delete buttons */
+.action-buttons button {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-buttons button:hover {
+  background: #2dd4bf; /* Softer teal on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+.action-buttons button:active {
+  background: #2563eb; /* Slightly darker blue for active state */
+  transform: scale(1);
+}
+
+/* Delete button specific styling */
+.action-buttons .btn-delete {
+  background: #dc3545; /* Red for Delete */
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.action-buttons .btn-delete:hover {
+  background: #ef5350; /* Lighter red on hover */
+  box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4);
+}
+
+.action-buttons .btn-delete:active {
+  background: #c0392b; /* Darker red for active state */
+}
+
+/* Pagination controls */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.pagination span {
+  font-size: 14px;
+  color: #666;
+}
+
+.pagination button {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.pagination button:disabled {
+  background: #b2bec3;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+.pagination button:not(:disabled):hover {
+  background: #2dd4bf;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+.pagination button:not(:disabled):active {
+  background: #2563eb;
+  transform: scale(1);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  :host {
+      padding: 20px 10px;
   }
-  
+
+  .competitions-container {
+      max-width: 100%;
+  }
+
+  .management-header {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .filter-section {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .filter-group {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .filter-group input {
+      width: 100%;
+  }
+
   th, td {
-    padding: 12px 15px; /* Comfortable padding for content */
-    text-align: left; /* Align text to the left */
-    border-bottom: 1px solid #ddd; /* Light border between rows */
+      padding: 10px;
+      font-size: 12px;
   }
-  
-  th {
-    background-color: #f2f2f2; /* Light gray background for header */
-    font-weight: bold; /* Make header text bold */
-    text-transform: uppercase; /* Optional: Uppercase header text */
+
+  .action-buttons {
+      flex-direction: column;
+      gap: 5px;
   }
-  
-  /* Hover effect on table rows */
-  tr:hover {
-    background-color: #f5f5f5;
+
+  .action-buttons button {
+      width: 100%;
+      text-align: center;
   }
-  
-  /* Button Styling */
-  button {
-    padding: 8px 12px; /* Button padding */
-    margin: 0 5px; /* Space between buttons */
-    border: none;
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer;
-    font-size: 14px; /* Adjust font size */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+
+  .pagination {
+      gap: 5px;
   }
-  
-  /* Edit Button Styling */
-  button:nth-child(1) { /* Target the first button (Edit) */
-    background-color: #4CAF50; /* Green */
-    color: white;
+
+  .pagination button {
+      flex: 1;
+      text-align: center;
   }
-  
-  button:nth-child(1):hover {
-    background-color: #45a049; /* Darker green on hover */
-  }
-  
-  /* Delete Button Styling */
-  button:nth-child(2) { /* Target the second button (Delete) */
-    background-color: #f44336; /* Red */
-    color: white;
-  }
-  
-  button:nth-child(2):hover {
-    background-color: #d32f2f; /* Darker red on hover */
-  }
-  
-  /* Optional: Style the table container if needed */
-  .table-container {
-    overflow-x: auto; /* Add horizontal scrollbar if table content overflows */
-  }
-  
-  /* Responsive Design (Optional) */
-  @media screen and (max-width: 600px) {
-    table {
-      display: block; /* Make table scrollable horizontally */
-      overflow-x: auto;
-    }
-    th, td {
-      white-space: nowrap; /* Prevent content from wrapping */
-    }
-  }
+}

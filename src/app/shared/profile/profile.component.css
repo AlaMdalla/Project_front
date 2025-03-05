@@ -1,0 +1,181 @@
+/* Profile container */
+.profile-container {
+    max-width: 600px; /* Slightly wider than Login/Registration forms for more content */
+    margin: 50px auto; /* Center the container with consistent margin */
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12); /* Match Competitions Section shadow */
+    font-family: 'Inter', sans-serif; /* Match typography from Problems List */
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Deep navy blue gradient, matching Login form */
+}
+
+/* Profile header */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* Header title */
+.profile-header h2 {
+    font-size: 36px;
+    color: #1e3a8a; /* Deep navy blue for title */
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.profile-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0; /* Align underline to the left to match Competitions Section */
+    width: 50px;
+    height: 4px;
+    background: #2dd4bf; /* Muted teal underline, matching Login form */
+    border-radius: 2px;
+}
+
+/* Status dot */
+.profile-header .status-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #f44336; /* Red for non-active status */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.profile-header .status-dot.active {
+    background: #4caf50; /* Green for ADMIN status, matching Easy difficulty badge */
+}
+
+/* Error message */
+.profile-container .error-message {
+    color: #f44336; /* Red for errors, matching Login form */
+    background-color: #ffebee; /* Light red background, matching Posts List error message */
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Fade-in animation for error messages */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Profile card */
+.profile-card {
+    display: flex;
+    gap: 20px; /* Space between avatar and details */
+    padding: 20px;
+    border-radius: 8px;
+    background: #fafafa; /* Light gray background, matching Problems List */
+    border: 1px solid #e0e0e0;
+}
+
+/* Profile avatar */
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #1e3a8a; /* Deep navy blue for avatar background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05); /* Subtle scale on hover, matching Avatar in Posts List */
+}
+
+.profile-avatar .avatar-initial {
+    font-size: 36px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Profile details */
+.profile-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between detail items */
+}
+
+/* Detail item */
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-item:last-child {
+    border-bottom: none; /* Remove border for the last item */
+}
+
+.detail-item .label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e3a8a; /* Deep navy blue for labels */
+}
+
+.detail-item .value {
+    font-size: 14px;
+    color: #1f2937; /* Darker gray for values, matching Problems List */
+}
+
+/* Update button */
+.profile-container .update-btn {
+    display: block;
+    background: #2dd4bf; /* Solid muted teal, matching Login form */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
+    margin: 20px auto 0 auto; /* Center the button with top margin */
+}
+
+.profile-container .update-btn:hover {
+    background: #5eead4; /* Lighter teal on hover, matching Login form */
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+.profile-container .update-btn:active {
+    background: #1e40af; /* Slightly darker navy blue for active state, matching Login form */
+    transform: scale(1);
+}

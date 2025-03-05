@@ -27,7 +27,11 @@ export class AddEvaluationComponent implements OnInit {
 
   ngOnInit(): void {
     // Simulation de questions disponibles (remplace ça par une API si besoin)
-
+    this.questions = [
+      { questionId: 1, questionText: 'What is Angular?', type: type.developpement_web },
+      { questionId: 2, questionText: 'What is TypeScript?', type:type.developpement_web },
+      { questionId: 3, questionText: 'Is JavaScript synchronous?',  type:type.developpement_web  }
+    ];
 
     // Si une évaluation existante est sélectionnée
     if (this.selectedEvaluation) {

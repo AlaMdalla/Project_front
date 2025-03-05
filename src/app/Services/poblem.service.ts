@@ -14,14 +14,20 @@ export class PoblemService {
   getProblems():Observable<Problem[]>{
     return this.http.get<Problem[]>(this.Problems);
       }
-      deleteProblem(id? :number):Observable<any>{
-        return this.http.delete(this.Problems+`${id}`);
-          }
+      
           getProblem(id? :number):Observable<Problem>{
             return this.http.get<Problem>(this.Problems+`${id}`);
               }
               addProblem(problem:Problem):Observable<Problem>{
                 return this.http.post<Problem>(this.Problems,problem);
               }
+              
+              deleteProblemById(problemId: number): Observable<string> {
+                return this.http.delete(this.Problems + problemId, { responseType: 'text' });
+              }
+              updateProblem(id: number, problem: Problem): Observable<Problem> {
+                return this.http.put<Problem>(`${this.Problems}/${id}`, problem);
+              }
+              
               
 }

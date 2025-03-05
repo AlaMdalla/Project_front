@@ -15,23 +15,34 @@ export class JobListComponent {
   ngOnInit(): void {
     this.loadJobs();
   }
+
   loadJobs(): void {
     this.jobService.getJobs().subscribe({
       next: (data) => {
         this.jobs = data;
+        this.jobs.forEach(job => {
+          if (job.image && job.image.endsWith('...')) {
+            this.jobService.getJobImage(job.jobId).subscribe({
+              next: (fullImage) => job.image = fullImage,
+              error: (err) => console.error('Image fetch error:', err),
+            });
+          }
+        });
       },
-      error: (err) => {
-        alert(`Error: ${err.message}`);
-      },
+      error: (err) => console.error('Jobs fetch error:', err),
     });
   }
-  
-  
-  
 
   deleteJob(id: number): void {
-    if (confirm('Are you sure you want to delete this job?')) {
-      this.jobService.deleteJob(id).subscribe(() => this.loadJobs());
+    if (confirm('Are you sure?')) {
+      this.jobService.deleteJob(id).subscribe({
+        next: () => this.loadJobs(),
+        error: (err) => console.error('Delete error:', err),
+      });
     }
+  }
+
+  getGoogleMapsUrl(location: string): string {
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
   }
 }

@@ -20,21 +20,39 @@ export class CandidateService {
     return this.http.get<Candidate>(`${this.apiUrl}/${id}`);
   }
 
-  createCandidate(candidate: Candidate): Observable<Candidate> {
-    return this.http.post<Candidate>(this.apiUrl, candidate);
+  getCandidateResume(id?: number): Observable<string> {
+    return this.http.get<string>(`${this.apiUrl}/${id}/resume`, { responseType: 'text' as 'json' });
   }
 
-  updateCandidate(id: number, candidate: Candidate): Observable<Candidate> {
-    return this.http.put<Candidate>(`${this.apiUrl}/${id}`, candidate);
+  createCandidate(candidate: any): Observable<void> {
+    const request = {
+      id: candidate.id, // Include id, will be undefined for new candidates
+      email: candidate.email,
+      phone: candidate.phone,
+      resumeUrl: candidate.resumeUrl,
+      applicationDate: candidate.applicationDate ? new Date(candidate.applicationDate) : null,
+      status: candidate.status,
+      jobId: candidate.jobId
+    };
+    console.log('Sending to backend:', JSON.stringify(request, null, 2));
+    return this.http.post<void>(this.apiUrl, request);
   }
   
-  
-
+  updateCandidate(id: number, candidate: any): Observable<Candidate> {
+    const request = {
+      id: id, // Use the parameter id for update
+      email: candidate.email,
+      phone: candidate.phone,
+      resumeUrl: candidate.resumeUrl,
+      applicationDate: candidate.applicationDate ? new Date(candidate.applicationDate) : null,
+      status: candidate.status,
+      jobId: candidate.jobId
+    };
+    return this.http.put<Candidate>(`${this.apiUrl}/${id}`, request);
+  }
 
   deleteCandidate(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl+`${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-  
-  
-  
+
 }

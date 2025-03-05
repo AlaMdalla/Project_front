@@ -1,37 +1,31 @@
-<form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label>Texte de la question:</label>
-    <input formControlName="questionText" placeholder="Entrez votre question">
-  </div>
+<div class="question-container">
+  <h2>{{ selectedQuestion ? 'Edit Question' : 'Add a New Question' }}</h2>
 
-  <div class="form-group">
-    <label>Type:</label>
-    <select formControlName="type">
-      <option *ngFor="let t of types" [value]="t">{{ t }}</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label>Énoncé:</label>
-    <input formControlName="enonce" placeholder="Entrez l'énoncé">
-  </div>
-
-  <div class="form-group">
-    <label>Réponse correcte:</label>
-    <input formControlName="reponseCorrecte" placeholder="Entrez la réponse correcte">
-  </div>
-
-  <!-- Options -->
-  <div class="form-group">
-    <label>Options:</label>
-    <div formArrayName="options">
-      <div *ngFor="let option of options.controls; let i = index">
-        <input [formControlName]="i" placeholder="Entrez une option">
-        <button type="button" (click)="removeOption(i)">Supprimer</button>
-      </div>
+  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+    <!-- Question Text -->
+    <div class="form-group">
+      <label for="questionText">Question Text:</label>
+      <input id="questionText" formControlName="questionText" placeholder="Enter question text" />
     </div>
-    <button type="button" (click)="addOption()">Ajouter une option</button>
-  </div>
 
-  <button type="submit">Ajouter Question</button>
-</form>
+    <!-- Type -->
+    <div class="form-group">
+      <label for="type">Domain</label>
+      <select id="type" formControlName="type">
+        <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="questionForm.invalid">{{ selectedQuestion ? 'Save Changes' : 'Save Question' }}</button>
+  </form>
+</div>
+
+<!-- Liste des questions ajoutées -->
+<div class="questions-list">
+  <h3>List of Questions</h3>
+  <ul>
+    <li *ngFor="let question of questions">
+      {{ question.questionId }} - {{ question.questionText }} ({{ question.type }})
+    </li>
+  </ul>
+</div>

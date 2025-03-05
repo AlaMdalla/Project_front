@@ -12,58 +12,63 @@ import { AddProblemComponent } from "./admin/add-problem/add-problem.component";
 import { CompetionComponent } from "./shared/Competition/competion/competion.component";
 import { CompetitionsComponent } from "./shared/Competition/competitions/competitions.component";
 import { AddCompetitionComponent } from "./admin/Competition/add-competition/add-competition.component";
-import { AddTrainingsComponent } from "./admin/Trainings/add-trainings/add-trainings.component"; // Make sure path is correct
+import { AddTrainingsComponent } from "./admin/Trainings/add-trainings/add-trainings.component";
 import { CandidatListComponent } from "./shared/Candidats/candidat-list/candidat-list.component";
 import { CandidatFormComponent } from "./shared/Candidats/candidat-form/candidat-form.component";
 import { JobListComponent } from "./shared/Job/job-list/job-list.component";
 import { JobFormComponent } from "./shared/Job/job-form/job-form.component";
-//import {EvaluationsComponent, EvaluationsComponent} from "./shared/evaluation/evaluation.component";
-import {AddQuestionComponent} from "./add-question/add-question.component";
-import {AddEvaluationComponent} from "./add-evaluation/add-evaluation.component";
+import { LoginComponent } from "./shared/login/login.component";
+import { RegisterComponent } from "./shared/register/register.component";
+import { adminGuard, usersGuard } from "./Services/users.guard";
+import { ProfileComponent } from "./shared/profile/profile.component";
+import { UpdateuserComponent } from "./shared/updateuser/updateuser.component";
+import { UsersListComponent } from "./admin/users-list/users-list.component";
+import {TrainingDetailComponent} from "./training-detail/training-detail.component";
 import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
-import {CourseDetailComponent} from "./course-detail/course-detail.component";
-import {ReponseComponent} from "./reponse/reponse.component";
-import {QuestionListComponent} from "./question-list/question-list.component";
 
 const routes: Routes = [
-  { path: "Problems", component: ListProblemComponent },
-  { path: "Competition", component: CompetitionsComponent },
-  { path: "courses", component: CoursesComponent },
-  { path: "evaluation", component: EvaluationComponent },
-  { path: "problemSubmission/:id", component: ProblemSubmitionComponent },
-  { path: 'Posts', component: ViewAllComponent },
-  { path: "Competition/:id", component: CompetionComponent },
-  { path: "", component: HomeComponent },
-  { path: 'addPost', component: AddPostComponent },
-  { path: 'add-trainings', component: AddTrainingsComponent },
-  { path: 'add-question', component: AddQuestionComponent },
-  { path: 'add-evaluation', component: AddEvaluationComponent },
-  { path: 'reponses', component: ReponseComponent },
+    {path : "Problems",component:ListProblemComponent},
+    {path :"Competition",component:CompetitionsComponent},
+    {path : "courses",component:CoursesComponent},
+    {path : "problemSubmission/:id",component:ProblemSubmitionComponent},
+    {path: 'Posts' , component: ViewAllComponent},
+    {path : "Competition/:id",component:CompetionComponent},
+    {path : "",component:HomeComponent},
+    {path: 'addPost' , component: AddPostComponent},
+    {path: 'addtraining' , component: AddTrainingsComponent},
+    { path: 'problem/edit/:id', component: AddProblemComponent },
+    {path: 'addProblem' , component: AddProblemComponent},
+    {path: 'addCompetition' , component: AddCompetitionComponent},
+    { path: 'Competition/edit/:id', component: AddCompetitionComponent },
+  { path: 'training-detail/:id', component: TrainingDetailComponent },
+  { path: 'evaluation/:id', component: EvaluationComponent },
+
+    {path: 'view-post/:id' , component: ViewPostComponent},
+    {path: 'admin' , component: HomeAdminComponent },
+    //candidate routes
+    { path: 'jobs', component: JobListComponent },
+    { path: 'jobs/new', component: JobFormComponent },
+    { path: 'jobs/edit/:id', component: JobFormComponent },
+    { path: 'candidates', component: CandidatListComponent },
+    { path: 'candidates/new', component: CandidatFormComponent },
+    { path: 'candidates/edit/:id', component: CandidatFormComponent },
+    {path: 'login', component: LoginComponent},
+    {path: 'register', component: RegisterComponent},
+    {path: 'profile', component: ProfileComponent, canActivate: [usersGuard]},
+    {path: 'update/:id', component: UpdateuserComponent, canActivate: [adminGuard]},
+   {path: 'users', component: UsersListComponent, canActivate:[adminGuard]},
+    {path: '**', component: LoginComponent},
+    {path: '', redirectTo: '/login', pathMatch: 'full'},
+    { path: '**', redirectTo: '' }
 
 
 
-  { path: 'addProblem', component: AddProblemComponent },
-  { path: 'addCompetition', component: AddCompetitionComponent },
-  { path: 'view-post/:id', component: ViewPostComponent },
-  { path: 'admin', component: HomeAdminComponent },
-  { path: 'questions', component: QuestionListComponent },
-
-  // candidate routes
-  { path: 'jobs', component: JobListComponent },
-  { path: 'jobs/new', component: JobFormComponent },
-  { path: 'jobs/edit/:id', component: JobFormComponent },
-  { path: 'candidates', component: CandidatListComponent },
-  { path: 'candidates/new', component: CandidatFormComponent },
-  { path: 'candidates/edit/:id', component: CandidatFormComponent },
-  { path: 'course/:id', component: CourseDetailComponent },
-
-  // wildcard route for undefined paths
-  { path: '**', redirectTo: '' }
-];
-
+]
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+  })
 
-export class AppRoutingModule { }
+  export class AppRoutingModule {
+
+  }

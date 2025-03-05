@@ -1,16 +1,25 @@
-
 <div class="problems-container">
-    <h2>Problems</h2>
-    <div *ngFor="let problem of problems" class="problem-card">
-        <div class="problem-info">
-            <a [routerLink]="['/problemSubmission', problem.id]">
-                <div id="problem-title" class="problem-title">{{ problem.title }}</div>
-              </a>
-              
-                          <div class="problem-stats">65% </div>
-        </div>
-        <div class="difficulty {{ problem.difficulty.toLowerCase() }}">{{ problem.difficulty }}</div>
-       <!-- <button class="delete-btn" (click)="delete(problem.id)">Delete</button>-->
-
+    <!-- Header with title and difficulty filter -->
+    <div class="header-section">
+      <h2>Problems</h2>
+      <div class="difficulty-filter">
+        <select [(ngModel)]="selectedDifficulty" (change)="onDifficultyFilter()">
+          <option value="">All Difficulties</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
     </div>
-</div>
+  
+    <!-- Problems list -->
+    <div *ngFor="let problem of filteredProblems" class="problem-card">
+      <div class="problem-info">
+        <a [routerLink]="['/problemSubmission', problem.id]">
+          <div id="problem-title" class="problem-title">{{ problem.title }}</div>
+        </a>
+        <div class="problem-stats">65%</div>
+      </div>
+      <div class="difficulty {{ problem.difficulty.toLowerCase() }}">{{ problem.difficulty }}</div>
+    </div>
+  </div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -42,16 +42,13 @@ import { CandidatFormComponent } from './shared/Candidats/candidat-form/candidat
 import { CandidatListComponent } from './shared/Candidats/candidat-list/candidat-list.component';
 import { JobListComponent } from './shared/Job/job-list/job-list.component';
 import { JobFormComponent } from './shared/Job/job-form/job-form.component';
-import { AddQuestionComponent } from './add-question/add-question.component';
-import {AddEvaluationComponent} from "./add-evaluation/add-evaluation.component";
-import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
-import { CourseDetailComponent } from './course-detail/course-detail.component';
-import {SafePipe} from "./models/safe.pipe";
-import { ReponseComponent } from './reponse/reponse.component';
-import { QuestionListComponent } from './question-list/question-list.component';
-
+import { ListProblemsComponent } from './admin/Problems/list-problems/list-problems.component';
+import { UsersListComponent } from './admin/users-list/users-list.component';
+import { TrainingDetailComponent } from './training-detail/training-detail.component';
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   declarations: [
     AppComponent,
     ListProblemComponent,
@@ -75,15 +72,9 @@ import { QuestionListComponent } from './question-list/question-list.component';
     CandidatListComponent,
     JobListComponent,
     JobFormComponent,
-    EvaluationComponent,
-    AddQuestionComponent,
-    AddEvaluationComponent,
-    CourseDetailComponent,
-    CourseDetailComponent,
-
-    ReponseComponent,
-     QuestionListComponent,
-
+    ListProblemsComponent,
+    UsersListComponent,
+    TrainingDetailComponent,
   ],
   imports: [
     BrowserModule,
