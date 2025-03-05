@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,10 +6,10 @@ import { ReclamationService } from 'src/app/Services/reclamation.service';
 
 @Component({
   selector: 'app-reclamation',
-  templateUrl: './reclamation.component.html', // Corrected template file name
+  templateUrl: './reclamation.component.html',
   styleUrls: ['./reclamation.component.css']
 })
-export class ReclamationComponent implements OnInit {
+export class ReclamationComponent {
   postId: number;
   reclamationForm!: FormGroup;
 
@@ -44,5 +44,7 @@ export class ReclamationComponent implements OnInit {
         }
       );
     }
+  }cancel() {
+    this.router.navigate(['/list-reclamations', this.postId]);
   }
 }

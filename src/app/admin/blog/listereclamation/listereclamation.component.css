@@ -1,12 +1,22 @@
-/* Center the content area without sidebar */
-#content {
+/* Sidebar styling (assumed fixed) */
+app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px; /* Adjust this based on your actual sidebar width */
+    height: 100vh;
+    background: #ffffff; /* Example background, adjust as needed */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    z-index: 1000; /* Ensure it stays above content */
+  }
+  
+  /* Content area with sidebar */
+  #content {
     margin-top: 80px; /* Space for header if present */
+    margin-left: 250px; /* Match sidebar width to push content right */
     padding: 40px 20px; /* Add padding for spacing */
     min-height: 100vh;
     background: #f9fafb; /* Lighter background */
-    display: flex; /* Use flexbox to center the container */
-    justify-content: center; /* Horizontally center */
-    align-items: flex-start; /* Vertically align to top with padding */
   }
   
   /* Competitions container */
@@ -197,7 +207,15 @@
   
   /* Responsive design */
   @media (max-width: 768px) {
+    app-sidebar {
+      width: 100%; /* Full width on mobile */
+      height: auto; /* Adjust height */
+      position: relative; /* Stack above content */
+      box-shadow: none; /* Remove shadow for stacking */
+    }
+  
     #content {
+      margin-left: 0; /* Remove sidebar offset on mobile */
       padding: 20px 10px;
     }
   

@@ -49,6 +49,7 @@ import { SubsListComponent } from './admin/Subs/subs-list/subs-list.component';
 import { SubsComponent } from './shared/Subs/subs/subs.component';
 import { SubUpdateComponent } from './admin/Subs/sub-update/sub-update.component';
 import { ListereclamationComponent } from './admin/blog/listereclamation/listereclamation.component';
+import { ReclamationComponent } from './shared/blog/reclamation/reclamation.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -83,6 +84,7 @@ import { ListereclamationComponent } from './admin/blog/listereclamation/listere
     SubsComponent,
     SubUpdateComponent,
     ListereclamationComponent,
+    ReclamationComponent,
   ],
   imports: [
     BrowserModule,
