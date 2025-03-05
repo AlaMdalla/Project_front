@@ -4,15 +4,14 @@
       <div class="course-card" *ngFor="let course of courses">
         <!-- Course Image -->
         <img src="https://www.myfreax.com/content/images/2022/11/introduction-to-javascript-syntax.webp" alt="Course Image" class="course-image" />
-        
+
         <h3>{{ course.title }}</h3>
         <p>{{ course.content }}</p>
-        
+
         <mat-card-subtitle> Posted On : {{course.trainingdate | date: 'medium'}}</mat-card-subtitle>
 
         <!-- Join button -->
-        <button class="join-button">Join Now</button>
+        <button class="join-button"  (click)="openTrainingDetails(course.idTraining)">Join Now</button>
       </div>
     </div>
   </section>
-  

@@ -14,8 +14,12 @@ export class CoursesComponent {
 
   ngOnInit(): void {
     this.refrech();
-  
+
    }
+
+  openTrainingDetails(id: number | undefined): void {
+    window.open(`/training-detail/${id}`, '_blank');
+  }
   refrech():void{
     this.trainingService.gettrainings().subscribe(data =>
       {this.courses=data;}

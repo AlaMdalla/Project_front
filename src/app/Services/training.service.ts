@@ -14,6 +14,11 @@ gettrainings():Observable<Training[]>{
     return this.http.get<Training[]>(this.trainings);
       }
   // Add new training
+  getTrainingById(id: number): Observable<Training> {
+    return this.http.get<Training>(`${this.trainings}${id}`);
+  }
+
+  // Add new training
   addTraining(trainingData: Training): Observable<Training> {
     return this.http.post<Training>(`${this.trainings}add-training`, trainingData);
   }

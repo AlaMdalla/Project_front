@@ -1,0 +1,16 @@
+.training-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 50%;
+  background: #f9f9f9;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.evaluation-form {
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 10px;
+}

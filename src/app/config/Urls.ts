@@ -5,7 +5,7 @@ export const Urls = {
     Subs : 'http://localhost:8560/Subscription/subs',
 
     training : 'http://localhost:8560/e-learning/trainings/',
-   evaluations:'http://localhost:8560/e-learning/evaluation',
+   evaluations:'http://localhost:8560/e-learning/trainings/evaluation',
   questions:'http://localhost:8560/e-learning/question',
     candidates : 'http://localhost:8560/job/api/candidates',
     job : 'http://localhost:8560/job/api/jobs',
