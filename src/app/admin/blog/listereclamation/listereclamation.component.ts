@@ -10,7 +10,7 @@ import { ReclamationService } from 'src/app/Services/reclamation.service';
 })
 export class ListereclamationComponent {
   reclamations: any[] = []; // Use a plain array
-  displayedColumns: string[] = [ 'reason', 'email', 'name', 'createdAt', 'actions'];
+  displayedColumns: string[] = ['reason', 'email', 'name', 'createdAt', 'actions'];
 
   constructor(
     private reclamationService: ReclamationService,
@@ -25,7 +25,7 @@ export class ListereclamationComponent {
   getAllReclamations() {
     this.reclamationService.getAllReclamations().subscribe(
       res => {
-        this.reclamations = res; 
+        this.reclamations = res;
       },
       error => {
         this.matSnackBar.open("Something went wrong!!", "Close", { duration: 3000 });
@@ -53,5 +53,4 @@ export class ListereclamationComponent {
       );
     }
   }
-
 }

@@ -1,81 +1,72 @@
-<mat-card class="center-card">
-  <mat-card-content>
-    <div class="form-container">
-      <h2 class="form-title">Update Post</h2>
-      <form [formGroup]="postForm" class="post-form">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Title</mat-label>
-          <input matInput formControlName="title" placeholder="Enter post title">
-          <mat-error *ngIf="postForm.get('title')?.hasError('required') && postForm.get('title')?.touched">
-            Title is required.
-          </mat-error>
-          <mat-error *ngIf="postForm.get('title')?.hasError('maxlength')">
-            Title must not exceed 100 characters.
-          </mat-error>
-        </mat-form-field>
+<div id="content">
+  <div class="competition-container">
+    <div class="card">
+      <form class="post-form">
+        <h2>Update Post</h2>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Posted By</mat-label>
-          <input matInput formControlName="postedBy" placeholder="Enter your name">
-          <mat-error *ngIf="postForm.get('postedBy')?.hasError('required') && postForm.get('postedBy')?.touched">
-            Posted By is required.
-          </mat-error>
-          <mat-error *ngIf="postForm.get('postedBy')?.hasError('pattern')">
-            Name must contain only letters and spaces.
-          </mat-error>
-          <mat-error *ngIf="postForm.get('postedBy')?.hasError('minlength')">
-            Name must be at least 2 characters long.
-          </mat-error>
-          <mat-error *ngIf="postForm.get('postedBy')?.hasError('maxlength')">
-            Name must not exceed 50 characters.
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Category</mat-label>
-          <input matInput formControlName="category" placeholder="Enter category">
-          <mat-error *ngIf="postForm.get('category')?.hasError('required') && postForm.get('category')?.touched">
-            Category is required.
-          </mat-error>
-          <mat-error *ngIf="postForm.get('category')?.hasError('maxlength')">
-            Category must not exceed 50 characters.
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Content</mat-label>
-          <textarea matInput rows="5" formControlName="content" placeholder="Write your content here"></textarea>
-          <mat-error *ngIf="postForm.get('content')?.hasError('required') && postForm.get('content')?.touched">
-            Content is required.
-          </mat-error>
-          <mat-error *ngIf="postForm.get('content')?.hasError('minlength')">
-            Content must be at least 10 characters long.
-          </mat-error>
-          <mat-error *ngIf="postForm.get('content')?.hasError('maxlength')">
-            Content must not exceed 5000 characters.
-          </mat-error>
-        </mat-form-field>
-
-        <div class="image-upload-section">
-          <mat-label>Image</mat-label>
-          <input type="file" (change)="onFileChanged($event)" class="file-input">
-          <div class="preview-container" *ngIf="previewUrl">
-            <img [src]="previewUrl" alt="Prévisualisation" class="preview-image">
-          </div>
-          <mat-error *ngIf="!selectedFile && postForm.touched">
-            An image is required.
-          </mat-error>
-         
+        <!-- Title -->
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input 
+            id="title" 
+            name="title" 
+            placeholder="Enter post title" 
+            required 
+            maxlength="100" />
         </div>
 
-        <hr class="divider" />
+        <!-- Posted By -->
+        <div class="form-group">
+          <label for="postedBy">Posted By:</label>
+          <input 
+            id="postedBy" 
+            name="postedBy" 
+            placeholder="Enter your name" 
+            required 
+            pattern="[A-Za-z\s]+" 
+            minlength="2" 
+            maxlength="50" />
+        </div>
 
-        <button mat-raised-button color="primary" class="submit-button" 
-                [disabled]="!postForm.valid || !selectedFile" 
-                (click)="updatePost()">
-          Update Post
-        </button>
+        <!-- Category -->
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <input 
+            id="category" 
+            name="category" 
+            placeholder="Enter category" 
+            required 
+            maxlength="50" />
+        </div>
+
+        <!-- Content -->
+        <div class="form-group">
+          <label for="content">Content:</label>
+          <textarea 
+            id="content" 
+            name="content" 
+            placeholder="Write your content here" 
+            required 
+            minlength="10" 
+            maxlength="5000"></textarea>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-group">
+          <label for="image">Upload Image:</label>
+          <input 
+            type="file" 
+            id="image" 
+            accept="image/*" 
+            class="file-input" />
+          <div class="preview-container"></div>
+        </div>
+
+        <div class="button-container">
+          <button type="submit" class="btn-primary">Update Post</button>
+          <button type="button" class="btn-secondary">Cancel</button>
+        </div>
       </form>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>

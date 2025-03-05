@@ -25,6 +25,9 @@ import { UpdateuserComponent } from "./shared/updateuser/updateuser.component";
 import { UsersListComponent } from "./admin/users-list/users-list.component";
 import { SubsCreateComponentComponent } from "./admin/Subs/subs-create-component/subs-create-component.component";
 import { SubUpdateComponent } from "./admin/Subs/sub-update/sub-update.component";
+import { UpdatePostComponent } from "./shared/blog/update-post/update-post.component";
+import { ReclamationComponent } from "./shared/blog/reclamation/reclamation.component";
+import { ListereclamationComponent } from "./admin/blog/listereclamation/listereclamation.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
@@ -37,11 +40,16 @@ const routes: Routes = [
     {path: 'addPost' , component: AddPostComponent},
     {path: 'addtraining' , component: AddTrainingsComponent},
     { path: 'problem/edit/:id', component: AddProblemComponent },
+    { path: 'reclamation/:id', component: ReclamationComponent },
+    { path: 'reclamations', component: ListereclamationComponent },
+
     {path: 'addProblem' , component: AddProblemComponent},
     {path: 'addCompetition' , component: AddCompetitionComponent},
     { path: 'Competition/edit/:id', component: AddCompetitionComponent },
     { path: 'addSubs', component: SubsCreateComponentComponent,canActivate:[adminGuard] },
     { path: 'updateSubs/:id', component: SubUpdateComponent,canActivate:[adminGuard] },
+    { path: 'update-post/:id', component: UpdatePostComponent },
+
     {path: 'view-post/:id' , component: ViewPostComponent},
     {path: 'admin' , component: HomeAdminComponent ,canActivate:[adminGuard]},
     //candidate routes

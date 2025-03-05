@@ -1,115 +1,213 @@
-.center-card {
-    max-width: 500px; /* Slightly wider for better form layout */
-    margin: 30px auto;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%); /* Gradient background */
+/* Center the content area without sidebar */
+#content {
+  margin-top: 80px; /* Keep space for header if present */
+  padding: 40px 20px; /* Add padding for spacing */
+  min-height: 100vh;
+  background: #f9fafb; /* Lighter background */
+  display: flex; /* Use flexbox to center the container */
+  justify-content: center; /* Horizontally center */
+  align-items: flex-start; /* Vertically align to top with padding */
+}
+
+/* Competition container */
+.competition-container {
+  max-width: 600px; /* Fixed width */
+  width: 100%; /* Ensure it respects max-width */
+}
+
+/* Card */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Form header */
+.card h2 {
+  font-size: 28px;
+  color: #3b82f6; /* Lighter slate blue */
+  margin-bottom: 30px;
+  position: relative;
+  font-weight: 700;
+  text-align: center;
+}
+
+.card h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #2dd4bf; /* Softer teal underline */
+  border-radius: 2px;
+}
+
+/* Form styling */
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Consistent spacing between form elements */
+}
+
+/* Form group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between label and input */
+}
+
+/* Labels */
+.form-group label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #3b82f6; /* Lighter slate blue for labels */
+  margin-bottom: 5px;
+}
+
+/* Inputs and textarea */
+.form-group input,
+.form-group textarea {
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #fafafa; /* Light gray background */
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #2dd4bf; /* Softer teal focus border */
+  background: #ffffff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.2);
+}
+
+/* File input specific styling */
+.form-group input[type="file"] {
+  padding: 8px 15px; /* Adjust padding for file input */
+  background: #ffffff; /* White background for file input */
+}
+
+/* Textarea specific styling */
+.form-group textarea {
+  min-height: 100px; /* Match other forms */
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Image preview */
+.preview-container {
+  max-width: 200px;
+  margin-top: 10px;
+}
+
+.preview-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* Button container */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Buttons */
+.button-container button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Create button */
+.button-container .btn-primary {
+  background: #2dd4bf; /* Softer teal */
+  color: white;
+}
+
+.button-container .btn-primary:disabled {
+  background: #b2bec3;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+.button-container .btn-primary:not(:disabled):hover {
+  background: #5eead4; /* Lighter teal on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+.button-container .btn-primary:not(:disabled):active {
+  background: #1e40af;
+  transform: scale(1);
+}
+
+/* Cancel button */
+.button-container .btn-secondary {
+  background: #dc3545; /* Red for Cancel */
+  color: white;
+}
+
+.button-container .btn-secondary:hover {
+  background: #ef5350; /* Lighter red on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4);
+}
+
+.button-container .btn-secondary:active {
+  background: #c0392b; /* Darker red for active state */
+  transform: scale(1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  #content {
+    padding: 20px 10px; /* Reduce padding */
   }
-  
-  .form-container {
-    padding: 20px;
+
+  .competition-container {
+    max-width: 100%; /* Full width on mobile */
   }
-  
-  .form-title {
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
-  .post-form {
-    display: flex;
+
+  .button-container {
     flex-direction: column;
-    gap: 15px; /* Space between form fields */
+    gap: 5px;
   }
-  
-  .full-width {
+
+  .button-container button {
     width: 100%;
-  }
-  
-  mat-form-field {
-    border-radius: 8px;
-  }
-  
-  mat-form-field .mat-form-field-wrapper {
-    padding-bottom: 0.5em;
-  }
-  
-  mat-form-field .mat-input-element {
-    font-size: 1rem;
-    color: #34495e;
-  }
-  
-  mat-form-field .mat-form-field-label {
-    font-size: 0.95rem;
-    color: #7f8c8d;
-  }
-  
-  .image-upload-section {
-    margin-top: 10px;
-  }
-  
-  .file-input {
-    display: block;
-    margin: 10px 0;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #ffffff;
-    transition: border-color 0.3s ease;
-  }
-  
-  .file-input:focus {
-    border-color: #3f51b5;
-    outline: none;
-  }
-  
-  .preview-container {
     text-align: center;
-    margin-top: 10px;
   }
-  
-  .preview-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .preview-image:hover {
-    transform: scale(1.05);
-  }
-  
-  .divider {
-    border: 0;
-    height: 1px;
-    background: #e0e0e0;
-    margin: 20px 0;
-  }
-  
-  .submit-button {
-    width: 100%;
-    padding: 12px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    border-radius: 25px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .submit-button:disabled {
-    background-color: #cccccc;
-    color: #ffffff;
-    cursor: not-allowed;
-  }
-  
-  .submit-button:not(:disabled):hover {
-    background-color: #303f9f; /* Darker primary shade on hover */
-    transform: translateY(-2px);
-  }
+}

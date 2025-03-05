@@ -1,79 +1,58 @@
-<div class="reclamation-form-container">
-  <h2 class="form-title">
-    <mat-icon class="title-icon">report_problem</mat-icon>
-    Report a Problem
-  </h2>
-  <p class="form-subtitle">Your feedback helps us improve! Let us know your issue.</p>
+<div id="content">
+  <div class="competition-container">
+    <div class="card">
+      <form class="post-form">
+        <h2>
+          <span class="title-icon">⚠️</span> Report a Problem
+        </h2>
+        <p class="form-subtitle">Your feedback helps us improve! Let us know your issue.</p>
 
-  <form [formGroup]="reclamationForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Reason</mat-label>
-      <textarea 
-        matInput 
-        formControlName="reason" 
-        placeholder="Describe the issue..." 
-        required
-      ></textarea>
-      <mat-icon matSuffix class="input-icon">edit</mat-icon>
-      <mat-error *ngIf="reclamationForm.get('reason')?.hasError('required') && reclamationForm.get('reason')?.touched">
-        Reason is required!
-      </mat-error>
-    </mat-form-field>
+        <!-- Reason -->
+        <div class="form-group">
+          <label for="reason">Reason:</label>
+          <textarea 
+            id="reason" 
+            name="reason" 
+            placeholder="Describe the issue..." 
+            required></textarea>
+          <span class="input-icon">✍️</span>
+        </div>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Email</mat-label>
-      <input 
-        matInput 
-        formControlName="email" 
-        placeholder="Enter your email" 
-        required 
-        type="email"
-      >
-      <mat-icon matSuffix class="input-icon">email</mat-icon>
-      <mat-error *ngIf="reclamationForm.get('email')?.hasError('required') && reclamationForm.get('email')?.touched">
-        Email is required!
-      </mat-error>
-      <mat-error *ngIf="reclamationForm.get('email')?.hasError('email') && reclamationForm.get('email')?.touched">
-        Please enter a valid email!
-      </mat-error>
-    </mat-form-field>
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input 
+            id="email" 
+            name="email" 
+            type="email" 
+            placeholder="Enter your email" 
+            required />
+          <span class="input-icon">✉️</span>
+        </div>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Name</mat-label>
-      <input 
-        matInput 
-        formControlName="name" 
-        placeholder="Enter your name" 
-        required
-      >
-      <mat-icon matSuffix class="input-icon">person</mat-icon>
-      <mat-error *ngIf="reclamationForm.get('name')?.hasError('required') && reclamationForm.get('name')?.touched">
-        Name is required!
-      </mat-error>
-    </mat-form-field>
+        <!-- Name -->
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input 
+            id="name" 
+            name="name" 
+            placeholder="Enter your name" 
+            required />
+          <span class="input-icon">👤</span>
+        </div>
 
-    <div class="button-container">
-      <button 
-        mat-raised-button 
-        color="primary" 
-        type="submit" 
-        [disabled]="!reclamationForm.valid"
-        class="submit-button"
-      >
-        <mat-icon>send</mat-icon> Submit
-      </button>
-      <button 
-        mat-raised-button 
-        (click)="router.navigate(['/list-reclamations', postId])" 
-        color="warn"
-        class="cancel-button"
-      >
-        <mat-icon>cancel</mat-icon> Cancel
-      </button>
+        <div class="button-container">
+          <button type="submit" class="btn-primary">
+            <span class="button-icon">➤</span> Submit
+          </button>
+          <button type="button" class="btn-secondary">
+            <span class="button-icon">✖</span> Cancel
+          </button>
+        </div>
+      </form>
+      <div class="feedback-note">
+        <span class="note-icon">ℹ️</span> Thank you for helping us improve E-Learn!
+      </div>
     </div>
-  </form>
-  <div class="feedback-note">
-    <mat-icon class="note-icon">info</mat-icon>
-    Thank you for helping us improve E-Learn!
   </div>
 </div>
