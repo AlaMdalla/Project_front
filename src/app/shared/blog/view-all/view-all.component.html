@@ -1,58 +1,62 @@
-<div id="content">
-    <div class="posts-container">
-        <div class="management-header">
-            <h2>All Posts</h2>
-            <button routerLink="/posts/new" class="reg-button">
-                <span class="btn-icon">+</span> Add Post
-            </button>
-        </div>
-
-        <!-- Filter Section -->
-        <div class="filter-section">
-            <div class="filter-group">
-                <label for="search">Search Posts:</label>
-                <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterPosts()" placeholder="Search by title..." />
-            </div>
-            <div class="filter-group">
-                <label for="sortFilter">Sort By:</label>
-                <select id="sortFilter" [(ngModel)]="sortFilter" (ngModelChange)="applySortFilter()">
-                    <option value="none">None</option>
-                    <option value="likes">Most Liked</option>
-                    <option value="views">Most Viewed</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Posts Grid -->
-        <div class="posts-grid">
-            <div *ngFor="let item of displayedPosts" class="post-card">
-                <div class="post-header">
-                    <img class="avatar-img" [src]="item.avatar" alt="Avatar">
-                    <div class="post-meta">
-                        <a class="post-title" routerLink="/view-post/{{item.id}}">{{ item.title }}</a>
-                        <p class="post-info">Posted by {{ item.postedBy }} on {{ item.date | date: 'mediumDate' }}</p>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <div class="post-image" *ngIf="item.img">
-                        <img [src]="item.img" alt="Post Image">
-                    </div>
-                    <p class="post-text">{{ item.content }}</p>
-                </div>
-                <div class="post-actions">
-                    <span class="action-info">{{ item.likeCount }} Likes</span>
-                    <span class="action-info">{{ item.viewCount }} Views</span>
-                    <button class="action-btn btn-view" routerLink="/view-post/{{item.id}}">View Post</button>
-                    <button class="action-btn btn-delete" (click)="deletePost(item.id)">Delete</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pagination Controls -->
-        <div class="pagination" *ngIf="totalItems > 0">
-            <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
-            <span>Page {{ currentPage }} of {{ totalPages }}</span>
-            <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
-        </div>
+<div class="card-container" *ngFor="let item of allPosts">
+  <mat-card class="post-card">
+    <!-- Close Button -->
+    <div class="close-button">
+      <button mat-icon-button color="warn" (click)="deletePost(item.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
+
+    <!-- Header with Avatar and Post Info -->
+    <mat-card-header>
+      <div mat-card-avatar class="avatar-container">
+        <img [src]="item.avatar" alt="Avatar" class="avatar-img" (error)="item.avatar = 'assets/img/default-avatar.jpg'">
+      </div>
+      <div class="post-header">
+        <mat-card-title class="post-title">{{ item.title }}</mat-card-title>
+        <mat-card-subtitle class="post-subtitle">
+          Posted By: {{ item.postedBy }} | Category: {{ item.category }} | Posted On: {{ item.date | date: 'medium' }}
+        </mat-card-subtitle>
+      </div>
+    </mat-card-header>
+
+    <!-- Post Content and Image -->
+    <mat-grid-list cols="2" rowHeight="150px"> <!-- Reduced rowHeight from 200px to 150px -->
+      <mat-grid-tile>
+        <div class="image-section">
+          <img *ngIf="item.img" [src]="'data:image/jpeg;base64,' + item.img" alt="Post Image" class="post-image" (error)="item.img = null" />
+          <div *ngIf="!item.img" class="no-image">No image available</div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="content-section">
+          <p class="post-text">{{ item.content }}</p>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <!-- Reactions and Actions -->
+    <mat-card-actions class="reaction-actions">
+      <div class="reaction-group">
+        <button mat-raised-button style="margin-left: 5px;" class="reaction-button">
+          <mat-icon>favorite</mat-icon> {{ item.likeCount || 0 }}
+        </button>
+        <button mat-raised-button style="margin-left: 5px;" class="reaction-button">
+          <mat-icon>mood</mat-icon> {{ item.laught || 0 }}
+        </button>
+        <button mat-raised-button style="margin-left: 5px;" class="reaction-button">
+          <mat-icon>mood_bad</mat-icon> {{ item.angry || 0 }}
+        </button>
+        <button mat-raised-button style="margin-left: 5px;" class="reaction-button">
+          <mat-icon>remove_red_eye</mat-icon> {{ item.viewCount || 0 }}
+        </button>
+        <button mat-raised-button style="margin-left: 5px;" class="action-button" routerLink="/view-post/{{ item.id }}">
+          View Post
+        </button>
+        <button mat-raised-button style="margin-left: 5px;" class="action-button" routerLink="/update-post/{{ item.id }}">
+          Update Post
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
 </div>

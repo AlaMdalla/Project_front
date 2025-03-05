@@ -1,10 +1,10 @@
 .center-card {
-    max-width: 500px; /* Slightly wider for better form layout */
+    max-width: 500px;
     margin: 30px auto;
     border-radius: 15px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%); /* Gradient background */
+    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
   }
   
   .form-container {
@@ -24,7 +24,7 @@
   .post-form {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Space between form fields */
+    gap: 15px;
   }
   
   .full-width {
@@ -110,6 +110,6 @@
   }
   
   .submit-button:not(:disabled):hover {
-    background-color: #303f9f; /* Darker primary shade on hover */
+    background-color: #303f9f;
     transform: translateY(-2px);
   }

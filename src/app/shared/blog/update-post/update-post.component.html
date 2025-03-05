@@ -1,7 +1,7 @@
 <mat-card class="center-card">
   <mat-card-content>
     <div class="form-container">
-      <h2 class="form-title">Create New Post</h2>
+      <h2 class="form-title">Update Post</h2>
       <form [formGroup]="postForm" class="post-form">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Title</mat-label>
@@ -65,14 +65,15 @@
           <mat-error *ngIf="!selectedFile && postForm.touched">
             An image is required.
           </mat-error>
+         
         </div>
 
         <hr class="divider" />
 
         <button mat-raised-button color="primary" class="submit-button" 
                 [disabled]="!postForm.valid || !selectedFile" 
-                (click)="createPost()">
-          Create New Post
+                (click)="updatePost()">
+          Update Post
         </button>
       </form>
     </div>

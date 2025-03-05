@@ -1,62 +1,133 @@
-<div *ngIf="postData">
-    <!-- Post Card -->
-    <div class="post-card">
-        <div class="post-header">
-            <img class="avatar-img" [src]="postData.avatar" alt="Avatar">
-            <h3>{{ postData.title }}</h3>
-            <p>Posted By: {{ postData.postedBy }} | Posted On: {{ postData.date | date: 'medium' }}</p>
-        </div>
+<div *ngIf="postData" class="post-container">
+  <mat-card class="post-card">
+    <mat-card-header>
+      <div mat-card-avatar class="avatar-container">
+        <img [src]="postData.avatar" alt="Avatar" class="avatar-img" (error)="postData.avatar = 'assets/img/default-avatar.jpg'">
+      </div>
+      <div class="post-header">
+        <mat-card-title class="post-title">{{ postData.title }}</mat-card-title>
+        <mat-card-subtitle class="post-subtitle">
+          Posted By: {{ postData.postedBy }} | Category: {{ postData.category }} | 
+          <span class="post-date">{{ postData.date | date: 'medium' }}</span>
+        </mat-card-subtitle>
+      </div>
+    </mat-card-header>
 
-        <div class="post-content">
-            <div class="post-image">
-                <img [src]="postData.img" alt="Card Image">
-            </div>
-            <div class="post-text">
-                <p>{{ postData.content }}</p>
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="post-actions">
-            <button>{{ postData.likeCount }} Likes</button>
-            <button>{{ postData.viewCount }} Views</button>
-        </div>
+    <div class="post-content">
+      <mat-grid-list cols="2" rowHeight="250px">
+        <mat-grid-tile>
+          <div class="image-section">
+            <img *ngIf="postData.img" [src]="'data:image/jpeg;base64,' + postData.img" alt="Post Image" class="post-image" />
+            <div *ngIf="!postData.img" class="no-image">No image available</div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="content-section">
+            <p class="post-text">{{ postData.content }}</p>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
     </div>
 
-    <!-- 🔹 Comments Section 🔹 -->
-    <div class="comment-section">
-        <div class="comment-form">
-            <h4>💬 Publish Your Comment</h4>
-            <form [formGroup]="CommentForm">
-                <div class="form-group">
-                    <label for="content">Your Comment</label>
-                    <textarea id="content" formControlName="content" placeholder="Write your comment here..." required></textarea>
-                </div>
+    <mat-card-actions class="reaction-actions">
+      <div class="reaction-group">
+        <button mat-stroked-button color="primary" (click)="reactPost('like')" class="reaction-button"
+          [ngClass]="{'hovered': hoveredReaction === 'like'}" (mouseenter)="hoverReaction('like')"
+          (mouseleave)="hoverReaction(null)">
+          <mat-icon>favorite</mat-icon> {{ postData.likeCount || 0 }}
+        </button>
+        <button mat-stroked-button color="primary" (click)="reactPost('laugh')" class="reaction-button"
+          [ngClass]="{'hovered': hoveredReaction === 'laugh'}" (mouseenter)="hoverReaction('laugh')"
+          (mouseleave)="hoverReaction(null)" style="margin-left: 10px;">
+          <mat-icon>mood</mat-icon> {{ postData.laught || 0 }}
+        </button>
+        <button mat-stroked-button color="primary" (click)="reactPost('angry')" class="reaction-button"
+          [ngClass]="{'hovered': hoveredReaction === 'angry'}" (mouseenter)="hoverReaction('angry')"
+          (mouseleave)="hoverReaction(null)" style="margin-left: 10px;">
+          <mat-icon>mood_bad</mat-icon> {{ postData.angry || 0 }}
+        </button>
+      </div>
+      <button mat-flat-button color="warn" (click)="goToReclamationForm()" class="report-button">
+        <mat-icon>report</mat-icon> Report
+      </button>
+    </mat-card-actions>
+  </mat-card>
 
-                <div class="form-group">
-                    <label for="postedBy">Your Name</label>
-                    <input id="postedBy" formControlName="postedBy" placeholder="Write your name here" required>
-                </div>
-
-                <div class="button-container">
-                    <button (click)="publishComment()" [disabled]="!CommentForm.valid">Publish</button>
-                </div>
-            </form>
+  <div class="comments-section">
+    <h3 class="comments-title"><mat-icon>chat</mat-icon> Comments</h3>
+    <mat-card *ngFor="let comment of comments" class="comment-card">
+      <mat-card-header>
+        <div mat-card-avatar class="avatar-container">
+          <img [src]="comment.avatar" alt="Avatar" class="avatar-img" (error)="comment.avatar = 'assets/img/default-avatar.jpg'">
         </div>
-
-        <div class="comments-list">
-            <h4>Comments</h4>
-            <div class="comment" *ngFor="let comment of comments">
-                <div class="comment-header">
-                    <img class="avatar-img" [src]="comment.avatar" alt="Avatar">
-                    <h5>{{ comment.postedBy }}</h5>
-                    <p>{{ comment.createdAt | date: 'medium' }}</p>
-                </div>
-                <div class="comment-content">
-                    <p>{{ comment.content }}</p>
-                </div>
+        <div class="comment-header">
+          <mat-card-title class="comment-title">{{ comment.postedBy }}</mat-card-title>
+          <mat-card-subtitle class="comment-subtitle">{{ comment.createdAt | date: 'medium' }}</mat-card-subtitle>
+        </div>
+      </mat-card-header>
+      <mat-card-content class="comment-content">
+        <p>{{ comment.content }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="comment.showReply = !comment.showReply" class="reply-button">
+          <mat-icon>reply</mat-icon> Reply
+        </button>
+      </mat-card-actions>
+      <div *ngIf="comment.showReply" class="reply-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Write a reply...</mat-label>
+          <input matInput [(ngModel)]="comment.replyContent" placeholder="Type your reply...">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="replyToComment(comment.id); comment.showReply = false" class="submit-reply-button">
+          <mat-icon>send</mat-icon> Submit
+        </button>
+      </div>
+      <div *ngIf="comment.replies?.length" class="replies-section">
+        <mat-card *ngFor="let reply of comment.replies" class="reply-card">
+          <mat-card-header>
+            <div mat-card-avatar class="avatar-container">
+              <img [src]="reply.avatar || 'assets/img/default-avatar.jpg'" alt="Avatar" class="avatar-img">
             </div>
+            <div class="reply-header">
+              <mat-card-title class="reply-title">{{ reply.postedBy }}</mat-card-title>
+              <mat-card-subtitle class="reply-subtitle">{{ reply.createdAt | date: 'medium' }}</mat-card-subtitle>
+            </div>
+          </mat-card-header>
+          <mat-card-content class="reply-content">
+            <p>{{ reply.content }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+
+  <mat-card class="comment-form-card">
+    <mat-card-content>
+      <h3 class="comment-form-title"><mat-icon>chat_bubble_outline</mat-icon> Publish Your Comment</h3>
+      <form [formGroup]="CommentForm" (ngSubmit)="publishComment()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Your Comment</mat-label>
+          <textarea matInput formControlName="content" placeholder="Write your comment here..." required></textarea>
+          <mat-error *ngIf="CommentForm.get('content')?.hasError('required') && CommentForm.get('content')?.touched">
+            Comment is required!
+          </mat-error>
+          <mat-error *ngIf="CommentForm.get('content')?.hasError('invalid')">
+            Inappropriate language detected. Please revise your comment.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width" style="margin-top: 15px;">
+          <mat-label>Your Name</mat-label>
+          <input matInput formControlName="postedBy" placeholder="Write your name here" required>
+          <mat-error *ngIf="CommentForm.get('postedBy')?.hasError('required') && CommentForm.get('postedBy')?.touched">
+            Name is required!
+          </mat-error>
+        </mat-form-field>
+        <div class="button-container">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!CommentForm.valid">
+            <mat-icon>send</mat-icon> Publish
+          </button>
         </div>
-    </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>
