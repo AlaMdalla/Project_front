@@ -2,10 +2,10 @@ import {Question} from "./Question";
 
 export interface Evaluation {
   idEvaluation: number;
-  trainingId: number;
+  training_id: number;
   description: string;
   type: string;
-  evaluationDuration: string;
+  evaluation_duration: string;
   score: number;
   createdAt: Date;
   certificat: boolean;

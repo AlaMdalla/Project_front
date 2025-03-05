@@ -25,6 +25,10 @@ import { UpdateuserComponent } from "./shared/updateuser/updateuser.component";
 import { UsersListComponent } from "./admin/users-list/users-list.component";
 import {TrainingDetailComponent} from "./training-detail/training-detail.component";
 import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
+import { AddEvaluationComponent } from "./admin/Trainings/add-evaluation/add-evaluation.component";
+import {AjoutEvaluationComponent} from "./admin/Trainings/ajout-evaluation/ajout-evaluation.component";
+
+//import {AddEvaluationComponent} from "./add-evaluation/add-evaluation.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
@@ -36,7 +40,8 @@ const routes: Routes = [
     {path : "",component:HomeComponent},
     {path: 'addPost' , component: AddPostComponent},
     {path: 'addtraining' , component: AddTrainingsComponent},
-    { path: 'problem/edit/:id', component: AddProblemComponent },
+  { path: 'ajoutEvaluation', component: AjoutEvaluationComponent },
+  { path: 'problem/edit/:id', component: AddProblemComponent },
     {path: 'addProblem' , component: AddProblemComponent},
     {path: 'addCompetition' , component: AddCompetitionComponent},
     { path: 'Competition/edit/:id', component: AddCompetitionComponent },

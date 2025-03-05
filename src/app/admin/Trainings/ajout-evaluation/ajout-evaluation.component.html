@@ -1,0 +1,63 @@
+<app-sidebar></app-sidebar>
+
+<div class="container">
+  <h2>Créer une Évaluation</h2>
+
+  <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
+    <!-- Détails de l'évaluation -->
+    <div class="form-group">
+      <label for="description">Description de l'évaluation :</label>
+      <input id="description" type="text" formControlName="description" required>
+    </div>
+
+    <div class="form-group">
+      <label for="evaluation_duration">Durée (minutes) :</label>
+      <input id="evaluation_duration" type="number" formControlName="evaluation_duration" required>
+    </div>
+
+    <div class="form-group">
+      <label for="training_id">Training :</label>
+      <input id="training_id" type="number" formControlName="training_id" required>
+    </div>
+
+    <div class="form-group">
+      <label for="score">Score minimal :</label>
+      <input id="score" type="number" formControlName="score" required>
+    </div>
+
+    <div class="form-group">
+      <label for="type">Type :</label>
+      <select id="type" formControlName="type">
+        <option value="QCM">QCM</option>
+        <option value="Ouverte">Ouverte</option>
+      </select>
+    </div>
+
+    <h3>Questions</h3>
+    <div formArrayName="questions">
+      <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i" class="question-box">
+        <label>Question {{ i + 1 }} :</label>
+        <input type="text" formControlName="question_text" placeholder="Texte de la question" required>
+
+        <label>Réponse Correcte</label>
+        <input type="text" formControlName="question_text" placeholder="Texte de la question" required>
+
+        <h4>Options</h4>
+        <div formArrayName="options">
+          <div *ngFor="let option of getOptionsControls(i).controls; let j = index" [formGroupName]="j">
+            <input type="text" formControlName="option_text" placeholder="Option">
+            <button type="button" (click)="removeOption(i, j)">❌</button>
+          </div>
+        </div>
+
+        <button type="button" class="btn-small" (click)="addOption(i)">➕ Ajouter une option</button>
+        <button type="button" class="btn-small delete" (click)="removeQuestion(i)">❌ Supprimer Question</button>
+      </div>
+    </div>
+
+    <button type="button" class="btn" (click)="addQuestion()">➕ Ajouter une Question</button>
+    <button type="submit" class="btn submit">✅ Enregistrer l'Évaluation</button>
+    <p *ngIf="isSubmitted" class="success-message">{{ successMessage }}</p>
+
+  </form>
+</div>

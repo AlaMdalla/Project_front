@@ -16,6 +16,18 @@
               <span class="text">Users</span>
           </a>
       </li>
+    <li [ngClass]="{'active': currentRoute === '/addtraining'}">
+      <a routerLink="/addtraining">
+        <i class='bx bxs-trophy'></i>
+        <span class="text">Courses</span>
+      </a>
+    </li>
+    <li [ngClass]="{'active': currentRoute === '/ajoutEvaluation'}">
+      <a routerLink="/ajoutEvaluation">
+        <i class='bx bxs-trophy'></i>
+        <span class="text">Evaluations</span>
+      </a>
+    </li>
       <li [ngClass]="{'active': currentRoute === '/addCompetition'}">
           <a routerLink="/addCompetition">
               <i class='bx bxs-trophy'></i>

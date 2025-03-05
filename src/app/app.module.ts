@@ -45,6 +45,8 @@ import { JobFormComponent } from './shared/Job/job-form/job-form.component';
 import { ListProblemsComponent } from './admin/Problems/list-problems/list-problems.component';
 import { UsersListComponent } from './admin/users-list/users-list.component';
 import { TrainingDetailComponent } from './training-detail/training-detail.component';
+import {AddEvaluationComponent} from "./admin/Trainings/add-evaluation/add-evaluation.component";
+import { AjoutEvaluationComponent } from './admin/Trainings/ajout-evaluation/ajout-evaluation.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -75,6 +77,7 @@ import { TrainingDetailComponent } from './training-detail/training-detail.compo
     ListProblemsComponent,
     UsersListComponent,
     TrainingDetailComponent,
+    AjoutEvaluationComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,6 +102,9 @@ import { TrainingDetailComponent } from './training-detail/training-detail.compo
     MatGridListModule
   ],
   providers: [],
+  exports: [
+    SidebarComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
