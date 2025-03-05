@@ -44,6 +44,10 @@ import { JobListComponent } from './shared/Job/job-list/job-list.component';
 import { JobFormComponent } from './shared/Job/job-form/job-form.component';
 import { ListProblemsComponent } from './admin/Problems/list-problems/list-problems.component';
 import { UsersListComponent } from './admin/users-list/users-list.component';
+import { SubsCreateComponentComponent } from './admin/Subs/subs-create-component/subs-create-component.component';
+import { SubsListComponent } from './admin/Subs/subs-list/subs-list.component';
+import { SubsComponent } from './shared/Subs/subs/subs.component';
+import { SubUpdateComponent } from './admin/Subs/sub-update/sub-update.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -73,6 +77,10 @@ import { UsersListComponent } from './admin/users-list/users-list.component';
     JobFormComponent,
     ListProblemsComponent,
     UsersListComponent,
+    SubsCreateComponentComponent,
+    SubsListComponent,
+    SubsComponent,
+    SubUpdateComponent,
   ],
   imports: [
     BrowserModule,

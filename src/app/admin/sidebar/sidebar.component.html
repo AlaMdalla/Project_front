@@ -41,11 +41,17 @@
           </a>
       </li>
       <li [ngClass]="{'active': currentRoute === '/candidates'}">
-          <a routerLink="/candidates/new">
+          <a routerLink="/candidates/">
               <i class='bx bxs-group'></i>
               <span class="text">Candidates</span>
           </a>
       </li>
+      <li [ngClass]="{'active': currentRoute === '/candidates'}">
+        <a routerLink="/addSubs">
+            <i class='bx bxs-group'></i>
+            <span class="text">Subscription</span>
+        </a>
+    </li>
       <li [ngClass]="{'active': currentRoute === '/jobs/new'}">
           <a routerLink="/jobs/new">
               <i class='bx bxs-briefcase'></i>

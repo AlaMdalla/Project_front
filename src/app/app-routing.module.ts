@@ -23,6 +23,8 @@ import { adminGuard, usersGuard } from "./Services/users.guard";
 import { ProfileComponent } from "./shared/profile/profile.component";
 import { UpdateuserComponent } from "./shared/updateuser/updateuser.component";
 import { UsersListComponent } from "./admin/users-list/users-list.component";
+import { SubsCreateComponentComponent } from "./admin/Subs/subs-create-component/subs-create-component.component";
+import { SubUpdateComponent } from "./admin/Subs/sub-update/sub-update.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
@@ -38,7 +40,8 @@ const routes: Routes = [
     {path: 'addProblem' , component: AddProblemComponent},
     {path: 'addCompetition' , component: AddCompetitionComponent},
     { path: 'Competition/edit/:id', component: AddCompetitionComponent },
-
+    { path: 'addSubs', component: SubsCreateComponentComponent,canActivate:[adminGuard] },
+    { path: 'updateSubs/:id', component: SubUpdateComponent,canActivate:[adminGuard] },
     {path: 'view-post/:id' , component: ViewPostComponent},
     {path: 'admin' , component: HomeAdminComponent ,canActivate:[adminGuard]},
     //candidate routes

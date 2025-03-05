@@ -1,0 +1,69 @@
+<div class="subscriptions-container">
+    <div class="management-header">
+        <h2>Subscription List</h2>
+       
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="filter-group">
+            <label for="search">Search Subscriptions:</label>
+            <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterSubscriptions()" placeholder="Search by type..." />
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrapper" *ngIf="displayedSubscriptions.length > 0; else noSubscriptions">
+        <table>
+            <thead>
+                <tr>
+                    <th (click)="sortColumn('typesub')">
+                        Subscription Type
+                        <span class="sort-icon">{{ sortColumnName === 'typesub' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th (click)="sortColumn('subsDescription')">
+                        Description
+                        <span class="sort-icon">{{ sortColumnName === 'subsDescription' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th (click)="sortColumn('subsDiscountedPrice')">
+                        Discounted Price
+                        <span class="sort-icon">{{ sortColumnName === 'subsDiscountedPrice' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th (click)="sortColumn('subsActualPrice')">
+                        Actual Price
+                        <span class="sort-icon">{{ sortColumnName === 'subsActualPrice' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sub of displayedSubscriptions" class="table-row">
+                    <td>{{ sub.typesub }}</td>
+                    <td>{{ sub.subsDescription }}</td>
+                    <td>{{ sub.subsDiscountedPrice }}</td>
+                    <td>{{ sub.subsActualPrice }}</td>
+                    <td class="action-buttons">
+                        <button class="btn-edit" routerLink="/updateSubs/{{ sub.subid }}">
+                            <span class="btn-icon">✏️</span> Edit
+                        </button>
+                        <button class="btn-delete" (click)="deleteSubscription(sub.subid ?? 0)">
+                            <span class="btn-icon">🗑️</span> Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- No Subscriptions Message -->
+    <ng-template #noSubscriptions>
+        <div class="no-subscriptions">No subscriptions available.</div>
+    </ng-template>
+
+    <!-- Pagination Controls -->
+    <div class="pagination" *ngIf="totalItems > 0">
+        <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
+    </div>
+</div>
