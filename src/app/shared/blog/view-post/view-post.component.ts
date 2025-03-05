@@ -16,6 +16,7 @@ export class ViewPostComponent implements OnInit {
   CommentForm!: FormGroup;
   comments: any[] = [];
   reclamations: any[] = [];
+  hoveredReaction: string | null = null;
 
   constructor(
     private postService: PostService,
@@ -35,6 +36,9 @@ export class ViewPostComponent implements OnInit {
       postedBy: [null, Validators.required],
       content: [null, Validators.required],
     });
+  }
+  hoverReaction(reaction: string | null) {
+    this.hoveredReaction = reaction; // Update hovered reaction state
   }
 
   publishComment() {

@@ -1,57 +1,62 @@
-<div class="card-container" *ngFor="let item of allPosts ">
-    <mat-card>
-        <div class="close-button">
-            <button mat-icon-button color="warn" (click)="deletePost(item.id)">
-                <mat-icon>delete</mat-icon>
-            </button>
+<div class="card-container" *ngFor="let item of allPosts">
+  <mat-card class="post-card">
+    <!-- Close Button -->
+    <div class="close-button">
+      <button mat-icon-button color="warn" (click)="deletePost(item.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+    <!-- Header with Avatar and Post Info -->
+    <mat-card-header>
+      <div mat-card-avatar class="avatar-container">
+        <img [src]="item.avatar" alt="Avatar" class="avatar-img" (error)="item.avatar = 'assets/img/default-avatar.jpg'">
+      </div>
+      <div class="post-header">
+        <mat-card-title class="post-title">{{ item.title }}</mat-card-title>
+        <mat-card-subtitle class="post-subtitle">
+          Posted By: {{ item.postedBy }} | Category: {{ item.category }} | Posted On: {{ item.date | date: 'medium' }}
+        </mat-card-subtitle>
+      </div>
+    </mat-card-header>
+
+    <!-- Post Content and Image -->
+    <mat-grid-list cols="2" rowHeight="150px"> <!-- Reduced rowHeight from 200px to 150px -->
+      <mat-grid-tile>
+        <div class="image-section">
+          <img *ngIf="item.img" [src]="'data:image/jpeg;base64,' + item.img" alt="Post Image" class="post-image" (error)="item.img = null" />
+          <div *ngIf="!item.img" class="no-image">No image available</div>
         </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="content-section">
+          <p class="post-text">{{ item.content }}</p>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
 
-        <mat-card-header>
-            <div mat-card-avatar class="avatar-container">
-                <img [src]="item.avatar" alt="Avatar" class="avatar-img">
-            </div>
-
-            <mat-card-title>{{item.title}}</mat-card-title>
-            <mat-card-subtitle>Posted By : {{item.postedBy}} | Category : {{item.category}} | Posted On : {{item.date | date: 'medium'}}</mat-card-subtitle>
-            
-           
-            
-        </mat-card-header>
-
-        <mat-grid-list cols="5">
-            <mat-grid-tile [colspan]="2" [rowspan]="1">
-                <img [src]="'data:image/png;base64,' + item.picByte" alt="Post Image">
-
-            </mat-grid-tile>
-            <mat-grid-tile [colspan]="3" [rowspan]="1">
-                {{item.content}}
-            </mat-grid-tile>
-        </mat-grid-list>
-
-        <hr>
-
-        <mat-card-actions>
-            <button mat-raised-button color="primary" style="margin-left: 5px;">{{item.likeCount}}
-                <mat-icon>favorite</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;">{{item.laught}}
-                <mat-icon>mood</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;">{{item.angry}}
-                <mat-icon>mood_bad</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;">
-                {{item.viewCount}}
-                <mat-icon>remove_red_eye</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;" routerLink="/view-post/{{item.id}}">
-                View Posts
-            </button>
-            <button mat-raised-button color="primary" style="margin-left: 5px;" routerLink="/update-post/{{item.id}}">
-                Update Post
-              </button>
-              
-        </mat-card-actions>
-    </mat-card>
-    
+    <!-- Reactions and Actions -->
+    <mat-card-actions class="reaction-actions">
+      <div class="reaction-group">
+        <button mat-raised-button style="margin-left: 5px;" class="reaction-button">
+          <mat-icon>favorite</mat-icon> {{ item.likeCount || 0 }}
+        </button>
+        <button mat-raised-button style="margin-left: 5px;" class="reaction-button">
+          <mat-icon>mood</mat-icon> {{ item.laught || 0 }}
+        </button>
+        <button mat-raised-button style="margin-left: 5px;" class="reaction-button">
+          <mat-icon>mood_bad</mat-icon> {{ item.angry || 0 }}
+        </button>
+        <button mat-raised-button style="margin-left: 5px;" class="reaction-button">
+          <mat-icon>remove_red_eye</mat-icon> {{ item.viewCount || 0 }}
+        </button>
+        <button mat-raised-button style="margin-left: 5px;" class="action-button" routerLink="/view-post/{{ item.id }}">
+          View Post
+        </button>
+        <button mat-raised-button style="margin-left: 5px;" class="action-button" routerLink="/update-post/{{ item.id }}">
+          Update Post
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
 </div>

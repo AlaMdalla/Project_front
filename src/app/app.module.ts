@@ -46,6 +46,7 @@ import { ListProblemsComponent } from './admin/Problems/list-problems/list-probl
 import { ReclamationComponent } from './shared/blog/reclamation/reclamation.component';
 import { UpdatePostComponent } from './shared/blog/update-post/update-post.component';
 import { ListereclamationComponent } from './shared/blog/listereclamation/listereclamation.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { ListereclamationComponent } from './shared/blog/listereclamation/lister
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatMenuModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

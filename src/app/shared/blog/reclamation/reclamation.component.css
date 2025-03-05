@@ -1,0 +1,88 @@
+.reclamation-form-container {
+  padding: 30px;
+  max-width: 600px;
+  margin: 50px auto;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in;
+}
+
+.form-title {
+  font-size: 28px;
+  color: #d32f2f;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.title-icon {
+  margin-right: 10px;
+  color: #d32f2f;
+}
+
+.form-subtitle {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-icon {
+  color: #888;
+}
+
+mat-form-field {
+  border-radius: 8px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.submit-button {
+  background-color: #1976d2;
+  color: white;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  transform: scale(1.05);
+  background-color: #1565c0;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.cancel-button:hover {
+  transform: scale(1.05);
+}
+
+.feedback-note {
+  text-align: center;
+  margin-top: 20px;
+  color: #388e3c;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.note-icon {
+  margin-right: 5px;
+  color: #388e3c;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
