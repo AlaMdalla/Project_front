@@ -1,35 +1,43 @@
 <header>
-    <div class="container">
+  <div class="container">
       <!-- Logo -->
       <div class="logo">
-        <a href="#">E-Learn</a>
+          <a href="#">E-Learn</a>
       </div>
-  
+
       <!-- Navigation -->
       <nav class="nav">
-        <ul class="nav-list">
-          <li><a routerLink="/">Home</a></li>
-          <li><a routerLink="/courses">Courses</a></li>
-          <li><a routerLink="/Problems">Problems</a></li>
-          <li><a routerLink="/Posts">Posts</a></li>
-          <li><a routerLink="/jobs">Jobs</a></li>
-
-          <li><a routerLink="/Competition">Competition</a></li>
-          <li><a routerLink="/contact">Contact</a></li>
-        </ul>
+          <ul class="nav-list">
+              <li><a routerLink="/">Home</a></li>
+              <li><a routerLink="/courses">Courses</a></li>
+              <li><a routerLink="/Problems">Problems</a></li>
+              <li><a routerLink="/Posts">Posts</a></li>
+              <li><a routerLink="/jobs">Jobs</a></li>
+              <li><a routerLink="/Competition">Competition</a></li>
+              <li><a routerLink="/contact">Contact</a></li>
+          </ul>
       </nav>
-  
-      <!-- CTA Button -->
-      <div class="cta">
-        <a href="#" class="cta-btn">Sign Up</a>
+
+      <!-- Profile Icon (Visible only when authenticated) -->
+      <div class="profile-icon" *ngIf="isAuth">
+          <a (click)="goToProfile()" class="profile-link">
+            <span class="avatar-initial">{{ profileInfo?.ourUsers?.name?.charAt(0) | uppercase }}</span>
+          </a>
       </div>
-  
+
+      <!-- CTA Button -->
+      <div class="cta" *ngIf="!isAuth">
+          <a href="/login" class="cta-btn">Sign Up</a>
+      </div>
+      <div class="cta" *ngIf="isAuth">
+          <a (click)="logout()" class="cta-btn">Logout</a>
+      </div>
+
       <!-- Hamburger Menu (for mobile) -->
       <div class="hamburger" id="hamburger" (click)="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
       </div>
-    </div>
-  </header>
-  
+  </div>
+</header>

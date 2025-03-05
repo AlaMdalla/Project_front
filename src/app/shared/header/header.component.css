@@ -1,35 +1,32 @@
 /* Header */
 header {
-  background: linear-gradient(90deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.95)); /* Slightly translucent navy blue gradient */
+  background: linear-gradient(90deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.95));
   color: #ffffff;
-  padding: 20px 0; /* Increased padding for a more spacious feel */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Softer, deeper shadow for a modern look */
+  padding: 20px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* Ensure header stays above other content */
-  backdrop-filter: blur(5px); /* Add a subtle blur effect for a glass-like appearance */
+  z-index: 1000;
+  backdrop-filter: blur(5px);
 }
 
-/* Add margin to the content below the fixed header to avoid overlap */
 :host {
-  margin-top: 80px; /* Adjusted based on new header height */
-  display: block; /* Ensure the host behaves as a block element */
+  margin-top: 80px;
+  display: block;
 }
 
-/* Container */
 header .container {
-  max-width: 1200px; /* Match Competitions Section width */
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 30px; /* Increased padding for better spacing */
-  gap: 30px; /* Consistent gap between elements */
+  padding: 0 30px;
+  gap: 30px;
 }
 
-/* Logo */
 header .logo a {
   font-size: 30px;
   font-weight: 700;
@@ -44,7 +41,6 @@ header .logo a:hover {
   transform: scale(1.05);
 }
 
-/* Navigation */
 header .nav {
   flex-grow: 1;
 }
@@ -93,7 +89,6 @@ header .nav-list li a:hover::after {
   width: calc(100% - 30px);
 }
 
-/* CTA Button */
 header .cta {
   display: flex;
   align-items: center;
@@ -119,7 +114,6 @@ header .cta-btn:hover {
   border-color: #ffffff;
 }
 
-/* Hamburger Menu */
 header .hamburger {
   display: none;
   flex-direction: column;
@@ -142,7 +136,6 @@ header .hamburger span {
   transition: all 0.3s ease;
 }
 
-/* Mobile menu toggle (active state) */
 header .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(6px, 6px);
 }
@@ -153,6 +146,38 @@ header .hamburger.active span:nth-child(2) {
 
 header .hamburger.active span:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Profile Icon */
+header .profile-icon {
+  display: flex;
+  align-items: center;
+}
+
+header .profile-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: #3b82f6; /* Blue background to match the provided image */
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+header .profile-link:hover {
+  background: #2dd4bf; /* Softer teal on hover for consistency */
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(94, 234, 212, 0.3);
+}
+
+header .profile-initial {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
 }
 
 /* Responsive design for mobile */
@@ -195,16 +220,20 @@ header .hamburger.active span:nth-child(3) {
       margin-left: auto;
   }
 
+  header .profile-icon {
+      margin-left: auto;
+      margin-right: 10px;
+  }
+
   :host {
-      margin-top: 90px; /* Larger margin for mobile to account for expanded nav */
+      margin-top: 90px;
   }
 }
 
-/* Ensure sections below the header have consistent spacing */
 section,
 app-courses,
 app-competitions,
 app-view-all,
 app-footer {
-  margin-bottom: 60px; /* Consistent bottom margin for sections */
+  margin-bottom: 60px;
 }

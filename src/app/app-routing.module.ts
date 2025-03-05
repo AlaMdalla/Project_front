@@ -51,7 +51,7 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'profile', component: ProfileComponent, canActivate: [usersGuard]},
-    {path: 'update/:id', component: UpdateuserComponent, canActivate: [adminGuard]},
+    {path: 'update/:id', component: UpdateuserComponent, canActivate: [usersGuard]},
    {path: 'users', component: UsersListComponent, canActivate:[adminGuard]},
     {path: '**', component: LoginComponent},
     {path: '', redirectTo: '/login', pathMatch: 'full'},

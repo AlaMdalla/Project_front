@@ -86,6 +86,7 @@ export class UsersService {
       throw error;
     }
   }
+
   async getOwnUsersById(userId: string): Promise<any> {
     const url = `${this.BASE_URL}/get-users/${userId}`;
   
@@ -130,6 +131,8 @@ export class UsersService {
       throw error;
     }
   }
+  
+
   async updateOwnUser(userId: string, userData: any): Promise<any> {
     const url = `${this.BASE_URL}/update/${userId}`;
   

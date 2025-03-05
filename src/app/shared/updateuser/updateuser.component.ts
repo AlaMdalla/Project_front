@@ -116,7 +116,7 @@ isAdmin:boolean =false;
         console.log(res);
     
         if (res.statusCode === 200) {
-          this.router.navigate(['/users']);
+          this.router.navigate(['/home']);
         } else {
           this.showError(res.message);
         }
