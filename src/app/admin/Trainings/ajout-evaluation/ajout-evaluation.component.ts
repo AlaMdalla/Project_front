@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Evaluation} from "../../../models/Evaluation";
 import {EvaluationService} from "../../../Services/evaluation.service";
+import {QuestionService} from "../../../Services/question.service";
+import {Question} from "../../../models/Question";
 
 @Component({
   selector: 'app-ajout-evaluation',
@@ -10,10 +12,11 @@ import {EvaluationService} from "../../../Services/evaluation.service";
 })
 export class AjoutEvaluationComponent {
   evaluationForm!: FormGroup;
+  questionForm!: FormGroup;
   isSubmitted = false;
   successMessage = '';
 
-  constructor(private fb: FormBuilder, private evaluationService: EvaluationService) {}
+  constructor(private fb: FormBuilder, private evaluationService: EvaluationService, private questionService: QuestionService) {}
 
 
   ngOnInit(): void {
@@ -25,6 +28,10 @@ export class AjoutEvaluationComponent {
       type: ['QCM', Validators.required],
       questions: this.fb.array([]) // Liste de questions
     });
+    this.questionForm = this.fb.group({
+      questionText: ['', Validators.required],
+      bonneReponse: ['', Validators.required],
+    });
   }
 
   get questions() {
@@ -33,7 +40,8 @@ export class AjoutEvaluationComponent {
 
   addQuestion(): void {
     const questionGroup = this.fb.group({
-      question_text: ['', Validators.required],
+      questionText: ['', Validators.required],
+      bonneReponse: ['', Validators.required],
       options: this.fb.array([])
     });
     this.questions.push(questionGroup);
@@ -59,6 +67,21 @@ export class AjoutEvaluationComponent {
           console.error('Erreur lors de l’ajout de l’évaluation', error);
         }
       });
+      for (const control of this.questions.controls) {
+        const question = control.value; // ✅ Extraire les données de chaque FormGroup
+
+        this.questionService.addQuestion(question).subscribe({
+          next: (response) => {
+            console.log('Question ajoutée avec succès !', response);
+            this.successMessage = 'Question ajoutée avec succès !';
+            this.isSubmitted = true;
+            this.questionForm.reset();
+          },
+          error: (error) => {
+            console.error('Erreur lors de l’ajout de la question', error);
+          }
+        });
+      }
     } else {
       console.warn('Le formulaire est invalide');
     }

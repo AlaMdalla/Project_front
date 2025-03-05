@@ -37,10 +37,10 @@
     <div formArrayName="questions">
       <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i" class="question-box">
         <label>Question {{ i + 1 }} :</label>
-        <input type="text" formControlName="question_text" placeholder="Texte de la question" required>
+        <input type="text" id="questionText" formControlName="questionText" placeholder="Texte de la question" required>
 
         <label>Réponse Correcte</label>
-        <input type="text" formControlName="question_text" placeholder="Texte de la question" required>
+        <input type="text" id="bonneReponse"  formControlName="bonneReponse" placeholder="Texte de la question" required>
 
         <h4>Options</h4>
         <div formArrayName="options">

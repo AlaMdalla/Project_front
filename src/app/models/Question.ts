@@ -15,5 +15,6 @@ export enum type {
 export interface Question {
   questionId: number;
   questionText: string;
+  bonneReponse: string;
   type: type;
 }

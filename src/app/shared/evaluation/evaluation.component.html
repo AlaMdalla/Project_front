@@ -5,7 +5,7 @@
 
   <h3>Questions :</h3>
   <div *ngFor="let question of questions; let i = index" class="questions">
-    <h4>Question {{ i + 1 }} : {{ question?.question_text }}</h4>
+    <h4>Question {{ i + 1 }} : {{ question?.questionText}}</h4>
 
     <ul>
       <li *ngFor="let option of question?.options">
