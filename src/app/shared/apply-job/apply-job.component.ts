@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Candidate } from 'src/app/models/Candidate';
 import { Job } from 'src/app/models/Job';
 import { CandidateService } from 'src/app/Services/candidate.service';
 import { JobService } from 'src/app/Services/job.service';
-
 @Component({
-  selector: 'app-candidat-form',
-  templateUrl: './candidat-form.component.html',
-  styleUrls: ['./candidat-form.component.css']
+  selector: 'app-apply-job',
+  templateUrl: './apply-job.component.html',
+  styleUrls: ['./apply-job.component.css']
 })
-export class CandidateFormComponent implements OnInit {
+export class ApplyJobComponent {
   candidate: Candidate = new Candidate();
   jobs: Job[] = [];
+  job!: Job ;
+
   isEditMode: boolean = false;
   jobId: number | null = null;
   selectedJobTitle: string | null = null;
@@ -31,13 +31,12 @@ export class CandidateFormComponent implements OnInit {
     // Check if 'id' parameter exists for editing an existing candidate
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.isEditMode = true;
-      this.candidateService.getCandidateById(+id).subscribe({
+      this.jobService.getJobById(+id).subscribe({
         next: (data) => {
-          this.candidate = data;
-          if (this.candidate.applicationDate) {
-            this.candidate.applicationDate = new Date(this.candidate.applicationDate).toISOString().slice(0, 16);
-          }
+          this.jobId = +id;  // Using the unary plus operator to convert string to number
+          this.job = data;
+         this.selectedJobTitle=this.job.title
+         console.log(this.selectedJobTitle)
         },
         error: (err) => console.error('❌ Error fetching candidate:', err),
       });
@@ -131,4 +130,5 @@ export class CandidateFormComponent implements OnInit {
         error: (err) => console.error('Create error:', err),
       });
     }
-  }}
+  }
+}

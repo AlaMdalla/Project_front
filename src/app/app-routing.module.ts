@@ -14,7 +14,6 @@ import { CompetitionsComponent } from "./shared/Competition/competitions/competi
 import { AddCompetitionComponent } from "./admin/Competition/add-competition/add-competition.component";
 import { AddTrainingsComponent } from "./admin/Trainings/add-trainings/add-trainings.component";
 import { CandidatListComponent } from "./shared/Candidats/candidat-list/candidat-list.component";
-import { CandidatFormComponent } from "./shared/Candidats/candidat-form/candidat-form.component";
 import { JobListComponent } from "./shared/Job/job-list/job-list.component";
 import { JobFormComponent } from "./shared/Job/job-form/job-form.component";
 import { LoginComponent } from "./shared/login/login.component";
@@ -28,6 +27,11 @@ import { SubUpdateComponent } from "./admin/Subs/sub-update/sub-update.component
 import { UpdatePostComponent } from "./shared/blog/update-post/update-post.component";
 import { ReclamationComponent } from "./shared/blog/reclamation/reclamation.component";
 import { ListereclamationComponent } from "./admin/blog/listereclamation/listereclamation.component";
+import { AjoutEvaluationComponent } from "./admin/Trainings/ajout-evaluation/ajout-evaluation.component";
+import { TrainingDetailComponent } from "./training-detail/training-detail.component";
+import { EvaluationDetailsComponent } from "./shared/evaluation-details/evaluation-details.component";
+import { CandidateFormComponent } from "./shared/Candidats/candidat-form/candidat-form.component";
+import { ApplyJobComponent } from "./shared/apply-job/apply-job.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
@@ -42,12 +46,16 @@ const routes: Routes = [
     { path: 'problem/edit/:id', component: AddProblemComponent },
     { path: 'reclamation/:id', component: ReclamationComponent },
     { path: 'reclamations', component: ListereclamationComponent },
+    { path: 'evaluation/:id', component: EvaluationDetailsComponent },
 
     {path: 'addProblem' , component: AddProblemComponent},
     {path: 'addCompetition' , component: AddCompetitionComponent},
     { path: 'Competition/edit/:id', component: AddCompetitionComponent },
     { path: 'addSubs', component: SubsCreateComponentComponent,canActivate:[adminGuard] },
     { path: 'updateSubs/:id', component: SubUpdateComponent,canActivate:[adminGuard] },
+    { path: 'ajoutEvaluation', component: AjoutEvaluationComponent },
+    { path: 'addTraining', component: AddTrainingsComponent },
+    { path: 'training-detail/:id', component: TrainingDetailComponent },
     { path: 'update-post/:id', component: UpdatePostComponent },
 
     {path: 'view-post/:id' , component: ViewPostComponent},
@@ -55,10 +63,13 @@ const routes: Routes = [
     //candidate routes
     { path: 'jobs', component: JobListComponent },
     { path: 'jobs/new', component: JobFormComponent },
+
     { path: 'jobs/edit/:id', component: JobFormComponent },
     { path: 'candidates', component: CandidatListComponent },
-    { path: 'candidates/new', component: CandidatFormComponent },
-    { path: 'candidates/edit/:id', component: CandidatFormComponent },
+    { path: 'candidates/new', component: CandidateFormComponent },
+    { path: 'candidates/new/:id', component: ApplyJobComponent },
+
+    { path: 'candidates/edit/:id', component: CandidatListComponent },
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'profile', component: ProfileComponent, canActivate: [usersGuard]},

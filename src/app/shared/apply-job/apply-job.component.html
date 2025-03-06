@@ -1,4 +1,3 @@
-<app-sidebar></app-sidebar>
 <div id="content">
     <div class="candidate-container">
         <div class="card">
@@ -120,7 +119,7 @@
                 </div>
 
                 <!-- Job -->
-                <div class="form-group">
+                <div *ngIf="!jobId">
                     <label for="jobId">Job</label>
                     <select
                         id="jobId"
@@ -142,17 +141,24 @@
                         </span>
                     </div>
                 </div>
+            
+                <!-- Show the pre-selected job title if jobId is passed in the route -->
+                <div *ngIf="jobId">
+                    <label>Job Title:</label>
+                    <span>{{ selectedJobTitle }}</span>
+                </div>
 
                 <!-- Form Actions -->
                 <div class="button-container">
                     <button type="submit" class="btn-primary" [disabled]="candidateForm.invalid">
                         {{ isEditMode ? 'Update Candidate' : 'Create Candidate' }}
                     </button>
-                    <button type="button" class="btn-secondary" >Cancel</button>
+                    <button type="button" class="btn-secondary" >
+                        Cancel
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <app-candidat-list></app-candidat-list>
 </div>

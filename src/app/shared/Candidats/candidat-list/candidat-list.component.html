@@ -1,3 +1,4 @@
+<app-sidebar></app-sidebar>
 <div id="content">
     <div class="candidates-container">
         <div class="management-header">
@@ -46,10 +47,8 @@
                         <td>{{ candidate.phone }}</td>
                         <td>{{ candidate.status }}</td>
                         <td>{{ candidate.jobTitle }}</td>
-                        <td>
-                            <a *ngIf="candidate.resumeUrl" [href]="candidate.resumeUrl" target="_blank">View Resume</a>
-                            <span *ngIf="!candidate.resumeUrl">No Resume</span>
-                        </td>
+                     
+<td><a [href]="getResumeUrl(candidate.resumeUrl)" target="_blank" class="text-primary">View Resume</a></td>
                         <td class="action-buttons">
                             <button class="btn-edit" [routerLink]="['/candidates/edit', candidate.id]">
                                 <span class="btn-icon">✏️</span> Edit

@@ -46,6 +46,14 @@
               <span class="text">Candidates</span>
           </a>
       </li>
+  
+    <li [ngClass]="{'active': currentRoute === '/reclamations'}">
+        <a routerLink="/reclamations/">
+            <i class='bx bxs-group'></i>
+            <span class="text">reclamations</span>
+        </a>
+    </li>
+
       <li [ngClass]="{'active': currentRoute === '/candidates'}">
         <a routerLink="/addSubs">
             <i class='bx bxs-group'></i>

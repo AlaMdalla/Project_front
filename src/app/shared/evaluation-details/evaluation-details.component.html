@@ -1,0 +1,43 @@
+<div id="content">
+  <div class="competition-container">
+    <div class="card">
+      <div class="evaluation-container">
+        <h2>
+          <span class="title-icon">📝</span> Évaluation : {{ evaluation?.description }}
+        </h2>
+        <p class="evaluation-info"><strong>Durée :</strong> {{ evaluation?.evaluationDuration }} minutes</p>
+        <p class="evaluation-info"><strong>Type :</strong> {{ evaluation?.type }}</p>
+
+        <h3><span class="section-icon">❓</span> Questions :</h3>
+        <div *ngFor="let question of questions; let i = index" class="questions">
+          <h4>Question {{ i + 1 }} : {{ question?.question_text }}</h4>
+          <ul>
+            <li *ngFor="let option of question?.options">
+              <label class="option-label">
+                <input 
+                  type="radio" 
+                  name="question_{{ i }}" 
+                  [value]="option" 
+                  [(ngModel)]="question.selectedOption" 
+                  (change)="onOptionSelect(question)" />
+                <span class="option-text">{{ option }}</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn-primary submit-btn" (click)="calculateScore()">
+          <span class="button-icon">✅</span> Voir mon score
+        </button>
+
+        <!-- Result Display -->
+        <div *ngIf="showResult" [ngClass]="{'success': isPassed, 'fail': !isPassed}" class="result-box">
+          <p>Score obtenu : {{ totalScore.toFixed(2) }}%</p>
+          <p *ngIf="isPassed" class="success-text">✅ Félicitations, vous avez réussi l'évaluation !</p>
+          <p *ngIf="!isPassed" class="fail-text">❌ Désolé, vous n'avez pas obtenu un score suffisant.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -18,6 +18,7 @@ export class CandidatListComponent {
     searchTerm: string = '';
     sortColumnName: any;
     sortDirection: string = 'asc';
+    private baseUrl = 'http://localhost:8081';
     constructor(private candidateService: CandidateService) {}
 
     ngOnInit(): void {
@@ -45,7 +46,9 @@ export class CandidatListComponent {
             error: (err) => console.error('Error fetching candidates:', err),
         });
     }
-
+    getResumeUrl(resumeUrl: string): string {
+      return `${this.baseUrl}${resumeUrl}`; 
+    }
     applyPagination(): void {
         const start = (this.currentPage - 1) * this.pageSize;
         const end = start + this.pageSize;

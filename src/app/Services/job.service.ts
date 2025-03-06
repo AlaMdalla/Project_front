@@ -18,6 +18,7 @@ export class JobService {
 
   getJobById(id: number): Observable<Job> {
     return this.http.get<Job>(`${this.apiUrl}/${id}`);
+
   }
 
   getJobImage(id: number): Observable<string> {

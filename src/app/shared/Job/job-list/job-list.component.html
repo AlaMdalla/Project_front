@@ -16,7 +16,7 @@
       <img [src]="job.image" alt="Job Image" />
     </div>
     <div class="job-actions">
-      <button [ngClass]="{'disabled': job.status === 'Closed'}" [disabled]="job.status === 'Closed'">Apply</button>
+      <button [ngClass]="{'disabled': job.status === 'Closed'}" [disabled]="job.status === 'Closed'" [routerLink]="['/candidates/new', job.jobId]">Apply</button>
       
     </div>
   </li>

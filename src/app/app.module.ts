@@ -38,7 +38,6 @@ import { CompetitionsComponent } from './shared/Competition/competitions/competi
 import { AddCompetitionComponent } from './admin/Competition/add-competition/add-competition.component';
 import { ListCompetitionComponent } from './admin/Competition/list-competition/list-competition.component';
 import { AddTrainingsComponent } from './admin/Trainings/add-trainings/add-trainings.component';
-import { CandidatFormComponent } from './shared/Candidats/candidat-form/candidat-form.component';
 import { CandidatListComponent } from './shared/Candidats/candidat-list/candidat-list.component';
 import { JobListComponent } from './shared/Job/job-list/job-list.component';
 import { JobFormComponent } from './shared/Job/job-form/job-form.component';
@@ -50,6 +49,11 @@ import { SubsComponent } from './shared/Subs/subs/subs.component';
 import { SubUpdateComponent } from './admin/Subs/sub-update/sub-update.component';
 import { ListereclamationComponent } from './admin/blog/listereclamation/listereclamation.component';
 import { ReclamationComponent } from './shared/blog/reclamation/reclamation.component';
+import { AjoutEvaluationComponent } from './admin/Trainings/ajout-evaluation/ajout-evaluation.component';
+import { TrainingDetailComponent } from './training-detail/training-detail.component';
+import { EvaluationDetailsComponent } from './shared/evaluation-details/evaluation-details.component';
+import { CandidateFormComponent } from './shared/Candidats/candidat-form/candidat-form.component';
+import { ApplyJobComponent } from './shared/apply-job/apply-job.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -73,7 +77,7 @@ import { ReclamationComponent } from './shared/blog/reclamation/reclamation.comp
     AddCompetitionComponent,
     ListCompetitionComponent,
     AddTrainingsComponent,
-    CandidatFormComponent,
+    CandidatListComponent,
     CandidatListComponent,
     JobListComponent,
     JobFormComponent,
@@ -85,6 +89,11 @@ import { ReclamationComponent } from './shared/blog/reclamation/reclamation.comp
     SubUpdateComponent,
     ListereclamationComponent,
     ReclamationComponent,
+    AjoutEvaluationComponent,
+    TrainingDetailComponent,
+    EvaluationDetailsComponent,
+    EvaluationDetailsComponent,CandidateFormComponent, ApplyJobComponent,
+
   ],
   imports: [
     BrowserModule,

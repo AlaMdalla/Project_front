@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Candidate } from '../models/Candidate';
-import { Urls } from '../config/Urls';
+import { Candidate } from '../models/Candidate'; // Adjust path as needed
+import { Urls } from '../config/Urls'; // Adjust path as needed
 
 @Injectable({
   providedIn: 'root',
 })
 export class CandidateService {
-  private apiUrl = Urls.candidates;
+  private apiUrl = Urls.candidates; // Use centralized URL config
 
   constructor(private http: HttpClient) {}
 
@@ -20,13 +20,19 @@ export class CandidateService {
     return this.http.get<Candidate>(`${this.apiUrl}/${id}`);
   }
 
-  getCandidateResume(id?: number): Observable<string> {
+  getCandidateResume(id: number): Observable<string> {
     return this.http.get<string>(`${this.apiUrl}/${id}/resume`, { responseType: 'text' as 'json' });
+  }
+
+  uploadResume(file: File): Observable<string> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<string>(`${this.apiUrl}/upload`, formData, { responseType: 'text' as 'json' });
   }
 
   createCandidate(candidate: any): Observable<void> {
     const request = {
-      id: candidate.id, // Include id, will be undefined for new candidates
+      id: candidate.id,
       email: candidate.email,
       phone: candidate.phone,
       resumeUrl: candidate.resumeUrl,
@@ -34,13 +40,12 @@ export class CandidateService {
       status: candidate.status,
       jobId: candidate.jobId
     };
-    console.log('Sending to backend:', JSON.stringify(request, null, 2));
     return this.http.post<void>(this.apiUrl, request);
   }
-  
+
   updateCandidate(id: number, candidate: any): Observable<Candidate> {
     const request = {
-      id: id, // Use the parameter id for update
+      id: id,
       email: candidate.email,
       phone: candidate.phone,
       resumeUrl: candidate.resumeUrl,
@@ -54,5 +59,4 @@ export class CandidateService {
   deleteCandidate(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-
 }

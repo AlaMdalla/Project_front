@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EvaluationService } from 'src/app/Services/evaluation.service';
 import { TrainingService } from 'src/app/Services/training.service';
 import { Training, status, level } from 'src/app/models/Training';
 
@@ -9,109 +10,66 @@ import { Training, status, level } from 'src/app/models/Training';
   styleUrls: ['./add-trainings.component.css']
 })
 export class AddTrainingsComponent implements OnInit {
-  trainingForm!: FormGroup;
-  Trainings: Training[] = [];
-  selectedTraining: Training | null = null;  // Stocke la formation en cours de modification
-  statusOptions = Object.values(status);
-  levelOptions = Object.values(level);
+  evaluationForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private trainingService: TrainingService) {}
+  constructor(private fb: FormBuilder, private evaluationService: EvaluationService) {}
 
   ngOnInit(): void {
     this.initializeForm();
-    this.loadTrainings();  // Charger les formations au démarrage du composant
   }
 
-  // Initialiser le formulaire avec les champs obligatoires
   initializeForm(): void {
-    this.trainingForm = this.fb.group({
-      title: ['', Validators.required],
-      content: ['', Validators.required],
-      trainingdate: ['', Validators.required],
-      duration: ['', Validators.required],
-      status: ['', Validators.required],
-      level: ['', Validators.required]
+    this.evaluationForm = this.fb.group({
+      trainingId: ['', Validators.required], // Assuming you link to a Training
+      description: ['', Validators.required],
+      type: ['', Validators.required],
+      evaluation_duration: ['', Validators.required],
+      score: [0, Validators.required],
+      createdAt: [new Date().toISOString().split('T')[0], Validators.required],
+      certificat: [false],
+      questions: this.fb.array([]) // FormArray for dynamic questions
     });
   }
 
-  // Charger les formations depuis le backend
-  loadTrainings(): void {
-    this.trainingService.gettrainings().subscribe(data => {
-      this.Trainings = data;
-    }, error => {
-      console.error('Erreur lors du chargement des formations:', error);
-    });
+  // Getter for questions FormArray
+  get questions(): FormArray {
+    return this.evaluationForm.get('questions') as FormArray;
   }
 
-  // Soumettre le formulaire pour ajouter ou modifier une formation
+  // Add a new question to the FormArray
+  addQuestion(): void {
+    const questionForm = this.fb.group({
+      questionText: ['', Validators.required],
+      response: ['', Validators.required]
+    });
+    this.questions.push(questionForm);
+  }
+
+  // Remove a question
+  removeQuestion(index: number): void {
+    this.questions.removeAt(index);
+  }
+
   onSubmit(): void {
-    if (this.trainingForm.valid) {
-      const trainingData: Training = this.trainingForm.value;
+    if (this.evaluationForm.valid) {
+      const evaluationData = this.evaluationForm.value;
 
-      // ✅ Convertir trainingdate au format YYYY-MM-DD
-      trainingData.trainingdate = new Date(trainingData.trainingdate).toISOString().split('T')[0];
+      // Ensure training is correctly formatted (assuming it’s just an ID)
+      evaluationData.training = { idTraining: evaluationData.trainingId };
+      delete evaluationData.trainingId; // Remove temporary field
 
-      console.log('Data being sent to backend:', JSON.stringify(trainingData, null, 2));
+      console.log('Data being sent to backend:', JSON.stringify(evaluationData, null, 2));
 
-      if (this.selectedTraining) {
-        trainingData.idTraining = this.selectedTraining.idTraining;
-        this.modifyTraining(trainingData);
-      } else {
-        this.addTraining(trainingData);
-      }
+      this.evaluationService.addEvaluation(evaluationData).subscribe(
+        response => {
+          console.log('Evaluation added successfully:', response);
+          this.evaluationForm.reset();
+          this.questions.clear();
+        },
+        error => {
+          console.error('Error adding evaluation:', error);
+        }
+      );
     }
-  }
-
-  // Ajouter une nouvelle formation
-  addTraining(trainingData: Training): void {
-    this.trainingService.addTraining(trainingData).subscribe(response => {
-      console.log('Formation ajoutée avec succès:', response);
-      this.Trainings.push(trainingData);
-      this.trainingForm.reset();  // Reset the form after submission
-    }, error => {
-      console.error('Erreur lors de l\'ajout de la formation:', error);
-
-    });
-  }
-
-  // Modifier une formation existante
-  modifyTraining(trainingData: Training): void {
-    this.trainingService.modifyTraining(trainingData).subscribe(response => {
-      console.log('Formation mise à jour avec succès:', response);
-      this.loadTrainings();  // Rafraîchir la liste des formations
-      this.trainingForm.reset();  // Réinitialiser le formulaire
-      this.selectedTraining = null;  // Réinitialiser la sélection
-    }, error => {
-      console.error('Erreur lors de la mise à jour de la formation:', error);
-    });
-  }
-
-  // Supprimer une formation
-  deleteTraining(trainingId: number): void {
-    this.trainingService.deleteTraining(trainingId).subscribe(() => {
-      console.log('Formation supprimée avec succès');
-      this.loadTrainings();  // Rafraîchir la liste après suppression
-    }, error => {
-      console.error('Erreur lors de la suppression de la formation:', error);
-    });
-  }
-
-  // Sélectionner une formation pour la modification
-  editTraining(training: Training): void {
-    this.selectedTraining = training;
-    this.trainingForm.patchValue({
-      title: training.title,
-      content: training.content,
-      trainingdate: training.trainingdate,
-      duration: training.duration,
-      status: training.status,
-      level: training.level
-    });
-  }
-
-  // Fermer le formulaire et réinitialiser
-  closeForm(): void {
-    this.trainingForm.reset();
-    this.selectedTraining = null;
   }
 }

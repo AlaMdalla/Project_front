@@ -1,63 +1,127 @@
 <app-sidebar></app-sidebar>
+<div id="content">
+  <div class="competition-container">
+    <div class="card">
+      <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()" class="post-form">
+        <h2>
+          <span class="title-icon">📝</span> Créer une Évaluation
+        </h2>
 
-<div class="container">
-  <h2>Créer une Évaluation</h2>
+        <!-- Détails de l'évaluation -->
+        <div class="form-group">
+          <label for="description">Description de l'évaluation :</label>
+          <input 
+            id="description" 
+            type="text" 
+            formControlName="description" 
+            placeholder="Description de l'évaluation" 
+            required />
+          <span class="input-icon">✍️</span>
+        </div>
 
-  <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
-    <!-- Détails de l'évaluation -->
-    <div class="form-group">
-      <label for="description">Description de l'évaluation :</label>
-      <input id="description" type="text" formControlName="description" required>
-    </div>
+        <div class="form-group">
+          <label for="evaluation_duration">Durée (minutes) :</label>
+          <input 
+            id="evaluation_duration" 
+            type="number" 
+            formControlName="evaluation_duration" 
+            placeholder="Durée en minutes" 
+            required />
+          <span class="input-icon">⏱️</span>
+        </div>
 
-    <div class="form-group">
-      <label for="evaluation_duration">Durée (minutes) :</label>
-      <input id="evaluation_duration" type="number" formControlName="evaluation_duration" required>
-    </div>
+        <div class="form-group">
+          <label for="training_id">Training :</label>
+          <select id="training_id" formControlName="training_id" required>
+            <option value="">Sélectionner un training</option>
+            <option *ngFor="let training of trainings" [value]="training.idTraining">
+              {{ training.title }}
+            </option>
+          </select>
+          <span class="input-icon">🏋️</span>
+        </div>
+        
+        <div class="form-group">
+          <label for="score">Score minimal :</label>
+          <input 
+            id="score" 
+            type="number" 
+            formControlName="score" 
+            placeholder="Score minimal" 
+            required />
+          <span class="input-icon">⭐</span>
+        </div>
 
-    <div class="form-group">
-      <label for="training_id">Training :</label>
-      <input id="training_id" type="number" formControlName="training_id" required>
-    </div>
+        <div class="form-group">
+          <label for="type">Type :</label>
+          <select id="type" formControlName="type">
+            <option value="">Sélectionner un type</option>
+            <option value="QCM">QCM</option>
+            <option value="Ouverte">Ouverte</option>
+          </select>
+          <span class="input-icon">📋</span>
+        </div>
 
-    <div class="form-group">
-      <label for="score">Score minimal :</label>
-      <input id="score" type="number" formControlName="score" required>
-    </div>
+        <!-- Questions Section -->
+        <h3><span class="section-icon">❓</span> Questions</h3>
+        <div formArrayName="questions" class="questions-container">
+          <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i" class="question-box">
+            <div class="form-group">
+              <label>Question {{ i + 1 }} :</label>
+              <input 
+                type="text" 
+                formControlName="question_text" 
+                placeholder="Texte de la question" 
+                required />
+              <span class="input-icon">📜</span>
+            </div>
 
-    <div class="form-group">
-      <label for="type">Type :</label>
-      <select id="type" formControlName="type">
-        <option value="QCM">QCM</option>
-        <option value="Ouverte">Ouverte</option>
-      </select>
-    </div>
+            <div class="form-group">
+              <label>Réponse Correcte :</label>
+              <input 
+                type="text" 
+                formControlName="correct_answer" 
+                placeholder="Réponse correcte" 
+                required />
+              <span class="input-icon">✅</span>
+            </div>
 
-    <h3>Questions</h3>
-    <div formArrayName="questions">
-      <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i" class="question-box">
-        <label>Question {{ i + 1 }} :</label>
-        <input type="text" formControlName="question_text" placeholder="Texte de la question" required>
+            <h4><span class="section-icon">🔘</span> Options</h4>
+            <div formArrayName="options" class="options-container">
+              <div *ngFor="let option of getOptionsControls(i).controls; let j = index" [formGroupName]="j" class="option-group">
+                <input 
+                  type="text" 
+                  formControlName="option_text" 
+                  placeholder="Option" />
+                <button type="button" class="btn-remove" (click)="removeOption(i, j)">
+                  <span class="btn-icon">❌</span>
+                </button>
+              </div>
+            </div>
 
-        <label>Réponse Correcte</label>
-        <input type="text" formControlName="question_text" placeholder="Texte de la question" required>
-
-        <h4>Options</h4>
-        <div formArrayName="options">
-          <div *ngFor="let option of getOptionsControls(i).controls; let j = index" [formGroupName]="j">
-            <input type="text" formControlName="option_text" placeholder="Option">
-            <button type="button" (click)="removeOption(i, j)">❌</button>
+            <div class="question-actions">
+              <button type="button" class="btn-small" (click)="addOption(i)">
+                <span class="btn-icon">➕</span> Ajouter une option
+              </button>
+              <button type="button" class="btn-small delete" (click)="removeQuestion(i)">
+                <span class="btn-icon">❌</span> Supprimer Question
+              </button>
+            </div>
           </div>
         </div>
 
-        <button type="button" class="btn-small" (click)="addOption(i)">➕ Ajouter une option</button>
-        <button type="button" class="btn-small delete" (click)="removeQuestion(i)">❌ Supprimer Question</button>
-      </div>
+        <!-- Form Actions -->
+        <div class="button-container">
+          <button type="button" class="btn-primary" (click)="addQuestion()">
+            <span class="button-icon">➕</span> Ajouter une Question
+          </button>
+          <button type="submit" class="btn-primary submit" >
+            <span class="button-icon">✅</span> Enregistrer l'Évaluation
+          </button>
+        </div>
+
+        <p *ngIf="isSubmitted" class="success-message">{{ successMessage }}</p>
+      </form>
     </div>
-
-    <button type="button" class="btn" (click)="addQuestion()">➕ Ajouter une Question</button>
-    <button type="submit" class="btn submit">✅ Enregistrer l'Évaluation</button>
-    <p *ngIf="isSubmitted" class="success-message">{{ successMessage }}</p>
-
-  </form>
+  </div>
 </div>

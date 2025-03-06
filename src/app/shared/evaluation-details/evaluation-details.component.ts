@@ -1,18 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EvaluationService } from "../../Services/evaluation.service";
-import { CommonModule } from '@angular/common';
-import {FormsModule} from "@angular/forms"; // Import CommonModule for *ngFor
+import { EvaluationService } from 'src/app/Services/evaluation.service';
 
 @Component({
-  selector: 'app-evaluation',
-  templateUrl: './evaluation.component.html',
-  standalone: true,
-  styleUrls: ['./evaluation.component.css'],
-  imports: [CommonModule, FormsModule] // Required for *ngFor
+  selector: 'app-evaluation-details',
+  templateUrl: './evaluation-details.component.html',
+  styleUrls: ['./evaluation-details.component.css']
 })
-export class EvaluationComponent implements OnInit {
-  evaluation: any = { // Initialize to prevent undefined errors
+export class EvaluationDetailsComponent {
+ evaluation: any = { // Initialize to prevent undefined errors
     description: '',
     evaluationDuration: '',
     type: '',
