@@ -31,5 +31,35 @@
             </div>
         </div>
     </div>
+    <div class="passed-problems">
+        <h3>Passed Problems</h3>
+        <ul *ngIf="passedProblems.length > 0; else noProblems">
+            <li *ngFor="let problem of passedProblems">
+                <span class="problem-title">{{ problem }}</span>
+            </li>
+        </ul>
+        <ng-template #noProblems>
+            <p class="no-problems">No problems solved yet.</p>
+        </ng-template>
+    </div>
+    
+    <div class="submissions-container">
+        <h3>Submission History</h3>
+        <ul *ngIf="submissions.length > 0; else noSubmissions">
+          <li *ngFor="let submission of submissions" 
+              class="submission-tile" 
+              [ngClass]="{'green': submission.passed, 'red': !submission.passed}">
+            <!-- Optional: Display additional info on hover using title -->
+            <span class="tooltip">
+              {{ submission.language }} • {{ submission.submittedAt | date:'short' }}
+            </span>
+          </li>
+        </ul>
+        <ng-template #noSubmissions>
+          <p class="no-submissions">No submissions yet.</p>
+        </ng-template>
+      </div>
+      
+    
     <button class="update-btn" (click)="updateProfile(profileInfo?.ourUsers?.id)">Update Profile</button>
 </div>

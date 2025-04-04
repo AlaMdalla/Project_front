@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Problem } from 'src/app/models/Problem';
 import { PoblemService } from 'src/app/Services/poblem.service';
 import { SubmitionService } from 'src/app/Services/submition.service';
+import { UsersService } from 'src/app/Services/users.service';
 
 @Component({
   selector: 'app-problem-submition',
@@ -11,12 +12,15 @@ import { SubmitionService } from 'src/app/Services/submition.service';
 })
 export class ProblemSubmitionComponent {
 problemId? :number|null =null
+userId? :number|0;
+profileInfo: any;
+
 problem? :Problem
 fullS:boolean=false
 solutionCode: string = '';
 output : string ='';
-constructor(private route: ActivatedRoute,private problemsS :PoblemService,private submitionService:SubmitionService) {}
-ngOnInit(): void {
+constructor(private route: ActivatedRoute,private problemsS :PoblemService,private submitionService:SubmitionService,private usersService:UsersService) {}
+  async ngOnInit(): Promise<void> {
  const id = this.route.snapshot.paramMap.get('id');
  
   this.problemId = id ? +id : null; 
@@ -24,6 +28,20 @@ ngOnInit(): void {
   console.log('Problem ID:', this.problemId); 
   this.get(this.problemId!);
   this.enterFullScreen();
+  try {
+    const token = localStorage.getItem('token')
+    if(!token){
+      throw new Error("No Token Found")
+    }
+
+    this.profileInfo = await this.usersService.getYourProfile(token);
+    console.log(this.profileInfo)
+    this.userId=this.profileInfo.ourUsers.id;
+   
+  } catch (error:any) {
+    console.log(error.message)
+  }
+    
   
 }
 get(id:number):void{
@@ -34,13 +52,13 @@ get(id:number):void{
     );
 }
 submit(code:string):void{
-  this.submitionService.submitSolution(this.problem?.id, code).subscribe(data => {
+  this.submitionService.submitSolution(this.userId!,this.problem?.id, code).subscribe(data => {
     this.output = data; 
   });
   
    
 }
-
+/*
 @HostListener('document:contextmenu', ['$event'])
 disableRightClick(event: MouseEvent) {
   event.preventDefault(); // Prevent right-click menu
@@ -59,7 +77,7 @@ handleKeyboardEvent(event: KeyboardEvent) {
   }
 }
 
-
+*/
 
 enterFullScreen() {
   const elem = document.documentElement;

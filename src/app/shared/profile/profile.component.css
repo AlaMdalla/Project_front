@@ -179,3 +179,137 @@
     background: #1e40af; /* Slightly darker navy blue for active state, matching Login form */
     transform: scale(1);
 }
+/* Passed Problems Section */
+.passed-problems {
+    margin-top: 30px;
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.passed-problems h3 {
+    font-size: 20px;
+    color: #1e3a8a;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.passed-problems ul {
+    list-style: none;
+    padding: 0;
+}
+
+.passed-problems li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.problem-title {
+    font-weight: 600;
+}
+
+.problem-difficulty {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.problem-difficulty.Easy {
+    background: #4caf50;
+    color: white;
+}
+
+.problem-difficulty.Medium {
+    background: #ff9800;
+    color: white;
+}
+
+.problem-difficulty.Hard {
+    background: #f44336;
+    color: white;
+}
+
+.no-problems {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+.submissions-container {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .submissions-container h3 {
+    font-size: 16px;
+    color: #24292e;
+    margin-bottom: 10px;
+  }
+  
+  /* Create a grid of tiles */
+  .submissions-container ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+    gap: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .submission-tile {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    background-color: #ebedf0; /* default color (no submission) */
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  /* When submission passed, display green tile */
+  .submission-tile.green {
+    background-color: #c6e48b;
+  }
+  
+  /* When submission did not pass, display red tile */
+  .submission-tile.red {
+    background-color: #fdaeb7;
+  }
+  
+  /* Optional tooltip styling if you want info on hover */
+  .submission-tile .tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #24292e;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    font-size: 10px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  .submission-tile:hover .tooltip {
+    display: block;
+    opacity: 1;
+  }
+  
+  .no-submissions {
+    text-align: center;
+    color: #777;
+    margin-top: 20px;
+  }
+  

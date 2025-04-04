@@ -83,10 +83,10 @@ export class ListProblemsComponent implements OnInit {
         }
 
         this.filteredProblems.sort((a, b) => {
-            const valueA = a[columnName].toString().toLowerCase();
-            const valueB = b[columnName].toString().toLowerCase();
-            if (valueA < valueB) return this.sortDirection === 'asc' ? -1 : 1;
-            if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
+            const valueA = a[columnName]?.toString().toLowerCase();
+            const valueB = b[columnName]?.toString().toLowerCase();
+            if (valueA! < valueB!) return this.sortDirection === 'asc' ? -1 : 1;
+            if (valueA! > valueB!) return this.sortDirection === 'asc' ? 1 : -1;
             return 0;
         });
 

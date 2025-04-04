@@ -27,6 +27,8 @@ export class AddProblemComponent implements OnInit {
   ngOnInit() {
     this.problemForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
+      linkTotestcases: ['', [Validators.required, Validators.minLength(3)]],
+
       difficulty: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(10)]],
       mainClass: ['', [Validators.required, Validators.minLength(3)]]

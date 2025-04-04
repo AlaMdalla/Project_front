@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Problem } from 'src/app/models/Problem';
+import { PoblemService } from 'src/app/Services/poblem.service';
+import { SubmitionService } from 'src/app/Services/submition.service';
 import { UsersService } from 'src/app/Services/users.service';
 
 @Component({
@@ -11,8 +14,10 @@ import { UsersService } from 'src/app/Services/users.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor(private readonly userService:UsersService,
+  passedProblems: String[] = [];
+  submissions:any[] =[];
+  problemTitle!:string;
+  constructor(private readonly userService:UsersService,private problemsS:PoblemService, private submitionService:SubmitionService,
     private readonly router: Router){}
 
 
@@ -20,6 +25,7 @@ export class ProfileComponent implements OnInit {
     errorMessage: string = ''
 
   async ngOnInit() {
+
     try {
       const token = localStorage.getItem('token')
       if(!token){
@@ -31,7 +37,13 @@ export class ProfileComponent implements OnInit {
     } catch (error:any) {
       this.showError(error.message)
     }
-      
+      this.problemsS.getPassedProblems(this.profileInfo.ourUsers.id).subscribe(data => {
+            this.passedProblems = data;})
+            this.submitionService.getSubmitionsByUser(this.profileInfo.ourUsers.id).subscribe(data => {
+              this.submissions = data;
+              console.log(this.submissions)}
+             
+            )
   }
 
 
@@ -39,7 +51,13 @@ export class ProfileComponent implements OnInit {
       this.router.navigate(['/update', id])
   }
 
-
+  getTitle(id:number):string{
+    this.submitionService.getProblemTitle(id).subscribe(data =>
+      {this.problemTitle=data;
+      }
+      );
+      return this.problemTitle;
+  }
   showError(mess: string) {
     this.errorMessage = mess;
     setTimeout(() => {

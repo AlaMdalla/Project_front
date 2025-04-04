@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Candidate } from '../models/Candidate'; // Adjust path as needed
-import { Urls } from '../config/Urls'; // Adjust path as needed
+import { Candidate } from '../models/Candidate'; 
+import { Urls } from '../config/Urls'; 
 
 @Injectable({
   providedIn: 'root',
 })
 export class CandidateService {
-  private apiUrl = Urls.candidates; // Use centralized URL config
+  private apiUrl = Urls.candidates; 
 
   constructor(private http: HttpClient) {}
 

@@ -28,6 +28,10 @@ export class PoblemService {
               updateProblem(id: number, problem: Problem): Observable<Problem> {
                 return this.http.put<Problem>(`${this.Problems}/${id}`, problem);
               }
+              getPassedProblems(idUser? :number,):Observable<String[]>{
+                return this.http.get<String[]>(this.Problems+`passedProblems/${idUser}`);
+
+                  }
               
               
 }
