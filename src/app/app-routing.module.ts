@@ -41,6 +41,7 @@ const routes: Routes = [
     {path: 'addPost' , component: AddPostComponent},
     {path: 'addtraining' , component: AddTrainingsComponent},
   { path: 'ajoutEvaluation', component: AjoutEvaluationComponent },
+  { path: 'ajoutEvaluation/:id', component: AjoutEvaluationComponent },
   { path: 'problem/edit/:id', component: AddProblemComponent },
     {path: 'addProblem' , component: AddProblemComponent},
     {path: 'addCompetition' , component: AddCompetitionComponent},

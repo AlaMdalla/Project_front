@@ -79,6 +79,7 @@
             <td class="action-buttons">
                 <button class="edit" (click)="editTraining(training)">✏️</button>
                 <button class="delete" (click)="training.idTraining ? deleteTraining(training.idTraining) : null">🗑️</button>
+                <button class="addEvaluation" (click)="training.idTraining ? addEvaluation(training.idTraining) : null">➕</button>
 
             </td>
         </tr>

@@ -9,6 +9,9 @@ import { TrainingService } from 'src/app/Services/training.service';
 })
 export class CoursesComponent {
   courses :Training[]=[]
+  filteredCourses: Training[] = [];
+  searchTerm: string = '';
+
 
   constructor(private trainingService:TrainingService) { }
 
@@ -25,4 +28,17 @@ export class CoursesComponent {
       {this.courses=data;}
       );
   }
+  refresh(): void {
+    this.trainingService.gettrainings().subscribe(data => {
+      this.courses = data;
+      this.filteredCourses = data;
+    });
+  }
+
+  filterCourses(): void {
+    this.filteredCourses = this.courses.filter(course =>
+      course.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
 }

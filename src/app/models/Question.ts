@@ -13,8 +13,8 @@ export enum type {
 }
 
 export interface Question {
-  questionId: number;
   questionText: string;
   bonneReponse: string;
-  type: type;
+  evaluationId: number;  // Correspond à l'évaluation liée
+  options: string[];  // Liste d'options pour la question
 }

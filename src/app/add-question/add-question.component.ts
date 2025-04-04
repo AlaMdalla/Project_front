@@ -6,6 +6,7 @@ import {Question, type} from "../models/Question";
 @Component({
   selector: 'app-add-question',
   templateUrl: './add-question.component.html',
+  standalone: true,
   styleUrls: ['./add-question.component.css']
 })
 export class AddQuestionComponent implements OnInit {

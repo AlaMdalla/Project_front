@@ -162,3 +162,27 @@ label:hover {
   color: #D8000C;
   border: 2px solid #D8000C;
 }
+.timer-box {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.result-box.success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.result-box.fail {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+}

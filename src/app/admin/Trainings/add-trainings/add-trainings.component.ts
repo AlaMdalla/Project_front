@@ -11,7 +11,7 @@ import { Training, status, level } from 'src/app/models/Training';
 export class AddTrainingsComponent implements OnInit {
   trainingForm!: FormGroup;
   Trainings: Training[] = [];
-  selectedTraining: Training | null = null;  // Stocke la formation en cours de modification
+  selectedTraining: Training | null = null;
   statusOptions = Object.values(status);
   levelOptions = Object.values(level);
 
@@ -19,36 +19,35 @@ export class AddTrainingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.loadTrainings();  // Charger les formations au démarrage du composant
+    this.loadTrainings();  // Load trainings when the component initializes
   }
 
-  // Initialiser le formulaire avec les champs obligatoires
   initializeForm(): void {
     this.trainingForm = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required],
-      trainingdate: ['', Validators.required],
+      trainingdate: ['', Validators.required],  // ✅ Date validator removed
       duration: ['', Validators.required],
       status: ['', Validators.required],
       level: ['', Validators.required]
     });
   }
 
-  // Charger les formations depuis le backend
+  // Load trainings from the backend
   loadTrainings(): void {
     this.trainingService.gettrainings().subscribe(data => {
       this.Trainings = data;
     }, error => {
-      console.error('Erreur lors du chargement des formations:', error);
+      console.error('Error loading trainings:', error);
     });
   }
 
-  // Soumettre le formulaire pour ajouter ou modifier une formation
+  // Submit the form to add or update a training
   onSubmit(): void {
     if (this.trainingForm.valid) {
       const trainingData: Training = this.trainingForm.value;
 
-      // ✅ Convertir trainingdate au format YYYY-MM-DD
+      // ✅ Convert trainingdate to YYYY-MM-DD format
       trainingData.trainingdate = new Date(trainingData.trainingdate).toISOString().split('T')[0];
 
       console.log('Data being sent to backend:', JSON.stringify(trainingData, null, 2));
@@ -62,41 +61,40 @@ export class AddTrainingsComponent implements OnInit {
     }
   }
 
-  // Ajouter une nouvelle formation
+  // Add a new training
   addTraining(trainingData: Training): void {
     this.trainingService.addTraining(trainingData).subscribe(response => {
-      console.log('Formation ajoutée avec succès:', response);
+      console.log('Training added successfully:', response);
       this.Trainings.push(trainingData);
       this.trainingForm.reset();  // Reset the form after submission
     }, error => {
-      console.error('Erreur lors de l\'ajout de la formation:', error);
-
+      console.error('Error adding training:', error);
     });
   }
 
-  // Modifier une formation existante
+  // Modify an existing training
   modifyTraining(trainingData: Training): void {
     this.trainingService.modifyTraining(trainingData).subscribe(response => {
-      console.log('Formation mise à jour avec succès:', response);
-      this.loadTrainings();  // Rafraîchir la liste des formations
-      this.trainingForm.reset();  // Réinitialiser le formulaire
-      this.selectedTraining = null;  // Réinitialiser la sélection
+      console.log('Training updated successfully:', response);
+      this.loadTrainings();
+      this.trainingForm.reset();
+      this.selectedTraining = null;
     }, error => {
-      console.error('Erreur lors de la mise à jour de la formation:', error);
+      console.error('Error updating training:', error);
     });
   }
 
-  // Supprimer une formation
+  // Delete a training
   deleteTraining(trainingId: number): void {
     this.trainingService.deleteTraining(trainingId).subscribe(() => {
-      console.log('Formation supprimée avec succès');
-      this.loadTrainings();  // Rafraîchir la liste après suppression
+      console.log('Training deleted successfully');
+      this.loadTrainings();  // Refresh the list after deletion
     }, error => {
-      console.error('Erreur lors de la suppression de la formation:', error);
+      console.error('Error deleting training:', error);
     });
   }
 
-  // Sélectionner une formation pour la modification
+  // Edit a training
   editTraining(training: Training): void {
     this.selectedTraining = training;
     this.trainingForm.patchValue({
@@ -108,8 +106,13 @@ export class AddTrainingsComponent implements OnInit {
       level: training.level
     });
   }
+  // Modify an existing training
+  addEvaluation(idTraining: number | undefined): void {
+    window.open(`/ajoutEvaluation/${idTraining}`, '_blank');
+  }
 
-  // Fermer le formulaire et réinitialiser
+
+  // Close the form
   closeForm(): void {
     this.trainingForm.reset();
     this.selectedTraining = null;

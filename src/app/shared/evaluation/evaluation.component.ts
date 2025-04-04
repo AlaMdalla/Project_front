@@ -22,10 +22,12 @@ export class EvaluationComponent implements OnInit {
   questions: any[] = [];
   training: any[] = [];
   options: any[] = [];
-  isPassed: any;
-  showResult: any;
-  totalScore: any;
-
+  totalScore: number = 0;
+  isPassed: boolean = false;
+  showResult: boolean = false;
+ // evaluation: any = { score: 50, evaluationDuration: 60 }; // Exemple, évaluation avec durée de 60 secondes
+  remainingTime: number = 60; // Temps restant en secondes
+  interval: any;
 
   constructor(private evaluationService: EvaluationService, private route: ActivatedRoute) {}
 
@@ -35,14 +37,27 @@ export class EvaluationComponent implements OnInit {
       this.evaluationService.getEvaluationById(+evaluationId).subscribe(
         (data: any) => {
           this.evaluation = data || { description: '', evaluationDuration: '', type: '', questions: [] };
-          this.questions = this.processQuestions(this.evaluation.questions);        },
+          this.questions = this.processQuestions(this.evaluation.questions);
+          this.remainingTime = this.evaluation.evaluationDuration * 60; // Convertir en secondes
+          this.startTimer();
+          },
         error => {
           console.error('Erreur lors du chargement de l’évaluation', error);
         }
       );
     }
-  }
 
+  }
+  startTimer(): void {
+    this.interval = setInterval(() => {
+      if (this.remainingTime > 0) {
+        this.remainingTime--;
+      } else {
+        clearInterval(this.interval);
+        this.calculateScore(); // ✅ Appel automatique de calculateScore quand le temps est écoulé
+      }
+    }, 1000);
+  }
   getEvaluationDetails(id: number): void {
     this.evaluationService.getEvaluationById(id).subscribe(
       (data: any) => {
@@ -63,9 +78,7 @@ export class EvaluationComponent implements OnInit {
     console.log(`Selected answer for question "${question.question_text}": ${question.selectedOption}`);
   }
 
-  /**
-   * Traite la liste des questions en insérant la bonne réponse à une position aléatoire.
-   */
+
   processQuestions(questions: any[]): any[] {
     let processedQuestions = [];
 

@@ -1,12 +1,12 @@
 <div class="competition-details">
     <div class="competition-header">
         <div class="image-container">
-            <img *ngIf="competition?.image" [src]="'data:image/png;base64,' + competition?.image" 
+            <img *ngIf="competition?.image" [src]="'data:image/png;base64,' + competition?.image"
                  alt="Competition Image" class="competition-image">
-         
+
         </div>
         <div class="title-container">
-            <div class="competition-title">{{ competition?.title }}</div>
+            <div class="competition-tievaluationFormtle">{{ competition?.title }}</div>
             <div class="competition-stats">
                 <span class="stat-item">
                     <i class="fas fa-users"></i> 120 Participants
@@ -31,7 +31,7 @@
 
     <div class="problems-container">
         <div *ngFor="let problem of problems" class="problem-card">
-            
+
             <div class="problema-info">
                 <a *ngIf="problem.id" [routerLink]="['/problemSubmission', problem.id]">
                     <div class="problem-title">{{ problem.title }}</div>
@@ -46,5 +46,5 @@
             </div>
         </div>
     </div>
-    
+
 </div>

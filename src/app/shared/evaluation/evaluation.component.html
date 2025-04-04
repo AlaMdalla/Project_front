@@ -2,6 +2,10 @@
   <h2>Évaluation : {{ evaluation?.description }}</h2>
   <p class="evaluation-info"><strong>Durée :</strong> {{ evaluation?.evaluationDuration }} minutes</p>
   <p class="evaluation-info"><strong>Type :</strong> {{ evaluation?.type }}</p>
+  <!-- ✅ Affichage du Chronomètre -->
+  <div *ngIf="!showResult" class="timer-box">
+    <p>⏳ Temps restant : {{ remainingTime }}</p>
+  </div>
 
   <h3>Questions :</h3>
   <div *ngFor="let question of questions; let i = index" class="questions">
@@ -19,6 +23,7 @@
 
   <!-- ✅ Bouton stylisé -->
   <button class="submit-btn" (click)="calculateScore()">Voir mon score</button>
+
 
   <!-- ✅ Affichage dynamique du résultat -->
   <div *ngIf="showResult" [ngClass]="{'success': isPassed, 'fail': !isPassed}" class="result-box">

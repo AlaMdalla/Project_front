@@ -4,20 +4,20 @@
   <h2>Créer une Évaluation</h2>
 
   <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
-    <!-- Détails de l'évaluation -->
+
     <div class="form-group">
       <label for="description">Description de l'évaluation :</label>
       <input id="description" type="text" formControlName="description" required>
     </div>
 
     <div class="form-group">
-      <label for="evaluation_duration">Durée (minutes) :</label>
-      <input id="evaluation_duration" type="number" formControlName="evaluation_duration" required>
+      <label for="evaluationDuration">Durée (minutes) :</label>
+      <input id="evaluationDuration" type="number" formControlName="evaluationDuration" required>
     </div>
 
     <div class="form-group">
-      <label for="training_id">Training :</label>
-      <input id="training_id" type="number" formControlName="training_id" required>
+      <label for="trainingId">Training :</label>
+      <input id="trainingId" type="number" formControlName="trainingId" required>
     </div>
 
     <div class="form-group">
@@ -32,26 +32,25 @@
         <option value="Ouverte">Ouverte</option>
       </select>
     </div>
-
-    <h3>Questions</h3>
+    <!-- Questions -->
     <div formArrayName="questions">
-      <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i" class="question-box">
-        <label>Question {{ i + 1 }} :</label>
-        <input type="text" id="questionText" formControlName="questionText" placeholder="Texte de la question" required>
+      <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i">
+        <label>Question Text:</label>
+        <input formControlName="questionText" placeholder="Texte de la question">
 
-        <label>Réponse Correcte</label>
-        <input type="text" id="bonneReponse"  formControlName="bonneReponse" placeholder="Texte de la question" required>
+        <label>Bonne Réponse:</label>
+        <input formControlName="bonneReponse" placeholder="Bonne réponse">
 
+        <!-- Options -->
         <h4>Options</h4>
         <div formArrayName="options">
-          <div *ngFor="let option of getOptionsControls(i).controls; let j = index" [formGroupName]="j">
-            <input type="text" formControlName="option_text" placeholder="Option">
+          <div *ngFor="let option of getOptionsControls(i).controls; let j = index">
+            <input type="text" [formControlName]="j" placeholder="Option">
             <button type="button" (click)="removeOption(i, j)">❌</button>
           </div>
+          <button type="button" (click)="addOption(i)">Ajouter Option</button>
         </div>
 
-        <button type="button" class="btn-small" (click)="addOption(i)">➕ Ajouter une option</button>
-        <button type="button" class="btn-small delete" (click)="removeQuestion(i)">❌ Supprimer Question</button>
       </div>
     </div>
 
