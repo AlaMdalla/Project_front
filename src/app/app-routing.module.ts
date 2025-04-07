@@ -27,6 +27,7 @@ import {TrainingDetailComponent} from "./training-detail/training-detail.compone
 import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
 import { AddEvaluationComponent } from "./admin/Trainings/add-evaluation/add-evaluation.component";
 import {AjoutEvaluationComponent} from "./admin/Trainings/ajout-evaluation/ajout-evaluation.component";
+import {QuizFailedComponent} from "./quiz-failed/quiz-failed.component";
 
 //import {AddEvaluationComponent} from "./add-evaluation/add-evaluation.component";
 
@@ -48,6 +49,7 @@ const routes: Routes = [
     { path: 'Competition/edit/:id', component: AddCompetitionComponent },
   { path: 'training-detail/:id', component: TrainingDetailComponent },
   { path: 'evaluation/:id', component: EvaluationComponent },
+  { path: 'quiz-failed', component: QuizFailedComponent },
 
     {path: 'view-post/:id' , component: ViewPostComponent},
     {path: 'admin' , component: HomeAdminComponent },

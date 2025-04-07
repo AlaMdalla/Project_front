@@ -1,73 +1,100 @@
-/* Style global */
+/* 🌟 Style global */
 :root {
-  --primary-color: #2F6CAD; /* Bleu professionnel */
+  --primary-color: #2F6CAD;
   --primary-light: #93b9e1;
   --primary-dark: #1e4670;
   --text-color: #333;
+  --bg-gradient-start: #00b4d8;
+  --bg-gradient-end: #0077b6;
   --bg-color: #f4f7fc;
-  --card-bg: #fff;
+  --card-bg: rgba(255, 255, 255, 0.8); /* Fond transparent */
   --border-color: #ccc;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --hover-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  --transition-duration: 0.3s;
+  --title-shadow: rgba(0, 123, 255, 0.3);
 }
 
-/* Appliquer un fond clair et une mise en page centrée */
-body {
-  background-color: var(--bg-color);
+/* 🌟 Nouveau fond dégradé */
+body, html {
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
   color: var(--text-color);
-  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 16px;
   line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 20px;
 }
 
-/* Conteneur principal */
+/* 🌟 Centrer le quiz */
 .evaluation-container {
   background: var(--card-bg);
-  padding: 2em;
+  backdrop-filter: blur(10px);
+  padding: 4.5em;
   max-width: 800px;
-  width: 100%;
-  border-radius: 8px;
+  width: 90%;
+  border-radius: 15px;
   box-shadow: var(--shadow);
-  text-align: left;
+  transition: all var(--transition-duration);
 }
 
-/* Titres */
+/* 🌟 Animation d'apparition */
+.evaluation-container:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--hover-shadow);
+}
+
+/* 🌟 Conteneur global pour toutes les questions */
+.questions-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 2em;
+  margin-top: 20px;
+  box-shadow: var(--shadow);
+  border: 2px solid var(--primary-color);
+  transition: all var(--transition-duration);
+}
+
+.questions-wrapper:hover {
+  box-shadow: var(--hover-shadow);
+}
+
+/* ✅ Nouveau Style pour le Titre */
 h2 {
-  font-size: 1.8em;
-  color: var(--primary-dark);
+  font-size: 2.2em;
+  font-weight: bold;
+  background: linear-gradient(90deg, #ff617e, #36d89f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 1em;
   text-align: center;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 5px var(--title-shadow);
+  animation: fadeInFromTop 0.6s ease-out;
+  letter-spacing: 2px;
 }
 
-h3 {
-  font-size: 1.5em;
-  margin-top: 1.5em;
-  color: var(--primary-color);
+/* Animation subtile pour le titre */
+@keyframes fadeInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-h4 {
-  font-size: 1.2em;
-  margin-top: 1em;
-  color: var(--text-color);
-}
-
-/* Informations de l'évaluation */
-.evaluation-info p {
-  font-size: 1.1em;
-  margin: 0.5em 0;
-}
-
-/* Questions */
-.questions {
-  margin-top: 1.5em;
-  padding: 1em;
-  border-left: 4px solid var(--primary-color);
-  background: rgba(47, 108, 173, 0.05);
-  border-radius: 5px;
+/* Animation de l'ombre du titre */
+h2:hover {
+  text-shadow: 3px 3px 10px var(--title-shadow);
+  transform: scale(1.02);
+  transition: transform 0.3s, text-shadow 0.3s;
 }
 
 /* Liste des options */
@@ -77,112 +104,96 @@ ul {
   margin: 0;
 }
 
-ul li {
-  margin: 0.5em 0;
-}
-
-/* Styles des options */
+/* Options */
 label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+  display: block;
   padding: 10px;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-}
-
-/* Input radio stylisé */
-input[type="radio"] {
-  accent-color: var(--primary-color);
-  margin-right: 10px;
-  transform: scale(1.2);
+  margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ddd;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
 }
 
-/* Effet hover sur les options */
 label:hover {
-  background-color: var(--primary-light);
-  transition: background 0.3s;
+  background-color: #d0e6ff;
+  transform: scale(1.02);
 }
 
-/* Responsive design */
-@media (max-width: 600px) {
-  .evaluation-container {
-    padding: 1.5em;
-  }
-  h2 {
-    font-size: 1.5em;
-  }
-  h3 {
-    font-size: 1.3em;
-  }
-  h4 {
-    font-size: 1.1em;
-  }
-}
-/* ✅ Bouton stylisé */
+/* Bouton stylisé */
 .submit-btn {
-  background: #4CAF50; /* Vert */
+  background: #ff6f61;
   color: white;
   font-size: 18px;
   padding: 12px 20px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   display: block;
   margin: 20px auto;
-  transition: background 0.3s ease;
+  transition: background 0.3s, transform 0.3s;
 }
 
 .submit-btn:hover {
-  background: #388E3C; /* Vert foncé */
+  background: #36d89f;
+  transform: scale(1.05);
 }
 
-/* ✅ Résultat du test */
+/* Résultat du test */
 .result-box {
   text-align: center;
   font-size: 18px;
   font-weight: bold;
   padding: 15px;
-  border-radius: 6px;
+  border-radius: 10px;
   width: 60%;
   margin: 20px auto;
 }
+.warning-box {
+  background-color: #ffcc00;
+  color: #4f4f00;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+.progress-bar-container {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  height: 15px;
+  width: 100%;
+}
 
-/* ✅ Succès (vert) */
+.progress-bar {
+  background-color: #36d89f;
+  height: 100%;
+  transition: width 0.4s;
+}
+
+/* Succès (vert) */
 .success {
   background-color: #DFF2BF;
   color: #4F8A10;
   border: 2px solid #4F8A10;
 }
 
-/* ✅ Échec (rouge) */
+/* Échec (rouge) */
 .fail {
   background-color: #FFBABA;
   color: #D8000C;
   border: 2px solid #D8000C;
 }
-.timer-box {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 1.2rem;
-}
 
-.result-box.success {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 8px;
-}
-
-.result-box.fail {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 8px;
+/* Responsive Design */
+@media (max-width: 600px) {
+  .evaluation-container {
+    padding: 1.5em;
+  }
+  h2 {
+    font-size: 1.8em;
+  }
 }
