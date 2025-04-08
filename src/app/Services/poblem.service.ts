@@ -32,6 +32,10 @@ export class PoblemService {
                 return this.http.get<String[]>(this.Problems+`passedProblems/${idUser}`);
 
                   }
-              
+                  getdoneProblems(idUser? :number,):Observable<String[]>{
+                    return this.http.get<String[]>(this.Problems+`doneProblems/${idUser}`);
+    
+                      }
+                  
               
 }

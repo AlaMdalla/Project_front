@@ -59,7 +59,32 @@
           <p class="no-submissions">No submissions yet.</p>
         </ng-template>
       </div>
-      
     
     <button class="update-btn" (click)="updateProfile(profileInfo?.ourUsers?.id)">Update Profile</button>
+    <div class="chart-container">
+        <canvas  id="MyChart" >{{ chart }}</canvas>
+    </div>
+    <div class="chart-container">
+        <canvas  id="MyLineChart" >{{ lineChart }}</canvas>
+        
+    </div>
+
+    <div class="heatmap">
+        <div class="days-column">
+          <div class="day-label" *ngFor="let day of weekDays">{{ day }}</div>
+        </div>
+      
+        <div class="weeks">
+          <div class="week" *ngFor="let week of heatmapWeeks">
+            <div
+              *ngFor="let day of week"
+              class="cell"
+              [style.background-color]="getColor(day.count)"
+              [title]="day.date + ': ' + day.count + ' submissions'"
+            ></div>
+          </div>
+        </div>
+      </div>
+      
+       
 </div>

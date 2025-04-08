@@ -312,4 +312,41 @@
     color: #777;
     margin-top: 20px;
   }
+  /*heat*/
+  .heatmap {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .days-column {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    color: #888;
+  }
+  
+  .day-label {
+    height: 20px;
+    line-height: 20px;
+  }
+  
+  .weeks {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .week {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .cell {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
   
