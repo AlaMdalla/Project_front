@@ -1,40 +1,55 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { UsersService } from 'src/app/Services/users.service';
 
-
-
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-simple-user-register',
+  templateUrl: './simple-user-register.component.html',
+  styleUrls: ['./simple-user-register.component.css']
 })
-export class RegisterComponent {
+export class SimpleUserRegisterComponent {
   formData: any = {
     name: '',
     email: '',
     password: '',
-    role: '',
+    role: 'USER', 
     city: ''
   };
   errorMessage: string = '';
-
+  
   constructor(
     private readonly userService: UsersService,
     private readonly router: Router
   ) { }
+
   async handleSubmit() {
-    // Keep existing validation as fallback
-    if (!this.formData.name || !this.formData.email || !this.formData.password || !this.formData.role || !this.formData.city) {
+    // Basic field check
+    if (!this.formData.name || !this.formData.email || !this.formData.password || !this.formData.city) {
       this.showError('Please fill in all fields.');
       return;
     }
 
-  
+    // Advanced validation matching template rules
+    if (this.formData.name.length < 4) {
+      this.showError('Name must be at least 4 characters');
+      return;
+    }
+
+    if (this.formData.city.length > 12) {
+      this.showError('City must be maximum 12 characters');
+      return;
+    }
+
+    if (!new RegExp('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$').test(this.formData.email)) {
+      this.showError('Invalid email format');
+      return;
+    }
+
+    if (this.formData.password.length < 6) {
+      this.showError('Password must be at least 6 characters');
+      return;
+    }
+
     const confirmRegistration = confirm('Are you sure you want to register?');
     if (!confirmRegistration) return;
   
@@ -49,13 +64,11 @@ export class RegisterComponent {
       this.showError(error.message);
     }
   }
-  
 
   showError(message: string) {
     this.errorMessage = message;
     setTimeout(() => {
-      this.errorMessage = ''; // Clear the error message after the specified duration
+      this.errorMessage = '';
     }, 3000);
   }
 }
-

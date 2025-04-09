@@ -178,5 +178,30 @@ export class UsersService {
 
   }
 
+  async forgotPassword(email: string): Promise<any> {
+    const url = `${this.BASE_URL}/auth/forgot-password`;
+    try {
+        const response = await this.http.post<any>(url, { email }).toPromise();
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async resetPassword(email: string, newPassword: string, confirmPassword: string): Promise<any> {
+    const url = `${this.BASE_URL}/auth/reset-password`;
+    try {
+        // Using city field to pass confirmPassword
+        const response = await this.http.post<any>(url, { 
+            email,
+            password: newPassword,
+            city: confirmPassword 
+        }).toPromise();
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 }

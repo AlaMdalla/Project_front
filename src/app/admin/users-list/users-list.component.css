@@ -239,6 +239,45 @@ td {
     background: #c0392b; /* Darker red for active state */
 }
 
+/* Pagination controls */
+.pagination-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.page-button {
+    background: #3b82f6;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.page-button:hover:not([disabled]) {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.page-button[disabled] {
+    background: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.page-info {
+    font-size: 14px;
+    color: #3b82f6;
+    font-weight: 600;
+}
+
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
     :host {
@@ -288,4 +327,6 @@ td {
         width: 100%;
         text-align: center;
     }
+
+    
 }

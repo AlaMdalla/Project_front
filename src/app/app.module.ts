@@ -55,6 +55,9 @@ import { EvaluationDetailsComponent } from './shared/evaluation-details/evaluati
 import { CandidateFormComponent } from './shared/Candidats/candidat-form/candidat-form.component';
 import { ApplyJobComponent } from './shared/apply-job/apply-job.component';
 import { ChartsComponent } from './shared/Problems/charts/charts.component';
+import { SimpleUserRegisterComponent } from './shared/simple-user-register/simple-user-register.component';
+import { ForgotPasswordComponentComponent } from './shared/forgot-password-component/forgot-password-component.component';
+import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -94,7 +97,7 @@ import { ChartsComponent } from './shared/Problems/charts/charts.component';
     AjoutEvaluationComponent,
     TrainingDetailComponent,
     EvaluationDetailsComponent,
-    EvaluationDetailsComponent,CandidateFormComponent, ApplyJobComponent, 
+    EvaluationDetailsComponent,CandidateFormComponent, ApplyJobComponent, SimpleUserRegisterComponent, ForgotPasswordComponentComponent, ResetPasswordComponent, 
 
   ],
   imports: [

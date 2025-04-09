@@ -41,7 +41,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of filteredUsers" [attr.key]="user.id" class="table-row">
+                <tr *ngFor="let user of getPaginatedUsers()" [attr.key]="user.id" class="table-row">
                     <td>{{ user.id }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
@@ -56,6 +56,19 @@
                     </td>
                 </tr>
             </tbody>
+            <div class="pagination-controls">
+                <button class="page-button" (click)="previousPage()" [disabled]="currentPage === 1">
+                    Previous
+                </button>
+                
+                <span class="page-info">
+                    Page {{ currentPage }} of {{ totalPages }}
+                </span>
+                
+                <button class="page-button" (click)="nextPage()" [disabled]="currentPage === totalPages">
+                    Next
+                </button>
+            </div>
         </table>
     </div>
 </div>

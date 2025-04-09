@@ -16,6 +16,11 @@ export class UsersListComponent implements OnInit {
     searchTerm: string = ''; // Bound to the filter input
     sortColumnName: string = ''; // Current column being sorted
     sortDirection: string = 'asc'; // Current sort direction ('asc' or 'desc')
+    
+    currentPage: number = 1;
+    itemsPerPage: number = 5;
+    totalPages: number = 1;
+
 
     constructor(
         private readonly userService: UsersService,
@@ -32,7 +37,8 @@ export class UsersListComponent implements OnInit {
             const response = await this.userService.getAllUsers(token);
             if (response && response.statusCode === 200 && response.ourUsersList) {
                 this.users = response.ourUsersList;
-                this.filteredUsers = [...this.users]; // Initialize filteredUsers
+                this.filteredUsers = [...this.users];
+                this.updatePagination(); // Critical update here
             } else {
                 this.showError('No users found.');
             }
@@ -57,6 +63,7 @@ export class UsersListComponent implements OnInit {
         if (this.sortColumnName) {
             this.sortColumn(this.sortColumnName);
         }
+        this.updatePagination();
     }
 
     // Sort users by column
@@ -77,6 +84,7 @@ export class UsersListComponent implements OnInit {
             if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
             return 0;
         });
+        this.updatePagination();
     }
 
     async deleteUser(userId: string) {
@@ -102,5 +110,28 @@ export class UsersListComponent implements OnInit {
         setTimeout(() => {
             this.errorMessage = ''; // Clear the error message after the specified duration
         }, 3000);
+    }
+
+    getPaginatedUsers() {
+        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+        const endIndex = startIndex + this.itemsPerPage;
+        return this.filteredUsers.slice(startIndex, endIndex);
+    }
+
+    updatePagination() {
+        this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
+        this.currentPage = Math.min(Math.max(1, this.currentPage), this.totalPages);
+    }
+
+    previousPage() {
+        if (this.currentPage > 1) {
+            this.currentPage--;
+        }
+    }
+
+    nextPage() {
+        if (this.currentPage < this.totalPages) {
+            this.currentPage++;
+        }
     }
 }

@@ -32,6 +32,9 @@ import { TrainingDetailComponent } from "./training-detail/training-detail.compo
 import { EvaluationDetailsComponent } from "./shared/evaluation-details/evaluation-details.component";
 import { CandidateFormComponent } from "./shared/Candidats/candidat-form/candidat-form.component";
 import { ApplyJobComponent } from "./shared/apply-job/apply-job.component";
+import { SimpleUserRegisterComponent } from "./shared/simple-user-register/simple-user-register.component";
+import { ForgotPasswordComponentComponent } from "./shared/forgot-password-component/forgot-password-component.component";
+import { ResetPasswordComponent } from "./shared/reset-password/reset-password.component";
 
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
@@ -72,6 +75,9 @@ const routes: Routes = [
     { path: 'candidates/edit/:id', component: CandidatListComponent },
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
+    { path: 'forgot-password', component: ForgotPasswordComponentComponent },
+  { path: 'reset-password/:email', component: ResetPasswordComponent },
+    {path: 'UserRegister', component: SimpleUserRegisterComponent},
     {path: 'profile', component: ProfileComponent, canActivate: [usersGuard]},
     {path: 'update/:id', component: UpdateuserComponent, canActivate: [usersGuard]},
    {path: 'users', component: UsersListComponent, canActivate:[adminGuard]},
@@ -79,7 +85,7 @@ const routes: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
     { path: '**', redirectTo: '' } 
 
-
+    
 
 ]
 @NgModule({
