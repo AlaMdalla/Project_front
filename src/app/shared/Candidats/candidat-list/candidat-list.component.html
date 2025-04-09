@@ -48,8 +48,7 @@
                         <td>{{ candidate.status }}</td>
                         <td>{{ candidate.jobTitle }}</td>
                      
-<td><a [href]="getResumeUrl(candidate.resumeUrl)" target="_blank" class="text-primary">View Resume</a></td>
-                        <td class="action-buttons">
+                        <td><a [href]="getResumeUrl(candidate.resumeUrl)" target="_blank" class="text-primary">View Resume</a></td>                        <td class="action-buttons">
                             <button class="btn-edit" [routerLink]="['/candidates/edit', candidate.id]">
                                 <span class="btn-icon">✏️</span> Edit
                             </button>

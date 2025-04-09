@@ -11,6 +11,8 @@
   <div class="solution-box">
     <h3>Your Solution</h3>
     <textarea [(ngModel)]="solutionCode"
+    (ngModelChange)="onCodeChange()"
+
       id="solution"
       rows="10"
       placeholder="Write your solution here..."
@@ -31,4 +33,8 @@
 <!-- Feedback Section -->
 <div class="submission-feedback">
   <p>{{ output }}!</p>
+  <div class="suggestion" *ngIf="suggestion">
+    <h4>Suggestion</h4>
+    <pre>{{ suggestion }}</pre>
+  </div>
 </div>

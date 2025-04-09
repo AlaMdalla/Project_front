@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { env } from 'src/app/env/api';
 import { Problem } from 'src/app/models/Problem';
 import { PoblemService } from 'src/app/Services/poblem.service';
 import { SubmitionService } from 'src/app/Services/submition.service';
@@ -14,11 +15,21 @@ export class ProblemSubmitionComponent {
 problemId? :number|null =null
 userId? :number|0;
 profileInfo: any;
+  private copApi = env.copApi; 
 
 problem? :Problem
 fullS:boolean=false
 solutionCode: string = '';
 output : string ='';
+//code copilottttttttt 
+suggestion: string = '';
+typingTimeout: any;
+onCodeChange(): void {
+  clearTimeout(this.typingTimeout);
+  this.typingTimeout = setTimeout(() => {
+    this.getSuggestion();
+  }, 1000); // Wait 1 second after user stops typing
+}
 constructor(private route: ActivatedRoute,private problemsS :PoblemService,private submitionService:SubmitionService,private usersService:UsersService) {}
   async ngOnInit(): Promise<void> {
  const id = this.route.snapshot.paramMap.get('id');
@@ -105,4 +116,34 @@ exitFullScreen() {
     (document as any).msExitFullscreen();
   }
 }
+async getSuggestion(): Promise<void> {
+  try {
+    console.log("dkhallll")
+        const response = await fetch('https://api-inference.huggingface.co/models/bigcode/starcoder', {
+      method: 'POST',
+      headers: {
+        'Authorization': this.copApi,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        inputs: this.solutionCode
+      })
+    });
+
+    if (!response.ok) {
+      this.suggestion = `❌ API error: ${response.status} ${response.statusText}`;
+      console.error(await response.text());
+      return;
+    }
+
+    const result = await response.json();
+    console.log('✅ API Response:', result);
+
+    this.suggestion = result?.[0]?.generated_text || '⚠️ No suggestion found.';
+  } catch (error) {
+    console.error('❌ Exception:', error);
+    this.suggestion = `❌ Connection failed: ${error}`;
+  }
+}
+
 }
