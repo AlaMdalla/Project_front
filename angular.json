@@ -96,8 +96,11 @@
         }
       }
     }
+<<<<<<< HEAD
   },
   "cli": {
     "analytics": false
+=======
+>>>>>>> 30371bd9c0aa836e0f5e9606649fe7fb467b0d8f
   }
 }

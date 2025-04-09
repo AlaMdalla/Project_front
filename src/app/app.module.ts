@@ -55,11 +55,15 @@ import { EvaluationDetailsComponent } from './shared/evaluation-details/evaluati
 import { CandidateFormComponent } from './shared/Candidats/candidat-form/candidat-form.component';
 import { ApplyJobComponent } from './shared/apply-job/apply-job.component';
 import { ChartsComponent } from './shared/Problems/charts/charts.component';
+<<<<<<< HEAD
 import { UserSubscriptionViewComponent } from './shared/user-subscription-view/user-subscription-view.component';
 import { SubscriptionFormComponent } from './shared/subscription-form/subscription-form.component';
 import { PaymentComponent } from './shared/payment/payment.component';
 import { SuccessComponent } from './shared/success/success.component';
 import { ErrorComponent } from './shared/error/error.component';
+=======
+
+>>>>>>> 30371bd9c0aa836e0f5e9606649fe7fb467b0d8f
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
@@ -70,11 +74,15 @@ import { ErrorComponent } from './shared/error/error.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
+<<<<<<< HEAD
     UserSubscriptionViewComponent,
     SubscriptionFormComponent,
     PaymentComponent,
     SuccessComponent,
     ErrorComponent,
+=======
+  
+>>>>>>> 30371bd9c0aa836e0f5e9606649fe7fb467b0d8f
     CoursesComponent,
     CompetionComponent,
     AddPostComponent,

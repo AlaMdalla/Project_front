@@ -32,11 +32,15 @@ import { TrainingDetailComponent } from "./training-detail/training-detail.compo
 import { EvaluationDetailsComponent } from "./shared/evaluation-details/evaluation-details.component";
 import { CandidateFormComponent } from "./shared/Candidats/candidat-form/candidat-form.component";
 import { ApplyJobComponent } from "./shared/apply-job/apply-job.component";
+<<<<<<< HEAD
 import { UserSubscriptionViewComponent } from './shared/user-subscription-view/user-subscription-view.component';
 import { SubscriptionFormComponent } from './shared/subscription-form/subscription-form.component';
 import { PaymentComponent } from './shared/payment/payment.component';
 import { SuccessComponent } from './shared/success/success.component';
 import { ErrorComponent } from './shared/error/error.component';
+=======
+
+>>>>>>> 30371bd9c0aa836e0f5e9606649fe7fb467b0d8f
 const routes: Routes = [
     {path : "Problems",component:ListProblemComponent},
     {path :"Competition",component:CompetitionsComponent},
@@ -51,12 +55,16 @@ const routes: Routes = [
     { path: 'reclamation/:id', component: ReclamationComponent },
     { path: 'reclamations', component: ListereclamationComponent },
     { path: 'evaluation/:id', component: EvaluationDetailsComponent },
+<<<<<<< HEAD
     { path: 'user', component: UserSubscriptionViewComponent },
     { path: 'add', component: SubscriptionFormComponent },
     { path: 'edit/:id', component: SubscriptionFormComponent },
     { path: 'payment/:subid', component: PaymentComponent },
     { path: 'success', component: SuccessComponent },
     { path: 'error', component: ErrorComponent },
+=======
+
+>>>>>>> 30371bd9c0aa836e0f5e9606649fe7fb467b0d8f
     {path: 'addProblem' , component: AddProblemComponent},
     {path: 'addCompetition' , component: AddCompetitionComponent},
     { path: 'Competition/edit/:id', component: AddCompetitionComponent },
