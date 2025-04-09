@@ -1,0 +1,87 @@
+/* Conteneur principal */
+.course-detail {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Titre du cours */
+.course-detail h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Description du cours */
+.course-detail p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+/* Sous-titre de la date */
+.mat-card-subtitle {
+  font-size: 1rem;
+  color: #777;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Bouton Retour */
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: 5px;
+  margin-top: 30px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .course-detail {
+    padding: 15px;
+  }
+
+  .course-detail h2 {
+    font-size: 2rem;
+  }
+
+  .course-detail p {
+    font-size: 1rem;
+  }
+
+  .back-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .course-detail {
+    padding: 10px;
+  }
+
+  .course-detail h2 {
+    font-size: 1.8rem;
+  }
+
+  .course-detail p {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,437 @@
+/* General Styles */
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', sans-serif; /* Added Poppins for modern feel */
+
+}
+
+.competition-details {
+    max-width: 1000px;
+    margin: 30px auto;
+    background: linear-gradient(135deg, #ffffff, #f8f9fd);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 30px;
+    overflow: hidden;
+}
+
+/* Header Section */
+.competition-header {
+    padding: 30px;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(45deg, #2ecc71, #3498db);
+    color: white;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+}
+
+.image-container {
+    margin-right: 25px;
+    position: relative;
+}
+
+.competition-image {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.competition-image:hover {
+    transform: scale(1.1) rotate(3deg);
+    border-color: #ffffff;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.competition-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.competition-stats {
+    font-size: 1.1rem;
+    display: flex;
+    gap: 20px;
+    opacity: 0.9;
+}
+
+.stat-item i {
+    font-size: 1.3rem;
+    margin-right: 8px;
+    color: #ffffff;
+}
+
+/* Description Section */
+.competition-description {
+    padding: 30px;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    line-height: 1.8;
+    border-bottom: none;
+    grid-column: 1 / 2;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.bonus-prizes {
+    margin-top: 15px;
+    font-weight: 600;
+    color: #e67e22;
+    font-size: 1.2rem;
+}
+
+.bonus-prizes ul {
+    margin-left: 25px;
+}
+
+.bonus-prizes li {
+    font-size: 1rem;
+    color: #34495e;
+    margin: 10px 0;
+    position: relative;
+}
+
+.bonus-prizes li:before {
+    content: "★";
+    color: #e67e22;
+    margin-right: 10px;
+}
+
+/* Prizes Section */
+.competition-prices {
+    padding: 30px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-left: none;
+    border-radius: 0 20px 20px 0;
+    grid-column: 2 / 3;
+    color: white;
+}
+
+.competition-prices h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.competition-prices ul {
+    list-style: none;
+}
+
+.competition-prices li {
+    font-size: 1.1rem;
+    margin: 12px 0;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.competition-prices li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+.competition-prices li span {
+    color: #f1c40f;
+    font-weight: 600;
+}
+
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.competition-details > * {
+    animation: fadeIn 0.5s ease-out forwards;
+}/* Problem Cards */
+.problems-container {
+    grid-column: 1 / -1;
+    padding: 40px;
+    background: linear-gradient(135deg, #f9fafc, #eef2f7);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    border-radius: 0 0 20px 20px;
+    position: relative;
+}
+
+.problems-container::before {
+    content: "Challenges";
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #bdc3c7;
+    letter-spacing: 1px;
+    opacity: 0.3;
+    font-style: italic;
+}
+
+.problem-card {
+    padding: 20px;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid rgba(224, 224, 224, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.problem-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(52, 152, 219, 0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.problem-card:hover::after {
+    opacity: 1;
+}
+
+.problem-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    background: #fefefe;
+}
+
+.problem-info {
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.problem-title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #34495e;
+    transition: all 0.3s ease;
+    text-decoration: none; 
+}
+
+.problem-card:hover .problem-title {
+    color: #3498db;
+}
+
+.problem-info a {
+    text-decoration: none; /* Remove default underline from link */
+    color: inherit; /* Inherit color from .problem-title */
+    transition: all 0.3s ease;
+}
+
+.problem-stats {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+    background: rgba(236, 240, 241, 0.8);
+    padding: 4px 12px;
+    border-radius: 15px;
+    width: fit-content;
+    transition: all 0.3s ease;
+}
+
+.problem-card:hover .problem-stats {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+}
+
+.difficulty {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    width: fit-content;
+    align-self: flex-end;
+    transition: all 0.3s ease;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.difficulty::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.5s ease;
+}
+
+.problem-card:hover .difficulty::before {
+    left: 100%;
+}
+
+.easy {
+    background: #2ecc71;
+    background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+
+.medium {
+    background: #f1c40f;
+    background: linear-gradient(45deg, #f1c40f, #e67e22);
+}
+
+.hard {
+    background: #e74c3c;
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
+/* Animation */
+.problem-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+a {
+    text-decoration: none;
+    z-index: 100000;
+  }
+  /* Ensure content area accounts for the fixed header */
+:host {
+    padding: 40px; /* Slightly more padding for a spacious feel */
+    min-height: 100vh;
+    background: #f9fafb; /* Lighter background for home page */
+}
+
+/* Problems container */
+.problems-container {
+    max-width: 1200px; /* Wider for home page to accommodate grid layout */
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between cards */
+}
+
+/* Problem card */
+.problem-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff; /* White cards for a clean look */
+    padding: 20px;
+}
+
+.problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+}
+
+.problem-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Problem info */
+.problem-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Problem title (link) */
+.problem-info a {
+    text-decoration: none;
+    flex: 1;
+}
+
+.problem-info .problem-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #3b82f6; /* Lighter slate blue for a friendlier tone */
+    transition: all 0.3s ease;
+}
+
+.problem-info a:hover .problem-title {
+    color: #2dd4bf; /* Softer teal on hover */
+}
+
+/* Difficulty badge */
+.difficulty {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: white;
+    text-transform: uppercase;
+    align-self: center;
+}
+
+.difficulty.easy {
+    background-color: #28a745; /* Green for Easy */
+}
+
+.difficulty.medium {
+    background-color: #ffca28; /* Amber for Medium */
+}
+
+.difficulty.hard {
+    background-color: #dc3545; /* Red for Hard */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    :host {
+        padding: 20px 10px; /* Reduce padding for smaller screens */
+    }
+
+    .problems-container {
+        max-width: 100%; /* Allow full width on mobile */
+    }
+
+    .problem-card {
+        padding: 15px; /* Reduce padding for mobile */
+    }
+
+    .problem-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}

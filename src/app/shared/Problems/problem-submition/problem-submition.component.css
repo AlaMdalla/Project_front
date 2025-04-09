@@ -1,0 +1,224 @@
+/* Ensure content area accounts for the fixed header */
+:host {
+  padding: 40px; /* Slightly more padding for a spacious feel */
+  min-height: 100vh;
+  background: #f9fafb; /* Lighter background for home page */
+}
+
+/* Submission container */
+.submission-container {
+  max-width: 1200px; /* Match typical content width */
+  margin: 0 auto;
+  display: flex;
+  gap: 20px; /* Space between problem description and solution box */
+}
+
+/* Problem description card */
+.problem-description {
+  flex: 1;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff; /* White cards for a clean look */
+  padding: 20px;
+}
+
+.problem-description:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.problem-description::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+}
+
+/* Problem description header */
+.problem-description h2 {
+  font-size: 24px; /* Slightly smaller than main headers */
+  color: #3b82f6; /* Lighter slate blue for a friendlier tone */
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+/* Problem statement */
+.problem-description .problem-statement {
+  padding: 10px 0;
+}
+
+/* Problem description text */
+.problem-description .problem-statement p {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.problem-description .problem-statement p strong {
+  color: #3b82f6; /* Highlight strong text */
+}
+
+/* Solution box card */
+.solution-box {
+  flex: 1;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  padding: 20px;
+}
+
+.solution-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.solution-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #2dd4bf; /* Softer teal for solution box */
+}
+
+/* Solution box header */
+.solution-box h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2dd4bf; /* Softer teal for secondary headers */
+  margin-bottom: 15px;
+}
+
+/* Solution textarea */
+.solution-box textarea {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #fafafa;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+  font-family: 'Courier New', Courier, monospace; /* Monospace font for code */
+  resize: vertical;
+  min-height: 200px; /* Increased height for better usability */
+}
+
+.solution-box textarea:focus {
+  border-color: #2dd4bf;
+  background: #ffffff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.2);
+}
+
+/* Buttons section */
+.solution-box .buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Space between buttons */
+  margin-top: 15px;
+}
+
+/* Test and Submit buttons */
+.solution-box .buttons button {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.solution-box .buttons button:hover:not(:disabled) {
+  background: #2dd4bf; /* Softer teal on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+.solution-box .buttons button:active:not(:disabled) {
+  background: #2563eb;
+  transform: scale(1);
+}
+
+.solution-box .buttons button:disabled {
+  background: #b2bec3;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* Submit button specific styling */
+.solution-box .buttons .submit-button {
+  background: #2dd4bf; /* Softer teal */
+}
+
+.solution-box .buttons .submit-button:hover:not(:disabled) {
+  background: #5eead4; /* Lighter teal on hover */
+}
+
+/* Feedback section */
+.submission-feedback {
+  max-width: 1200px;
+  margin: 20px auto 0 auto;
+  padding: 15px 20px;
+  border-radius: 6px;
+  background: #fafafa;
+  text-align: center;
+}
+
+.submission-feedback p {
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  :host {
+      padding: 20px 10px;
+  }
+
+  .submission-container {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .problem-description,
+  .solution-box {
+      padding: 15px;
+  }
+
+  .solution-box textarea {
+      min-height: 150px;
+  }
+
+  .solution-box .buttons {
+      justify-content: space-between;
+      gap: 5px;
+  }
+
+  .solution-box .buttons button {
+      flex: 1;
+      text-align: center;
+  }
+
+  .submission-feedback {
+      padding: 10px 15px;
+  }
+}

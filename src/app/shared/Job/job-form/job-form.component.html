@@ -1,0 +1,198 @@
+<app-sidebar></app-sidebar>
+<div id="content">
+    <div class="job-container">
+        <div class="card">
+            <h2>{{ job.jobId ? 'Edit Job' : 'Add Job' }}</h2>
+            <form (ngSubmit)="saveJob()" #jobForm="ngForm">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input
+                        type="text"
+                        id="title"
+                        class="form-control"
+                        [(ngModel)]="job.title"
+                        name="title"
+                        required
+                        minlength="3"
+                        [class.invalid]="jobForm.submitted && jobForm.form.controls['title']?.invalid"
+                    />
+                    <div
+                        class="error-message"
+                        *ngIf="jobForm.submitted && jobForm.form.controls['title']?.invalid"
+                    >
+                        <span *ngIf="jobForm.form.controls['title']?.errors?.['required']">
+                            Title is required.
+                        </span>
+                        <span *ngIf="jobForm.form.controls['title']?.errors?.['minlength']">
+                            Title must be at least 3 characters.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input
+                        type="text"
+                        id="department"
+                        class="form-control"
+                        [(ngModel)]="job.department"
+                        name="department"
+                        required
+                        minlength="3"
+                        [class.invalid]="jobForm.submitted && jobForm.form.controls['department']?.invalid"
+                    />
+                    <div
+                        class="error-message"
+                        *ngIf="jobForm.submitted && jobForm.form.controls['department']?.invalid"
+                    >
+                        <span *ngIf="jobForm.form.controls['department']?.errors?.['required']">
+                            Department is required.
+                        </span>
+                        <span *ngIf="jobForm.form.controls['department']?.errors?.['minlength']">
+                            Department must be at least 3 characters.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input
+                        type="text"
+                        id="location"
+                        class="form-control"
+                        [(ngModel)]="job.location"
+                        name="location"
+                        placeholder="e.g., 123 Main St, New York, NY"
+                        required
+                        minlength="5"
+                        [class.invalid]="jobForm.submitted && jobForm.form.controls['location']?.invalid"
+                    />
+                    <div
+                        class="error-message"
+                        *ngIf="jobForm.submitted && jobForm.form.controls['location']?.invalid"
+                    >
+                        <span *ngIf="jobForm.form.controls['location']?.errors?.['required']">
+                            Location is required.
+                        </span>
+                        <span *ngIf="jobForm.form.controls['location']?.errors?.['minlength']">
+                            Location must be at least 5 characters.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input
+                        type="file"
+                        id="image"
+                        class="form-control"
+                        (change)="onFileSelected($event)"
+                        accept="image/*"
+                    />
+                    <img *ngIf="job.image" [src]="job.image" alt="Job Image" class="job-image" />
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea
+                        id="description"
+                        class="form-control"
+                        [(ngModel)]="job.description"
+                        name="description"
+                        required
+                        minlength="10"
+                        [class.invalid]="jobForm.submitted && jobForm.form.controls['description']?.invalid"
+                    ></textarea>
+                    <div
+                        class="error-message"
+                        *ngIf="jobForm.submitted && jobForm.form.controls['description']?.invalid"
+                    >
+                        <span *ngIf="jobForm.form.controls['description']?.errors?.['required']">
+                            Description is required.
+                        </span>
+                        <span *ngIf="jobForm.form.controls['description']?.errors?.['minlength']">
+                            Description must be at least 10 characters.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="requirements">Requirements</label>
+                    <textarea
+                        id="requirements"
+                        class="form-control"
+                        [(ngModel)]="job.requirements"
+                        name="requirements"
+                        required
+                        minlength="10"
+                        [class.invalid]="jobForm.submitted && jobForm.form.controls['requirements']?.invalid"
+                    ></textarea>
+                    <div
+                        class="error-message"
+                        *ngIf="jobForm.submitted && jobForm.form.controls['requirements']?.invalid"
+                    >
+                        <span *ngIf="jobForm.form.controls['requirements']?.errors?.['required']">
+                            Requirements are required.
+                        </span>
+                        <span *ngIf="jobForm.form.controls['requirements']?.errors?.['minlength']">
+                            Requirements must be at least 10 characters.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="postedDate">Posted Date</label>
+                    <input
+                        type="datetime-local"
+                        id="postedDate"
+                        class="form-control"
+                        [ngModel]="job.postedDate | date: 'yyyy-MM-ddTHH:mm'"
+                        (ngModelChange)="onDateChange($event)"
+                        name="postedDate"
+                        required
+                        [class.invalid]="jobForm.submitted && jobForm.form.controls['postedDate']?.invalid"
+                    />
+                    <div
+                        class="error-message"
+                        *ngIf="jobForm.submitted && jobForm.form.controls['postedDate']?.invalid"
+                    >
+                        <span *ngIf="jobForm.form.controls['postedDate']?.errors?.['required']">
+                            Posted Date is required.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select
+                        id="status"
+                        class="form-control"
+                        [(ngModel)]="job.status"
+                        name="status"
+                        required
+                        [class.invalid]="jobForm.submitted && jobForm.form.controls['status']?.invalid"
+                    >
+                        <option value="" disabled>Select status</option>
+                        <option value="Open">Open</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                    <div
+                        class="error-message"
+                        *ngIf="jobForm.submitted && jobForm.form.controls['status']?.invalid"
+                    >
+                        <span *ngIf="jobForm.form.controls['status']?.errors?.['required']">
+                            Status is required.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" class="btn-primary" >
+                        {{ job.jobId ? 'Update Job' : 'Create Job' }}
+                    </button>
+                    <button type="button" (click)="cancel()" class="btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

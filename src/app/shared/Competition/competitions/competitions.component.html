@@ -1,0 +1,46 @@
+<section class="competitions-section">
+  <!-- Header with title, search bar, and filter -->
+  <div class="header-section">
+    <h2 class="section-title">Competitions</h2>
+    <div class="search-filter-container">
+      <div class="search-bar">
+        <input 
+          type="text" 
+          placeholder="Search competitions..." 
+          [(ngModel)]="searchTerm" 
+          (input)="onSearch()" 
+        />
+        <button class="search-button">
+          <clr-icon shape="search"></clr-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitions grid -->
+  <div class="competitions-grid" *ngIf="displayedCompetitions.length > 0; else noCompetitions" (scroll)="onScroll($event)" #competitionsGrid>
+    <div class="competition-card" *ngFor="let competition of displayedCompetitions">
+      <div class="competition-image">
+        <img *ngIf="competition.image" [src]="'data:image/png;base64,' + competition.image" alt="Competition Image" />
+      </div>
+
+      <div class="competition-content">
+        <h3 class="competition-title">{{ competition.title }}</h3>
+        <p class="competition-date">
+          <clr-icon shape="clock"></clr-icon> Ended {{ '2025-08-20' | date:'MMM d, yyyy' }}
+        </p>
+        <a [routerLink]="['/Competition', competition.id]" class="join-button">Join</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div class="loading-indicator" *ngIf="isLoadingMore">
+    <p>Loading more competitions...</p>
+  </div>
+
+  <ng-template #noCompetitions>
+    <p class="no-competitions">No competitions available at this time.</p>
+  </ng-template>
+</section>
+<app-list-problem></app-list-problem>
