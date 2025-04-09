@@ -1,0 +1,263 @@
+/* Sidebar styling (assumed fixed) */
+app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  /* Content area with sidebar */
+  #content {
+    margin-top: 80px;
+    margin-left: 250px;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+  
+  /* Competition container */
+  .competition-container {
+    max-width: 800px; /* Wider for questions */
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  /* Card */
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    padding: 30px;
+  }
+  
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Slate blue gradient */
+  }
+  
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Evaluation container */
+  .evaluation-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Main header */
+  h2 {
+    font-size: 28px;
+    color: #3b82f6; /* Slate blue */
+    margin-bottom: 20px;
+    position: relative;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 4px;
+    background: #2dd4bf; /* Teal underline */
+    border-radius: 2px;
+  }
+  
+  .title-icon {
+    font-size: 24px;
+  }
+  
+  /* Evaluation info */
+  .evaluation-info {
+    font-size: 16px;
+    color: #6b7280; /* Gray */
+    margin: 0;
+  }
+  
+  .evaluation-info strong {
+    color: #3b82f6; /* Slate blue */
+    font-weight: 600;
+  }
+  
+  /* Questions section header */
+  h3 {
+    font-size: 20px;
+    color: #3b82f6;
+    margin: 20px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .section-icon {
+    font-size: 18px;
+  }
+  
+  /* Individual question header */
+  h4 {
+    font-size: 16px;
+    color: #1f2937; /* Dark gray */
+    margin: 15px 0 10px;
+    font-weight: 600;
+  }
+  
+  /* Questions container */
+  .questions {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background: #fefefe;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  }
+  
+  /* Options list */
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  li {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Option label */
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #1f2937;
+    cursor: pointer;
+  }
+  
+  .option-label input[type="radio"] {
+    accent-color: #2dd4bf; /* Teal radio button */
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  
+  .option-text {
+    transition: color 0.3s ease;
+  }
+  
+  .option-label:hover .option-text {
+    color: #2dd4bf; /* Teal on hover */
+  }
+  
+  /* Submit button */
+  .submit-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: #2dd4bf; /* Teal */
+    color: white;
+    margin: 20px auto 0;
+  }
+  
+  .submit-btn:hover {
+    background: #5eead4; /* Lighter teal */
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+  }
+  
+  .submit-btn:active {
+    background: #1e40af;
+    transform: scale(1);
+  }
+  
+  .button-icon {
+    font-size: 16px;
+  }
+  
+  /* Result box */
+  .result-box {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .result-box.success {
+    background: #d1fae5; /* Light green */
+    border: 1px solid #34d399; /* Green border */
+    color: #065f46; /* Dark green text */
+  }
+  
+  .result-box.fail {
+    background: #fee2e2; /* Light red */
+    border: 1px solid #f87171; /* Red border */
+    color: #991b1b; /* Dark red text */
+  }
+  
+  .success-text, .fail-text {
+    margin: 5px 0 0;
+    font-weight: 600;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    app-sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+      box-shadow: none;
+    }
+  
+    #content {
+      margin-left: 0;
+      padding: 20px 10px;
+    }
+  
+    .competition-container {
+      max-width: 100%;
+    }
+  
+    .questions {
+      padding: 10px;
+    }
+  
+    .option-label {
+      font-size: 12px;
+    }
+  
+    .submit-btn {
+      width: 100%;
+    }
+  }

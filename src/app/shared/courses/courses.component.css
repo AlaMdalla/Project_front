@@ -1,0 +1,128 @@
+/* Courses section */
+.courses-section {
+  margin-top: 200px; /* Adjust this based on the actual height of your header */
+
+  max-width: 1200px; /* Match Competitions Section width */
+  margin: 0 auto;
+  padding: 40px 0; /* Spacious padding for user-facing page */
+}
+
+/* Header */
+.courses-section h2 {
+  font-size: 36px;
+  color: #1e3a8a; /* Deep navy blue for title */
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.courses-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #2dd4bf; /* Muted teal underline */
+  border-radius: 2px;
+}
+
+/* Courses list (grid layout) */
+.courses-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 20px; /* Space between cards, matching Competitions Section */
+}
+
+/* Course card */
+.course-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12); /* Match Competitions Section shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-card:hover {
+  transform: translateY(-5px); /* Match Competitions Section hover lift */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Match Competitions Section hover shadow */
+}
+
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Deep navy blue gradient, matching Competitions Section */
+}
+
+/* Course image */
+.course-image {
+  width: 100%;
+  height: 200px; /* Match Competitions Section image height */
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.course-image:hover {
+  transform: scale(1.05); /* Match Competitions Section image hover effect */
+  filter: brightness(1.05);
+}
+
+/* Course content */
+.course-card h3 {
+  font-size: 1.1rem; /* Match Competitions Section title size */
+  font-weight: 600;
+  color: #1e3a8a; /* Deep navy blue for titles */
+  margin: 15px 20px 8px 20px; /* Match padding and margin style */
+}
+
+.course-card p {
+  font-size: 14px;
+  color: #1f2937; /* Match text color for readability */
+  line-height: 1.6;
+  margin: 0 20px 15px 20px; /* Match padding and margin style */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines, matching Posts List */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Course subtitle (Posted On) */
+.course-card mat-card-subtitle {
+  font-size: 13px;
+  color: #6b7280; /* Match subtitle color from Posts List */
+  font-weight: 500;
+  margin: 0 20px 15px 20px; /* Match padding and margin style */
+}
+
+/* Join button */
+.course-card .join-button {
+  display: block; /* Full-width button for better click area */
+  background: #2dd4bf; /* Solid muted teal, matching Competitions Section */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 20px 20px 20px; /* Match padding and margin style */
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
+  cursor: pointer;
+}
+
+.course-card .join-button:hover {
+  background: #5eead4; /* Lighter teal on hover, matching Competitions Section */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}

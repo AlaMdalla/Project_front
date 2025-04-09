@@ -1,0 +1,61 @@
+<app-sidebar></app-sidebar>
+<div class="container">
+    <div class="management-header">
+        <h2>Management Page</h2>
+        <button routerLink="/register" class="reg-button">
+            <span class="btn-icon">+</span> Add User
+        </button>
+    </div>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="filter-group">
+            <label for="search">Search Users:</label>
+            <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterUsers()" placeholder="Search by name, email, or city..." />
+        </div>
+    </div>
+    
+    <!-- Table -->
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th (click)="sortColumn('id')">
+                        ID
+                        <span class="sort-icon">{{ sortColumnName === 'id' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th (click)="sortColumn('name')">
+                        Name
+                        <span class="sort-icon">{{ sortColumnName === 'name' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th (click)="sortColumn('email')">
+                        Email
+                        <span class="sort-icon">{{ sortColumnName === 'email' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th (click)="sortColumn('city')">
+                        City
+                        <span class="sort-icon">{{ sortColumnName === 'city' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of filteredUsers" [attr.key]="user.id" class="table-row">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.city }}</td>
+                    <td class="action-buttons">
+                        <button class="update-button" (click)="navigateToUpdate(user.id)">
+                            <span class="btn-icon">✏️</span> Update
+                        </button>
+                        <button class="delete-button" (click)="deleteUser(user.id)">
+                            <span class="btn-icon">🗑️</span> Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

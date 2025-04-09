@@ -1,0 +1,29 @@
+<div class="payment-container">
+  <h2 class="payment-title">Confirm Payment</h2>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!subscription.subid && !errorMessage && !isRetrying" class="loading-message">
+    Loading subscription...
+  </div>
+
+  <div *ngIf="isRetrying" class="retry-section">
+    <p class="retry-text">Retrying payment... Please wait.</p>
+    <button class="btn btn-cancel" (click)="cancelRetry()">Cancel Retry</button>
+  </div>
+
+  <div *ngIf="subscription.subid && !isRetrying" class="payment-box">
+    <p class="payment-info">
+      Pay <strong>{{ paymentData.amount }} {{ paymentData.currency }}</strong>
+      for "<em>{{ paymentData.description }}</em>".
+    </p>
+    <button 
+      class="btn btn-pay" 
+      (click)="startPayment()" 
+      [disabled]="!subscription.subid">
+      Pay with PayPal
+    </button>
+  </div>
+</div>
