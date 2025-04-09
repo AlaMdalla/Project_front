@@ -1,7 +1,7 @@
 <div id="content">
   <div class="competition-container">
     <div class="card">
-      <form class="post-form">
+      <form class="post-form" [formGroup]="postForm" (ngSubmit)="updatePost()">
         <h2>Update Post</h2>
 
         <!-- Title -->
@@ -9,23 +9,10 @@
           <label for="title">Title:</label>
           <input 
             id="title" 
-            name="title" 
+            formControlName="title" 
             placeholder="Enter post title" 
             required 
             maxlength="100" />
-        </div>
-
-        <!-- Posted By -->
-        <div class="form-group">
-          <label for="postedBy">Posted By:</label>
-          <input 
-            id="postedBy" 
-            name="postedBy" 
-            placeholder="Enter your name" 
-            required 
-            pattern="[A-Za-z\s]+" 
-            minlength="2" 
-            maxlength="50" />
         </div>
 
         <!-- Category -->
@@ -33,7 +20,7 @@
           <label for="category">Category:</label>
           <input 
             id="category" 
-            name="category" 
+            formControlName="category" 
             placeholder="Enter category" 
             required 
             maxlength="50" />
@@ -44,7 +31,7 @@
           <label for="content">Content:</label>
           <textarea 
             id="content" 
-            name="content" 
+            formControlName="content" 
             placeholder="Write your content here" 
             required 
             minlength="10" 
@@ -58,13 +45,17 @@
             type="file" 
             id="image" 
             accept="image/*" 
-            class="file-input" />
-          <div class="preview-container"></div>
+            class="file-input" 
+            (change)="onFileChanged($event)" />
+          <div class="preview-container">
+            <img *ngIf="previewUrl" [src]="previewUrl" alt="Preview" style="max-width: 200px;" />
+            <img *ngIf="retrievedImage && !previewUrl" [src]="retrievedImage" alt="Current Image" style="max-width: 200px;" />
+          </div>
         </div>
 
         <div class="button-container">
-          <button type="submit" class="btn-primary">Update Post</button>
-          <button type="button" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-primary" [disabled]="postForm.invalid">Update Post</button>
+          <button type="button" class="btn-secondary" (click)="onCancel()">Cancel</button>
         </div>
       </form>
     </div>

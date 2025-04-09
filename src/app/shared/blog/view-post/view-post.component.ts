@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { CommentService } from "src/app/Services/comment.service";
 import { PostService } from "src/app/Services/post.service";
 import { ReclamationService } from "src/app/Services/reclamation.service";
+import { UsersService } from "src/app/Services/users.service";
 
 // Optional: Add a simple client-side bad word filter (mirror the backend for consistency)
 const BAD_WORDS = ['bad', 'trash', 'hate', 'damn', 'crap', 'fool', 'jerk', 'stupid', 'idiot'];
@@ -27,6 +28,9 @@ export class ViewPostComponent implements OnInit {
   comments: any[] = [];
   reclamations: any[] = [];
   hoveredReaction: string | null = null;
+  userId?: number;
+  hasReacted: boolean = false;
+  hasViewed: boolean = false;
 
   constructor(
     private postService: PostService,
@@ -35,17 +39,36 @@ export class ViewPostComponent implements OnInit {
     private fb: FormBuilder,
     private commentService: CommentService,
     private reclamationService: ReclamationService,
-    private router: Router
+    private router: Router,
+    private usersService: UsersService
   ) {
     this.postId = +this.activatedRoute.snapshot.params['id'];
   }
 
-  ngOnInit() {
-    this.getPostById();
+  async ngOnInit() {
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const profileInfo = await this.usersService.getYourProfile(token);
+        this.userId = profileInfo.ourUsers.id;
+        console.log('User ID:', this.userId);
+      }
+    } catch (error: any) {
+      console.log('Error fetching user profile:', error.message);
+    }
+
     this.CommentForm = this.fb.group({
-      postedBy: [null, Validators.required],
-      content: [null, [Validators.required, Validators.maxLength(500)]], // Added max length
+      content: [null, [Validators.required, Validators.maxLength(500)]],
     });
+
+    if (this.userId) {
+      const viewedKey = `viewed_post_${this.postId}_${this.userId}`;
+      const reactedKey = `reacted_post_${this.postId}_${this.userId}`;
+      this.hasViewed = !!localStorage.getItem(viewedKey);
+      this.hasReacted = !!localStorage.getItem(reactedKey);
+    }
+
+    this.getPostById();
   }
 
   hoverReaction(reaction: string | null) {
@@ -53,16 +76,19 @@ export class ViewPostComponent implements OnInit {
   }
 
   publishComment() {
-    const postedBy = this.CommentForm.get('postedBy')?.value;
+    if (!this.userId) {
+      this.matSnackBar.open("Vous devez être connecté pour commenter", "Close", { duration: 5000 });
+      return;
+    }
+
     const content = this.CommentForm.get('content')?.value;
 
-    // Optional: Client-side bad word check
     if (containsBadWords(content)) {
       this.matSnackBar.open("Your comment contains inappropriate language. Please revise it.", "Close", { duration: 5000 });
       return;
     }
 
-    this.commentService.createComment(this.postId, postedBy, content).subscribe(
+    this.commentService.createComment(this.userId, this.postId, content).subscribe(
       res => {
         this.matSnackBar.open("Comment Published Successfully", "Ok", { duration: 3000 });
         this.CommentForm.reset();
@@ -78,14 +104,53 @@ export class ViewPostComponent implements OnInit {
     );
   }
 
-  getPostById() {
-    this.postService.getPostById(this.postId).subscribe(
-      res => {
-        this.getCommentByPost();
+  async getPostById() {
+    if (!this.userId) {
+      this.matSnackBar.open("Connexion requise pour voir le post", "Close", { duration: 3000 });
+      return;
+    }
+
+    const userId = this.userId;
+
+    this.postService.getPostById(userId, this.postId).subscribe(
+      async res => {
+        let name = 'Unknown User';
+        try {
+          const userResponse = await this.usersService.getOwnUsersById(res.userId.toString());
+          console.log('User Response for userId', res.userId, ':', userResponse);
+          name = userResponse.ourUsers?.name || 'Unknown User';
+        } catch (error) {
+          console.error(`Error fetching user for post ${this.postId}:`, error);
+        }
+
         this.postData = {
           ...res,
-          avatar: res.postedBy ? `assets/img/avatar${res.postedBy}.jpg` : 'assets/img/default-avatar.jpg'
+          avatar: res.userId ? `assets/img/avatar${res.userId}.jpg` : 'assets/img/default-avatar.jpg',
+          name
         };
+
+        if (!this.hasViewed) {
+          this.postService.viewPost(userId, this.postId).subscribe(
+            () => {
+              console.log('View count incremented');
+              const viewedKey = `viewed_post_${this.postId}_${userId}`;
+              localStorage.setItem(viewedKey, 'true');
+              this.hasViewed = true;
+              this.postData.viewCount = (this.postData.viewCount || 0) + 1;
+            },
+            error => {
+              const errorMessage = error.error || "Error incrementing view count";
+              this.matSnackBar.open(errorMessage, "Close", { duration: 3000 });
+              if (errorMessage.includes("already viewed")) {
+                const viewedKey = `viewed_post_${this.postId}_${userId}`;
+                localStorage.setItem(viewedKey, 'true');
+                this.hasViewed = true;
+              }
+            }
+          );
+        }
+
+        this.getCommentByPost();
       },
       error => {
         this.matSnackBar.open("Something went wrong!!", "Close", { duration: 3000 });
@@ -96,9 +161,9 @@ export class ViewPostComponent implements OnInit {
   getCommentByPost() {
     this.commentService.getAllCommentByPost(this.postId).subscribe(
       res => {
-        this.comments = res.map((comment: { postedBy: any }) => ({
+        this.comments = res.map((comment: { userId: any }) => ({
           ...comment,
-          avatar: comment.postedBy ? `assets/img/avatar${comment.postedBy}.jpg` : 'assets/img/default-avatar.jpg',
+          avatar: comment.userId ? `assets/img/avatar${comment.userId}.jpg` : 'assets/img/default-avatar.jpg',
           showReply: false,
           replyContent: ''
         }));
@@ -110,9 +175,23 @@ export class ViewPostComponent implements OnInit {
   }
 
   reactPost(reaction: string) {
-    this.postService.reactPost(this.postId, reaction).subscribe(
+    if (!this.userId) {
+      this.matSnackBar.open("Vous devez être connecté pour réagir", "Close", { duration: 3000 });
+      return;
+    }
+
+    if (this.hasReacted) {
+      this.matSnackBar.open("Vous avez déjà réagi à ce post", "Close", { duration: 3000 });
+      return;
+    }
+
+    this.postService.reactPost(this.userId, this.postId, reaction).subscribe(
       res => {
         this.matSnackBar.open(`Post reacted with ${reaction} successfully`, "Close", { duration: 3000 });
+        const reactedKey = `reacted_post_${this.postId}_${this.userId}`;
+        localStorage.setItem(reactedKey, 'true');
+        this.hasReacted = true;
+
         if (this.postData) {
           switch (reaction) {
             case 'like':
@@ -128,16 +207,26 @@ export class ViewPostComponent implements OnInit {
         }
       },
       error => {
-        this.matSnackBar.open("Something Wrong!!", "Close", { duration: 3000 });
+        const errorMessage = error.error || "Something Wrong!!";
+        this.matSnackBar.open(errorMessage, "Close", { duration: 3000 });
+        if (errorMessage.includes("already reacted")) {
+          const reactedKey = `reacted_post_${this.postId}_${this.userId}`;
+          localStorage.setItem(reactedKey, 'true');
+          this.hasReacted = true;
+        }
       }
     );
   }
 
   replyToComment(commentId: number) {
+    if (!this.userId) {
+      this.matSnackBar.open("Vous devez être connecté pour répondre", "Close", { duration: 3000 });
+      return;
+    }
+
     const comment = this.comments.find(c => c.id === commentId);
     if (comment && comment.replyContent) {
-      const postedBy = this.CommentForm.get('postedBy')?.value || 'Anonymous';
-      this.commentService.replyToComment(commentId, postedBy, comment.replyContent).subscribe(
+      this.commentService.replyToComment(this.userId, commentId, comment.replyContent).subscribe(
         res => {
           this.matSnackBar.open("Reply posted successfully!", "Close", { duration: 3000 });
           comment.replyContent = '';
@@ -148,7 +237,7 @@ export class ViewPostComponent implements OnInit {
           const errorMessage = error.error || "Error posting reply!";
           this.matSnackBar.open(errorMessage, "Close", { duration: 5000 });
           if (errorMessage.includes("inappropriate language")) {
-            comment.replyContent = ''; // Clear invalid reply
+            comment.replyContent = '';
           }
         }
       );
@@ -156,6 +245,11 @@ export class ViewPostComponent implements OnInit {
   }
 
   goToReclamationForm() {
-    this.router.navigate([`/reclamation/${this.postId}`]);
+    if (this.userId) {
+      this.router.navigate([`/reclamation/${this.postId}`], { queryParams: { userId: this.userId } });
+    } else {
+      this.matSnackBar.open("Vous devez être connecté pour soumettre une réclamation", "Close", { duration: 5000 });
+      this.router.navigate(['/login']);
+    }
   }
 }
