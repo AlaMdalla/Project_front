@@ -43,12 +43,21 @@
             placeholder="Write your content here" 
             required 
             minlength="10" 
-            maxlength="5000"></textarea>
+            maxlength="5000"
+            (input)="onContentChange()"></textarea>
           <div class="error-message" *ngIf="postForm.get('content')?.touched && postForm.get('content')?.invalid">
             <span *ngIf="postForm.get('content')?.hasError('required')">Content is required.</span>
             <span *ngIf="postForm.get('content')?.hasError('minlength')">Content must be at least 10 characters.</span>
             <span *ngIf="postForm.get('content')?.hasError('maxlength')">Content must not exceed 5000 characters.</span>
           </div>
+          <!-- Use Angular Material alert -->
+          <mat-card *ngIf="isToxicContent" class="alert-danger">
+            <mat-card-content>
+              <mat-icon class="alert-icon">error</mat-icon>
+              <span class="alert-message">{{ toxicityErrorMessage }}</span>
+              <mat-icon class="close-icon" (click)="isToxicContent = false">close</mat-icon>
+            </mat-card-content>
+          </mat-card>
         </div>
 
         <!-- Image Upload -->
@@ -66,7 +75,7 @@
         </div>
 
         <div class="button-container">
-          <button type="submit" class="btn-primary" [disabled]="!postForm.valid">Create Post</button>
+          <button type="submit" class="btn-primary" [disabled]="!postForm.valid || isToxicContent">Create Post</button>
           <button type="button" class="btn-secondary" (click)="onCancel()">Cancel</button>
         </div>
       </form>

@@ -29,7 +29,7 @@ export class ViewAllComponent implements OnInit {
     filteredPosts: Post[] = [];
     displayedPosts: Post[] = [];
     currentPage: number = 1;
-    pageSize: number = 5;
+    pageSize: number = 6;
     totalItems: number = 0;
     totalPages: number = 0;
     searchTerm: string = '';

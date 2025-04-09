@@ -210,4 +210,38 @@
     width: 100%;
     text-align: center;
   }
+  * Styles for the Angular Material alert */
+.alert-danger {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  margin-top: 8px;
+}
+
+.alert-danger mat-card-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+}
+
+.alert-icon {
+  color: #721c24;
+}
+
+.alert-message {
+  flex-grow: 1;
+  font-weight: bold;
+}
+
+.close-icon {
+  cursor: pointer;
+  color: #721c24;
+}
+
+.close-icon:hover {
+  color: #a94442;}
+
+
+  
 }
