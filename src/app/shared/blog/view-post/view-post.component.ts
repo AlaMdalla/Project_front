@@ -6,8 +6,24 @@ import { CommentService } from "src/app/Services/comment.service";
 import { PostService } from "src/app/Services/post.service";
 import { ReclamationService } from "src/app/Services/reclamation.service";
 import { UsersService } from "src/app/Services/users.service";
+import { forkJoin, from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-// Optional: Add a simple client-side bad word filter (mirror the backend for consistency)
+// Define the expected response type for getOwnUsersById
+interface UserResponse {
+  ourUsers: {
+    id: number;
+    name: string;
+    // Add other fields if needed
+  };
+}
+// Define a custom type for form control errors
+interface CommentFormErrors {
+  required?: boolean;
+  maxlength?: { requiredLength: number; actualLength: number };
+  invalid?: boolean;
+}
+
 const BAD_WORDS = ['bad', 'trash', 'hate', 'damn', 'crap', 'fool', 'jerk', 'stupid', 'idiot'];
 
 function containsBadWords(content: string): boolean {
@@ -31,6 +47,7 @@ export class ViewPostComponent implements OnInit {
   userId?: number;
   hasReacted: boolean = false;
   hasViewed: boolean = false;
+  activeReplyCommentId: number | null = null; // Track the comment with the active reply form
 
   constructor(
     private postService: PostService,
@@ -80,14 +97,14 @@ export class ViewPostComponent implements OnInit {
       this.matSnackBar.open("Vous devez être connecté pour commenter", "Close", { duration: 5000 });
       return;
     }
-
+  
     const content = this.CommentForm.get('content')?.value;
-
+  
     if (containsBadWords(content)) {
       this.matSnackBar.open("Your comment contains inappropriate language. Please revise it.", "Close", { duration: 5000 });
       return;
     }
-
+  
     this.commentService.createComment(this.userId, this.postId, content).subscribe(
       res => {
         this.matSnackBar.open("Comment Published Successfully", "Ok", { duration: 3000 });
@@ -97,8 +114,8 @@ export class ViewPostComponent implements OnInit {
       error => {
         const errorMessage = error.error || "Something Went Wrong!!";
         this.matSnackBar.open(errorMessage, "Close", { duration: 5000 });
-        if (errorMessage.includes("inappropriate language")) {
-          this.CommentForm.get('content')?.setErrors({ invalid: true });
+        if (errorMessage.includes("inappropriate language") || errorMessage.includes("already posted this comment")) {
+          this.CommentForm.get('content')?.setErrors({ invalid: true } as CommentFormErrors);
         }
       }
     );
@@ -125,7 +142,7 @@ export class ViewPostComponent implements OnInit {
 
         this.postData = {
           ...res,
-          avatar: res.userId ? `assets/img/avatar${res.userId}.jpg` : 'assets/img/default-avatar.jpg',
+          
           name
         };
 
@@ -161,19 +178,79 @@ export class ViewPostComponent implements OnInit {
   getCommentByPost() {
     this.commentService.getAllCommentByPost(this.postId).subscribe(
       res => {
-        this.comments = res.map((comment: { userId: any }) => ({
+        // Step 1: Map comments and add avatar, replyContent, and replies
+        let comments = res.map((comment: any) => ({
           ...comment,
-          avatar: comment.userId ? `assets/img/avatar${comment.userId}.jpg` : 'assets/img/default-avatar.jpg',
-          showReply: false,
-          replyContent: ''
+          
+          replyContent: '',
+          replies: comment.replies?.map((reply: any) => ({
+            ...reply,
+           
+          })) || []
         }));
+  
+        // Step 2: Filter out duplicate comments (same content and userId)
+        const seen = new Set<string>();
+        comments = comments.filter((comment: any) => {
+          const key = `${comment.userId}-${comment.content}`;
+          if (seen.has(key)) {
+            return false; // Skip duplicate
+          }
+          seen.add(key);
+          return true; // Keep unique comment
+        });
+  
+        // Step 3: Get all unique userIds from comments and replies
+        const userIds = new Set<number>();
+        comments.forEach((comment: any) => {
+          userIds.add(comment.userId);
+          comment.replies?.forEach((reply: any) => userIds.add(reply.userId));
+        });
+  
+        // Step 4: Fetch usernames for all unique userIds in parallel
+        const userRequests: Observable<any>[] = Array.from(userIds).map(userId =>
+          from(this.usersService.getOwnUsersById(userId.toString())).pipe(
+            map((userResponse: UserResponse) => ({
+              userId,
+              username: userResponse.ourUsers?.name || 'Unknown User'
+            }))
+          )
+        );
+  
+        forkJoin(userRequests).subscribe(
+          (userData: any[]) => {
+            // Step 5: Create a map of userId to username
+            const userMap = new Map<number, string>();
+            userData.forEach(user => userMap.set(user.userId, user.username));
+  
+            // Step 6: Assign usernames to comments and replies
+            this.comments = comments.map((comment: any) => ({
+              ...comment,
+              username: userMap.get(comment.userId) || 'Unknown User',
+              replies: comment.replies?.map((reply: any) => ({
+                ...reply,
+                username: userMap.get(reply.userId) || 'Unknown User'
+              })) || []
+            }));
+          },
+          error => {
+            console.error('Error fetching usernames:', error);
+            this.comments = comments.map((comment: any) => ({
+              ...comment,
+              username: 'Unknown User',
+              replies: comment.replies?.map((reply: any) => ({
+                ...reply,
+                username: 'Unknown User'
+              })) || []
+            }));
+          }
+        );
       },
       error => {
         this.matSnackBar.open("Something went wrong!!", "Close", { duration: 3000 });
       }
     );
   }
-
   reactPost(reaction: string) {
     if (!this.userId) {
       this.matSnackBar.open("Vous devez être connecté pour réagir", "Close", { duration: 3000 });
@@ -218,29 +295,46 @@ export class ViewPostComponent implements OnInit {
     );
   }
 
+  toggleReplyForm(commentId: number) {
+    // If the clicked comment is already active, close the reply form
+    if (this.activeReplyCommentId === commentId) {
+      this.activeReplyCommentId = null;
+    } else {
+      // Open the reply form for the clicked comment and close any other open reply form
+      this.activeReplyCommentId = commentId;
+    }
+  }
+
   replyToComment(commentId: number) {
     if (!this.userId) {
-      this.matSnackBar.open("Vous devez être connecté pour répondre", "Close", { duration: 3000 });
+      this.matSnackBar.open("Vous devez être connecté pour répondre", "Close", { duration: 5000 });
       return;
     }
 
     const comment = this.comments.find(c => c.id === commentId);
-    if (comment && comment.replyContent) {
-      this.commentService.replyToComment(this.userId, commentId, comment.replyContent).subscribe(
-        res => {
-          this.matSnackBar.open("Reply posted successfully!", "Close", { duration: 3000 });
-          comment.replyContent = '';
-          comment.showReply = false;
-          this.getCommentByPost();
-        },
-        error => {
-          const errorMessage = error.error || "Error posting reply!";
-          this.matSnackBar.open(errorMessage, "Close", { duration: 5000 });
-          if (errorMessage.includes("inappropriate language")) {
+    if (comment) {
+      if (this.userId === comment.userId) {
+        this.matSnackBar.open("Vous ne pouvez pas répondre à votre propre commentaire", "Close", { duration: 5000 });
+        return;
+      }
+
+      if (comment.replyContent) {
+        this.commentService.replyToComment(this.userId, commentId, comment.replyContent).subscribe(
+          res => {
+            this.matSnackBar.open("Reply posted successfully!", "Close", { duration: 3000 });
             comment.replyContent = '';
+            this.activeReplyCommentId = null; // Close the reply form after submitting
+            this.getCommentByPost();
+          },
+          error => {
+            const errorMessage = error.error || "Error posting reply!";
+            this.matSnackBar.open(errorMessage, "Close", { duration: 5000 });
+            if (errorMessage.includes("inappropriate language")) {
+              comment.replyContent = '';
+            }
           }
-        }
-      );
+        );
+      }
     }
   }
 

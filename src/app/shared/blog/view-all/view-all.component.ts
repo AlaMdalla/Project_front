@@ -88,7 +88,7 @@ export class ViewAllComponent implements OnInit {
                     }
                     this.allPosts.push({
                         ...post,
-                        avatar: `assets/img/avatarala.jpg`,
+                       
                         name
                     });
                 }

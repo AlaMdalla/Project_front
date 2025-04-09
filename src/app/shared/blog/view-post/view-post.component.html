@@ -3,7 +3,6 @@
     <div class="post-card">
         <!-- Post Header -->
         <div class="post-header">
-            <img class="avatar-img" [src]="postData.avatar" alt="Avatar" (error)="postData.avatar = 'assets/img/default-avatar.jpg'">
             <div class="post-meta">
                 <h1 class="post-title">{{ postData.title }}</h1>
                 <p class="post-subtitle">
@@ -49,51 +48,47 @@
         </div>
     </div>
   
-    <!-- Comments Section -->
     <div class="comments-section">
         <h3 class="comments-title"><clr-icon shape="chat-bubble"></clr-icon> Comments</h3>
         <div *ngIf="comments.length === 0" class="no-comments">No comments yet. Be the first to comment!</div>
-        <div *ngFor="let comment of comments" class="comment-card">
-            <div class="comment-header">
-                <img class="avatar-img" [src]="comment.avatar" alt="Avatar" (error)="comment.avatar = 'assets/img/default-avatar.jpg'">
-                <div class="comment-meta">
-                    <h4 class="comment-title">User #{{ comment.userId }}</h4>
-                    <p class="comment-subtitle">{{ comment.createdAt | date: 'mediumDate' }}</p>
+        <div *ngFor="let comment of comments; let isFirst = first" class="comment-card">
+          <div class="comment-header">
+            <div class="comment-meta">
+              <h4 class="comment-title">{{ comment.username }}</h4>
+              <p class="comment-subtitle">{{ comment.createdAt | date: 'mediumDate' }}</p>
+            </div>
+          </div>
+          <div class="comment-content">
+            <p>{{ comment.content }}</p>
+          </div>
+          <div class="comment-actions">
+            <!-- Show "Reply" button only for the first comment and if the comment's userId is different from the current user's userId -->
+            <button *ngIf="isFirst && userId !== comment.userId" class="reply-button" (click)="toggleReplyForm(comment.id)">
+              <clr-icon shape="reply"></clr-icon> Reply
+            </button>
+          </div>
+          <!-- Show the reply form only if this comment's ID matches activeReplyCommentId -->
+          <div *ngIf="activeReplyCommentId === comment.id" class="reply-form">
+            <input [(ngModel)]="comment.replyContent" placeholder="Write a reply..." class="reply-input">
+            <button class="submit-reply-button" (click)="replyToComment(comment.id)">
+              <clr-icon shape="send"></clr-icon> Submit
+            </button>
+          </div>
+          <div *ngIf="comment.replies?.length" class="replies-section">
+            <div *ngFor="let reply of comment.replies" class="reply-card">
+              <div class="reply-header">
+                <div class="reply-meta">
+                  <h4 class="reply-title">{{ reply.username }}</h4>
+                  <p class="reply-subtitle">{{ reply.createdAt | date: 'mediumDate' }}</p>
                 </div>
+              </div>
+              <div class="reply-content">
+                <p>{{ reply.content }}</p>
+              </div>
             </div>
-            <div class="comment-content">
-                <p>{{ comment.content }}</p>
-            </div>
-            <div class="comment-actions">
-                <button class="reply-button" (click)="comment.showReply = !comment.showReply">
-                    <clr-icon shape="reply"></clr-icon> Reply
-                </button>
-            </div>
-            <!-- Reply Form -->
-            <div *ngIf="comment.showReply" class="reply-form">
-                <input [(ngModel)]="comment.replyContent" placeholder="Write a reply..." class="reply-input">
-                <button class="submit-reply-button" (click)="replyToComment(comment.id); comment.showReply = false">
-                    <clr-icon shape="send"></clr-icon> Submit
-                </button>
-            </div>
-            <!-- Replies -->
-            <div *ngIf="comment.replies?.length" class="replies-section">
-                <div *ngFor="let reply of comment.replies" class="reply-card">
-                    <div class="reply-header">
-                        <img class="avatar-img" [src]="reply.avatar || 'assets/img/default-avatar.jpg'" alt="Avatar">
-                        <div class="reply-meta">
-                            <h4 class="reply-title">User #{{ reply.userId }}</h4>
-                            <p class="reply-subtitle">{{ reply.createdAt | date: 'mediumDate' }}</p>
-                        </div>
-                    </div>
-                    <div class="reply-content">
-                        <p>{{ reply.content }}</p>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
     </div>
-  
     <!-- Comment Form -->
     <div class="comment-form-card">
         <h3 class="comment-form-title"><clr-icon shape="chat-bubble"></clr-icon> Publish Your Comment</h3>

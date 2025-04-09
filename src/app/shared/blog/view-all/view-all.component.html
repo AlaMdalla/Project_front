@@ -27,7 +27,6 @@
         <div *ngFor="let item of displayedPosts" class="post-card">
             <!-- Header with Avatar and Post Info -->
             <div class="post-header">
-                <img class="avatar-img" [src]="item.avatar" alt="Avatar" (error)="item.avatar = 'assets/img/default-avatar.jpg'">
                 <div class="post-meta">
                     <a class="post-title" routerLink="/view-post/{{ item.id }}">{{ item.title }}</a>
                     <p class="post-info">
