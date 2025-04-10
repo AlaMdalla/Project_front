@@ -4,6 +4,7 @@ export const Urls = {
     Problems : 'http://localhost:8560/problems/',
     training : 'http://localhost:8560/e-learning/trainings/',
    evaluations:'http://localhost:8560/e-learning/trainings/evaluation',
+ // evaluations: 'http://localhost:8089/e-learning/evaluation',
   questions:'http://localhost:8560/e-learning/trainings/questions',
     candidates : 'http://localhost:8560/job/api/candidates',
     job : 'http://localhost:8560/job/api/jobs',

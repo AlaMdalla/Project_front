@@ -28,6 +28,7 @@ export class AjoutEvaluationComponent {
       type: ['QCM', Validators.required],
       evaluationDuration: ['', Validators.required],
       score: ['', Validators.required],
+      niveau: ['', Validators.required],
       questions: this.fb.array([]) // Doit être un tableau d'objets QuestionReponseDTO si présent
     });
     this.questionForm = this.fb.group({

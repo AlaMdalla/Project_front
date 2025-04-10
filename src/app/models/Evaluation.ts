@@ -9,6 +9,7 @@ export interface Evaluation {
   score: number;
   createdAt: Date;
   certificat: boolean;
+  niveau: 'Beginner' | 'Intermediate' | 'Advanced';
   questions?: Question[];
 }
 

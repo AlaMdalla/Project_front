@@ -14,7 +14,14 @@
       <label for="evaluationDuration">Durée (minutes) :</label>
       <input id="evaluationDuration" type="number" formControlName="evaluationDuration" required>
     </div>
-
+    <div class="form-group">
+      <label for="niveau">Niveau :</label>
+      <select id="niveau" formControlName="niveau" required>
+        <option value="Beginner">Débutant</option>
+        <option value="Intermediate">Intermédiaire</option>
+        <option value="Advanced">Avancé</option>
+      </select>
+    </div>
     <div class="form-group">
       <label for="trainingId">Training :</label>
       <input id="trainingId" type="number" formControlName="trainingId" required>

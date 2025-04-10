@@ -1,26 +1,17 @@
-<div *ngIf="!isLoading; else loading">
-  <h2>{{ course?.title || 'Cours sans titre' }}</h2>
-  <p><strong>Content:</strong></p>
-  <p>{{ course?.content || 'Contenu non disponible.' }}</p>
+<div *ngIf="course; else loading">
+  <div class="course-details">
+    <h1>{{ course?.title || 'Titre non disponible' }}</h1>
+    <p><strong>Contenu :</strong> {{ course?.content || 'Contenu non disponible' }}</p>
+    <p><strong>Date :</strong> {{ course?.trainingdate | date: 'medium' }}</p>
+    <p><strong>Durée :</strong> {{ course?.duration || 'Durée non disponible' }}</p>
+    <p><strong>Niveau :</strong> {{ course?.level || 'Niveau non disponible' }}</p>
+    <p><strong>Status :</strong> {{ course?.status || 'Statut non disponible' }}</p>
 
-  <h3>Training Details</h3>
-  <p><strong>Date:</strong> {{ course?.trainingdate | date: 'medium' }}</p>
-  <p><strong>Duration:</strong> {{ course?.duration || 'Durée non spécifiée.' }}</p>
-  <p><strong>Level:</strong> {{ course?.level || 'Niveau non spécifié.' }}</p>
-
-  <!-- Affichage de la vidéo si l'URL existe -->
-  <div *ngIf="course?.videoUrl">
-    <h4>Course Video:</h4>
-    <iframe
-      [src]="safeVideoUrl"
-      width="640"
-      height="360"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
+    <!-- Bouton pour accéder aux évaluations -->
+    <button (click)="goToEvaluations()" class="btn btn-primary">Voir les évaluations</button>
   </div>
 </div>
 
 <ng-template #loading>
-  <p>Loading course details...</p>
+  <p>Chargement des détails du cours...</p>
 </ng-template>

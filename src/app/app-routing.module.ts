@@ -66,7 +66,7 @@ const routes: Routes = [
     {path: 'update/:id', component: UpdateuserComponent, canActivate: [adminGuard]},
    {path: 'users', component: UsersListComponent, canActivate:[adminGuard]},
     {path: '**', component: LoginComponent},
-    {path: '', redirectTo: '/login', pathMatch: 'full'},
+   {path: '', redirectTo: '/login', pathMatch: 'full'},
     { path: '**', redirectTo: '' }
 
 

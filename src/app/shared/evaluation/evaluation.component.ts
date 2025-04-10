@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import { EvaluationService } from "../../Services/evaluation.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { EvaluationService } from '../../Services/evaluation.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-evaluation',
@@ -12,8 +12,10 @@ import { FormsModule } from "@angular/forms";
   imports: [CommonModule, FormsModule]
 })
 export class EvaluationComponent implements OnInit {
-  evaluation: any = { description: '', evaluationDuration: '', type: '', questions: [] };
+  evaluations: any[] = [];
+  selectedEvaluation: any = null;
   questions: any[] = [];
+  userLevel: string = "Beginner";
   totalScore: number = 0;
   isPassed: boolean = false;
   showResult: boolean = false;
@@ -26,11 +28,46 @@ export class EvaluationComponent implements OnInit {
   warningMessage: string = '';
   answers: any = {};
   answeredQuestions = 0;
+  selectedLevel: string = '';
+  filteredEvaluations: any[] = [];
 
-  constructor(private evaluationService: EvaluationService, private route: ActivatedRoute,
-              private router: Router,      ) {}
+  selectedNiveau: string = '';
+  constructor(
+    private evaluationService: EvaluationService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+
+    const trainingId = this.route.snapshot.paramMap.get('id');
+    if (trainingId) {
+      this.evaluationService.getEvaluationsByTrainingId(+trainingId).subscribe(
+        (data: any[]) => {
+          this.evaluations = data;
+          console.log('🔎 Evaluations récupérées:', this.evaluations);
+          this.filteredEvaluations = data; // initial display
+        },
+        error => {
+          console.error('Erreur lors du chargement des évaluations', error);
+        }
+      );
+    }
+
+
+    if (trainingId) {
+      this.evaluationService.getEvaluationsByTrainingId(+trainingId).subscribe(
+        (data: any[]) => {
+          this.evaluations = data;
+          console.log('Évaluations récupérées :', this.evaluations);
+        },
+        error => {
+          console.error('Erreur lors du chargement des évaluations', error);
+        }
+      );
+    }
+
+    // ✅ Détection de triche : visibility change
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {
         this.isPageVisible = false;
@@ -44,29 +81,62 @@ export class EvaluationComponent implements OnInit {
         }
       } else {
         this.isPageVisible = true;
-        this.warningMessage = ''; // Effacer le message d'avertissement lorsqu'on revient sur la page
+        this.warningMessage = '';
         if (this.remainingTime > 0) {
           this.startTimer();
         }
       }
     });
+  }
 
-    const evaluationId = this.route.snapshot.paramMap.get('id');
-    if (evaluationId) {
-      this.evaluationService.getEvaluationById(+evaluationId).subscribe(
-        (data: any) => {
-          this.evaluation = data || { description: '', evaluationDuration: '', type: '', questions: [] };
-          this.questions = this.processQuestions(this.evaluation.questions);
-          this.remainingTime = this.evaluation.evaluationDuration *60;
-          this.maxTime = this.evaluation.evaluationDuration;
-          this.startTimer();
-        },
-        error => {
-          console.error('Erreur lors du chargement de l’évaluation', error);
-        }
-      );
+  getLevelIcon(niveau: string): string {
+    switch (niveau) {
+      case 'Beginner': return '🌶️';
+      case 'Intermediate': return '🌶️🌶️';
+      case 'Advanced': return '🌶️🌶️🌶️';
+      default: return '';
+    }
+
+  }
+
+  getLevelClass(niveau: string): string {
+    switch (niveau) {
+      case 'Beginner': return 'easy';
+      case 'Intermediate': return 'medium';
+      case 'Advanced': return 'hard';
+      default: return '';
+    }
+
+  }
+  // 🔍 Fonction de filtrage par niveau
+  filterEvaluationsByNiveau(): void {
+    if (this.selectedNiveau === '') {
+      this.filteredEvaluations = this.evaluations; // Tous les niveaux
+    } else {
+      this.filteredEvaluations = this.evaluations.filter(e => e.niveau === this.selectedNiveau);
+
+
+    }  }
+
+  selectEvaluation(evaluation: any): void {
+    if (this.isEvaluationAccessible(evaluation.niveau)) {
+      this.selectedEvaluation = evaluation;
+      this.questions = this.processQuestions(evaluation.questions || []);
+      this.remainingTime = evaluation.evaluationDuration * 60;
+      this.maxTime = evaluation.evaluationDuration;
+      this.startTimer();
+    } else {
+      alert("⚠️ Vous n'avez pas le niveau requis pour accéder à cette évaluation.");
     }
   }
+
+  isEvaluationAccessible(niveau: string): boolean {
+    const niveaux = ['Beginner', 'Intermediate', 'Advanced'];
+    const userLevelIndex = niveaux.indexOf(this.userLevel);
+    const evaluationLevelIndex = niveaux.indexOf(niveau);
+    return userLevelIndex >= evaluationLevelIndex;
+  }
+
 
   startTimer(): void {
     this.interval = setInterval(() => {
@@ -94,10 +164,6 @@ export class EvaluationComponent implements OnInit {
     this.answeredQuestions = this.questions.filter(q => q.selectedOption).length;
   }
 
-  getTimeProgress(): number {
-    return (this.remainingTime / this.maxTime) * 100;
-  }
-
   getQuestionProgress(): number {
     return (this.answeredQuestions / this.questions.length) * 100;
   }
@@ -114,7 +180,7 @@ export class EvaluationComponent implements OnInit {
     }
 
     this.totalScore = (score / totalQuestions) * 100;
-    this.isPassed = this.totalScore >= this.evaluation?.score;
+    this.isPassed = this.totalScore >= this.selectedEvaluation?.score;
     this.showResult = true;
   }
 

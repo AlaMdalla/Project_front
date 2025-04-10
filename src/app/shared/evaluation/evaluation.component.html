@@ -1,42 +1,69 @@
 <div class="evaluation-container">
-  <h2>Évaluation : {{ evaluation?.description }}</h2>
-  <p class="evaluation-info"><strong>Durée :</strong> {{ evaluation?.evaluationDuration }} minutes</p>
-  <p class="evaluation-info"><strong>Type :</strong> {{ evaluation?.type }}</p>
-  <!-- ✅ Affichage du Chronomètre -->
-  <div *ngIf="!showResult" class="timer-box">
-    <p>⏳ Temps restant : {{ remainingTime }}</p>
-  </div>
+  <h2>Liste des évaluations disponibles :</h2>
+  <p><strong>Niveau actuel de l'utilisateur :</strong> {{ userLevel }}</p>
+  <label for="niveau">Filtrer par niveau :</label>
+  <select id="niveau" [(ngModel)]="selectedNiveau" (change)="filterEvaluationsByNiveau()">
+    <option value="">Tous</option>
+    <option value="Beginner">Beginner</option>
+    <option value="Intermediate">Intermediate</option>
+    <option value="Advanced">Advanced</option>
+  </select>
+  <ul>
+    <li *ngFor="let evaluation of filteredEvaluations">
+      <h3>{{ evaluation.description }}</h3>
+      <p><strong>Type :</strong> {{ evaluation.type }}</p>
+      <p><strong>Durée :</strong> {{ evaluation.evaluationDuration }} minutes</p>
+      <p>
+      <p>
+        <strong>Niveau :</strong>
+        <span [ngClass]="getLevelClass(evaluation.niveau)">
+    {{ getLevelIcon(evaluation.niveau) }} {{ evaluation.niveau }}
+  </span>
+      </p>
+      <button (click)="selectEvaluation(evaluation)" class="btn btn-primary">
+        Commencer l'évaluation
+      </button>
+    </li>
+  </ul>
 
+  <!-- ✅ Section d'évaluation sélectionnée -->
+  <div *ngIf="selectedEvaluation">
 
-  <!-- Barre de Progression des Questions -->
-  <div class="progress-bar-container">
-    <div class="progress-bar question-progress" [style.width.%]="getQuestionProgress()"></div>
-  </div>
-  <p>Progression des questions : {{ answeredQuestions }}/{{ questions.length }}</p>
-  <h3>Questions :</h3>
-  <div class="questions-wrapper">
-    <div *ngFor="let question of questions; let i = index" class="questions">
-      <h4>Question {{ i + 1 }} : {{ question.questionText }}</h4>
-      <ul>
-        <li *ngFor="let option of question.options">
-          <label>
-            <input type="radio" name="question_{{ i }}" [value]="option" [(ngModel)]="question.selectedOption" (change)="onOptionSelect(question)">
-            {{ option }}
-          </label>
-        </li>
-      </ul>
+    <h2>Évaluation : {{ selectedEvaluation?.description }}</h2>
+    <p class="evaluation-info"><strong>Durée :</strong> {{ selectedEvaluation?.evaluationDuration }} minutes</p>
+    <p class="evaluation-info"><strong>Type :</strong> {{ selectedEvaluation?.type }}</p>
+
+    <!-- ✅ Affichage du Chronomètre -->
+    <div *ngIf="!showResult" class="timer-box">
+      <p>⏳ Temps restant : {{ remainingTime }}</p>
     </div>
-  </div>
 
-  <div *ngIf="warningMessage" class="warning-box">{{ warningMessage }}</div>
-  <!-- ✅ Bouton stylisé -->
-  <button class="submit-btn" (click)="calculateScore()">Voir mon score</button>
+    <!-- ✅ Barre de Progression des Questions -->
+    <div class="progress-bar-container">
+      <div class="progress-bar question-progress" [style.width.%]="getQuestionProgress()"></div>
+    </div>
+    <p>Progression des questions : {{ answeredQuestions }}/{{ questions.length }}</p>
 
+    <h3>Questions :</h3>
+    <div class="questions-wrapper">
+      <div *ngFor="let question of questions; let i = index" class="questions">
+        <h4>Question {{ i + 1 }} : {{ question.questionText }}</h4>
+        <ul>
+          <li *ngFor="let option of question.options">
+            <label>
+              <input type="radio" name="question_{{ i }}" [value]="option" [(ngModel)]="question.selectedOption" (change)="onOptionSelect(question)">
+              {{ option }}
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-  <!-- ✅ Affichage dynamique du résultat -->
-  <div *ngIf="showResult" [ngClass]="{'success': isPassed, 'fail': !isPassed}" class="result-box">
-    <p>Score obtenu : {{ totalScore.toFixed(2) }}%</p>
-    <p *ngIf="isPassed">✅ Félicitations, vous avez réussi l'évaluation !</p>
-    <p *ngIf="!isPassed">❌ Désolé, vous n'avez pas obtenu un score suffisant.</p>
+    <!-- ✅ Affichage dynamique du résultat -->
+    <div *ngIf="showResult" [ngClass]="{'success': isPassed, 'fail': !isPassed}" class="result-box">
+      <p>Score obtenu : {{ totalScore.toFixed(2) }}%</p>
+      <p *ngIf="isPassed">✅ Félicitations, vous avez réussi l'évaluation !</p>
+      <p *ngIf="!isPassed">❌ Désolé, vous n'avez pas obtenu un score suffisant.</p>
+    </div>
   </div>
 </div>
