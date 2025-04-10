@@ -67,3 +67,16 @@
     </div>
   </div>
 </div>
+<div id="resultToExport" *ngIf="showResult" [ngClass]="{ 'success': isPassed, 'fail': !isPassed }" class="result-box">
+  <h2>Résultat de l’évaluation</h2>
+  <p><strong>Évaluation :</strong> {{ selectedEvaluation?.description }}</p>
+
+  <p><strong>Score obtenu :</strong> {{ totalScore.toFixed(2) }}%</p>
+  <p><strong>Statut :</strong> {{ isPassed ? '✅ Réussi' : '❌ Échoué' }}</p>
+</div>
+
+<!-- Bouton pour exporter en PDF -->
+<button *ngIf="showResult" (click)="generatePDF()" class="btn btn-secondary">
+  📄 Télécharger le Résultat en PDF
+</button>
+

@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EvaluationService } from '../../Services/evaluation.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import html2canvas from "html2canvas";
+import * as jsPDF from "jspdf";
 
 @Component({
   selector: 'app-evaluation',
@@ -149,7 +151,7 @@ export class EvaluationComponent implements OnInit {
     if (this.isEvaluationAccessible(evaluation.niveau)) {
       this.selectedEvaluation = evaluation;
       this.questions = this.processQuestions(evaluation.questions || []);
-      this.remainingTime = evaluation.evaluationDuration * 60;
+      this.remainingTime = evaluation.evaluationDuration ;//60
       this.maxTime = evaluation.evaluationDuration;
       this.startTimer();
     } else {
@@ -175,7 +177,22 @@ export class EvaluationComponent implements OnInit {
       }
     }, 1000);
   }
+  generatePDF(): void {
+    const element = document.getElementById('resultToExport'); // L'élément HTML à exporter
+    if (!element) return;
 
+    html2canvas(element).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF.default('p', 'mm', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      const dateStr = new Date().toLocaleDateString().replace(/\//g, '-');
+      pdf.save(`resultat_evaluation_${dateStr}.pdf`);
+    });
+  }
   processQuestions(questions: any[]): any[] {
     return questions.map(question => {
       return { ...question, options: [...question.options, question.bonneReponse] };
