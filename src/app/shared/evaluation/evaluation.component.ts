@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EvaluationService } from '../../Services/evaluation.service';
 import { CommonModule } from '@angular/common';
@@ -87,6 +87,33 @@ export class EvaluationComponent implements OnInit {
         }
       }
     });
+  }
+// ✅ BLOQUER copier / coller / clic droit / raccourcis
+  @HostListener('document:copy', ['$event'])
+  handleCopy(event: ClipboardEvent) {
+    event.preventDefault();
+    alert("🚫 Copier est désactivé !");
+  }
+
+  @HostListener('document:paste', ['$event'])
+  handlePaste(event: ClipboardEvent) {
+    event.preventDefault();
+    alert("🚫 Coller est désactivé !");
+  }
+
+  @HostListener('document:contextmenu', ['$event'])
+  handleRightClick(event: MouseEvent) {
+    event.preventDefault();
+    alert("🚫 Clic droit interdit !");
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeydown(event: KeyboardEvent) {
+    const forbiddenCombos = ['c', 'v', 'u'];
+    if ((event.ctrlKey && forbiddenCombos.includes(event.key.toLowerCase())) || event.key === 'F12') {
+      event.preventDefault();
+      alert("⛔ Cette action est bloquée !");
+    }
   }
 
   getLevelIcon(niveau: string): string {
