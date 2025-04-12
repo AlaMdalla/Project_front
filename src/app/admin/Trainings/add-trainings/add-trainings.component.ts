@@ -29,7 +29,8 @@ export class AddTrainingsComponent implements OnInit {
       trainingdate: ['', Validators.required],  // ✅ Date validator removed
       duration: ['', Validators.required],
       status: ['', Validators.required],
-      level: ['', Validators.required]
+      level: ['', Validators.required],
+      premium: ['', Validators.required]
     });
   }
 
@@ -103,7 +104,8 @@ export class AddTrainingsComponent implements OnInit {
       trainingdate: training.trainingdate,
       duration: training.duration,
       status: training.status,
-      level: training.level
+      level: training.level,
+      premium:training.premium
     });
   }
   // Modify an existing training

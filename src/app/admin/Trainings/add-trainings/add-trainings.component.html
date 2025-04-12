@@ -43,6 +43,12 @@
                 <option *ngFor="let level of levelOptions" [value]="level">{{ level }}</option>
             </select>
         </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" formControlName="premium">
+          premium
+        </label>
+      </div>
 
         <div class="form-actions">
             <button type="submit" [disabled]="trainingForm.invalid">
@@ -65,6 +71,7 @@
             <th>Duration</th>
             <th>status</th>
             <th>Level</th>
+            <th>Premium</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -76,6 +83,7 @@
             <td>{{ training.duration }}</td>
             <td>{{ training.status }}</td>
             <td>{{ training.level }}</td>
+            <td>{{ training.premium }}</td>
             <td class="action-buttons">
                 <button class="edit" (click)="editTraining(training)">✏️</button>
                 <button class="delete" (click)="training.idTraining ? deleteTraining(training.idTraining) : null">🗑️</button>

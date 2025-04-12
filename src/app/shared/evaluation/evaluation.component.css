@@ -213,34 +213,28 @@ label:hover {
 .hard {
   color: #F44336; /* Rouge */
 }
-/* 🌞 Thème clair */
-.light-theme {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --primary-color: #2f6cad;
-}
-
-/* 🌙 Thème sombre */
-.dark-theme {
-  --bg-color: #121212;
-  --text-color: #ffffff;
-  --primary-color: #90caf9;
-}
-
-/* 🧼 Application globale */
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: all 0.3s ease;
-}
-
-button {
-  background-color: var(--primary-color);
+.btn.btn-secondary {
+  background-color: #4a90e2;
   color: white;
+  padding: 12px 20px;
   border: none;
-  padding: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
+  margin: 20px auto;
+  display: block;
+  transition: background 0.3s, transform 0.2s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+.btn.btn-secondary:hover {
+  background-color: #357ab7;
+  transform: translateY(-2px);
+}
+
+.btn.btn-secondary:active {
+  transform: scale(0.98);
+  background-color: #2c6093;
+}
 

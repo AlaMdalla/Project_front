@@ -1,6 +1,6 @@
 <div class="evaluation-container">
   <h2>Liste des évaluations disponibles :</h2>
-  <p><strong>Niveau actuel de l'utilisateur :</strong> {{ userLevel }}</p>
+
   <label for="niveau">Filtrer par niveau :</label>
   <select id="niveau" [(ngModel)]="selectedNiveau" (change)="filterEvaluationsByNiveau()">
     <option value="">Tous</option>
@@ -79,4 +79,3 @@
 <button *ngIf="showResult" (click)="generatePDF()" class="btn btn-secondary">
   📄 Télécharger le Résultat en PDF
 </button>
-

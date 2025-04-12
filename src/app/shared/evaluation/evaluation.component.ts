@@ -151,7 +151,7 @@ export class EvaluationComponent implements OnInit {
     if (this.isEvaluationAccessible(evaluation.niveau)) {
       this.selectedEvaluation = evaluation;
       this.questions = this.processQuestions(evaluation.questions || []);
-      this.remainingTime = evaluation.evaluationDuration ;//60
+      this.remainingTime = evaluation.evaluationDuration ;
       this.maxTime = evaluation.evaluationDuration;
       this.startTimer();
     } else {

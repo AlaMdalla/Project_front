@@ -47,7 +47,7 @@ const routes: Routes = [
     {path: 'addProblem' , component: AddProblemComponent},
     {path: 'addCompetition' , component: AddCompetitionComponent},
     { path: 'Competition/edit/:id', component: AddCompetitionComponent },
-  { path: 'training-detail/:id', component: TrainingDetailComponent },
+  { path: 'training-detail/:id', component: TrainingDetailComponent},
   { path: 'evaluation/:id', component: EvaluationComponent },
   { path: 'quiz-failed', component: QuizFailedComponent },
 

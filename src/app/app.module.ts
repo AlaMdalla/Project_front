@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ListProblemComponent } from './shared/Problems/list-problem/list-problem.component';
@@ -49,8 +49,13 @@ import {AddEvaluationComponent} from "./admin/Trainings/add-evaluation/add-evalu
 import { AjoutEvaluationComponent } from './admin/Trainings/ajout-evaluation/ajout-evaluation.component';
 import { QuizFailedComponent } from './quiz-failed/quiz-failed.component';
 import {RouterModule} from "@angular/router";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 
-
+// Fonction de chargement traduction
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -105,7 +110,15 @@ import {RouterModule} from "@angular/router";
     MatPaginatorModule,
     MatMenuModule,
 
-    MatGridListModule
+    MatGridListModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
   exports: [
