@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Job } from 'src/app/models/Job';
 import { JobService } from 'src/app/Services/job.service';
+import { MatDialog } from '@angular/material/dialog';
+import { JobPopupComponent } from '../job-popup/job-popup.component';
 
 @Component({
   selector: 'app-job-list',
@@ -10,7 +12,7 @@ import { JobService } from 'src/app/Services/job.service';
 export class JobListComponent {
   jobs: Job[] = [];
 
-  constructor(private jobService: JobService) {}
+  constructor(private jobService: JobService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadJobs();
@@ -28,6 +30,21 @@ export class JobListComponent {
             });
           }
         });
+        // Updated popup logic
+        if (this.jobs.length > 0) {
+          const newestJob = this.jobs.reduce((prev, current) =>
+            new Date(prev.postedDate) > new Date(current.postedDate) ? prev : current
+          );
+          const lastShownDate = localStorage.getItem('lastShownJobDate');
+          const newestJobDate = new Date(newestJob.postedDate).toISOString();
+          if (!lastShownDate || new Date(lastShownDate) < new Date(newestJobDate)) {
+            this.dialog.open(JobPopupComponent, {
+              width: '500px',
+              data: newestJob
+            });
+            localStorage.setItem('lastShownJobDate', newestJobDate);
+          }
+        }
       },
       error: (err) => console.error('Jobs fetch error:', err),
     });

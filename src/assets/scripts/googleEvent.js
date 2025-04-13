@@ -39,7 +39,8 @@ const DISCOVERY_DOC =
       summary: "Google I/O 2015",
       location: "800 Howard St., San Francisco, CA 94103",
       description: "comppppp.",
-      start: {
+      start: { 
+        
         dateTime: eventDetails.startTime,
         timeZone: "Africa/Tunis"
 ,

@@ -4,6 +4,8 @@ import { Candidate } from 'src/app/models/Candidate';
 import { Job } from 'src/app/models/Job';
 import { CandidateService } from 'src/app/Services/candidate.service';
 import { JobService } from 'src/app/Services/job.service';
+import { UsersService } from 'src/app/Services/users.service';
+
 @Component({
   selector: 'app-apply-job',
   templateUrl: './apply-job.component.html',
@@ -12,63 +14,71 @@ import { JobService } from 'src/app/Services/job.service';
 export class ApplyJobComponent {
   candidate: Candidate = new Candidate();
   jobs: Job[] = [];
-  job!: Job ;
+  job!: Job;
 
   isEditMode: boolean = false;
   jobId: number | null = null;
   selectedJobTitle: string | null = null;
+  profileInfo: any;
 
   constructor(
     private candidateService: CandidateService,
     private jobService: JobService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private readonly userService: UsersService,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No Token Found');
+      }
+
+      this.profileInfo = await this.userService.getYourProfile(token);
+      console.log("Profile info:", this.profileInfo);
+      this.candidate.email = this.profileInfo.ourUsers.email;
+    } catch (error: any) {
+      console.error('Error fetching profile:', error);
+    }
+
     this.loadJobs();
 
-    // Check if 'id' parameter exists for editing an existing candidate
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.jobService.getJobById(+id).subscribe({
         next: (data) => {
-          this.jobId = +id;  // Using the unary plus operator to convert string to number
+          this.jobId = +id;
           this.job = data;
-         this.selectedJobTitle=this.job.title
-         console.log(this.selectedJobTitle)
+          this.selectedJobTitle = this.job.title;
+          console.log('Job title:', this.selectedJobTitle);
         },
-        error: (err) => console.error('❌ Error fetching candidate:', err),
+        error: (err) => console.error('❌ Error fetching job:', err),
       });
-      
     }
 
-    // Capture the jobId from route params if available
     this.route.params.subscribe(params => {
       if (params['jobId']) {
-        this.jobId = +params['jobId'];  // Convert the jobId to a number if it's passed
+        this.jobId = +params['jobId'];
         console.log('Job ID from route:', this.jobId);
       } else {
-        this.jobId = null;  // No jobId passed, handle as a generic new candidate
+        this.jobId = null;
       }
     });
   }
 
   loadJobs(): void {
-    // Fetch available jobs from the job service
     this.jobService.getJobs().subscribe({
       next: (data) => {
         this.jobs = data;
-
-        // If no job is selected and there are jobs, select the first one
         if (this.jobs.length > 0 && !this.candidate.jobId) {
           if (this.jobId) {
-            
             this.candidate.jobId = this.jobId;
-            this.selectedJobTitle = this.jobs[0].title;
-            // If jobId is passed in the URL, set it
+            this.selectedJobTitle = this.jobs.find(job => job.jobId === this.jobId)?.title || this.jobs[0].title;
           } else {
-            this.candidate.jobId = this.jobs[0].jobId; // Set the first job by default
+            this.candidate.jobId = this.jobs[0].jobId;
+            this.selectedJobTitle = this.jobs[0].title;
           }
         }
       },
@@ -86,7 +96,7 @@ export class ApplyJobComponent {
       }
       this.candidateService.uploadResume(file).subscribe({
         next: (url) => {
-          this.candidate.resumeUrl = url; // Set the returned URL
+          this.candidate.resumeUrl = url;
           console.log('Resume uploaded, URL:', url);
         },
         error: (err) => console.error('Error uploading resume:', err),
@@ -95,7 +105,6 @@ export class ApplyJobComponent {
   }
 
   onSubmit(): void {
-    // Validate the jobId and resumeUrl
     if (!this.candidate.jobId) {
       alert('Please select a job.');
       return;
@@ -110,24 +119,33 @@ export class ApplyJobComponent {
       email: this.candidate.email,
       phone: this.candidate.phone,
       resumeUrl: this.candidate.resumeUrl,
-      applicationDate: this.candidate.applicationDate ? new Date(this.candidate.applicationDate).toISOString() : null,
-      status: this.candidate.status,
+      applicationDate: this.candidate.applicationDate ? new Date(this.candidate.applicationDate).toISOString() : new Date().toISOString(),
+      status: this.candidate.status || 'applied',
       jobId: this.candidate.jobId
     };
 
-    console.log('Payload sent:', JSON.stringify(candidateData, null, 2));
+    console.log('Submitting candidate:', JSON.stringify(candidateData, null, 2));
 
     if (this.isEditMode && this.candidate.id) {
-      console.log('✏️ Updating candidate with ID:', this.candidate.id);
+      console.log('✏️ Updating candidate ID:', this.candidate.id);
       this.candidateService.updateCandidate(this.candidate.id, candidateData).subscribe({
-        next: () => this.router.navigate(['/candidates']), // Navigate to candidates list after update
-        error: (err) => console.error('Update error:', err),
+        next: () => this.router.navigate(['/candidates']),
+        error: (err) => {
+          console.error('Update error:', err);
+          alert('Failed to update application. Please try again.');
+        },
       });
     } else {
-      console.log('➕ Creating a new candidate');
+      console.log('➕ Creating candidate');
       this.candidateService.createCandidate(candidateData).subscribe({
-        next: () => this.router.navigate(['/candidates']), // Navigate to candidates list after create
-        error: (err) => console.error('Create error:', err),
+        next: () => {
+          alert('Application submitted successfully!');
+          this.router.navigate(['/candidates']);
+        },
+        error: (err) => {
+          console.error('Create error:', err);
+          alert('Failed to submit application. Please try again.');
+        },
       });
     }
   }

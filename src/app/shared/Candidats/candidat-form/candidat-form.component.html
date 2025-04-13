@@ -145,10 +145,10 @@
 
                 <!-- Form Actions -->
                 <div class="button-container">
-                    <button type="submit" class="btn-primary" [disabled]="candidateForm.invalid">
+                    <button type="submit" class="btn-primary">
                         {{ isEditMode ? 'Update Candidate' : 'Create Candidate' }}
                     </button>
-                    <button type="button" class="btn-secondary" >Cancel</button>
+                    <button type="button" class="btn-secondary" (click)="onCancel()">Cancel</button>
                 </div>
             </form>
         </div>

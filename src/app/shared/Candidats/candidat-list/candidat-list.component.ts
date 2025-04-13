@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Candidate } from 'src/app/models/Candidate';
 import { CandidateService } from 'src/app/Services/candidate.service';
 import { JobService } from 'src/app/Services/job.service';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-candidat-list',
   templateUrl: './candidat-list.component.html',
   styleUrls: ['./candidat-list.component.css']
 })
-export class CandidatListComponent {
+export class CandidatListComponent implements AfterViewInit {
   candidates: Candidate[] = [];
   filteredCandidates: Candidate[] = [];
   selectedJobId: number | null = null;
@@ -19,10 +20,14 @@ export class CandidatListComponent {
   totalItems: number = 0;
   totalPages: number = 0;
   searchTerm: string = '';
-  sortColumnName: any;
+  sortColumnName: keyof Candidate | null = null;
   sortDirection: string = 'asc';
-  private baseUrl = 'c:';
+  private baseUrl = 'http://localhost:8560';
   jobs: any[] = [];
+  statusOptions = ['applied', 'in interview', 'accepted', 'rejected'];
+
+  @ViewChild('candidateChart') chartCanvas!: ElementRef<HTMLCanvasElement>;
+  private chart?: Chart;
 
   constructor(
     private candidateService: CandidateService,
@@ -34,39 +39,95 @@ export class CandidatListComponent {
     this.loadJobs();
   }
 
+  ngAfterViewInit(): void {
+    this.updateChart();
+  }
+
   loadCandidates(): void {
     this.candidateService.getCandidates().subscribe({
       next: (data) => {
         this.candidates = data;
-        this.filteredCandidates = [...this.candidates];
-        this.totalItems = this.filteredCandidates.length;
+        this.filteredCandidates = [...data];
+        this.totalItems = data.length;
         this.totalPages = Math.ceil(this.totalItems / this.pageSize);
         this.applyPagination();
-        this.candidates.forEach(candidate => {
-          console.log('Resume URL for candidate', candidate.id, ':', this.getResumeUrl(candidate.resumeUrl));
-        });
+        this.updateChart();
       },
       error: (err) => console.error('Error fetching candidates:', err),
     });
   }
 
-  getResumeUrl(resumeUrl: string): string {
-    let transformedUrl = resumeUrl;
-    // If it’s a file URL, extract the relative path
-    if (transformedUrl.startsWith('file:///')) {
-      const filePathIndex = transformedUrl.indexOf('/attachments/');
-      if (filePathIndex !== -1) {
-        transformedUrl = transformedUrl.substring(filePathIndex); // e.g., "/attachments/1744209178258_attestationdestage.pdf"
-      } else {
-        transformedUrl = transformedUrl.substring(7); // Fallback: remove "file:///"
-      }
-    }
-    // Use HTTP base URL
-    const url = `http://localhost:8000${transformedUrl}`;
-    console.log('Generated Resume URL:', url);
-    return url;
+  loadJobs(): void {
+    this.jobService.getJobs().subscribe({
+      next: (data) => {
+        this.jobs = data;
+        this.updateChart();
+      },
+      error: (err) => console.error('Error fetching jobs:', err),
+    });
   }
-  
+
+  private updateChart(): void {
+    if (!this.chartCanvas || !this.candidates.length) return;
+
+    const { labels, data } = this.getChartData();
+    if (!labels.length) return;
+
+    if (this.chart) {
+      this.chart.destroy();
+      this.chart = undefined;
+    }
+
+    const colors = [
+      '#3b82f6', // Slate blue
+      '#2dd4bf', // Teal
+      '#f43f5e', // Rose
+      '#fbbf24', // Amber
+      '#a855f7', // Purple
+      '#22c55e', // Green
+      '#f97316', // Orange
+    ];
+
+    this.chart = new Chart(this.chartCanvas.nativeElement, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Candidates per Job',
+          data,
+          backgroundColor: labels.map((_, i) => colors[i % colors.length] + '80'),
+          borderColor: labels.map((_, i) => colors[i % colors.length]),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 2,
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: 'Candidates' } },
+          x: { title: { display: true, text: 'Jobs' } }
+        },
+        plugins: { title: { display: true, text: 'Candidate Applications by Job' } }
+      }
+    });
+  }
+
+  private getChartData(): { labels: string[], data: number[] } {
+    const countMap: { [key: string]: number } = {};
+    this.candidates.forEach(candidate => {
+      const key = candidate.jobTitle || 'Unspecified';
+      countMap[key] = (countMap[key] || 0) + 1;
+    });
+    return {
+      labels: Object.keys(countMap),
+      data: Object.values(countMap)
+    };
+  }
+
+  getResumeUrl(resumeUrl: string): string {
+    return `${this.baseUrl}/job/api/candidates${resumeUrl}`;
+  }
 
   applyPagination(): void {
     const start = (this.currentPage - 1) * this.pageSize;
@@ -81,38 +142,25 @@ export class CandidatListComponent {
   }
 
   filterCandidates(): void {
-    if (!this.searchTerm.trim()) {
-      this.filteredCandidates = [...this.candidates];
-    } else {
-      const term = this.searchTerm.toLowerCase();
-      this.filteredCandidates = this.candidates.filter(candidate =>
-        candidate.email.toLowerCase().includes(term)
-      );
-    }
+    this.filteredCandidates = this.searchTerm.trim()
+      ? this.candidates.filter(c => c.email.toLowerCase().includes(this.searchTerm.toLowerCase()))
+      : [...this.candidates];
     this.currentPage = 1;
-    if (this.sortColumnName) {
-      this.sortColumn(this.sortColumnName);
-    }
+    if (this.sortColumnName) this.sortColumn(this.sortColumnName);
     this.applyPagination();
+    this.updateChart();
   }
 
   sortColumn(columnName: keyof Candidate): void {
-    if (this.sortColumnName === columnName) {
-      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortColumnName = columnName;
-      this.sortDirection = 'asc';
-    }
-
+    this.sortDirection = this.sortColumnName === columnName && this.sortDirection === 'asc' ? 'desc' : 'asc';
+    this.sortColumnName = columnName;
     this.filteredCandidates.sort((a, b) => {
-      const valueA = a[columnName]?.toString().toLowerCase() || '';
-      const valueB = b[columnName]?.toString().toLowerCase() || '';
-      if (valueA < valueB) return this.sortDirection === 'asc' ? -1 : 1;
-      if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
-      return 0;
+      const valueA = (a[columnName]?.toString().toLowerCase() || '');
+      const valueB = (b[columnName]?.toString().toLowerCase() || '');
+      return this.sortDirection === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
     });
-
     this.applyPagination();
+    this.updateChart();
   }
 
   deleteCandidate(id: number): void {
@@ -120,12 +168,34 @@ export class CandidatListComponent {
       this.candidateService.deleteCandidate(id).subscribe({
         next: () => {
           this.candidates = this.candidates.filter(c => c.id !== id);
-          this.filteredCandidates = this.filteredCandidates.filter(c => c.id !== id);
-          this.applyPagination();
+          this.filterCandidates();
         },
         error: (err) => console.error('Delete error:', err),
       });
     }
+  }
+
+  updateStatus(candidate: Candidate, newStatus: string): void {
+    if (!newStatus) return; // Ignore empty selection
+    const updatedCandidate = {
+      email: candidate.email,
+      phone: candidate.phone,
+      resumeUrl: candidate.resumeUrl,
+      applicationDate: candidate.applicationDate,
+      status: newStatus,
+      jobId: candidate.jobId
+    };
+    this.candidateService.updateCandidate(candidate.id!, updatedCandidate).subscribe({
+      next: () => {
+        candidate.status = newStatus;
+        alert(`Status updated to "${newStatus}" for ${candidate.email}. Email sent.`);
+        this.loadCandidates(); // Refresh to ensure consistency
+      },
+      error: (err) => {
+        console.error('Status update error:', err);
+        alert('Failed to update status. Please try again.');
+      }
+    });
   }
 
   changePage(page: number): void {
@@ -135,59 +205,28 @@ export class CandidatListComponent {
     }
   }
 
-  loadJobs(): void {
-    this.jobService.getJobs().subscribe({
-      next: (data) => {
-        this.jobs = data;
-      },
-      error: (err) => console.error('Error fetching jobs:', err),
-    });
+  calculateFit(candidateId: number): void {
+    if (!this.selectedJobId) return;
+    const candidate = this.candidates.find(c => c.id === candidateId);
+    const job = this.jobs.find(j => j.jobId === this.selectedJobId);
+    if (!candidate || !job) return;
+    let score = 0;
+    const reasoning: string[] = [];
+    const candidateJobTitle = candidate.jobTitle || '';
+    const jobTitle = job.title || '';
+    if (candidateJobTitle.toLowerCase() === jobTitle.toLowerCase() && candidateJobTitle) {
+      score += 70;
+      reasoning.push("Job title match: +70");
+    } else {
+      reasoning.push("Job title mismatch: 0");
+    }
+    if (candidate.status === "accepted" || candidate.status === "in interview") {
+      score += 30;
+      reasoning.push("Status promising: +30");
+    } else {
+      reasoning.push("Status neutral: 0");
+    }
+    this.fitResults[candidateId] = { score, reasoning };
+    this.fitResults = { ...this.fitResults };
   }
-
- calculateFit(candidateId: number): void {
-  console.log('Calculate Fit clicked for candidate ID:', candidateId); // Debug: Confirm click
-  console.log('Selected Job ID:', this.selectedJobId); // Debug: Confirm job selection
-
-  if (!this.selectedJobId) {
-    console.log('No job selected, exiting.');
-    return;
-  }
-
-  const candidate = this.candidates.find(c => c.id === candidateId);
-  const job = this.jobs.find(j => j.jobId === this.selectedJobId);
-  console.log('Candidate:', candidate); // Debug: Check candidate data
-  console.log('Job:', job); // Debug: Check job data
-
-  if (!candidate || !job) {
-    console.log('Candidate or job not found.');
-    return;
-  }
-
-  let score = 0;
-  const reasoning: string[] = [];
-
-  // Job title match (70% of score)
-  const candidateJobTitle = candidate.jobTitle || ''; // Default to empty string if undefined
-  const jobTitle = job.title || ''; // Default to empty string if undefined
-  console.log('Comparing titles:', candidateJobTitle, 'vs', jobTitle); // Debug: Check titles
-  if (candidateJobTitle.toLowerCase() === jobTitle.toLowerCase() && candidateJobTitle) {
-    score += 70;
-    reasoning.push("Job title match: +70");
-  } else {
-    reasoning.push("Job title mismatch: 0");
-  }
-
-  // Status (30% of score)
-  console.log('Candidate status:', candidate.status); // Debug: Check status
-  if (candidate.status === "Hired" || candidate.status === "Interview Scheduled") {
-    score += 30;
-    reasoning.push("Status promising: +30");
-  } else {
-    reasoning.push("Status neutral: 0");
-  }
-
-  console.log('Calculated score:', score, 'Reasoning:', reasoning); // Debug: Check result
-  this.fitResults[candidateId] = { score, reasoning };
-  console.log('fitResults updated:', this.fitResults); // Debug: Confirm update
-}
 }

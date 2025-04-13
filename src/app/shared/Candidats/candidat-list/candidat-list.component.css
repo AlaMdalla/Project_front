@@ -1,22 +1,34 @@
 /* Ensure content area accounts for the sidebar and fixed header */
 :host {
-  margin-top: 80px; /* Match the header height to avoid overlap */
-  margin-left: 250px; /* Match sidebar width */
+  margin-top: 80px;
+  margin-left: 250px;
   display: block;
-  padding: 40px 20px; /* Add padding for spacing */
+  padding: 40px 20px;
   min-height: 100vh;
-  background: #f9fafb; /* Lighter background for home page */
+  background: #f9fafb;
 }
 
-/* Sidebar styling (assumed to be a fixed sidebar) */
+/* Sidebar styling */
 app-sidebar {
-  display: block; /* Ensure sidebar takes up space */
+  display: block;
 }
 
 /* Candidates container */
 .candidates-container {
-  max-width: 1200px; /* Wider for home page to accommodate table */
+  max-width: 1200px;
   margin: 0 auto;
+}
+
+/* Chart styling */
+.chart-canvas {
+  width: 100% !important; /* Full width of container */
+  max-width: 800px !important; /* Cap width */
+  height: 300px !important; /* Fixed height */
+  margin: 20px auto; /* Center with spacing */
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
 }
 
 /* Management header */
@@ -27,10 +39,9 @@ app-sidebar {
   margin-bottom: 30px;
 }
 
-/* Header title */
 .management-header h2 {
-  font-size: 28px; /* Slightly larger for prominence */
-  color: #3b82f6; /* Lighter slate blue for a friendlier tone */
+  font-size: 28px;
+  color: #3b82f6;
   position: relative;
   font-weight: 700;
   text-align: center;
@@ -44,13 +55,12 @@ app-sidebar {
   transform: translateX(-50%);
   width: 50px;
   height: 4px;
-  background: #2dd4bf; /* Softer teal underline */
+  background: #2dd4bf;
   border-radius: 2px;
 }
 
-/* Add Candidate button */
 .management-header .reg-button {
-  background: #2dd4bf; /* Softer teal */
+  background: #2dd4bf;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -60,14 +70,14 @@ app-sidebar {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
-  text-decoration: none; /* Ensure no underline */
+  text-decoration: none;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
 .management-header .reg-button:hover {
-  background: #5eead4; /* Lighter teal on hover */
+  background: #5eead4;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
 }
@@ -80,34 +90,33 @@ app-sidebar {
   gap: 20px;
 }
 
-/* Filter group */
 .filter-group {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* Filter label */
 .filter-group label {
   font-size: 14px;
   font-weight: 600;
-  color: #3b82f6; /* Lighter slate blue for labels */
+  color: #3b82f6;
 }
 
-/* Filter input */
-.filter-group input {
+.filter-group input,
+.filter-group select { /* Added select for job dropdown */
   padding: 8px 12px;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
   font-size: 14px;
   color: #1f2937;
-  background: #fafafa; /* Light gray background */
+  background: #fafafa;
   transition: all 0.3s ease;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
-.filter-group input:focus {
-  border-color: #2dd4bf; /* Softer teal focus border */
+.filter-group input:focus,
+.filter-group select:focus {
+  border-color: #2dd4bf;
   background: #ffffff;
   outline: none;
   box-shadow: 0 0 8px rgba(45, 212, 191, 0.2);
@@ -115,7 +124,7 @@ app-sidebar {
 
 /* Table wrapper */
 .table-wrapper {
-  overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  overflow-x: auto;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   background: #ffffff;
@@ -129,80 +138,71 @@ app-sidebar {
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
 }
 
-/* Table styling */
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-/* Table header */
 thead {
-  background: #fafafa; /* Light gray background for header */
+  background: #fafafa;
 }
 
 th {
   padding: 15px;
   font-size: 14px;
   font-weight: 600;
-  color: #3b82f6; /* Lighter slate blue for headers */
+  color: #3b82f6;
   text-align: left;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
 }
 
 th:hover {
-  background: #f1f5f9; /* Slightly darker gray on hover */
+  background: #f1f5f9;
 }
 
-/* Sort icon */
 .sort-icon {
   margin-left: 5px;
   font-size: 12px;
-  color: #2dd4bf; /* Softer teal for sort icon */
+  color: #2dd4bf;
 }
 
-/* Table body */
 tbody tr {
   border-bottom: 1px solid #eee;
   transition: all 0.3s ease;
 }
 
 tbody tr:hover {
-  background: #f9fafc; /* Slightly lighter background on hover */
+  background: #f9fafc;
 }
 
-/* Table cells */
 td {
   padding: 15px;
   font-size: 14px;
   color: #333;
 }
 
-/* Resume link */
 td a {
-  color: #3b82f6; /* Lighter slate blue for links */
+  color: #3b82f6;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 td a:hover {
-  color: #2dd4bf; /* Softer teal on hover */
+  color: #2dd4bf;
   text-decoration: underline;
 }
 
-/* Action buttons */
 .action-buttons {
   display: flex;
   gap: 10px;
 }
 
-/* Edit and Delete buttons */
 .action-buttons button {
-  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
   color: white;
   padding: 8px 16px;
   border: none;
@@ -215,36 +215,34 @@ td a:hover {
   display: flex;
   align-items: center;
   gap: 6px;
-  text-decoration: none; /* For Edit button with routerLink */
+  text-decoration: none;
 }
 
 .action-buttons button:hover {
-  background: #2dd4bf; /* Softer teal on hover */
+  background: #2dd4bf;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
 }
 
 .action-buttons button:active {
-  background: #2563eb; /* Slightly darker blue for active state */
+  background: #2563eb;
   transform: scale(1);
 }
 
-/* Delete button specific styling */
 .action-buttons .btn-delete {
-  background: #dc3545; /* Red for Delete */
+  background: #dc3545;
   box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
 }
 
 .action-buttons .btn-delete:hover {
-  background: #ef5350; /* Lighter red on hover */
+  background: #ef5350;
   box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4);
 }
 
 .action-buttons .btn-delete:active {
-  background: #c0392b; /* Darker red for active state */
+  background: #c0392b;
 }
 
-/* Pagination controls */
 .pagination {
   display: flex;
   justify-content: center;
@@ -289,62 +287,68 @@ td a:hover {
   transform: scale(1);
 }
 
-/* Responsive design for smaller screens */
+/* Responsive design */
 @media (max-width: 768px) {
   :host {
-      margin-left: 0; /* Remove sidebar margin on mobile */
-      padding: 20px 10px;
+    margin-left: 0;
+    padding: 20px 10px;
   }
 
   .candidates-container {
-      max-width: 100%;
+    max-width: 100%;
+  }
+
+  .chart-canvas {
+    max-width: 100%;
+    height: 200px !important; /* Smaller height on mobile */
   }
 
   .management-header {
-      flex-direction: column;
-      gap: 10px;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .management-header .reg-button {
-      width: 100%;
-      text-align: center;
+    width: 100%;
+    text-align: center;
   }
 
   .filter-section {
-      flex-direction: column;
-      gap: 10px;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .filter-group {
-      flex-direction: column;
-      align-items: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .filter-group input {
-      width: 100%;
+  .filter-group input,
+  .filter-group select {
+    width: 100%;
   }
 
   th, td {
-      padding: 10px;
-      font-size: 12px;
+    padding: 10px;
+    font-size: 12px;
   }
 
   .action-buttons {
-      flex-direction: column;
-      gap: 5px;
+    flex-direction: column;
+    gap: 5px;
   }
 
   .action-buttons button {
-      width: 100%;
-      text-align: center;
+    width: 100%;
+    text-align: center;
   }
 
   .pagination {
-      gap: 5px;
+    gap: 5px;
   }
 
   .pagination button {
-      flex: 1;
-      text-align: center;
+    flex: 1;
+    text-align: center;
   }
 }
