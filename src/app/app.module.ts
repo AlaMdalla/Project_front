@@ -1,9 +1,9 @@
+// src/app/app.module.ts
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { ListProblemComponent } from './shared/Problems/list-problem/list-problem.component';
 import { ProblemSubmitionComponent } from './shared/Problems/problem-submition/problem-submition.component';
@@ -13,9 +13,7 @@ import { HomeComponent } from './shared/home/home.component';
 import { CoursesComponent } from './shared/courses/courses.component';
 import { CompetionComponent } from './shared/Competition/competion/competion.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,6 +26,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
 import { AddPostComponent } from './shared/blog/add-post/add-post.component';
 import { ViewAllComponent } from './shared/blog/view-all/view-all.component';
 import { ViewPostComponent } from './shared/blog/view-post/view-post.component';
@@ -55,6 +55,14 @@ import { EvaluationDetailsComponent } from './shared/evaluation-details/evaluati
 import { CandidateFormComponent } from './shared/Candidats/candidat-form/candidat-form.component';
 import { ApplyJobComponent } from './shared/apply-job/apply-job.component';
 import { ChartsComponent } from './shared/Problems/charts/charts.component';
+import { UserSubscriptionViewComponent } from './shared/user-subscription-view/user-subscription-view.component';
+import { SubscriptionFormComponent } from './shared/subscription-form/subscription-form.component';
+import { PaymentComponent } from './shared/payment/payment.component';
+import { SuccessComponent } from './shared/success/success.component';
+import { ErrorComponent } from './shared/error/error.component';
+import { CancelReasonDialogComponent } from './cancel-reason-dialog/cancel-reason-dialog.component';
+import { ChatComponent } from './chat/chat.component'; // Import here
+
 import { BookingComponent } from "./shared/booking/booking.component";
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -62,7 +70,6 @@ import { JobPopupComponent } from './shared/Job/job-popup/job-popup.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-
   declarations: [
     AppComponent,
     ListProblemComponent,
@@ -70,6 +77,11 @@ import { JobPopupComponent } from './shared/Job/job-popup/job-popup.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
+    UserSubscriptionViewComponent,
+    SubscriptionFormComponent,
+    PaymentComponent,
+    SuccessComponent,
+    ErrorComponent,
 
     CoursesComponent,
     CompetionComponent,
@@ -84,7 +96,6 @@ import { JobPopupComponent } from './shared/Job/job-popup/job-popup.component';
     ListCompetitionComponent,
     AddTrainingsComponent,
     CandidatListComponent,
-    CandidatListComponent,
     JobListComponent,
     JobFormComponent,
     ListProblemsComponent,
@@ -92,12 +103,16 @@ import { JobPopupComponent } from './shared/Job/job-popup/job-popup.component';
     SubsCreateComponentComponent,
     SubsListComponent,
     SubsComponent,
+    CancelReasonDialogComponent,
     SubUpdateComponent,
     ListereclamationComponent,
     ReclamationComponent,
     AjoutEvaluationComponent,
     TrainingDetailComponent,
     EvaluationDetailsComponent,
+    CandidateFormComponent,
+    ApplyJobComponent
+    // Removed ChatComponent from declarations
     EvaluationDetailsComponent,CandidateFormComponent, ApplyJobComponent,JobPopupComponent
 
   ],
@@ -115,15 +130,19 @@ import { JobPopupComponent } from './shared/Job/job-popup/job-popup.component';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
+    MatDialogModule,
+    MatRadioModule,
     MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     MatPaginatorModule,
     MatMenuModule,
     MatGridListModule,
+    ChartsComponent, // Already in imports from previous fix
+    ChatComponent // Added to imports
+
     BookingComponent,
         MatDialogModule, // Add this
         MatButtonModule, // Add this
