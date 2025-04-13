@@ -57,6 +57,8 @@ import { ApplyJobComponent } from './shared/apply-job/apply-job.component';
 import { ChartsComponent } from './shared/Problems/charts/charts.component';
 import { BookingComponent } from "./shared/booking/booking.component";
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { JobPopupComponent } from './shared/Job/job-popup/job-popup.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -68,7 +70,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-  
+
     CoursesComponent,
     CompetionComponent,
     AddPostComponent,
@@ -96,7 +98,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AjoutEvaluationComponent,
     TrainingDetailComponent,
     EvaluationDetailsComponent,
-    EvaluationDetailsComponent,CandidateFormComponent, ApplyJobComponent, 
+    EvaluationDetailsComponent,CandidateFormComponent, ApplyJobComponent,JobPopupComponent
 
   ],
   imports: [
@@ -122,7 +124,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatMenuModule,
     MatGridListModule,
-    BookingComponent
+    BookingComponent,
+        MatDialogModule, // Add this
+        MatButtonModule, // Add this
 ],
   providers: [],
   bootstrap: [AppComponent]
