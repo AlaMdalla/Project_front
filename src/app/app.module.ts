@@ -26,7 +26,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { AddPostComponent } from './shared/blog/add-post/add-post.component';
 import { ViewAllComponent } from './shared/blog/view-all/view-all.component';
@@ -113,7 +112,7 @@ import { JobPopupComponent } from './shared/Job/job-popup/job-popup.component';
     CandidateFormComponent,
     ApplyJobComponent
     // Removed ChatComponent from declarations
-    EvaluationDetailsComponent,CandidateFormComponent, ApplyJobComponent,JobPopupComponent
+    ,CandidateFormComponent, ApplyJobComponent,JobPopupComponent
 
   ],
   imports: [
@@ -141,7 +140,7 @@ import { JobPopupComponent } from './shared/Job/job-popup/job-popup.component';
     MatMenuModule,
     MatGridListModule,
     ChartsComponent, // Already in imports from previous fix
-    ChatComponent // Added to imports
+    ChatComponent, // Added to imports
 
     BookingComponent,
         MatDialogModule, // Add this

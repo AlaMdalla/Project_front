@@ -8,7 +8,7 @@ import { environment } from 'src/app/environments/environment';
   providedIn: 'root'
 })
 export class SubscriptionService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl+"/Subscription";
 
   constructor(private http: HttpClient) {}
 
