@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -55,6 +55,8 @@ import { EvaluationDetailsComponent } from './shared/evaluation-details/evaluati
 import { CandidateFormComponent } from './shared/Candidats/candidat-form/candidat-form.component';
 import { ApplyJobComponent } from './shared/apply-job/apply-job.component';
 import { ChartsComponent } from './shared/Problems/charts/charts.component';
+import { BookingComponent } from "./shared/booking/booking.component";
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -115,10 +117,13 @@ import { ChartsComponent } from './shared/Problems/charts/charts.component';
     MatInputModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatPaginatorModule,
     MatMenuModule,
-    MatGridListModule
-  ],
+    MatGridListModule,
+    BookingComponent
+],
   providers: [],
   bootstrap: [AppComponent]
 })
