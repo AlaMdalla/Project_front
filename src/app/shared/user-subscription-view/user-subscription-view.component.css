@@ -1,241 +1,242 @@
-/* General Container */
-.subscription-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color: #333;
+:host {
+  margin-top: 80px;
+  display: block;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.subscriptions-display-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.management-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.management-header h2 {
+  font-size: 32px;
+  color: #3b82f6;
+  position: relative;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.management-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: #2dd4bf;
+  border-radius: 2px;
+}
+
+.header-subtitle {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.subscriptions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.subscription-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  border: 2px solid transparent;
+}
+
+.subscription-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #2dd4bf;
+}
+
+.subscription-card.popular {
+  border-color: #3b82f6;
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.05), #ffffff);
+}
+
+.popular-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #3b82f6;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+}
+
+.subscription-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.subscription-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #3b82f6;
+  margin: 0 0 10px 0;
+}
+
+.subscription-description {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.subscription-pricing {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.discounted-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2dd4bf;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.price-amount {
+  font-size: 28px;
+}
+
+.price-period {
+  font-size: 14px;
+  color: #666;
+}
+
+.actual-price {
+  font-size: 16px;
+  color: #999;
+  margin: 5px 0 0 0;
+}
+
+.subscription-features {
+  margin-bottom: 25px;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.features-list li {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.features-list clr-icon {
+  color: #2dd4bf;
+  width: 16px;
+  height: 16px;
+}
+
+.subscription-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-subscribe {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+}
+
+.btn-subscribe:hover {
+  background: #2dd4bf;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(94, 234, 212, 0.4);
+}
+
+.no-subscriptions {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  :host {
+      padding: 20px 10px;
   }
-  
-  /* Countdown Card */
-  .countdown-card {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 15px 20px;
-    width: 300px;
-    border: 1px solid #e0e0e0;
-    transition: transform 0.2s ease;
+
+  .subscriptions-display-container {
+      max-width: 100%;
   }
-  
-  .countdown-card:hover {
-    transform: translateY(-2px);
+
+  .management-header h2 {
+      font-size: 28px;
   }
-  
-  .countdown-title {
-    margin: 0 0 10px 0;
-    font-size: 16px;
-    font-weight: 600;
-    color: #1a73e8;
+
+  .header-subtitle {
+      font-size: 14px;
   }
-  
-  .countdown-content {
-    margin: 0;
-  }
-  
-  .countdown-text {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    font-size: 14px;
-  }
-  
-  .subscription-type {
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .countdown-value {
-    font-size: 16px;
-    font-weight: 700;
-    color: #e91e63;
-  }
-  
-  .no-subscription {
-    margin: 0;
-    font-size: 14px;
-    color: #888;
-    font-style: italic;
-  }
-  
-  /* Subscriptions Section */
-  .subscriptions-section {
-    margin-top: 100px; /* Ensure space for the countdown card */
-  }
-  
-  .section-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #1a73e8;
-    display: inline-block;
-    padding-bottom: 5px;
-  }
-  
-  .no-subscriptions {
-    font-size: 16px;
-    color: #666;
-    text-align: center;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
-  }
-  
-  /* Subscription Cards Grid */
-  .subscriptions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  
-  /* Subscription Card */
+
   .subscription-card {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: 20px;
   }
-  
-  .subscription-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+
+  .subscription-title {
+      font-size: 20px;
   }
-  
-  /* Card Header */
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: #1a73e8;
-    color: #ffffff;
-  }
-  
-  .card-title {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-  }
-  
-  /* Status Indicators */
-  .status {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: capitalize;
-  }
-  
-  .status-success {
-    background: #e7f3e7;
-    color: #2e7d32;
-  }
-  
-  .status-pending {
-    background: #fff3e0;
-    color: #f57c00;
-  }
-  
-  .status-canceled {
-    background: #ffebee;
-    color: #d32f2f;
-  }
-  
-  .status-not-paid {
-    background: #f5f5f5;
-    color: #616161;
-  }
-  
-  /* Card Body */
-  .card-body {
-    padding: 20px;
-  }
-  
-  .card-body p {
-    margin: 8px 0;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .card-body p strong {
-    color: #333;
-    font-weight: 500;
-  }
-  
-  /* Time Remaining */
-  .time-remaining {
-    font-weight: 500;
-    color: #1a73e8;
-  }
-  
-  .expired {
-    color: #d32f2f;
-    font-weight: 600;
-  }
-  
-  /* Card Footer */
-  .card-footer {
-    padding: 15px 20px;
-    background: #f8f9fa;
-    border-top: 1px solid #e0e0e0;
-    text-align: right;
-  }
-  
-  /* Action Button */
-  .action-button {
-    padding: 8px 16px;
-    background: #1a73e8;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.1s ease;
-  }
-  
-  .action-button:hover:not(:disabled) {
-    background: #1557b0;
-    transform: translateY(-1px);
-  }
-  
-  .action-button:disabled {
-    background: #bdbdbd;
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .countdown-card {
-      position: static;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-  
-    .subscriptions-section {
-      margin-top: 0;
-    }
-  
-    .subscriptions-grid {
-      grid-template-columns: 1fr; /* Stack cards on small screens */
-    }
-  
-    .subscription-card {
-      width: 100%;
-    }
-  
-    .card-body p {
+
+  .subscription-description {
       font-size: 13px;
-    }
-  
-    .action-button {
-      width: 100%;
-      padding: 10px;
-    }
   }
+
+  .discounted-price .price-amount {
+      font-size: 24px;
+  }
+
+  .price-period {
+      font-size: 12px;
+  }
+
+  .actual-price {
+      font-size: 14px;
+  }
+
+  .features-list li {
+      font-size: 13px;
+  }
+
+  .btn-subscribe {
+      padding: 10px 20px;
+      font-size: 14px;
+  }
+}

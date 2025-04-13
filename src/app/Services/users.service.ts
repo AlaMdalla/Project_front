@@ -13,6 +13,38 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
 
+
+
+  async getYourProfile(token: string): Promise<any> {
+    const url = `${this.BASE_URL}/adminuser/get-profile`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      // Store userId in localStorage for WebSocket subscription
+      if (response?.ourUsers?.id) {
+        localStorage.setItem('userId', response.ourUsers.id);
+      }
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Fetch list of users for private chat selection
+  async getAvailableUsers(token: string): Promise<any> {
+    const url = `${this.BASE_URL}/users/list`; // Adjust endpoint as per backend
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    try {
+      const response = await this.http.get<any>(url, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
   async login(email:string, password:string):Promise<any>{
     const url = `${this.BASE_URL}/auth/login`;
     try{
@@ -61,18 +93,7 @@ export class UsersService {
     }
   }
 
-  async getYourProfile(token:string):Promise<any>{
-    const url = `${this.BASE_URL}/adminuser/get-profile`;
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    })
-    try{
-      const response =  this.http.get<any>(url, {headers}).toPromise()
-      return response;
-    }catch(error){
-      throw error;
-    }
-  }
+
 
   async getUsersById(userId: string, token:string):Promise<any>{
     const url = `${this.BASE_URL}/admin/get-users/${userId}`;

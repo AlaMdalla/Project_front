@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,5 +38,9 @@ export class SubscriptionService {
 
   getStatus(subid: number): Observable<string> {
     return this.http.get(`${this.apiUrl}/subs/status/${subid}`, { responseType: 'text' });
+  }
+  cancelSubscription(subid: number, reason: string): Observable<any> {
+    const body = { reason };  // Send the reason for cancellation (optional, if needed)
+    return this.http.post<any>(`${this.apiUrl}/subs/cancel/${subid}`, body);  // Updated URL with path parameter
   }
 }
