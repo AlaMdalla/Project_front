@@ -1,0 +1,23 @@
+<div class="chat-screen">
+  <div class="messages">
+    <div *ngFor="let msg of chatService.messages" class="message">
+      <img [src]="msg.avatar || 'default-avatar.png'" class="avatar" alt="User avatar">
+      <div class="message-content">
+        <div class="detail-item">
+          <span class="value">{{ msg.username || 'Anonymous' }}</span>
+        </div>
+        <span class="text">{{ msg.text }}</span>
+        <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="message-input">
+    <input
+      [(ngModel)]="newMessage"
+      placeholder="Type your message..."
+      (keyup.enter)="sendMessage()"
+    >
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>
