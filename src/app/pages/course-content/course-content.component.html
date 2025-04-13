@@ -1,0 +1,36 @@
+<div *ngIf="training" class="course-details">
+  <!-- 🧠 Titre du cours -->
+  <h2>{{ training.title }}</h2>
+  <!-- 🖼️ Image du cours -->
+  <img
+    [src]="'assets/img/' + training.idTraining + '.jpg'"
+    alt="Image du cours"
+    width="400"
+    class="course-image"
+  />
+  <!-- ✅ Contenu du cours bien structuré et paginé -->
+  <div *ngIf="formattedContent?.length" class="training-content-box">
+    <h3>📝 Course Content:</h3>
+    <ul>
+      <li *ngFor="let line of paginatedContent">{{ line }}</li>
+    </ul>
+
+    <!-- Pagination Controls -->
+    <div class="pagination-controls">
+      <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">⬅️</button>
+      <span>Page {{ currentPage }} / {{ totalPages }}</span>
+      <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">➡️</button>
+    </div>
+  </div>
+
+
+
+  <!-- 🎥 Vidéo du cours -->
+  <video width="600" controls>
+    <source [src]="'assets/videos/' + training.idTraining + '.mp4'" type="video/mp4" />
+    Votre navigateur ne supporte pas la vidéo.
+  </video>
+
+  <!-- 🔙 Bouton de retour -->
+  <a routerLink="/formations" class="btn btn-outline-primary">⬅️ Retour aux formations</a>
+</div>

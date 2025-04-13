@@ -51,6 +51,7 @@ import { QuizFailedComponent } from './quiz-failed/quiz-failed.component';
 import {RouterModule} from "@angular/router";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import { CourseContentComponent } from './pages/course-content/course-content.component';
 
 // Fonction de chargement traduction
 export function HttpLoaderFactory(http: HttpClient) {
@@ -88,6 +89,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TrainingDetailComponent,
     AjoutEvaluationComponent,
     QuizFailedComponent,
+    CourseContentComponent,
   ],
   imports: [
     BrowserModule,

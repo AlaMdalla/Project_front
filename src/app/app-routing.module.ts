@@ -28,6 +28,7 @@ import {EvaluationComponent} from "./shared/evaluation/evaluation.component";
 import { AddEvaluationComponent } from "./admin/Trainings/add-evaluation/add-evaluation.component";
 import {AjoutEvaluationComponent} from "./admin/Trainings/ajout-evaluation/ajout-evaluation.component";
 import {QuizFailedComponent} from "./quiz-failed/quiz-failed.component";
+import {CourseContentComponent} from "./pages/course-content/course-content.component";
 
 //import {AddEvaluationComponent} from "./add-evaluation/add-evaluation.component";
 
@@ -48,6 +49,8 @@ const routes: Routes = [
     {path: 'addCompetition' , component: AddCompetitionComponent},
     { path: 'Competition/edit/:id', component: AddCompetitionComponent },
   { path: 'training-detail/:id', component: TrainingDetailComponent},
+  {
+    path: 'course-content/:id', component: CourseContentComponent},
   { path: 'evaluation/:id', component: EvaluationComponent },
   { path: 'quiz-failed', component: QuizFailedComponent },
 
