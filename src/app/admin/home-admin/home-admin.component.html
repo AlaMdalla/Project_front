@@ -1,0 +1,78 @@
+<app-sidebar></app-sidebar>
+<section id="main-content">
+  <div class="dashboard-header">
+      <h1>Welcome to MatrixAdmin</h1>
+      <p>Manage your e-learning platform with ease.</p>
+  </div>
+  <div class="kpi-cards">
+      <div class="kpi-card">
+          <h3>1,020</h3>
+          <p>New Users</p>
+          <span class="trend up">+12% <i class='bx bxs-up-arrow'></i></span>
+      </div>
+      <div class="kpi-card">
+          <h3>2,834</h3>
+          <p>Active Trainings</p>
+          <span class="trend down">-5% <i class='bx bxs-down-arrow'></i></span>
+      </div>
+      <div class="kpi-card">
+          <h3>$25,543</h3>
+          <p>Total Revenue</p>
+          <span class="trend up">+8% <i class='bx bxs-up-arrow'></i></span>
+      </div>
+  </div>
+  <div class="dashboard-content">
+      <div class="recent-activities">
+          <h2>Recent Activities</h2>
+          <div class="activity-list">
+              <div class="activity-item">
+                  <div class="activity-icon">
+                      <i class='bx bxs-user-plus'></i>
+                  </div>
+                  <div class="activity-details">
+                      <p><strong>John Doe</strong> registered for a new training.</p>
+                      <span>01-10-2023</span>
+                  </div>
+                  <span class="status completed">Completed</span>
+              </div>
+              <div class="activity-item">
+                  <div class="activity-icon">
+                      <i class='bx bxs-trophy'></i>
+                  </div>
+                  <div class="activity-details">
+                      <p><strong>Jane Smith</strong> won a competition.</p>
+                      <span>01-10-2023</span>
+                  </div>
+                  <span class="status pending">Pending Approval</span>
+              </div>
+              <div class="activity-item">
+                  <div class="activity-icon">
+                      <i class='bx bxs-briefcase'></i>
+                  </div>
+                  <div class="activity-details">
+                      <p><strong>Alex Brown</strong> applied for a job.</p>
+                      <span>01-10-2023</span>
+                  </div>
+                  <span class="status in-progress">In Review</span>
+              </div>
+          </div>
+      </div>
+      <div class="quick-actions">
+          <h2>Quick Actions</h2>
+          <div class="action-list">
+              <button class="action-btn" routerLink="/register">
+                  <i class='bx bxs-user-plus'></i> Add New User
+              </button>
+              <button class="action-btn" routerLink="/addProblem">
+                  <i class='bx bxs-bug'></i> Add New Problem
+              </button>
+              <button class="action-btn" routerLink="/jobs/new">
+                  <i class='bx bxs-briefcase'></i> Post a Job
+              </button>
+              <button class="action-btn" routerLink="/addCompetition">
+                  <i class='bx bxs-trophy'></i> Create Competition
+              </button>
+          </div>
+      </div>
+  </div>
+</section>

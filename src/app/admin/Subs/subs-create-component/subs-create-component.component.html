@@ -1,0 +1,120 @@
+<app-sidebar></app-sidebar>
+<div class="create-subscription">
+    <div class="card">
+        <h2>Create Subscription</h2>
+        <form (ngSubmit)="addSubscription()" #subscriptionForm="ngForm" class="subscription-form">
+            <!-- Subscription Type -->
+            <div class="form-group">
+                <label for="typesub">Subscription Type</label>
+                <input
+                    [(ngModel)]="newSubs.typesub"
+                    name="typesub"
+                    id="typesub"
+                    placeholder="Subscription Type"
+                    required
+                    minlength="3"
+                    class="form-control"
+                    [class.invalid]="subscriptionForm.submitted && subscriptionForm.form.controls['typesub']?.invalid"
+                />
+                <div
+                    class="error-message"
+                    *ngIf="subscriptionForm.submitted && subscriptionForm.form.controls['typesub']?.invalid"
+                >
+                    <span *ngIf="subscriptionForm.form.controls['typesub']?.errors?.['required']">
+                        Subscription Type is required.
+                    </span>
+                    <span *ngIf="subscriptionForm.form.controls['typesub']?.errors?.['minlength']">
+                        Subscription Type must be at least 3 characters.
+                    </span>
+                </div>
+            </div>
+  
+            <!-- Description -->
+            <div class="form-group">
+                <label for="subsDescription">Description</label>
+                <input
+                    [(ngModel)]="newSubs.subsDescription"
+                    name="subsDescription"
+                    id="subsDescription"
+                    placeholder="Description"
+                    required
+                    minlength="10"
+                    class="form-control"
+                    [class.invalid]="subscriptionForm.submitted && subscriptionForm.form.controls['subsDescription']?.invalid"
+                />
+                <div
+                    class="error-message"
+                    *ngIf="subscriptionForm.submitted && subscriptionForm.form.controls['subsDescription']?.invalid"
+                >
+                    <span *ngIf="subscriptionForm.form.controls['subsDescription']?.errors?.['required']">
+                        Description is required.
+                    </span>
+                    <span *ngIf="subscriptionForm.form.controls['subsDescription']?.errors?.['minlength']">
+                        Description must be at least 10 characters.
+                    </span>
+                </div>
+            </div>
+  
+            <!-- Discounted Price -->
+            <div class="form-group">
+                <label for="subsDiscountedPrice">Discounted Price</label>
+                <input
+                    [(ngModel)]="newSubs.subsDiscountedPrice"
+                    name="subsDiscountedPrice"
+                    id="subsDiscountedPrice"
+                    placeholder="Discounted Price"
+                    type="number"
+                    required
+                    min="0"
+                    class="form-control"
+                    [class.invalid]="subscriptionForm.submitted && subscriptionForm.form.controls['subsDiscountedPrice']?.invalid"
+                />
+                <div
+                    class="error-message"
+                    *ngIf="subscriptionForm.submitted && subscriptionForm.form.controls['subsDiscountedPrice']?.invalid"
+                >
+                    <span *ngIf="subscriptionForm.form.controls['subsDiscountedPrice']?.errors?.['required']">
+                        Discounted Price is required.
+                    </span>
+                    <span *ngIf="subscriptionForm.form.controls['subsDiscountedPrice']?.errors?.['min']">
+                        Discounted Price must be a non-negative number.
+                    </span>
+                </div>
+            </div>
+  
+            <!-- Actual Price -->
+            <div class="form-group">
+                <label for="subsActualPrice">Actual Price</label>
+                <input
+                    [(ngModel)]="newSubs.subsActualPrice"
+                    name="subsActualPrice"
+                    id="subsActualPrice"
+                    placeholder="Actual Price"
+                    type="number"
+                    required
+                    min="0"
+                    class="form-control"
+                    [class.invalid]="subscriptionForm.submitted && subscriptionForm.form.controls['subsActualPrice']?.invalid"
+                />
+                <div
+                    class="error-message"
+                    *ngIf="subscriptionForm.submitted && subscriptionForm.form.controls['subsActualPrice']?.invalid"
+                >
+                    <span *ngIf="subscriptionForm.form.controls['subsActualPrice']?.errors?.['required']">
+                        Actual Price is required.
+                    </span>
+                    <span *ngIf="subscriptionForm.form.controls['subsActualPrice']?.errors?.['min']">
+                        Actual Price must be a non-negative number.
+                    </span>
+                </div>
+            </div>
+  
+            <!-- Form Actions -->
+            <div class="button-container">
+                <button type="submit" [disabled]="!subscriptionForm.valid" class="btn-primary">Add Subscription</button>
+                <button type="button" (click)="cancel()" class="btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <app-subs-list></app-subs-list>
+  </div>

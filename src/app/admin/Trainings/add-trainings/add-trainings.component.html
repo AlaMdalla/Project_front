@@ -1,0 +1,45 @@
+<form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="trainingId">Training ID:</label>
+      <input id="trainingId" formControlName="trainingId" type="number" />
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <input id="description" formControlName="description" type="text" />
+    </div>
+    <div>
+      <label for="type">Type:</label>
+      <input id="type" formControlName="type" type="text" />
+    </div>
+    <div>
+      <label for="evaluation_duration">Duration:</label>
+      <input id="evaluation_duration" formControlName="evaluation_duration" type="text" />
+    </div>
+    <div>
+      <label for="score">Score:</label>
+      <input id="score" formControlName="score" type="number" />
+    </div>
+    <div>
+      <label for="createdAt">Created At:</label>
+      <input id="createdAt" formControlName="createdAt" type="date" />
+    </div>
+    <div>
+      <label for="certificat">Certificate:</label>
+      <input id="certificat" formControlName="certificat" type="checkbox" />
+    </div>
+  
+    <div>
+      <h3>Questions</h3>
+      <div formArrayName="questions">
+        <div *ngFor="let question of questions.controls; let i=index" [formGroupName]="i">
+          <label>Question {{ i + 1 }}</label>
+          <input formControlName="questionText" placeholder="Question Text" />
+          <input formControlName="response" placeholder="Response" />
+          <button type="button" (click)="removeQuestion(i)">Remove</button>
+        </div>
+      </div>
+      <button type="button" (click)="addQuestion()">Add Question</button>
+    </div>
+  
+    <button type="submit" [disabled]="!evaluationForm.valid">Submit</button>
+  </form>

@@ -1,0 +1,72 @@
+<div id="content">
+  <div class="competition-container">
+    <div class="card">
+      <form class="post-form">
+        <h2>Update Post</h2>
+
+        <!-- Title -->
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input 
+            id="title" 
+            name="title" 
+            placeholder="Enter post title" 
+            required 
+            maxlength="100" />
+        </div>
+
+        <!-- Posted By -->
+        <div class="form-group">
+          <label for="postedBy">Posted By:</label>
+          <input 
+            id="postedBy" 
+            name="postedBy" 
+            placeholder="Enter your name" 
+            required 
+            pattern="[A-Za-z\s]+" 
+            minlength="2" 
+            maxlength="50" />
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <input 
+            id="category" 
+            name="category" 
+            placeholder="Enter category" 
+            required 
+            maxlength="50" />
+        </div>
+
+        <!-- Content -->
+        <div class="form-group">
+          <label for="content">Content:</label>
+          <textarea 
+            id="content" 
+            name="content" 
+            placeholder="Write your content here" 
+            required 
+            minlength="10" 
+            maxlength="5000"></textarea>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-group">
+          <label for="image">Upload Image:</label>
+          <input 
+            type="file" 
+            id="image" 
+            accept="image/*" 
+            class="file-input" />
+          <div class="preview-container"></div>
+        </div>
+
+        <div class="button-container">
+          <button type="submit" class="btn-primary">Update Post</button>
+          <button type="button" class="btn-secondary">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
