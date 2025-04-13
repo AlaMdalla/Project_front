@@ -2,7 +2,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ListProblemComponent } from './shared/Problems/list-problem/list-problem.component';
@@ -63,6 +63,11 @@ import { ErrorComponent } from './shared/error/error.component';
 import { CancelReasonDialogComponent } from './cancel-reason-dialog/cancel-reason-dialog.component';
 import { ChatComponent } from './chat/chat.component'; // Import here
 
+import { BookingComponent } from "./shared/booking/booking.component";
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { JobPopupComponent } from './shared/Job/job-popup/job-popup.component';
+
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
@@ -77,6 +82,7 @@ import { ChatComponent } from './chat/chat.component'; // Import here
     PaymentComponent,
     SuccessComponent,
     ErrorComponent,
+
     CoursesComponent,
     CompetionComponent,
     AddPostComponent,
@@ -107,6 +113,8 @@ import { ChatComponent } from './chat/chat.component'; // Import here
     CandidateFormComponent,
     ApplyJobComponent
     // Removed ChatComponent from declarations
+    EvaluationDetailsComponent,CandidateFormComponent, ApplyJobComponent,JobPopupComponent
+
   ],
   imports: [
     BrowserModule,
@@ -127,12 +135,18 @@ import { ChatComponent } from './chat/chat.component'; // Import here
     MatDialogModule,
     MatRadioModule,
     MatProgressSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatPaginatorModule,
     MatMenuModule,
     MatGridListModule,
     ChartsComponent, // Already in imports from previous fix
     ChatComponent // Added to imports
-  ],
+
+    BookingComponent,
+        MatDialogModule, // Add this
+        MatButtonModule, // Add this
+],
   providers: [],
   bootstrap: [AppComponent]
 })

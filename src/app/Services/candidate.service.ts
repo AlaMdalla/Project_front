@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Candidate } from '../models/Candidate'; 
-import { Urls } from '../config/Urls'; 
+import { Candidate } from '../models/Candidate';
+import { Urls } from '../config/Urls';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CandidateService {
-  private apiUrl = Urls.candidates; 
+  private apiUrl = Urls.candidates;
 
   constructor(private http: HttpClient) {}
 
@@ -30,17 +30,17 @@ export class CandidateService {
     return this.http.post<string>(`${this.apiUrl}/upload`, formData, { responseType: 'text' as 'json' });
   }
 
-  createCandidate(candidate: any): Observable<void> {
+  createCandidate(candidate: any): Observable<any> {
     const request = {
       id: candidate.id,
       email: candidate.email,
       phone: candidate.phone,
       resumeUrl: candidate.resumeUrl,
-      applicationDate: candidate.applicationDate ? new Date(candidate.applicationDate) : null,
+      applicationDate: candidate.applicationDate,
       status: candidate.status,
       jobId: candidate.jobId
     };
-    return this.http.post<void>(this.apiUrl, request);
+    return this.http.post<any>(this.apiUrl, request);
   }
 
   updateCandidate(id: number, candidate: any): Observable<Candidate> {
@@ -49,7 +49,7 @@ export class CandidateService {
       email: candidate.email,
       phone: candidate.phone,
       resumeUrl: candidate.resumeUrl,
-      applicationDate: candidate.applicationDate ? new Date(candidate.applicationDate) : null,
+      applicationDate: candidate.applicationDate,
       status: candidate.status,
       jobId: candidate.jobId
     };
@@ -58,5 +58,9 @@ export class CandidateService {
 
   deleteCandidate(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getJobFit(candidateId: number, jobId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${candidateId}/job-fit`, { jobId });
   }
 }

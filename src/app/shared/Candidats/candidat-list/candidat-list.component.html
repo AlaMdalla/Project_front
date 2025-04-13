@@ -1,73 +1,55 @@
 <app-sidebar></app-sidebar>
 <div id="content">
-    <div class="candidates-container">
-        <div class="management-header">
-            <h2>Candidate List</h2>
-            <button routerLink="/candidates/new" class="reg-button">
-                <span class="btn-icon">+</span> Add Candidate
-            </button>
-        </div>
-        
-        <!-- Filter Section -->
-        <div class="filter-section">
-            <div class="filter-group">
-                <label for="search">Search Candidates:</label>
-                <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterCandidates()" placeholder="Search by email..." />
-            </div>
-        </div>
-        
-        <!-- Table -->
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th (click)="sortColumn('email')">
-                            Email
-                            <span class="sort-icon">{{ sortColumnName === 'email' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
-                        </th>
-                        <th (click)="sortColumn('phone')">
-                            Phone
-                            <span class="sort-icon">{{ sortColumnName === 'phone' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
-                        </th>
-                        <th (click)="sortColumn('status')">
-                            Status
-                            <span class="sort-icon">{{ sortColumnName === 'status' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
-                        </th>
-                        <th (click)="sortColumn('jobTitle')">
-                            Job Title
-                            <span class="sort-icon">{{ sortColumnName === 'jobTitle' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span>
-                        </th>
-                        <th>Resume</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let candidate of displayedCandidates" class="table-row">
-                        <td>{{ candidate.email }}</td>
-                        <td>{{ candidate.phone }}</td>
-                        <td>{{ candidate.status }}</td>
-                        <td>{{ candidate.jobTitle }}</td>
-                     
-<td><a [href]="getResumeUrl(candidate.resumeUrl)" target="_blank" class="text-primary">View Resume</a></td>
-                        <td class="action-buttons">
-                            <button class="btn-edit" [routerLink]="['/candidates/edit', candidate.id]">
-                                <span class="btn-icon">✏️</span> Edit
-                            </button>
-                            <button class="btn-delete" (click)="deleteCandidate(candidate.id)">
-                                <span class="btn-icon">🗑️</span> Delete
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Pagination Controls -->
-        <div class="pagination" *ngIf="totalItems > 0">
-            <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
-            <span>Page {{ currentPage }} of {{ totalPages }}</span>
-            <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
-        </div>
+  <div class="candidates-container">
+    <div class="management-header">
+      <h2>Candidate List</h2>
+      <button routerLink="/candidates/new" class="reg-button">
+        <span class="btn-icon">+</span> Add Candidate
+      </button>
     </div>
-    
+
+    <canvas #candidateChart class="chart-canvas"></canvas>
+
+    <div class="filter-section">
+      <div class="filter-group">
+        <label for="search">Search Candidates:</label>
+        <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterCandidates()" placeholder="Search by email..." />
+      </div>
+      
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th (click)="sortColumn('email')">Email <span class="sort-icon">{{ sortColumnName === 'email' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span></th>
+            <th (click)="sortColumn('phone')">Phone <span class="sort-icon">{{ sortColumnName === 'phone' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span></th>
+            <th (click)="sortColumn('status')">Status <span class="sort-icon">{{ sortColumnName === 'status' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span></th>
+            <th (click)="sortColumn('jobTitle')">Job Title <span class="sort-icon">{{ sortColumnName === 'jobTitle' ? (sortDirection === 'asc' ? '↑' : '↓') : '↕' }}</span></th>
+            <th>Resume</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let candidate of displayedCandidates" class="table-row">
+            <td>{{ candidate.email }}</td>
+            <td>{{ candidate.phone }}</td>
+            <td>{{ candidate.status }}</td>
+            <td>{{ candidate.jobTitle }}</td>
+            <td><a [href]="getResumeUrl(candidate.resumeUrl)" target="_blank" class="text-primary">View Resume</a></td>
+            <td class="action-buttons">
+              <button class="btn-edit" [routerLink]="['/candidates/edit', candidate.id]"><span class="btn-icon">✏️</span> Edit</button>
+              <button class="btn-delete" (click)="deleteCandidate(candidate.id)"><span class="btn-icon">🗑️</span> Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination" *ngIf="totalItems > 0">
+      <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
+    </div>
+  </div>
 </div>

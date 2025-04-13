@@ -33,6 +33,7 @@
         <div *ngFor="let problem of problems" class="problem-card">
             
             <div class="problema-info">
+                
                 <a *ngIf="problem.id" [routerLink]="['/problemSubmission', problem.id]">
                     <div class="problem-title">{{ problem.title }}</div>
                 </a>
@@ -44,6 +45,8 @@
             }">
                 {{ problem.difficulty }}
             </div>
+            <a [routerLink]="['/problemSubmission', problem.id]"> start </a>
+
         </div>
     </div>
     

@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Newest Job Opportunity</h2>
+<mat-dialog-content>
+  <div *ngIf="job">
+    <h3>{{ job.title }}</h3>
+    <p><strong>Department:</strong> {{ job.department }}</p>
+    <p><strong>Location:</strong> {{ job.location }}</p>
+    <p><strong>Status:</strong> {{ job.status }}</p>
+    <p><strong>Posted Date:</strong> {{ job.postedDate | date: 'mediumDate' }}</p>
+    <p><strong>Description:</strong> {{ job.description || 'No description available.' }}</p>
+    <p><strong>Requirements:</strong> {{ job.requirements || 'No requirements listed.' }}</p>
+    <div *ngIf="job.image" class="job-image">
+      <img [src]="job.image" alt="Job Image" style="max-width: 100%; height: auto;" />
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+  <button mat-raised-button color="primary" [routerLink]="['/candidates/new', job.jobId]" (click)="close()">Apply Now</button>
+</mat-dialog-actions>
