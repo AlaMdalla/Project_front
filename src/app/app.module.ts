@@ -55,6 +55,7 @@ import { EvaluationDetailsComponent } from './shared/evaluation-details/evaluati
 import { CandidateFormComponent } from './shared/Candidats/candidat-form/candidat-form.component';
 import { ApplyJobComponent } from './shared/apply-job/apply-job.component';
 import { ChartsComponent } from './shared/Problems/charts/charts.component';
+import { UpdatePostComponent } from './shared/blog/update-post/update-post.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -95,6 +96,8 @@ import { ChartsComponent } from './shared/Problems/charts/charts.component';
     TrainingDetailComponent,
     EvaluationDetailsComponent,
     EvaluationDetailsComponent,CandidateFormComponent, ApplyJobComponent, 
+    UpdatePostComponent
+    
 
   ],
   imports: [

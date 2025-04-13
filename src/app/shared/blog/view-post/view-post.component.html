@@ -31,7 +31,7 @@
         <button class="reaction-button" (click)="reactPost('laugh')"
                 [ngClass]="{'hovered': hoveredReaction === 'laugh'}" (mouseenter)="hoverReaction('laugh')"
                 (mouseleave)="hoverReaction(null)" [disabled]="hasReacted">
-          😂 {{ postData.laugh || 0 }} <!-- Fixed typo -->
+          😂 {{ postData.laugh || 0 }}
         </button>
         <button class="reaction-button" (click)="reactPost('angry')"
                 [ngClass]="{'hovered': hoveredReaction === 'angry'}" (mouseenter)="hoverReaction('angry')"
@@ -42,13 +42,16 @@
           👀 {{ postData.viewCount || 0 }}
         </span>
       </div>
-     
-   <a (click)="openShareDialog()" style="cursor: pointer;">
-    Partager sur Facebook
-</a>
-      <button class="report-button" (click)="goToReclamationForm()">
-        <clr-icon shape="flag"></clr-icon> Report
+
+      <button mat-raised-button color="warn" (click)="goToReclamationForm()" style="margin-left: 5px;">
+        <mat-icon>report</mat-icon> Report
       </button>
+      <a (click)="openShareDialog()" style="cursor: pointer; display: flex; align-items: center; gap: 8px; color: #3b5998; text-decoration: none;">
+        <svg style="width: 18px; height: 18px; fill: #3b5998;" viewBox="0 0 24 24">
+          <path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"/>
+        </svg>
+        Partager
+      </a>
     </div>
   </div>
 
@@ -67,6 +70,29 @@
         <p>{{ comment.content }}</p>
       </div>
       <div class="comment-actions">
+        <div class="reaction-group">
+          <button class="reaction-button" (click)="reactComment(comment.id, 'like')"
+                  [ngClass]="{'hovered': comment.hoveredReaction === 'like'}"
+                  (mouseenter)="hoverCommentReaction(comment.id, 'like')"
+                  (mouseleave)="hoverCommentReaction(comment.id, null)"
+                  [disabled]="comment.hasReacted">
+            ❤️ {{ comment.likeCount || 0 }}
+          </button>
+          <button class="reaction-button" (click)="reactComment(comment.id, 'laugh')"
+                  [ngClass]="{'hovered': comment.hoveredReaction === 'laugh'}"
+                  (mouseenter)="hoverCommentReaction(comment.id, 'laugh')"
+                  (mouseleave)="hoverCommentReaction(comment.id, null)"
+                  [disabled]="comment.hasReacted">
+            😂 {{ comment.laught || 0 }}
+          </button>
+          <button class="reaction-button" (click)="reactComment(comment.id, 'angry')"
+                  [ngClass]="{'hovered': comment.hoveredReaction === 'angry'}"
+                  (mouseenter)="hoverCommentReaction(comment.id, 'angry')"
+                  (mouseleave)="hoverCommentReaction(comment.id, null)"
+                  [disabled]="comment.hasReacted">
+            😡 {{ comment.angry || 0 }}
+          </button>
+        </div>
         <button *ngIf="isFirst && userId !== comment.userId" class="reply-button" (click)="toggleReplyForm(comment.id)">
           <clr-icon shape="reply"></clr-icon> Reply
         </button>
@@ -87,6 +113,31 @@
           </div>
           <div class="reply-content">
             <p>{{ reply.content }}</p>
+          </div>
+          <div class="reply-actions">
+            <div class="reaction-group">
+              <button class="reaction-button" (click)="reactComment(reply.id, 'like', true)"
+                      [ngClass]="{'hovered': reply.hoveredReaction === 'like'}"
+                      (mouseenter)="hoverCommentReaction(reply.id, 'like', true)"
+                      (mouseleave)="hoverCommentReaction(reply.id, null, true)"
+                      [disabled]="reply.hasReacted">
+                ❤️ {{ reply.likeCount || 0 }}
+              </button>
+              <button class="reaction-button" (click)="reactComment(reply.id, 'laugh', true)"
+                      [ngClass]="{'hovered': reply.hoveredReaction === 'laugh'}"
+                      (mouseenter)="hoverCommentReaction(reply.id, 'laugh', true)"
+                      (mouseleave)="hoverCommentReaction(reply.id, null, true)"
+                      [disabled]="reply.hasReacted">
+                😂 {{ reply.laught || 0 }}
+              </button>
+              <button class="reaction-button" (click)="reactComment(reply.id, 'angry', true)"
+                      [ngClass]="{'hovered': reply.hoveredReaction === 'angry'}"
+                      (mouseenter)="hoverCommentReaction(reply.id, 'angry', true)"
+                      (mouseleave)="hoverCommentReaction(reply.id, null, true)"
+                      [disabled]="reply.hasReacted">
+                😡 {{ reply.angry || 0 }}
+              </button>
+            </div>
           </div>
         </div>
       </div>

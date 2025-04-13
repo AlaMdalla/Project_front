@@ -9,6 +9,7 @@ import { Problem } from './models/Problem';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
   title = 'front';
    problems: Problem[] = [
     {

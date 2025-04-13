@@ -23,6 +23,7 @@ export class UsersService {
       throw error;
     }
   }
+  
 /*
   async register(userData:any, token:string):Promise<any>{
     const url = `${this.BASE_URL}/auth/register`;

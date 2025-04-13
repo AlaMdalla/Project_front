@@ -1,9 +1,10 @@
+<app-sidebar></app-sidebar>
 <div id="content">
-    <app-sidebar></app-sidebar>
-
     <div class="competitions-container">
       <div class="management-header">
         <h2><span class="title-icon">📋</span> Reclamations List</h2>
+        <!-- Bouton d'exportation -->
+        
       </div>
   
       <!-- Table -->
@@ -12,8 +13,6 @@
           <thead>
             <tr>
               <th><span class="header-icon">📜</span> Reason</th>
-              <th><span class="header-icon">✉️</span> Email</th>
-              <th><span class="header-icon">👤</span> Name</th>
               <th><span class="header-icon">⏰</span> Created At</th>
               <th><span class="header-icon">⚙️</span> Actions</th>
             </tr>
@@ -21,15 +20,13 @@
           <tbody>
             <tr *ngFor="let reclamation of reclamations">
               <td>{{ reclamation.reason || 'N/A' }}</td>
-              <td>{{ reclamation.email || 'N/A' }}</td>
-              <td>{{ reclamation.name || 'N/A' }}</td>
               <td>{{ reclamation.createdAt ? (reclamation.createdAt | date: 'medium') : 'N/A' }}</td>
               <td class="action-buttons">
-                <button class="btn-edit" (click)="updateReclamation(reclamation.id)">
-                  <span class="btn-icon">✏️</span> Edit
-                </button>
                 <button class="btn-delete" (click)="deleteReclamation(reclamation.id)">
                   <span class="btn-icon">🗑️</span> Delete
+                </button>
+                <button class="btn-export" (click)="exportToExcel()">
+                  <span class="btn-icon">📤</span> Export to Excel
                 </button>
               </td>
             </tr>
@@ -43,4 +40,4 @@
         <p>No reclamations found. <a routerLink="/add-reclamation" class="add-link">Add a new reclamation</a></p>
       </div>
     </div>
-  </div>
+</div>

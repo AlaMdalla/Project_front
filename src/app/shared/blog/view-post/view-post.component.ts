@@ -126,88 +126,91 @@ export class ViewPostComponent implements OnInit {
             }
         );
     }
-
     async getPostById() {
-      if (!this.userId) {
-        this.matSnackBar.open("Connexion requise pour voir le post", "Close", { duration: 3000 });
-        return;
-      }
-    
-      const userId = this.userId;
-    
-      this.postService.getPostById(userId, this.postId).subscribe(
-        async (res) => {
-          let name = 'Unknown User';
-          try {
-            const userResponse = await this.usersService.getOwnUsersById(res.userId.toString());
-            console.log('User Response for userId', res.userId, ':', userResponse);
-            name = userResponse.ourUsers?.name || 'Unknown User';
-          } catch (error) {
-            console.error(`Error fetching user for post ${this.postId}:`, error);
-          }
-    
-          this.postData = {
-            ...res,
-            name
-          };
-    
-          // Truncate description using truncateToLastWord
-          const description = this.postData.content
-            ? this.truncateToLastWord(this.postData.content, 200) + '...'
-            : 'Default Description';
-    
-          // Add Open Graph meta tags
-          this.meta.addTags([
-            { property: 'og:title', content: this.postData.title || 'Default Title' },
-            { property: 'og:description', content: description },
-            { property: 'og:url', content: `https://localhost:4200/view-post/${this.postId}` },
-            { property: 'og:image', content: this.postData.imageUrl || 'https://via.placeholder.com/1200x630.png?text=Default+Image' },
-            { property: 'og:type', content: 'article' }
-          ]);
-    
-          if (!this.hasViewed) {
-            this.postService.viewPost(userId, this.postId).subscribe(
-              () => {
-                console.log('View count incremented');
-                const viewedKey = `viewed_post_${this.postId}_${userId}`;
-                localStorage.setItem(viewedKey, 'true');
-                this.hasViewed = true;
-                this.postData.viewCount = (this.postData.viewCount || 0) + 1;
-              },
-              (error) => {
-                const errorMessage = error.error || "Error incrementing view count";
-                this.matSnackBar.open(errorMessage, "Close", { duration: 3000 });
-                if (errorMessage.includes("already viewed")) {
-                  const viewedKey = `viewed_post_${this.postId}_${this.userId}`;
-                  localStorage.setItem(viewedKey, 'true');
-                  this.hasViewed = true;
-                }
-              }
-            );
-          }
-    
-          this.getCommentByPost();
-        },
-        (error) => {
-          this.matSnackBar.open("Something went wrong!!", "Close", { duration: 3000 });
-          // Fallback Open Graph tags in case of error
-          this.meta.addTags([
-            { property: 'og:title', content: 'Default Title' },
-            { property: 'og:description', content: 'Default Description' },
-            { property: 'og:url', content: `https://localhost:4200/view-post/${this.postId}` },
-            { property: 'og:image', content: 'https://via.placeholder.com/1200x630.png?text=Default+Image' },
-            { property: 'og:type', content: 'article' }
-          ]);
+        if (!this.userId) {
+            this.matSnackBar.open("Connexion requise pour voir le post", "Close", { duration: 3000 });
+            return;
         }
-      );
+
+        const userId = this.userId;
+
+        this.postService.getPostById(userId, this.postId).subscribe(
+            async (res) => {
+                let name = 'Unknown User';
+                try {
+                    const userResponse = await this.usersService.getOwnUsersById(res.userId.toString());
+                    console.log('User Response for userId', res.userId, ':', userResponse);
+                    name = userResponse.ourUsers?.name || 'Unknown User';
+                } catch (error) {
+                    console.error(`Error fetching user for post ${this.postId}:`, error);
+                }
+
+                this.postData = {
+                    ...res,
+                    name
+                };
+
+                const description = this.postData.content
+                    ? this.truncateToLastWord(this.postData.content, 200) + '...'
+                    : 'Default Description';
+
+                this.meta.addTags([
+                    { property: 'og:title', content: this.postData.title || 'Default Title' },
+                    { property: 'og:description', content: description },
+                    { property: 'og:url', content: `https://localhost:4200/view-post/${this.postId}` },
+                    { property: 'og:image', content: this.postData.imageUrl || 'https://via.placeholder.com/1200x630.png?text=Default+Image' },
+                    { property: 'og:type', content: 'article' }
+                ]);
+
+                if (!this.hasViewed) {
+                    this.postService.viewPost(userId, this.postId).subscribe(
+                        () => {
+                            console.log('View count incremented');
+                            const viewedKey = `viewed_post_${this.postId}_${userId}`;
+                            localStorage.setItem(viewedKey, 'true');
+                            this.hasViewed = true;
+                            this.postData.viewCount = (this.postData.viewCount || 0) + 1;
+                        },
+                        (error) => {
+                            const errorMessage = error.error || "Error incrementing view count";
+                            this.matSnackBar.open(errorMessage, "Close", { duration: 3000 });
+                            if (errorMessage.includes("already viewed")) {
+                                const viewedKey = `viewed_post_${this.postId}_${this.userId}`;
+                                localStorage.setItem(viewedKey, 'true');
+                                this.hasViewed = true;
+                            }
+                        }
+                    );
+                }
+
+                this.getCommentByPost();
+            },
+            (error) => {
+                this.matSnackBar.open("Something went wrong!!", "Close", { duration: 3000 });
+                this.meta.addTags([
+                    { property: 'og:title', content: 'Default Title' },
+                    { property: 'og:description', content: 'Default Description' },
+                    { property: 'og:url', content: `https://localhost:4200/view-post/${this.postId}` },
+                    { property: 'og:image', content: 'https://via.placeholder.com/1200x630.png?text=Default+Image' },
+                    { property: 'og:type', content: 'article' }
+                ]);
+            }
+        );
     }
+
     getCommentByPost() {
         this.commentService.getAllCommentByPost(this.postId).subscribe(
             res => {
                 let comments = res.map((comment: any) => ({
                     ...comment,
                     replyContent: '',
-                    replies: comment.replies?.map((reply: any) => ({ ...reply })) || []
+                    replies: comment.replies?.map((reply: any) => ({
+                        ...reply,
+                        hasReacted: !!localStorage.getItem(`reacted_comment_${reply.id}_${this.userId}`),
+                        hoveredReaction: null // Ajout pour gérer le survol des réactions
+                    })) || [],
+                    hasReacted: !!localStorage.getItem(`reacted_comment_${comment.id}_${this.userId}`),
+                    hoveredReaction: null // Ajout pour gérer le survol des réactions
                 }));
 
                 const seen = new Set<string>();
@@ -311,6 +314,68 @@ export class ViewPostComponent implements OnInit {
         );
     }
 
+    reactComment(commentId: number, reaction: string, isReply: boolean = false) {
+        if (!this.userId) {
+            this.matSnackBar.open("Vous devez être connecté pour réagir", "Close", { duration: 3000 });
+            this.router.navigate(['/login']);
+            return;
+        }
+
+        const comment = isReply
+            ? this.comments.flatMap((c: any) => c.replies).find((r: any) => r.id === commentId)
+            : this.comments.find((c: any) => c.id === commentId);
+
+        if (!comment) {
+            this.matSnackBar.open("Commentaire non trouvé", "Close", { duration: 3000 });
+            return;
+        }
+
+        if (comment.hasReacted) {
+            this.matSnackBar.open("Vous avez déjà réagi à ce commentaire", "Close", { duration: 3000 });
+            return;
+        }
+
+        this.commentService.reactComment(this.userId, commentId, reaction).subscribe(
+            res => {
+                this.matSnackBar.open(`Comment reacted with ${reaction} successfully`, "Close", { duration: 3000 });
+                const reactedKey = `reacted_comment_${commentId}_${this.userId}`;
+                localStorage.setItem(reactedKey, 'true');
+                comment.hasReacted = true;
+
+                switch (reaction) {
+                    case 'like':
+                        comment.likeCount = (comment.likeCount || 0) + 1;
+                        break;
+                    case 'laugh':
+                        comment.laught = (comment.laught || 0) + 1;
+                        break;
+                    case 'angry':
+                        comment.angry = (comment.angry || 0) + 1;
+                        break;
+                }
+            },
+            error => {
+                const errorMessage = error.error || "Erreur lors de la réaction au commentaire";
+                this.matSnackBar.open(errorMessage, "Close", { duration: 3000 });
+                if (errorMessage.includes("already reacted")) {
+                    const reactedKey = `reacted_comment_${commentId}_${this.userId}`;
+                    localStorage.setItem(reactedKey, 'true');
+                    comment.hasReacted = true;
+                }
+            }
+        );
+    }
+
+    hoverCommentReaction(commentId: number, reaction: string | null, isReply: boolean = false) {
+        const comment = isReply
+            ? this.comments.flatMap((c: any) => c.replies).find((r: any) => r.id === commentId)
+            : this.comments.find((c: any) => c.id === commentId);
+
+        if (comment) {
+            comment.hoveredReaction = reaction;
+        }
+    }
+
     toggleReplyForm(commentId: number) {
         if (this.activeReplyCommentId === commentId) {
             this.activeReplyCommentId = null;
@@ -319,6 +384,7 @@ export class ViewPostComponent implements OnInit {
         }
     }
 
+    
     replyToComment(commentId: number) {
         if (!this.userId) {
             this.matSnackBar.open("Vous devez être connecté pour répondre", "Close", { duration: 5000 });
@@ -352,7 +418,6 @@ export class ViewPostComponent implements OnInit {
             }
         }
     }
-
     goToReclamationForm() {
         if (this.userId) {
             this.router.navigate([`/reclamation/${this.postId}`], { queryParams: { userId: this.userId } });
@@ -363,35 +428,34 @@ export class ViewPostComponent implements OnInit {
     }
 
     openShareDialog() {
-      if (!this.userId) {
-          this.matSnackBar.open("Vous devez être connecté pour partager", "Close", { duration: 5000 });
-          this.router.navigate(['/login']);
-          return;
-      }
-  
-      const shareUrl = `https://localhost:4200/view-post/${this.postId}`;
-      if (!shareUrl) {
-          this.matSnackBar.open("Error: Invalid post URL.", "Close", { duration: 5000 });
-          return;
-      }
-  
-      const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-      const shareWindow = window.open(facebookShareUrl, '_blank', 'width=600,height=400');
-      
-      if (!shareWindow) {
-          this.matSnackBar.open("Unable to open share window. Please allow popups for this site.", "Close", { duration: 5000 });
-      } else {
-          this.matSnackBar.open("Share window opened. Please complete the sharing process on Facebook.", "Close", { duration: 5000 });
-      }
-  }
-  truncateToLastWord(text: string, maxLength: number): string {
-    if (!text || maxLength <= 0) return '';
-    if (text.length <= maxLength) return text;
-  
-    const trimmed = text.substring(0, maxLength);
-    const lastSpace = trimmed.lastIndexOf(' ');
-    return lastSpace > 0 ? trimmed.substring(0, lastSpace) : trimmed;
-  }
-  // In getPostById(), update the meta tags section
- 
+        if (!this.userId) {
+            this.matSnackBar.open("Vous devez être connecté pour partager", "Close", { duration: 5000 });
+            this.router.navigate(['/login']);
+            return;
+        }
+
+        const shareUrl = `https://localhost:4200/view-post/${this.postId}`;
+        if (!shareUrl) {
+            this.matSnackBar.open("Error: Invalid post URL.", "Close", { duration: 5000 });
+            return;
+        }
+
+        const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+        const shareWindow = window.open(facebookShareUrl, '_blank', 'width=600,height=400');
+
+        if (!shareWindow) {
+            this.matSnackBar.open("Unable to open share window. Please allow popups for this site.", "Close", { duration: 5000 });
+        } else {
+            this.matSnackBar.open("Share window opened. Please complete the sharing process on Facebook.", "Close", { duration: 5000 });
+        }
+    }
+
+    truncateToLastWord(text: string, maxLength: number): string {
+        if (!text || maxLength <= 0) return '';
+        if (text.length <= maxLength) return text;
+
+        const trimmed = text.substring(0, maxLength);
+        const lastSpace = trimmed.lastIndexOf(' ');
+        return lastSpace > 0 ? trimmed.substring(0, lastSpace) : trimmed;
+    }
 }
