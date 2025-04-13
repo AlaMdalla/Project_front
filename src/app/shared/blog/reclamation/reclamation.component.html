@@ -1,71 +1,38 @@
-<p>reclamation works!</p>
 <div id="content">
-    <div class="competition-container">
-      <div class="card">
-        <form [formGroup]="reclamationForm" (ngSubmit)="onSubmit()" class="post-form">
-          <h2>
-            <span class="title-icon">⚠️</span> Report a Problem
-          </h2>
-          <p class="form-subtitle">Yourfeedback helps us improve! Let us know your issue.</p>
-  
-          <!-- Reason -->
-          <div class="form-group">
-            <label for="reason">Reason:</label>
-            <textarea 
-              id="reason" 
-              formControlName="reason" 
-              placeholder="Describe the issue..." 
-              required></textarea>
-            <span class="input-icon">✍️</span>
-            <div class="error-message" *ngIf="reclamationForm.get('reason')?.hasError('required') && reclamationForm.get('reason')?.touched">
-              Reason is required!
-            </div>
+  <div class="competition-container">
+    <div class="card">
+      <form [formGroup]="reclamationForm" (ngSubmit)="onSubmit()" class="post-form">
+        <h2>
+          <span class="title-icon">⚠️</span> Report a Problem
+        </h2>
+        <p class="form-subtitle">Your feedback helps us improve! Let us know your issue.</p>
+
+        <!-- Reason -->
+        <div class="form-group">
+          <label for="reason">Reason:</label>
+          <textarea 
+            id="reason" 
+            formControlName="reason" 
+            placeholder="Describe the issue..." 
+            required></textarea>
+          <span class="input-icon">✍️</span>
+          <div class="error-message" *ngIf="reclamationForm.get('reason')?.hasError('required') && reclamationForm.get('reason')?.touched">
+            Reason is required!
           </div>
-  
-          <!-- Email -->
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input 
-              id="email" 
-              formControlName="email" 
-              type="email" 
-              placeholder="Enter your email" 
-              required />
-            <span class="input-icon">✉️</span>
-            <div class="error-message" *ngIf="reclamationForm.get('email')?.hasError('required') && reclamationForm.get('email')?.touched">
-              Email is required!
-            </div>
-            <div class="error-message" *ngIf="reclamationForm.get('email')?.hasError('email') && reclamationForm.get('email')?.touched">
-              Please enter a valid email!
-            </div>
-          </div>
-  
-          <!-- Name -->
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input 
-              id="name" 
-              formControlName="name" 
-              placeholder="Enter your name" 
-              required />
-            <span class="input-icon">👤</span>
-            <div class="error-message" *ngIf="reclamationForm.get('name')?.hasError('required') && reclamationForm.get('name')?.touched">
-              Name is required!
-            </div>
-          </div>
-  
-          <div class="button-container">
-            <button type="submit" class="btn-primary" [disabled]="!reclamationForm.valid">
-              <span class="button-icon">➤</span> Submit
-            </button>
-            <button type="button" class="btn-secondary" (click)="cancel()">
-              <span class="button-icon">✖</span> Cancel
-            </button>
-          </div>
-        </form>
-        <div class="feedback-note">
-          <span class="note-icon">ℹ️</span> Thank you for helping us improve E-Learn!
         </div>
+
+        <div class="button-container">
+          <button type="submit" class="btn-primary" [disabled]="!reclamationForm.valid">
+            <span class="button-icon">➤</span> Submit
+          </button>
+          <button type="button" class="btn-secondary" (click)="cancel()">
+            <span class="button-icon">✖</span> Cancel
+          </button>
+        </div>
+      </form>
+      <div class="feedback-note">
+        <span class="note-icon">ℹ️</span> Thank you for helping us improve E-Learn!
       </div>
     </div>
   </div>
+</div>

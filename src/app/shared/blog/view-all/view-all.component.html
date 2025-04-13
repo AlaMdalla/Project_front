@@ -1,83 +1,82 @@
 <div class="posts-display-container">
-  <div class="management-header">
-      <h2>All Posts</h2>
-      <button routerLink="/addPost" class="reg-button">
-          <span class="btn-icon">+</span> Add Post
-      </button>
-  </div>
+    <div class="management-header">
+        <h2>All Posts</h2>
+        <button routerLink="/addPost" class="reg-button">
+            <span class="btn-icon">+</span> Add Post
+        </button>
+    </div>
 
-  <!-- Filter Section -->
-  <div class="filter-section">
-      <div class="filter-group">
-          <label for="search">Search Posts:</label>
-          <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterPosts()" placeholder="Search by title..." />
-      </div>
-      <div class="filter-group">
-          <label for="sortFilter">Sort By:</label>
-          <select id="sortFilter" [(ngModel)]="sortFilter" (ngModelChange)="applySortFilter()">
-              <option value="none">None</option>
-              <option value="likes">Most Liked</option>
-              <option value="views">Most Viewed</option>
-          </select>
-      </div>
-  </div>
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="filter-group">
+            <label for="search">Search Posts:</label>
+            <input id="search" type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterPosts()" placeholder="Search by title..." />
+        </div>
+        <div class="filter-group">
+            <label for="sortFilter">Sort By:</label>
+            <select id="sortFilter" [(ngModel)]="sortFilter" (ngModelChange)="applySortFilter()">
+                <option value="none">None</option>
+                <option value="likes">Most Liked</option>
+                <option value="views">Most Viewed</option>
+            </select>
+        </div>
+    </div>
 
-  <!-- Posts Grid -->
-  <div class="posts-grid" *ngIf="displayedPosts.length > 0; else noPosts">
-      <div *ngFor="let item of displayedPosts" class="post-card">
-          <!-- Header with Avatar and Post Info -->
-          <div class="post-header">
-              <img class="avatar-img" [src]="item.avatar" alt="Avatar" (error)="item.avatar = 'assets/img/default-avatar.jpg'">
-              <div class="post-meta">
-                  <a class="post-title" routerLink="/view-post/{{ item.id }}">{{ item.title }}</a>
-                  <p class="post-info">
-                      Posted by {{ item.postedBy }} in {{ item.category }} on {{ item.date | date: 'mediumDate' }}
-                  </p>
-              </div>
-              <!-- Delete Button (for admins) -->
-              <button class="delete-btn" (click)="deletePost(item.id)">
-                  <clr-icon shape="trash"></clr-icon>
-              </button>
-          </div>
+    <!-- Posts Grid -->
+    <div class="posts-grid" *ngIf="displayedPosts.length > 0; else noPosts">
+        <div *ngFor="let item of displayedPosts" class="post-card">
+            <!-- Header with Avatar and Post Info -->
+            <div class="post-header">
+                <div class="post-meta">
+                    <a class="post-title" routerLink="/view-post/{{ item.id }}">{{ item.title }}</a>
+                    <p class="post-info">
+                        Posted by {{ item.name || 'Unknown User' }} in {{ item.category }} on {{ item.date | date: 'mediumDate' }}
+                    </p>
+                </div>
+                <!-- Delete Button (for admins) -->
+                <button class="delete-btn" (click)="deletePost(item.id)">
+                    <clr-icon shape="trash"></clr-icon>
+                </button>
+            </div>
 
-          <!-- Post Content and Image -->
-          <div class="post-content">
-              <div class="post-image" *ngIf="item.img">
-                  <img [src]="'data:image/jpeg;base64,' + item.img" alt="Post Image" (error)="item.img = null">
-              </div>
-              <div class="no-image" *ngIf="!item.img">No image available</div>
-              <p class="post-text">{{ item.content }}</p>
-          </div>
+            <!-- Post Content and Image -->
+            <div class="post-content">
+                <div class="post-image" *ngIf="item.img">
+                    <img [src]="'data:image/jpeg;base64,' + item.img" alt="Post Image" (error)="item.img = null">
+                </div>
+                <div class="no-image" *ngIf="!item.img">No image available</div>
+                <p class="post-text">{{ item.content }}</p>
+            </div>
 
-          <!-- Reactions and Actions -->
-          <div class="post-actions">
-              <span class="reaction-info">
-                  ❤️ {{ item.likeCount || 0 }}
-              </span>
-              <span class="reaction-info">
-                  😂 {{ item.laught || 0 }}
-              </span>
-              <span class="reaction-info">
-                  😡 {{ item.angry || 0 }}
-              </span>
-              <span class="reaction-info">
-                  👀 {{ item.viewCount || 0 }}
-              </span>
-              <button class="action-btn btn-view" routerLink="/view-post/{{ item.id }}">View Post</button>
-              <button class="action-btn btn-update" routerLink="/update-post/{{ item.id }}">Update Post</button>
-          </div>
-      </div>
-  </div>
+            <!-- Reactions and Actions -->
+            <div class="post-actions">
+                <span class="reaction-info">
+                    ❤️ {{ item.likeCount || 0 }}
+                </span>
+                <span class="reaction-info">
+                    😂 {{ item.laught || 0 }}
+                </span>
+                <span class="reaction-info">
+                    😡 {{ item.angry || 0 }}
+                </span>
+                <span class="reaction-info">
+                    👀 {{ item.viewCount || 0 }}
+                </span>
+                <button class="action-btn btn-view" routerLink="/view-post/{{ item.id }}">View Post</button>
+                <button class="action-btn btn-update" routerLink="/update-post/{{ item.id }}">Update Post</button>
+            </div>
+        </div>
+    </div>
 
-  <!-- No Posts Message -->
-  <ng-template #noPosts>
-      <div class="no-posts">No posts available.</div>
-  </ng-template>
+    <!-- No Posts Message -->
+    <ng-template #noPosts>
+        <div class="no-posts">No posts available.</div>
+    </ng-template>
 
-  <!-- Pagination Controls -->
-  <div class="pagination" *ngIf="totalItems > 0">
-      <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
-      <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
-  </div>
+    <!-- Pagination Controls -->
+    <div class="pagination" *ngIf="totalItems > 0">
+        <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
+    </div>
 </div>
