@@ -1,6 +1,6 @@
 <div *ngIf="training" class="course-details">
   <!-- 🧠 Titre du cours -->
-  <h2>{{ training.title }}</h2>
+  <h2>{{ training.title | translate}}</h2>
   <!-- 🖼️ Image du cours -->
   <img
     [src]="'assets/img/' + training.idTraining + '.jpg'"
@@ -8,6 +8,7 @@
     width="400"
     class="course-image"
   />
+
   <!-- ✅ Contenu du cours bien structuré et paginé -->
   <div *ngIf="formattedContent?.length" class="training-content-box">
     <h3>📝 Course Content:</h3>
@@ -31,13 +32,14 @@
     Votre navigateur ne supporte pas la vidéo.
   </video>
 
-  <!-- ✅ Bouton vers l’évaluation -->
+
+    <!-- ✅ Bouton vers l’évaluation -->
   <div class="text-center mt-4">
     <a [routerLink]="['/evaluation', training.idTraining]" class="btn btn-success">
-      🎯 Passer à l’évaluation
+      🎯Go to evaluation
     </a>
   </div>
 
   <!-- 🔙 Bouton de retour -->
-  <a routerLink="/formations" class="btn btn-outline-primary">⬅️ Retour aux formations</a>
+  <a routerLink="/formations" class="btn btn-outline-primary">⬅️back to trainings</a>
 </div>

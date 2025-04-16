@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { Problem } from './models/Problem';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,18 @@ import { Problem } from './models/Problem';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  constructor(private translate: TranslateService) {
+    translate.addLangs(['en', 'fr']);
+    const savedLang = localStorage.getItem('lang') || 'en';
+    translate.setDefaultLang(savedLang);
+    translate.use(savedLang);
+  }
+  setLang(lang: string) {
+    this.translate.use(lang);
+    localStorage.setItem('lang', lang);
+  }
+
   title = 'front';
    problems: Problem[] = [
     {

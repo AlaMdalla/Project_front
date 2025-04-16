@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Training } from 'src/app/models/Training';
 import { TrainingService } from 'src/app/Services/training.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-courses',
@@ -13,10 +14,15 @@ export class CoursesComponent {
   searchTerm: string = '';
 
 
-  constructor(private trainingService:TrainingService) { }
+  constructor(private trainingService:TrainingService,private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.refrech();
+    console.log('Langue initiale :', this.translate.currentLang);
+
+    this.translate.onLangChange.subscribe((event) => {
+      console.log('Langue changée :', event.lang);
+    });
 
    }
 

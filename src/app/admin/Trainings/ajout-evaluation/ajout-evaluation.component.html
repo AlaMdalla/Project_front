@@ -1,21 +1,21 @@
 <app-sidebar></app-sidebar>
 
 <div class="container">
-  <h2>Créer une Évaluation</h2>
+  <h2>Create evaluation</h2>
 
   <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
-      <label for="description">Description de l'évaluation :</label>
+      <label for="description">Description of the evaluation:</label>
       <input id="description" type="text" formControlName="description" required>
     </div>
 
     <div class="form-group">
-      <label for="evaluationDuration">Durée (minutes) :</label>
+      <label for="evaluationDuration">Duration(minutes) :</label>
       <input id="evaluationDuration" type="number" formControlName="evaluationDuration" required>
     </div>
     <div class="form-group">
-      <label for="niveau">Niveau :</label>
+      <label for="niveau">Level:</label>
       <select id="niveau" formControlName="niveau" required>
         <option value="Beginner">Débutant</option>
         <option value="Intermediate">Intermédiaire</option>
@@ -23,12 +23,14 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="trainingId">Training :</label>
-      <input id="trainingId" type="number" formControlName="trainingId" required>
+      <label>Formation :</label>
+      <input type="text" [value]="selectedTraining?.title" class="form-control" disabled>
     </div>
 
+
+
     <div class="form-group">
-      <label for="score">Score minimal :</label>
+      <label for="score"> minimal Score :</label>
       <input id="score" type="number" formControlName="score" required>
     </div>
 
@@ -43,10 +45,10 @@
     <div formArrayName="questions">
       <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i">
         <label>Question Text:</label>
-        <input formControlName="questionText" placeholder="Texte de la question">
+        <input formControlName="questionText" placeholder=" question text">
 
         <label>Bonne Réponse:</label>
-        <input formControlName="bonneReponse" placeholder="Bonne réponse">
+        <input formControlName="bonneReponse" placeholder="Correct answer">
 
         <!-- Options -->
         <h4>Options</h4>
@@ -55,14 +57,14 @@
             <input type="text" [formControlName]="j" placeholder="Option">
             <button type="button" (click)="removeOption(i, j)">❌</button>
           </div>
-          <button type="button" (click)="addOption(i)">Ajouter Option</button>
+          <button type="button" (click)="addOption(i)">Add an Option</button>
         </div>
 
       </div>
     </div>
 
-    <button type="button" class="btn" (click)="addQuestion()">➕ Ajouter une Question</button>
-    <button type="submit" class="btn submit">✅ Enregistrer l'Évaluation</button>
+    <button type="button" class="btn" (click)="addQuestion()">➕ Add a  Question</button>
+    <button type="submit" class="btn submit">✅ save the evaluation</button>
     <p *ngIf="isSubmitted" class="success-message">{{ successMessage }}</p>
 
   </form>

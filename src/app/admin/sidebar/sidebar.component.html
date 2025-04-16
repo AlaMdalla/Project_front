@@ -3,6 +3,7 @@
       <i class='bx bxs-graduation'></i> <!-- Changed to a more relevant icon -->
       <span class="text">MatrixAdmin</span>
   </a>
+
   <ul class="side-menu top">
       <li [ngClass]="{'active': currentRoute === '/admin'}">
           <a routerLink="/admin">
@@ -79,4 +80,12 @@
           </a>
       </li>
   </ul>
+  <div class="language-switcher">
+    🌐
+    <select (change)="switchLang($event)">
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
 </section>

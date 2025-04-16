@@ -1,6 +1,49 @@
 {
-  "HOME": {
-    "TITLE": "Bienvenue sur la plateforme",
-    "LOGIN": "Connexion"
+  "COURSE": {
+    "AVAILABLE_COURSES": "Cours disponibles",
+    "POSTED_ON": "Publié le",
+    "JOIN_COURSE": "Commencer le cours"
+  },
+
+  "TRAINING": {
+    "TITLE": "Titre",
+    "DATE": "Date",
+    "DURATION": "Durée",
+    "GO_TO_COURSE": "Accéder au cours",
+    "SEE_EVAL": "Voir l’évaluation"
+  },
+
+  "EVALUATION": {
+    "TITLE": "Liste des évaluations accessibles",
+    "FILTER_LABEL": "Filtrer par niveau :",
+    "FILTER_ALL": "Tous",
+    "FILTER_BEGINNER": "Débutant",
+    "FILTER_INTERMEDIATE": "Intermédiaire",
+    "FILTER_ADVANCED": "Avancé",
+    "TYPE": "Type",
+    "DURATION": "Durée",
+    "LEVEL": "Niveau",
+    "START_BUTTON": "Démarrer l’évaluation",
+    "EVAL_TITLE": "Évaluation",
+    "EVAL_DURATION": "Durée",
+    "EVAL_TYPE": "Type",
+    "TIMER_LABEL": "⏳ Temps restant",
+    "PROGRESS_LABEL": "Progression des questions",
+    "QUESTION_LIST_TITLE": "Questions :",
+    "QUESTION": "Question",
+    "RESULT_SCORE": "Score obtenu",
+    "RESULT_SUCCESS": "✅ Félicitations, vous avez réussi l’évaluation !",
+    "RESULT_FAIL": "❌ Désolé, vous n'avez pas obtenu un score suffisant.",
+    "CERTIFICATE_TITLE": "CERTIFICAT DE RÉUSSITE",
+    "CERTIFICATE_DESCRIPTION": "Ce certificat est décerné à",
+    "CERTIFICATE_SUCCESS": "pour avoir complété avec succès l’évaluation :",
+    "CERTIFICATE_SCORE": "Score",
+    "CERTIFICATE_DATE": "Date",
+    "CERTIFICATE_DIRECTOR": "Directeur de la plateforme",
+    "CERTIFICATE_DOWNLOAD": "🎓 Télécharger le Certificat PDF"
   }
 }
+
+
+
+

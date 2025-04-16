@@ -14,8 +14,12 @@ export class CourseContentComponent implements OnInit {
   formattedContent: string[] = [];
   pageSize = 10; // nombre de lignes par page
   currentPage = 1;
-
+  rating = 3;
+  hoveredRating = 0;
+  stars = [1, 2, 3, 4, 5];
   constructor(private route: ActivatedRoute, private trainingService: TrainingService) {}
+
+
 
   get paginatedContent(): string[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;

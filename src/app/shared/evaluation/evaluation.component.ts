@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import html2canvas from "html2canvas";
 import jsPDF from 'jspdf';
+import {TranslatePipe} from "@ngx-translate/core";
 
 
 
@@ -13,7 +14,7 @@ import jsPDF from 'jspdf';
   templateUrl: './evaluation.component.html',
   standalone: true,
   styleUrls: ['./evaluation.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, TranslatePipe]
 })
 export class EvaluationComponent implements OnInit {
   evaluations: any[] = [];

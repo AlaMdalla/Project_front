@@ -1,53 +1,56 @@
 <div class="evaluation-container">
-  <h2>Liste des évaluations disponibles :</h2>
+  <h2>{{ 'EVALUATION.TITLE' | translate }}</h2>
 
-  <label for="niveau">Filtrer par niveau :</label>
+  <label for="niveau">{{ 'EVALUATION.FILTER_LABEL' | translate }}</label>
   <select id="niveau" [(ngModel)]="selectedNiveau" (change)="filterEvaluationsByNiveau()">
-    <option value="">Tous</option>
-    <option value="Beginner">Beginner</option>
-    <option value="Intermediate">Intermediate</option>
-    <option value="Advanced">Advanced</option>
+    <option value="">{{ 'EVALUATION.FILTER_ALL' | translate }}</option>
+    <option value="Beginner">{{ 'EVALUATION.FILTER_BEGINNER' | translate }}</option>
+    <option value="Intermediate">{{ 'EVALUATION.FILTER_INTERMEDIATE' | translate }}</option>
+    <option value="Advanced">{{ 'EVALUATION.FILTER_ADVANCED' | translate }}</option>
   </select>
+
   <ul>
     <li *ngFor="let evaluation of filteredEvaluations">
       <h3>{{ evaluation.description }}</h3>
-      <p><strong>Type :</strong> {{ evaluation.type }}</p>
-      <p><strong>Durée :</strong> {{ evaluation.evaluationDuration }} minutes</p>
+      <p><strong>{{ 'EVALUATION.TYPE' | translate }} :</strong> {{ evaluation.type }}</p>
+      <p><strong>{{ 'EVALUATION.DURATION' | translate }} :</strong> {{ evaluation.evaluationDuration }} minutes</p>
       <p>
-      <p>
-        <strong>Niveau :</strong>
+        <strong>{{ 'EVALUATION.LEVEL' | translate }} :</strong>
         <span [ngClass]="getLevelClass(evaluation.niveau)">
-    {{ getLevelIcon(evaluation.niveau) }} {{ evaluation.niveau }}
-  </span>
+          {{ getLevelIcon(evaluation.niveau) }} {{ evaluation.niveau }}
+        </span>
       </p>
       <button (click)="selectEvaluation(evaluation)" class="btn btn-primary">
-        Commencer l'évaluation
+        {{ 'EVALUATION.START_BUTTON' | translate }}
       </button>
     </li>
   </ul>
 
   <!-- ✅ Section d'évaluation sélectionnée -->
   <div *ngIf="selectedEvaluation">
-
-    <h2>Évaluation : {{ selectedEvaluation?.description }}</h2>
-    <p class="evaluation-info"><strong>Durée :</strong> {{ selectedEvaluation?.evaluationDuration }} minutes</p>
-    <p class="evaluation-info"><strong>Type :</strong> {{ selectedEvaluation?.type }}</p>
+    <h2>{{ 'EVALUATION.EVAL_TITLE' | translate }} : {{ selectedEvaluation?.description }}</h2>
+    <p class="evaluation-info">
+      <strong>{{ 'EVALUATION.EVAL_DURATION' | translate }} :</strong> {{ selectedEvaluation?.evaluationDuration }} minutes
+    </p>
+    <p class="evaluation-info">
+      <strong>{{ 'EVALUATION.EVAL_TYPE' | translate }} :</strong> {{ selectedEvaluation?.type }}
+    </p>
 
     <!-- ✅ Affichage du Chronomètre -->
     <div *ngIf="!showResult" class="timer-box">
-      <p>⏳ Temps restant : {{ remainingTime }}</p>
+      <p>{{ 'EVALUATION.TIMER_LABEL' | translate }} : {{ remainingTime }}</p>
     </div>
 
     <!-- ✅ Barre de Progression des Questions -->
     <div class="progress-bar-container">
       <div class="progress-bar question-progress" [style.width.%]="getQuestionProgress()"></div>
     </div>
-    <p>Progression des questions : {{ answeredQuestions }}/{{ questions.length }}</p>
+    <p>{{ 'EVALUATION.PROGRESS_LABEL' | translate }} : {{ answeredQuestions }}/{{ questions.length }}</p>
 
-    <h3>Questions :</h3>
+    <h3>{{ 'EVALUATION.QUESTION_LIST_TITLE' | translate }}</h3>
     <div class="questions-wrapper">
       <div *ngFor="let question of questions; let i = index" class="questions">
-        <h4>Question {{ i + 1 }} : {{ question.questionText }}</h4>
+        <h4>{{ 'EVALUATION.QUESTION' | translate }} {{ i + 1 }} : {{ question.questionText }}</h4>
         <ul>
           <li *ngFor="let option of question.options">
             <label>
@@ -60,35 +63,37 @@
     </div>
 
     <!-- ✅ Affichage dynamique du résultat -->
-    <div *ngIf="showResult" [ngClass]="{'success': isPassed, 'fail': !isPassed}" class="result-box">
-      <p>Score obtenu : {{ totalScore.toFixed(2) }}%</p>
-      <p *ngIf="isPassed">✅ Félicitations, vous avez réussi l'évaluation !</p>
-      <p *ngIf="!isPassed">❌ Désolé, vous n'avez pas obtenu un score suffisant.</p>
+    <div *ngIf="showResult" [ngClass]="{ 'success': isPassed, 'fail': !isPassed }" class="result-box">
+      <p>{{ 'EVALUATION.RESULT_SCORE' | translate }} : {{ totalScore.toFixed(2) }}%</p>
+      <p *ngIf="isPassed">{{ 'EVALUATION.RESULT_SUCCESS' | translate }}</p>
+      <p *ngIf="!isPassed">{{ 'EVALUATION.RESULT_FAIL' | translate }}</p>
     </div>
   </div>
 
-  <!-- 📄 Section cachée utilisée pour le certificat PDF -->
+  <!-- 📄 Section pour PDF -->
   <div id="pdf-certificate" style="position: absolute; left: -9999px; top: 0; width: 800px; background: #fff; padding: 40px; font-family: Arial, sans-serif; border: 4px solid #333;">
-
     <!-- Logo -->
     <div style="text-align: center; margin-bottom: 30px;">
       <img src="assets/img/logo.jpg.jpg" alt="Logo" width="120" />
     </div>
 
     <!-- Titre principal -->
-    <h1 style="text-align: center; font-size: 28px; color: #333;">CERTIFICAT DE RÉUSSITE</h1>
+    <h1 style="text-align: center; font-size: 28px; color: #333;">
+      {{ 'EVALUATION.CERTIFICATE_TITLE' | translate }}
+    </h1>
 
     <!-- Description -->
     <p style="text-align: center; font-size: 18px; margin-bottom: 40px;">
-      Ce certificat est décerné à <strong style="font-size: 22px;">Notre participant</strong><br />
-      pour avoir complété avec succès l’évaluation :<br />
+      {{ 'EVALUATION.CERTIFICATE_DESCRIPTION' | translate }}
+      <strong style="font-size: 22px;">Notre participant</strong><br />
+      {{ 'EVALUATION.CERTIFICATE_SUCCESS' | translate }}<br />
       <strong style="font-size: 20px;">{{ selectedEvaluation?.description }}</strong>
     </p>
 
-    <!-- Score et date -->
+    <!-- Score et Date -->
     <div style="display: flex; justify-content: space-between; margin: 30px 0;">
-      <p><strong>Score :</strong> {{ totalScore.toFixed(2) }}%</p>
-      <p><strong>Date :</strong> {{ currentDate }}</p>
+      <p><strong>{{ 'EVALUATION.CERTIFICATE_SCORE' | translate }} :</strong> {{ totalScore.toFixed(2) }}%</p>
+      <p><strong>{{ 'EVALUATION.CERTIFICATE_DATE' | translate }} :</strong> {{ currentDate }}</p>
     </div>
 
     <!-- Cachet & Signature -->
@@ -96,14 +101,13 @@
       <img src="assets/img/stamp.png" alt="Cachet" width="80" />
       <div style="text-align: right;">
         <img src="assets/img/signature.png" alt="Signature" width="100" />
-        <p style="margin: 0; font-size: 12px;">Directeur de la plateforme</p>
+        <p style="margin: 0; font-size: 12px;">{{ 'EVALUATION.CERTIFICATE_DIRECTOR' | translate }}</p>
       </div>
     </div>
-
   </div>
 
-  <!-- 📄 Bouton téléchargement uniquement si réussite -->
+  <!-- 📥 Bouton PDF -->
   <button *ngIf="showResult && isPassed" (click)="generatePDF()" class="btn btn-success">
-    🎓 Télécharger le Certificat PDF
+    {{ 'EVALUATION.CERTIFICATE_DOWNLOAD' | translate }}
   </button>
 </div>

@@ -118,3 +118,17 @@
 .btn-success:hover {
   background-color: #218838;
 }
+.rating-box {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.stars {
+  font-size: 24px;
+  color: #ffc107;
+  cursor: pointer;
+}
+
+.stars .fa-star-o {
+  color: #ccc;
+}

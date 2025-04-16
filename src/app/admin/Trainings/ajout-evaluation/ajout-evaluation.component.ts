@@ -5,6 +5,7 @@ import {EvaluationService} from "../../../Services/evaluation.service";
 import {QuestionService} from "../../../Services/question.service";
 import {Question} from "../../../models/Question";
 import {ActivatedRoute} from "@angular/router";
+import {Training} from "../../../models/Training";
 
 @Component({
   selector: 'app-ajout-evaluation',
@@ -16,6 +17,10 @@ export class AjoutEvaluationComponent {
   questionForm!: FormGroup;
   isSubmitted = false;
   successMessage = 'Eval ajoutée avec succès';
+  selectedTraining: Training | null = null;
+
+  trainings: Training[] = [];
+  selectedTrainingId: number | null = null;
 
   constructor(private fb: FormBuilder, private evaluationService: EvaluationService, private questionService: QuestionService, private route: ActivatedRoute) {}
 

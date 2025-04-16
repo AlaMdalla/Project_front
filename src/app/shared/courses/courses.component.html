@@ -1,21 +1,28 @@
 <section class="courses-section">
-    <h2>Available Courses</h2>
-    <div class="courses-list">
-      <div class="course-card" *ngFor="let course of courses">
-        <!-- 🔁 Image dynamique -->
-        <img
-          [src]="'assets/img/' + course.idTraining + '.jpg'"
-          alt="Course Image"
-          class="course-image"
-          onerror="this.onerror=null; this.src='assets/img/default.jpg';"
-        />
-        <h3>{{ course.title }}</h3>
+  <h2>{{ 'Available Courses' | translate }}</h2>
 
+  <div class="courses-list">
+    <div class="course-card" *ngFor="let course of courses">
 
-        <mat-card-subtitle> Posted On : {{course.trainingdate | date: 'medium'}}</mat-card-subtitle>
+      <!-- 🔁 Image dynamique -->
+      <img
+        [src]="'assets/img/' + course.idTraining + '.jpg'"
+        alt="Course Image"
+        class="course-image"
+        onerror="this.onerror=null; this.src='assets/img/default.jpg';"
+      />
 
-        <!-- Join button -->
-        <button class="join-button"  (click)="openTrainingDetails(course.idTraining)">Join Now</button>
-      </div>
+      <h3>{{ course.title }}</h3>
+
+      <!-- 📅 Date -->
+      <mat-card-subtitle>
+        {{ 'COURSE.POSTED_ON' | translate }} : {{ course.trainingdate | date: 'medium' }}
+      </mat-card-subtitle>
+
+      <!-- ✅ Bouton -->
+      <button class="join-button" (click)="openTrainingDetails(course.idTraining)">
+        {{ 'COURSE.JOIN_COURSE' | translate }}
+      </button>
     </div>
-  </section>
+  </div>
+</section>

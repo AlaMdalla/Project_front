@@ -1,6 +1,48 @@
 {
-  "HOME": {
-    "TITLE": "Welcome to the platform",
-    "LOGIN": "Login"
+  "COURSE": {
+    "AVAILABLE_COURSES": "Available Courses",
+    "POSTED_ON": "Posted on",
+    "JOIN_COURSE": "Join course"
+  },
+  "TRAINING": {
+    "TITLE": "Title",
+    "DATE": "Date",
+    "DURATION": "Duration",
+    "GO_TO_COURSE": "Go to Course",
+    "SEE_EVAL": "See evaluation"
+  },
+
+  "EVALUATION": {
+    "TITLE": "List of accessible evaluations",
+    "FILTER_LABEL": "Filter by level:",
+    "FILTER_ALL": "All",
+    "FILTER_BEGINNER": "Beginner",
+    "FILTER_INTERMEDIATE": "Intermediate",
+    "FILTER_ADVANCED": "Advanced",
+    "TYPE": "Type",
+    "DURATION": "Duration",
+    "LEVEL": "Level",
+    "START_BUTTON": "Start the evaluation",
+    "EVAL_TITLE": "Evaluation",
+    "EVAL_DURATION": "Duration",
+    "EVAL_TYPE": "Type",
+    "TIMER_LABEL": "⏳ Time left",
+    "PROGRESS_LABEL": "Question progress",
+    "QUESTION_LIST_TITLE": "Questions:",
+    "QUESTION": "Question",
+    "RESULT_SCORE": "Score obtained",
+    "RESULT_SUCCESS": "✅ Congratulations! You passed the evaluation!",
+    "RESULT_FAIL": "❌ Sorry, you did not achieve a sufficient score.",
+    "CERTIFICATE_TITLE": "CERTIFICATE OF SUCCESS",
+    "CERTIFICATE_DESCRIPTION": "This certificate is awarded to",
+    "CERTIFICATE_SUCCESS": "for successfully completing the evaluation:",
+    "CERTIFICATE_SCORE": "Score",
+    "CERTIFICATE_DATE": "Date",
+    "CERTIFICATE_DIRECTOR": "Platform Director",
+    "CERTIFICATE_DOWNLOAD": "🎓 Download the Certificate PDF"
   }
 }
+
+
+
+
