@@ -1,23 +1,90 @@
-<div class="chat-screen">
-  <div class="messages">
-    <div *ngFor="let msg of chatService.messages" class="message">
-      <img [src]="msg.avatar || 'default-avatar.png'" class="avatar" alt="User avatar">
-      <div class="message-content">
-        <div class="detail-item">
-          <span class="value">{{ msg.username || 'Anonymous' }}</span>
-        </div>
-        <span class="text">{{ msg.text }}</span>
-        <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
-      </div>
+<div class="chat-container">
+  <!-- User List -->
+  <div class="user-list">
+    <div class="header-section">
+      <h3 class="section-title">
+        <i class="material-icons">people</i> Available Users
+      </h3>
     </div>
+    <div *ngIf="isLoading" class="loading">Loading users...</div>
+    <div *ngIf="error" class="error">
+      {{ error }}
+      <button class="retry-btn" (click)="retry()">
+        <i class="material-icons">refresh</i> Retry
+      </button>
+    </div>
+    <div *ngIf="connectionError" class="error">{{ connectionError }}</div>
+    <div *ngIf="!isLoading && !error && availableUsers.length === 0" class="no-users">
+      No users available to chat with.
+    </div>
+    <ul class="user-list-items">
+      <li
+        *ngFor="let user of availableUsers"
+        (click)="selectUser(user)"
+        [ngClass]="{'selected': user.id === selectedUserId}"
+      >
+        <i class="material-icons">person</i>
+        {{ user.name || user.username }}
+      </li>
+    </ul>
   </div>
 
-  <div class="message-input">
-    <input
-      [(ngModel)]="newMessage"
-      placeholder="Type your message..."
-      (keyup.enter)="sendMessage()"
-    >
-    <button (click)="sendMessage()">Send</button>
+  <!-- Chat Box -->
+  <div class="chat-box" *ngIf="selectedUserId">
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <h4>
+        <i class="material-icons">chat</i> Chatting with {{ getUsernameById(selectedUserId) }}
+      </h4>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="messages" #messagesContainer>
+      <div *ngIf="isMessagesLoading" class="loading">Loading messages...</div>
+      <div *ngIf="!isMessagesLoading && messages.length === 0" class="no-messages">
+        No messages yet.
+      </div>
+      <div *ngFor="let msg of messages" [ngClass]="{'own': msg.senderId === userId}" class="message">
+        <div class="message-content" *ngIf="msg.content">{{ msg.content }}</div>
+        <div class="voice-note" *ngIf="msg.voiceNoteUrl">
+          <audio controls>
+            <source [src]="msg.voiceNoteUrl" type="audio/webm" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        <span class="timestamp">{{ msg.timestamp | date: 'short' }}</span>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area">
+      <div class="input-box">
+        <input
+          [(ngModel)]="newMessage"
+          placeholder="Type a message..."
+          (keyup.enter)="sendMessage()"
+        />
+        <button [disabled]="!newMessage.trim()" (click)="sendMessage()" class="send-btn">
+          <i class="material-icons">send</i>
+        </button>
+        <button *ngIf="!isRecording" (click)="startRecording()" class="record-btn">
+          <i class="material-icons">mic</i>
+        </button>
+        <button *ngIf="isRecording" (click)="stopRecording()" class="stop-btn">
+          <i class="material-icons">stop</i>
+        </button>
+        <button (click)="toggleEmojiPicker()" class="emoji-btn">
+          <i class="material-icons">sentiment_satisfied</i>
+        </button>
+      </div>
+      <div *ngIf="showEmojiPicker" class="emoji-picker">
+        <span (click)="addEmoji('😊')">😊</span>
+        <span (click)="addEmoji('😂')">😂</span>
+        <span (click)="addEmoji('👍')">👍</span>
+        <span (click)="addEmoji('❤️')">❤️</span>
+        <span (click)="addEmoji('😢')">😢</span>
+        <!-- Add more emojis or integrate emoji-mart -->
+      </div>
+    </div>
   </div>
 </div>

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 // Angular Material
 import { MatCardModule } from '@angular/material/card';
@@ -96,6 +97,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ViewAllComponent,
     ViewPostComponent,
     HomeAdminComponent,
+    ChatComponent,
     AddProblemComponent,
     SidebarComponent,
     CompetitionsComponent,
@@ -136,7 +138,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     CommonModule,
     FormsModule,
-    ChatComponent,
+    EmojiModule,
     BookingComponent,
     ChartsComponent,
     ReactiveFormsModule,

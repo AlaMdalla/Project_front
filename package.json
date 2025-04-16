@@ -24,6 +24,7 @@
     "@clr/angular": "^17.9.0",
     "@clr/core": "^4.0.15",
     "@clr/ui": "^17.9.0",
+    "@ctrl/ngx-emoji-mart": "^9.2.0",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
     "@stomp/stompjs": "^7.1.1",

@@ -1,6 +1,9 @@
+// src/app/models/message.ts
 export interface Message {
-  text: string;
-  username: string;
-  avatar: string;
-  timestamp?: string; // Optional, included for database-fetched messages
+  id?: number;
+  senderId: string;
+  recipientId: string;
+  content?: string;
+  voiceNoteUrl?: string; // New field
+  timestamp: string;
 }

@@ -86,7 +86,7 @@ const routes: Routes = [
   { path: 'candidates/new', component: CandidateFormComponent },
   { path: 'candidates/edit/:id', component: CandidateFormComponent },
   { path: 'candidates/new/:id', component: ApplyJobComponent },
-  { path: 'user', component: UserSubscriptionViewComponent },
+  { path: 'subscriptions', component: UserSubscriptionViewComponent },
   { path: 'add', component: SubscriptionFormComponent },
   { path: 'edit/:id', component: SubscriptionFormComponent },
   { path: 'payment/:subid', component: PaymentComponent },
