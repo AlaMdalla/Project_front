@@ -73,4 +73,3 @@ export class JobFormComponent {
           this.router.navigate(['/jobs']);
       }
   }
-

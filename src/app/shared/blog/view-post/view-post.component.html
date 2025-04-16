@@ -1,138 +1,138 @@
 <div *ngIf="postData" class="post-container">
-  <!-- Post Card -->
-  <div class="post-card">
-      <!-- Post Header -->
-      <div class="post-header">
-          <img class="avatar-img" [src]="postData.avatar" alt="Avatar" (error)="postData.avatar = 'assets/img/default-avatar.jpg'">
-          <div class="post-meta">
-              <h1 class="post-title">{{ postData.title }}</h1>
-              <p class="post-subtitle">
-                  Posted by {{ postData.postedBy }} in {{ postData.category }} on {{ postData.date | date: 'mediumDate' }}
-              </p>
-          </div>
-      </div>
-
-      <!-- Post Content -->
-      <div class="post-content">
-          <div class="image-section" *ngIf="postData.img">
-              <img [src]="'data:image/jpeg;base64,' + postData.img" alt="Post Image" class="post-image">
-          </div>
-          <div *ngIf="!postData.img" class="no-image">No image available</div>
-          <p class="post-text">{{ postData.content }}</p>
-      </div>
-
-      <!-- Reactions and Actions -->
-      <div class="reaction-actions">
-          <div class="reaction-group">
-              <button class="reaction-button" (click)="reactPost('like')"
-                  [ngClass]="{'hovered': hoveredReaction === 'like'}" (mouseenter)="hoverReaction('like')"
-                  (mouseleave)="hoverReaction(null)">
-                  ❤️ {{ postData.likeCount || 0 }}
-              </button>
-              <button class="reaction-button" (click)="reactPost('laugh')"
-                  [ngClass]="{'hovered': hoveredReaction === 'laugh'}" (mouseenter)="hoverReaction('laugh')"
-                  (mouseleave)="hoverReaction(null)">
-                  😂 {{ postData.laught || 0 }}
-              </button>
-              <button class="reaction-button" (click)="reactPost('angry')"
-                  [ngClass]="{'hovered': hoveredReaction === 'angry'}" (mouseenter)="hoverReaction('angry')"
-                  (mouseleave)="hoverReaction(null)">
-                  😡 {{ postData.angry || 0 }}
-              </button>
-          </div>
-          <button class="report-button" (click)="goToReclamationForm()">
-              <clr-icon shape="flag"></clr-icon> Report
-          </button>
-      </div>
+    <!-- Post Card -->
+    <div class="post-card">
+        <!-- Post Header -->
+        <div class="post-header">
+            <img class="avatar-img" [src]="postData.avatar" alt="Avatar" (error)="postData.avatar = 'assets/img/default-avatar.jpg'">
+            <div class="post-meta">
+                <h1 class="post-title">{{ postData.title }}</h1>
+                <p class="post-subtitle">
+                    Posted by {{ postData.postedBy }} in {{ postData.category }} on {{ postData.date | date: 'mediumDate' }}
+                </p>
+            </div>
+        </div>
+  
+        <!-- Post Content -->
+        <div class="post-content">
+            <div class="image-section" *ngIf="postData.img">
+                <img [src]="'data:image/jpeg;base64,' + postData.img" alt="Post Image" class="post-image">
+            </div>
+            <div *ngIf="!postData.img" class="no-image">No image available</div>
+            <p class="post-text">{{ postData.content }}</p>
+        </div>
+  
+        <!-- Reactions and Actions -->
+        <div class="reaction-actions">
+            <div class="reaction-group">
+                <button class="reaction-button" (click)="reactPost('like')"
+                    [ngClass]="{'hovered': hoveredReaction === 'like'}" (mouseenter)="hoverReaction('like')"
+                    (mouseleave)="hoverReaction(null)">
+                    ❤️ {{ postData.likeCount || 0 }}
+                </button>
+                <button class="reaction-button" (click)="reactPost('laugh')"
+                    [ngClass]="{'hovered': hoveredReaction === 'laugh'}" (mouseenter)="hoverReaction('laugh')"
+                    (mouseleave)="hoverReaction(null)">
+                    😂 {{ postData.laught || 0 }}
+                </button>
+                <button class="reaction-button" (click)="reactPost('angry')"
+                    [ngClass]="{'hovered': hoveredReaction === 'angry'}" (mouseenter)="hoverReaction('angry')"
+                    (mouseleave)="hoverReaction(null)">
+                    😡 {{ postData.angry || 0 }}
+                </button>
+            </div>
+            <button class="report-button" (click)="goToReclamationForm()">
+                <clr-icon shape="flag"></clr-icon> Report
+            </button>
+        </div>
+    </div>
+  
+    <!-- Comments Section -->
+    <div class="comments-section">
+        <h3 class="comments-title"><clr-icon shape="chat-bubble"></clr-icon> Comments</h3>
+        <div *ngIf="comments.length === 0" class="no-comments">No comments yet. Be the first to comment!</div>
+        <div *ngFor="let comment of comments" class="comment-card">
+            <div class="comment-header">
+                <img class="avatar-img" [src]="comment.avatar" alt="Avatar" (error)="comment.avatar = 'assets/img/default-avatar.jpg'">
+                <div class="comment-meta">
+                    <h4 class="comment-title">{{ comment.postedBy }}</h4>
+                    <p class="comment-subtitle">{{ comment.createdAt | date: 'mediumDate' }}</p>
+                </div>
+            </div>
+            <div class="comment-content">
+                <p>{{ comment.content }}</p>
+            </div>
+            <div class="comment-actions">
+                <button class="reply-button" (click)="comment.showReply = !comment.showReply">
+                    <clr-icon shape="reply"></clr-icon> Reply
+                </button>
+            </div>
+            <!-- Reply Form -->
+            <div *ngIf="comment.showReply" class="reply-form">
+                <input [(ngModel)]="comment.replyContent" placeholder="Write a reply..." class="reply-input">
+                <button class="submit-reply-button" (click)="replyToComment(comment.id); comment.showReply = false">
+                    <clr-icon shape="send"></clr-icon> Submit
+                </button>
+            </div>
+            <!-- Replies -->
+            <div *ngIf="comment.replies?.length" class="replies-section">
+                <div *ngFor="let reply of comment.replies" class="reply-card">
+                    <div class="reply-header">
+                        <img class="avatar-img" [src]="reply.avatar || 'assets/img/default-avatar.jpg'" alt="Avatar">
+                        <div class="reply-meta">
+                            <h4 class="reply-title">{{ reply.postedBy }}</h4>
+                            <p class="reply-subtitle">{{ reply.createdAt | date: 'mediumDate' }}</p>
+                        </div>
+                    </div>
+                    <div class="reply-content">
+                        <p>{{ reply.content }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <!-- Comment Form -->
+    <div class="comment-form-card">
+        <h3 class="comment-form-title"><clr-icon shape="chat-bubble"></clr-icon> Publish Your Comment</h3>
+        <form [formGroup]="CommentForm" (ngSubmit)="publishComment()" class="comment-form">
+            <div class="form-group">
+                <label for="postedBy">Your Name</label>
+                <input
+                    formControlName="postedBy"
+                    id="postedBy"
+                    placeholder="Enter your name"
+                    class="form-control"
+                    [class.invalid]="CommentForm.get('postedBy')?.touched && CommentForm.get('postedBy')?.invalid"
+                >
+                <div class="error-message" *ngIf="CommentForm.get('postedBy')?.touched && CommentForm.get('postedBy')?.invalid">
+                    <span *ngIf="CommentForm.get('postedBy')?.hasError('required')">
+                        Your name is required.
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="content">Your Comment</label>
+                <textarea
+                    formControlName="content"
+                    id="content"
+                    placeholder="Write your comment here..."
+                    class="form-control"
+                    [class.invalid]="CommentForm.get('content')?.touched && CommentForm.get('content')?.invalid"
+                ></textarea>
+                <div class="error-message" *ngIf="CommentForm.get('content')?.touched && CommentForm.get('content')?.invalid">
+                    <span *ngIf="CommentForm.get('content')?.hasError('required')">
+                        Comment is required.
+                    </span>
+                    <span *ngIf="CommentForm.get('content')?.hasError('invalid')">
+                        Inappropriate language detected. Please revise your comment.
+                    </span>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="submit" [disabled]="!CommentForm.valid" class="btn-primary">
+                    <clr-icon shape="send"></clr-icon> Publish
+                </button>
+            </div>
+        </form>
+    </div>
   </div>
-
-  <!-- Comments Section -->
-  <div class="comments-section">
-      <h3 class="comments-title"><clr-icon shape="chat-bubble"></clr-icon> Comments</h3>
-      <div *ngIf="comments.length === 0" class="no-comments">No comments yet. Be the first to comment!</div>
-      <div *ngFor="let comment of comments" class="comment-card">
-          <div class="comment-header">
-              <img class="avatar-img" [src]="comment.avatar" alt="Avatar" (error)="comment.avatar = 'assets/img/default-avatar.jpg'">
-              <div class="comment-meta">
-                  <h4 class="comment-title">{{ comment.postedBy }}</h4>
-                  <p class="comment-subtitle">{{ comment.createdAt | date: 'mediumDate' }}</p>
-              </div>
-          </div>
-          <div class="comment-content">
-              <p>{{ comment.content }}</p>
-          </div>
-          <div class="comment-actions">
-              <button class="reply-button" (click)="comment.showReply = !comment.showReply">
-                  <clr-icon shape="reply"></clr-icon> Reply
-              </button>
-          </div>
-          <!-- Reply Form -->
-          <div *ngIf="comment.showReply" class="reply-form">
-              <input [(ngModel)]="comment.replyContent" placeholder="Write a reply..." class="reply-input">
-              <button class="submit-reply-button" (click)="replyToComment(comment.id); comment.showReply = false">
-                  <clr-icon shape="send"></clr-icon> Submit
-              </button>
-          </div>
-          <!-- Replies -->
-          <div *ngIf="comment.replies?.length" class="replies-section">
-              <div *ngFor="let reply of comment.replies" class="reply-card">
-                  <div class="reply-header">
-                      <img class="avatar-img" [src]="reply.avatar || 'assets/img/default-avatar.jpg'" alt="Avatar">
-                      <div class="reply-meta">
-                          <h4 class="reply-title">{{ reply.postedBy }}</h4>
-                          <p class="reply-subtitle">{{ reply.createdAt | date: 'mediumDate' }}</p>
-                      </div>
-                  </div>
-                  <div class="reply-content">
-                      <p>{{ reply.content }}</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <!-- Comment Form -->
-  <div class="comment-form-card">
-      <h3 class="comment-form-title"><clr-icon shape="chat-bubble"></clr-icon> Publish Your Comment</h3>
-      <form [formGroup]="CommentForm" (ngSubmit)="publishComment()" class="comment-form">
-          <div class="form-group">
-              <label for="postedBy">Your Name</label>
-              <input
-                  formControlName="postedBy"
-                  id="postedBy"
-                  placeholder="Enter your name"
-                  class="form-control"
-                  [class.invalid]="CommentForm.get('postedBy')?.touched && CommentForm.get('postedBy')?.invalid"
-              >
-              <div class="error-message" *ngIf="CommentForm.get('postedBy')?.touched && CommentForm.get('postedBy')?.invalid">
-                  <span *ngIf="CommentForm.get('postedBy')?.hasError('required')">
-                      Your name is required.
-                  </span>
-              </div>
-          </div>
-          <div class="form-group">
-              <label for="content">Your Comment</label>
-              <textarea
-                  formControlName="content"
-                  id="content"
-                  placeholder="Write your comment here..."
-                  class="form-control"
-                  [class.invalid]="CommentForm.get('content')?.touched && CommentForm.get('content')?.invalid"
-              ></textarea>
-              <div class="error-message" *ngIf="CommentForm.get('content')?.touched && CommentForm.get('content')?.invalid">
-                  <span *ngIf="CommentForm.get('content')?.hasError('required')">
-                      Comment is required.
-                  </span>
-                  <span *ngIf="CommentForm.get('content')?.hasError('invalid')">
-                      Inappropriate language detected. Please revise your comment.
-                  </span>
-              </div>
-          </div>
-          <div class="button-container">
-              <button type="submit" [disabled]="!CommentForm.valid" class="btn-primary">
-                  <clr-icon shape="send"></clr-icon> Publish
-              </button>
-          </div>
-      </form>
-  </div>
-</div>

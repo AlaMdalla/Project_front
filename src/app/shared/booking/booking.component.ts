@@ -8,7 +8,7 @@ declare var createGoogleEvent: any;
   standalone: true,
   imports: [ReactiveFormsModule], 
   templateUrl: './booking.component.html',
-  styleUrl: './booking.component.css'
+  styleUrls: ['./booking.component.css']
 })
 export class BookingComponent {
   appointmentForm!: FormGroup;

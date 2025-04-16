@@ -1,17 +1,21 @@
 <section class="courses-section">
-    <h2>Available Courses</h2>
-    <div class="courses-list">
-      <div class="course-card" *ngFor="let course of courses">
-        <!-- Course Image -->
-        <img src="https://www.myfreax.com/content/images/2022/11/introduction-to-javascript-syntax.webp" alt="Course Image" class="course-image" />
+  <h2>Available Courses</h2>
+  <div class="courses-list">
+    <div class="course-card" *ngFor="let course of courses">
+      <!-- 🔁 Image dynamique -->
+      <img
+        [src]="'assets/img/' + course.idTraining + '.jpg'"
+        alt="Course Image"
+        class="course-image"
+        onerror="this.onerror=null; this.src='assets/img/default.jpg';"
+      />
+      <h3>{{ course.title }}</h3>
 
-        <h3>{{ course.title }}</h3>
-        <p>{{ course.content }}</p>
 
-        <mat-card-subtitle> Posted On : {{course.trainingdate | date: 'medium'}}</mat-card-subtitle>
+      <mat-card-subtitle> Posted On : {{course.trainingdate | date: 'medium'}}</mat-card-subtitle>
 
-        <!-- Join button -->
-        <button class="join-button"  (click)="openTrainingDetails(course.idTraining)">Join Now</button>
-      </div>
+      <!-- Join button -->
+      <button class="join-button"  (click)="openTrainingDetails(course.idTraining)">Join Now</button>
     </div>
-  </section>
+  </div>
+</section>

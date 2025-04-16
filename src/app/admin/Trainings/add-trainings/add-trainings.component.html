@@ -1,126 +1,96 @@
 <app-sidebar></app-sidebar>
-<div id="content">
-  <div class="competition-container">
-    <div class="card">
-      <h2>
-        <i class="fas fa-chalkboard-teacher title-icon"></i> Ajouter une Formation
-      </h2>
-      <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()" class="post-form">
-        <!-- Training Details -->
+
+<div class="training-container">
+    <h2>{{ selectedTraining ? 'Edit Training' : 'Add a New Training' }}</h2>
+
+    <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
+        <!-- Title -->
         <div class="form-group">
-          <label for="trainingId">ID de la Formation :</label>
-          <input 
-            id="trainingId" 
-            formControlName="trainingId" 
-            type="number" 
-            placeholder="Entrez l'ID de la formation" 
-            required />
-          <span class="input-icon"><i class="fas fa-id-badge"></i></span>
+            <label for="title">Title:</label>
+            <input id="title" formControlName="title" placeholder="Enter training title" />
         </div>
 
+        <!-- Content -->
         <div class="form-group">
-          <label for="description">Description de la Formation :</label>
-          <input 
-            id="description" 
-            formControlName="description" 
-            type="text" 
-            placeholder="Entrez la description de la formation" 
-            required />
-          <span class="input-icon"><i class="fas fa-align-left"></i></span>
+            <label for="content">Content:</label>
+            <textarea id="content" formControlName="content" placeholder="Enter training content"></textarea>
         </div>
 
+        <!-- Training Date -->
         <div class="form-group">
-          <label for="type">Type de Formation :</label>
-          <input 
-            id="type" 
-            formControlName="type" 
-            type="text" 
-            placeholder="e.g., Atelier, Cours en ligne" 
-            required />
-          <span class="input-icon"><i class="fas fa-tag"></i></span>
+            <label for="trainingdate">Training Date:</label>
+            <input id="trainingdate" type="date" formControlName="trainingdate" />
         </div>
 
+        <!-- Duration -->
         <div class="form-group">
-          <label for="evaluation_duration">Durée de la Formation :</label>
-          <input 
-            id="evaluation_duration" 
-            formControlName="evaluation_duration" 
-            type="text" 
-            placeholder="e.g., 2 heures, 1 jour" 
-            required />
-          <span class="input-icon"><i class="fas fa-clock"></i></span>
+            <label for="duration">Duration:</label>
+            <input id="duration" type="text" formControlName="duration" placeholder="Enter training duration" />
         </div>
 
+        <!-- Status -->
         <div class="form-group">
-          <label for="score">Score Maximal :</label>
-          <input 
-            id="score" 
-            formControlName="score" 
-            type="number" 
-            placeholder="Entrez le score maximal" 
-            required />
-          <span class="input-icon"><i class="fas fa-star"></i></span>
+            <label for="status">Status:</label>
+            <select id="status" formControlName="status">
+                <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+            </select>
         </div>
 
+        <!-- Level -->
         <div class="form-group">
-          <label for="createdAt">Date de Début :</label>
-          <input 
-            id="createdAt" 
-            formControlName="createdAt" 
-            type="date" 
-            required />
-          <span class="input-icon"><i class="fas fa-calendar-alt"></i></span>
+            <label for="level">Level:</label>
+            <select id="level" formControlName="level">
+                <option *ngFor="let level of levelOptions" [value]="level">{{ level }}</option>
+            </select>
         </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" formControlName="premium">
+          premium
+        </label>
+      </div>
 
-        <div class="form-group">
-          <label for="certificat">Offre un Certificat :</label>
-          <input 
-            id="certificat" 
-            formControlName="certificat" 
-            type="checkbox" />
+        <div class="form-actions">
+            <button type="submit" [disabled]="trainingForm.invalid">
+                {{ selectedTraining ? 'Save Changes' : 'Save Training' }}
+            </button>
+            <button type="button" (click)="closeForm()">Cancel</button>
         </div>
+    </form>
+</div>
 
-        <!-- Questions Section -->
-        <h3><i class="fas fa-question-circle section-icon"></i> Questions</h3>
-        <div formArrayName="questions" class="questions-container">
-          <div *ngFor="let question of questions.controls; let i=index" [formGroupName]="i" class="question-box">
-            <div class="form-group">
-              <label>Question {{ i + 1 }} :</label>
-              <input 
-                formControlName="questionText" 
-                placeholder="Entrez la question" 
-                required />
-              <span class="input-icon"><i class="fas fa-question"></i></span>
-            </div>
+<div class="table-container">
+    <h2>Training List</h2>
 
-            <div class="form-group">
-              <label>Réponse Attendue :</label>
-              <input 
-                formControlName="response" 
-                placeholder="Entrez la réponse attendue" 
-                required />
-              <span class="input-icon"><i class="fas fa-comment"></i></span>
-            </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Training Date</th>
+            <th>Duration</th>
+            <th>status</th>
+            <th>Level</th>
+            <th>Premium</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let training of Trainings">
+            <td>{{ training.title }}</td>
+            <td>{{ training.content }}</td>
+            <td>{{ training.trainingdate | date:'yyyy-MM-dd' }}</td>
+            <td>{{ training.duration }}</td>
+            <td>{{ training.status }}</td>
+            <td>{{ training.level }}</td>
+            <td>{{ training.premium }}</td>
+            <td class="action-buttons">
+                <button class="edit" (click)="editTraining(training)">✏️</button>
+                <button class="delete" (click)="training.idTraining ? deleteTraining(training.idTraining) : null">🗑️</button>
+                <button class="addEvaluation" (click)="training.idTraining ? addEvaluation(training.idTraining) : null">➕</button>
 
-            <div class="question-actions">
-              <button type="button" class="btn-small delete" (click)="removeQuestion(i)">
-                <i class="fas fa-trash"></i> Supprimer Question
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Form Actions -->
-        <div class="button-container">
-          <button type="button" class="btn-primary" (click)="addQuestion()">
-            <i class="fas fa-plus"></i> Ajouter une Question
-          </button>
-          <button type="submit" class="btn-primary">
-            <i class="fas fa-save"></i> Enregistrer la Formation
-          </button>
-        </div>
-
-      </form>
-    </div>
-  </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>

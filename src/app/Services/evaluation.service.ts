@@ -14,13 +14,13 @@ export class EvaluationService {
 
   constructor(private http: HttpClient) {}
 
-
   getAllEvaluations(): Observable<Evaluation[]> {
     return this.http.get<Evaluation[]>(`${this.apiUrl}/retrieve-all`);
   }
 
-  getEvaluationById(id: number): Observable<Evaluation> {
-    return this.http.get<Evaluation>(`${this.apiUrl}/${id}`);
+  //  Nouvelle méthode pour récupérer les évaluations d'un training
+  getEvaluationsByTrainingId(idTraining: number): Observable<Evaluation[]> {
+    return this.http.get<Evaluation[]>(`${this.apiUrl}/${idTraining}`);
   }
 
   addEvaluation(evaluation: Evaluation): Observable<Evaluation> {

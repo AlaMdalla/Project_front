@@ -1,84 +1,92 @@
+
 <section id="sidebar" class="sidebar">
-  <a href="#" class="brand">
-      <i class='bx bxs-graduation'></i> <!-- Changed to a more relevant icon -->
-      <span class="text">MatrixAdmin</span>
-  </a>
-  <ul class="side-menu top">
-      <li [ngClass]="{'active': currentRoute === '/admin'}">
-          <a routerLink="/admin">
-              <i class='bx bxs-dashboard'></i>
-              <span class="text">Admin</span>
-          </a>
-      </li>
-      <li [ngClass]="{'active': currentRoute === '/users'}">
-          <a routerLink="/users">
-              <i class='bx bxs-user'></i>
-              <span class="text">Users</span>
-          </a>
-      </li>
-      <li [ngClass]="{'active': currentRoute === '/addCompetition'}">
-          <a routerLink="/addCompetition">
+    <a href="#" class="brand">
+        <i class='bx bxs-graduation'></i> <!-- Changed to a more relevant icon -->
+        <span class="text">MatrixAdmin</span>
+    </a>
+    <ul class="side-menu top">
+        <li [ngClass]="{'active': currentRoute === '/admin'}">
+            <a routerLink="/admin">
+                <i class='bx bxs-dashboard'></i>
+                <span class="text">Admin</span>
+            </a>
+        </li>
+        <li [ngClass]="{'active': currentRoute === '/addtraining'}">
+            <a routerLink="/addtraining">
               <i class='bx bxs-trophy'></i>
-              <span class="text">My Competition</span>
-          </a>
-      </li>
-      <li>
-          <a href="#">
-              <i class='bx bxs-bar-chart-alt-2'></i>
-              <span class="text">Analytics</span>
-          </a>
-      </li>
-      <li>
-          <a href="#">
-              <i class='bx bxs-message-dots'></i>
-              <span class="text">Message</span>
-          </a>
-      </li>
-      <li [ngClass]="{'active': currentRoute === '/addProblem'}">
-          <a routerLink="/addProblem">
-              <i class='bx bxs-bug'></i>
-              <span class="text">Problems</span>
-          </a>
-      </li>
-      <li [ngClass]="{'active': currentRoute === '/candidates'}">
-          <a routerLink="/candidates/">
+              <span class="text">Courses</span>
+            </a>
+          </li>
+        <li [ngClass]="{'active': currentRoute === '/users'}">
+            <a routerLink="/users">
+                <i class='bx bxs-user'></i>
+                <span class="text">Users</span>
+            </a>
+        </li>
+        <li [ngClass]="{'active': currentRoute === '/addCompetition'}">
+            <a routerLink="/addCompetition">
+                <i class='bx bxs-trophy'></i>
+                <span class="text">My Competition</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-bar-chart-alt-2'></i>
+                <span class="text">Analytics</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-message-dots'></i>
+                <span class="text">Message</span>
+            </a>
+        </li>
+        <li [ngClass]="{'active': currentRoute === '/addProblem'}">
+            <a routerLink="/addProblem">
+                <i class='bx bxs-bug'></i>
+                <span class="text">Problems</span>
+            </a>
+        </li>
+        <li [ngClass]="{'active': currentRoute === '/candidates'}">
+            <a routerLink="/candidates/">
+                <i class='bx bxs-group'></i>
+                <span class="text">Candidates</span>
+            </a>
+        </li>
+    
+      <li [ngClass]="{'active': currentRoute === '/reclamations'}">
+          <a routerLink="/reclamations/">
               <i class='bx bxs-group'></i>
-              <span class="text">Candidates</span>
+              <span class="text">reclamations</span>
           </a>
       </li>
   
-    <li [ngClass]="{'active': currentRoute === '/reclamations'}">
-        <a routerLink="/reclamations/">
-            <i class='bx bxs-group'></i>
-            <span class="text">reclamations</span>
-        </a>
-    </li>
-
-      <li [ngClass]="{'active': currentRoute === '/candidates'}">
-        <a routerLink="/addSubs">
-            <i class='bx bxs-group'></i>
-            <span class="text">Subscription</span>
-        </a>
-    </li>
-      <li [ngClass]="{'active': currentRoute === '/jobs/new'}">
-          <a routerLink="/jobs/new">
-              <i class='bx bxs-briefcase'></i>
-              <span class="text">Add Job</span>
+        <li [ngClass]="{'active': currentRoute === '/candidates'}">
+          <a routerLink="/addSubs">
+              <i class='bx bxs-group'></i>
+              <span class="text">Subscription</span>
           </a>
       </li>
-  </ul>
-  <ul class="side-menu bottom">
-      <li>
-          <a href="#">
-              <i class='bx bxs-cog'></i>
-              <span class="text">Settings</span>
-          </a>
-      </li>
-      <li>
-          <a href="#" class="logout">
-              <i class='bx bxs-log-out-circle'></i>
-              <span class="text">Logout</span>
-          </a>
-      </li>
-  </ul>
-</section>
+        <li [ngClass]="{'active': currentRoute === '/jobs/new'}">
+            <a routerLink="/jobs/new">
+                <i class='bx bxs-briefcase'></i>
+                <span class="text">Add Job</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="side-menu bottom">
+        <li>
+            <a href="#">
+                <i class='bx bxs-cog'></i>
+                <span class="text">Settings</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="logout">
+                <i class='bx bxs-log-out-circle'></i>
+                <span class="text">Logout</span>
+            </a>
+        </li>
+    </ul>
+  </section>
+  

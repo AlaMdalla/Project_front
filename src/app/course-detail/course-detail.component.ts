@@ -1,54 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { TrainingService } from 'src/app/Services/training.service';
 import { Training } from 'src/app/models/Training';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Evaluation } from '../models/Evaluation';
+import { EvaluationService } from '../Services/evaluation.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
+  standalone: true,
+  imports: [
+    RouterLink,
+    CommonModule,
+    HttpClientModule
+  ],
   styleUrls: ['./course-detail.component.css']
 })
 export class CourseDetailComponent implements OnInit {
-  courseId: number = 0;
-  course: Training | undefined;
-  safeVideoUrl: SafeResourceUrl | undefined;
+  trainingId: number = 0;
+  course: Training | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private trainingService: TrainingService,
-    private sanitizer: DomSanitizer
-
+    private router: Router
   ) {}
-  sanitizeUrl(url: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
 
   ngOnInit(): void {
-    this.courseId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log("Course ID retrieved:", this.courseId);
+    this.trainingId = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (this.courseId) {
-      this.getCourseDetails(this.courseId);
-    } else {
-      console.error("Invalid course ID");
+    if (this.trainingId) {
+      this.getCourseDetails(this.trainingId); // Charger les détails du cours
     }
   }
 
+  // Charger les détails du cours
   getCourseDetails(id: number): void {
-    this.trainingService.getTrainingById(id).subscribe(
-      (data: Training) => {
-        console.log("Course details received:", data);
+    this.trainingService.getTrainingById(id).subscribe({
+      next: (data: Training) => {
+        console.log('Détails du cours reçus :', data); // Debugging
         this.course = data;
-
-        // Sécuriser l'URL de la vidéo (YouTube, Drive, etc.)
-        if (this.course.videoUrl) {
-          this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.course.videoUrl);
-        }
       },
-      (error) => {
-        console.error('Error fetching course details:', error);
+      error: (error) => {
+        console.error('Erreur lors du chargement des détails du cours', error);
       }
-    );
+    });
+  }
+
+  // Naviguer vers la page des évaluations associées au cours
+  goToEvaluations(): void {
+    this.router.navigate([`/evaluations/${this.trainingId}`]);
   }
 }

@@ -1,376 +1,81 @@
-/* Sidebar styling (assumed fixed) */
-app-sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  height: 100vh;
-  background: #ffffff;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+/* ✅ Style global */
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Content area with sidebar */
-#content {
-  margin-top: 80px;
-  margin-left: 250px;
-  padding: 40px 20px;
-  min-height: 100vh;
-  background: #f9fafb;
-}
-
-/* Competition container */
-.competition-container {
-  max-width: 800px; /* Slightly wider for nested content */
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* Card */
-.card {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  padding: 30px;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #60a5fa);
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Form header */
-.card h2 {
-  font-size: 28px;
-  color: #3b82f6;
-  margin-bottom: 20px;
-  position: relative;
-  font-weight: 700;
+h2, h3 {
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  color: #333;
 }
 
-.card h2::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 4px;
-  background: #2dd4bf;
-  border-radius: 2px;
-}
-
-.title-icon {
-  font-size: 24px;
-}
-
-/* Questions section header */
-h3 {
-  font-size: 20px;
-  color: #3b82f6;
-  margin: 20px 0 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Options section header */
-h4 {
-  font-size: 16px;
-  color: #3b82f6;
-  margin: 15px 0 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.section-icon {
-  font-size: 18px;
-}
-
-/* Form styling */
-.post-form {
+form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
-/* Form group */
+/* ✅ Champs de formulaire */
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  position: relative;
+  margin-bottom: 15px;
 }
 
-/* Labels */
-.form-group label {
-  font-size: 15px;
-  font-weight: 600;
-  color: #3b82f6;
-  margin-bottom: 5px;
+label {
+  font-weight: bold;
 }
 
-/* Inputs, textarea, and select */
-.form-group input,
-.form-group textarea,
-.form-group select {
-  padding: 10px 40px 10px 15px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  font-size: 14px;
-  color: #1f2937;
-  background: #fafafa;
-  transition: all 0.3s ease;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  border-color: #2dd4bf;
-  background: #ffffff;
-  outline: none;
-  box-shadow: 0 0 8px rgba(45, 212, 191, 0.2);
-}
-
-/* Select specific styling */
-.form-group select {
-  appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%236b7280" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-}
-
-/* Input icons */
-.input-icon {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  color: #6b7280;
-}
-
-/* Questions container */
-.questions-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* Question box */
 .question-box {
-  padding: 15px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  background: #fefefe;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
-}
-
-/* Options container */
-.options-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-left: 20px;
-}
-
-/* Option group */
-.option-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.option-group input {
-  flex: 1;
-}
-
-/* Remove option button */
-.btn-remove {
-  background: #dc3545;
-  color: white;
-  padding: 5px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.btn-remove:hover {
-  background: #ef5350;
-  transform: scale(1.1);
-}
-
-/* Question actions */
-.question-actions {
-  display: flex;
-  gap: 10px;
+  background: #e3eaf3;
+  padding: 10px;
+  border-radius: 8px;
   margin-top: 10px;
 }
 
-/* Small buttons */
-.btn-small {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: #3b82f6;
+/* ✅ Boutons */
+.btn {
+  background-color: #28a745;
   color: white;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.btn:hover {
+  background-color: #218838;
+}
+
+.btn-small {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px 0;
 }
 
 .btn-small:hover {
-  background: #2dd4bf;
-  transform: scale(1.05);
+  background-color: #0056b3;
 }
 
-.btn-small:active {
-  background: #2563eb;
-  transform: scale(1);
+.delete {
+  background-color: #dc3545;
 }
 
-.btn-small.delete {
-  background: #dc3545;
-  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
-}
-
-.btn-small.delete:hover {
-  background: #ef5350;
-}
-
-/* Button container */
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-/* Buttons */
-.button-container button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-/* Submit button */
-.button-container .btn-primary {
-  background: #2dd4bf;
-  color: white;
-}
-
-.button-container .btn-primary:disabled {
-  background: #b2bec3;
-  cursor: not-allowed;
-  box-shadow: none;
-  opacity: 0.7;
-}
-
-.button-container .btn-primary:not(:disabled):hover {
-  background: #5eead4;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
-}
-
-.button-container .btn-primary:not(:disabled):active {
-  background: #1e40af;
-  transform: scale(1);
-}
-
-/* Success message */
-.success-message {
-  text-align: center;
-  color: #2dd4bf;
-  font-size: 14px;
-  margin-top: 10px;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  app-sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    box-shadow: none;
-  }
-
-  #content {
-    margin-left: 0;
-    padding: 20px 10px;
-  }
-
-  .competition-container {
-    max-width: 100%;
-  }
-
-  .button-container {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .button-container button {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .question-actions {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .btn-small {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .option-group {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn-remove {
-    width: 100%;
-    border-radius: 6px;
-  }
+.delete:hover {
+  background-color: #c82333;
 }

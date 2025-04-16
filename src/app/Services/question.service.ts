@@ -18,4 +18,7 @@ export class QuestionService {
   getQuestions(): Observable<Question[]> {
     return this.http.get<Question[]>(this.apiUrl);
   }
+  addQuestion(evaluation: Question): Observable<Question> {
+    return this.http.post<Question>(`${this.apiUrl}/add`, evaluation);
+  }
 }

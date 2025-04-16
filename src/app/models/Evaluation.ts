@@ -11,6 +11,3 @@ export interface Evaluation {
   certificat: boolean;
   questions?: Question[];
 }
-
-
-

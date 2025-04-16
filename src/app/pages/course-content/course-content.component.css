@@ -1,0 +1,106 @@
+/* 🌟 Style général du conteneur de cours */
+.course-details {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+/* ✅ Titres */
+.course-details h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2f6cad;
+  text-align: center;
+}
+
+/* ✅ Texte général */
+.course-details p {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+/* ✅ Encadré pour le contenu pédagogique */
+.training-content-box {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: #fdfdfd;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  white-space: pre-line;
+}
+
+/* 🖼️ Images */
+.course-image {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 🎥 Vidéo */
+.course-details video {
+  display: block;
+  margin: 2rem auto;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔘 Bouton retour */
+.btn-outline-primary {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 10px 20px;
+  border: 2px solid #2f6cad;
+  border-radius: 8px;
+  background: transparent;
+  color: #2f6cad;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-outline-primary:hover {
+  background: #2f6cad;
+  color: #fff;
+}
+
+/* 📱 Responsive */
+@media screen and (max-width: 600px) {
+  .course-details {
+    padding: 1em;
+  }
+
+  .course-details h2 {
+    font-size: 1.6rem;
+  }
+
+  .course-details p {
+    font-size: 1rem;
+  }
+}
+.pagination-controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination-controls button {
+  background-color: #2f6cad;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin: 0 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pagination-controls button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
