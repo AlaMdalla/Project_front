@@ -318,7 +318,7 @@ label:hover {
   font-weight: bold;
 }
 .btn-warning {
-  background-color: #ffc107;
+  background-color: #4CAF50;;
   border: none;
   color: #212529;
   padding: 10px 20px;
@@ -331,6 +331,6 @@ label:hover {
 }
 
 .btn-warning:hover {
-  background-color: #e0a800;
+  background-color:#4CAF50;;
   transform: scale(1.03);
 }

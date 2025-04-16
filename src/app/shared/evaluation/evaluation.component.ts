@@ -168,7 +168,7 @@ export class EvaluationComponent implements OnInit {
     if (this.isEvaluationAccessible(evaluation.niveau)) {
       this.selectedEvaluation = evaluation;
       this.questions = this.processQuestions(evaluation.questions || []);
-      this.remainingTime = evaluation.evaluationDuration;
+      this.remainingTime = evaluation.evaluationDuration * 60;
       this.maxTime = evaluation.evaluationDuration;
       this.startTimer();
     } else {
@@ -275,7 +275,9 @@ export class EvaluationComponent implements OnInit {
     }
 
     this.totalScore = (score / totalQuestions) * 100;
-    this.isPassed = this.totalScore >= this.selectedEvaluation?.score;
+    // this.isPassed = this.totalScore >= this.selectedEvaluation?.score;
+    this.isPassed = this.totalScore >= 70;
+
     this.showResult = true;
   }
 
