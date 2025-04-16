@@ -1,0 +1,26 @@
+<div *ngIf="course; else loading">
+  <h2>{{ course.title }}</h2>
+  <p><strong>Content:</strong></p>
+  <p>{{ course.content }}</p>
+
+  <h3>Training Details</h3>
+  <p><strong>Date:</strong> {{ course.trainingdate | date: 'medium' }}</p>
+  <p><strong>Duration:</strong> {{ course.duration }}</p>
+  <p><strong>Level:</strong> {{ course.level }}</p>
+
+  <!-- Affichage de la vidéo si l'URL existe -->
+  <div *ngIf="course.videoUrl">
+    <h4>Course Video:</h4>
+    <iframe
+      [src]="sanitizeUrl(course.videoUrl)"
+      width="640"
+      height="360"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Loading course details...</p>
+</ng-template>

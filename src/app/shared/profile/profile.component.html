@@ -1,0 +1,90 @@
+<div class="profile-container">
+    <div class="profile-header">
+        <h2>Profile Information</h2>
+        <span class="status-dot" [ngClass]="{'active': profileInfo?.ourUsers?.role === 'ADMIN'}"></span>
+    </div>
+    <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+    <div class="profile-card">
+        <div class="profile-avatar">
+            <span class="avatar-initial">{{ profileInfo?.ourUsers?.name?.charAt(0) | uppercase }}</span>
+        </div>
+        <div class="profile-details">
+            <div class="detail-item">
+                <span class="label">ID</span>
+                <span class="value">{{profileInfo?.ourUsers?.id || 'N/A'}}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Name</span>
+                <span class="value">{{profileInfo?.ourUsers?.name || 'N/A'}}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Email</span>
+                <span class="value">{{profileInfo?.ourUsers?.email || 'N/A'}}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">City</span>
+                <span class="value">{{profileInfo?.ourUsers?.city || 'N/A'}}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Role</span>
+                <span class="value">{{profileInfo?.ourUsers?.role || 'N/A'}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="passed-problems">
+        <h3>Passed Problems</h3>
+        <ul *ngIf="passedProblems.length > 0; else noProblems">
+            <li *ngFor="let problem of passedProblems">
+                <span class="problem-title">{{ problem }}</span>
+            </li>
+        </ul>
+        <ng-template #noProblems>
+            <p class="no-problems">No problems solved yet.</p>
+        </ng-template>
+    </div>
+    
+    <div class="submissions-container">
+        <h3>Submission History</h3>
+        <ul *ngIf="submissions.length > 0; else noSubmissions">
+          <li *ngFor="let submission of submissions" 
+              class="submission-tile" 
+              [ngClass]="{'green': submission.passed, 'red': !submission.passed}">
+            <!-- Optional: Display additional info on hover using title -->
+            <span class="tooltip">
+              {{ submission.language }} • {{ submission.submittedAt | date:'short' }}
+            </span>
+          </li>
+        </ul>
+        <ng-template #noSubmissions>
+          <p class="no-submissions">No submissions yet.</p>
+        </ng-template>
+      </div>
+    
+    <button class="update-btn" (click)="updateProfile(profileInfo?.ourUsers?.id)">Update Profile</button>
+    <div class="chart-container">
+        <canvas  id="MyChart" >{{ chart }}</canvas>
+    </div>
+    <div class="chart-container">
+        <canvas  id="MyLineChart" >{{ lineChart }}</canvas>
+        
+    </div>
+
+    <div class="heatmap">
+        <div class="days-column">
+          <div class="day-label" *ngFor="let day of weekDays">{{ day }}</div>
+        </div>
+      
+        <div class="weeks">
+          <div class="week" *ngFor="let week of heatmapWeeks">
+            <div
+              *ngFor="let day of week"
+              class="cell"
+              [style.background-color]="getColor(day.count)"
+              [title]="day.date + ': ' + day.count + ' submissions'"
+            ></div>
+          </div>
+        </div>
+      </div>
+      
+       
+</div>

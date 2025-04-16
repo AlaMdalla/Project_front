@@ -1,0 +1,69 @@
+<div class="chat-container">
+  <!-- User List -->
+  <div class="user-list">
+    <h3>Available Users</h3>
+    <div *ngIf="isLoading">Loading users...</div>
+    <div *ngIf="error" class="error">
+      {{ error }}
+      <button (click)="retry()">Retry</button>
+    </div>
+    <div *ngIf="connectionError" class="error">{{ connectionError }}</div>
+    <div *ngIf="!isLoading && !error && availableUsers.length === 0">
+      No users available to chat with.
+    </div>
+    <ul>
+      <li
+        *ngFor="let user of availableUsers"
+        (click)="selectUser(user)"
+        [class.selected]="user.id === selectedUserId"
+      >
+        {{ user.name || user.username }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Chat Box -->
+  <div class="chat-box" *ngIf="selectedUserId">
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <h4>Chatting with {{ getUsernameById(selectedUserId) }}</h4>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="messages" #messagesContainer>
+      <div *ngIf="isMessagesLoading">Loading messages...</div>
+      <div *ngIf="!isMessagesLoading && messages.length === 0">
+        No messages yet.
+      </div>
+      <div *ngFor="let msg of messages" [class.own]="msg.senderId === userId" class="message">
+        <div *ngIf="msg.content">{{ msg.content }}</div>
+        <div *ngIf="msg.voiceNoteUrl">
+          <audio controls>
+            <source [src]="msg.voiceNoteUrl" type="audio/webm" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        <span class="timestamp">{{ msg.timestamp | date: 'short' }}</span>
+      </div>
+    </div>
+
+    <!-- Input + Emoji Picker -->
+    <div class="input-area">
+      <div class="input-box">
+        <input
+          [(ngModel)]="newMessage"
+          placeholder="Type a message..."
+          (keyup.enter)="sendMessage()"
+        />
+        <button [disabled]="!newMessage.trim()" (click)="sendMessage()">Send</button>
+        <button *ngIf="!isRecording" (click)="startRecording()">🎤</button>
+        <button *ngIf="isRecording" (click)="stopRecording()">⏹</button>
+        <button (click)="toggleEmojiPicker()">😊</button>
+      </div>
+
+      <div *ngIf="showEmojiPicker" class="emoji-picker">
+        <emoji-mart (emojiSelect)="addEmoji($event)"></emoji-mart>
+      </div>
+    </div>
+  </div>
+</div>

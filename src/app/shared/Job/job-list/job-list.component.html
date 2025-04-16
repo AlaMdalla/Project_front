@@ -1,0 +1,23 @@
+<h2>Job List</h2>
+<ul>
+  <li *ngFor="let job of jobs">
+    <div class="job-title">{{ job.title }}</div>
+    <div class="job-details">
+      <div class="job-department">{{ job.department }}</div>
+      <div class="job-location">
+        <a [href]="getGoogleMapsUrl(job.location)" target="_blank">{{ job.location }}</a>
+      </div>
+      <div class="job-status" [ngClass]="{'open': job.status === 'Open', 'closed': job.status === 'Closed'}">{{ job.status }}</div>
+    </div>
+    <div class="job-description">
+      <p>{{ job.description || 'No description available.' }}</p>
+    </div>
+    <div class="job-image" *ngIf="job.image">
+      <img [src]="job.image" alt="Job Image" />
+    </div>
+    <div class="job-actions">
+      <button [ngClass]="{'disabled': job.status === 'Closed'}" [disabled]="job.status === 'Closed'" [routerLink]="['/candidates/new', job.jobId]">Apply</button>
+      
+    </div>
+  </li>
+</ul>

@@ -1,0 +1,112 @@
+.chat-container {
+  display: flex;
+  height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.user-list {
+  width: 30%;
+  border-right: 1px solid #ccc;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.user-list h3 {
+  margin-top: 0;
+}
+
+.user-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-list li {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.user-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.user-list li.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.chat-box {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.message {
+  margin-bottom: 10px;
+}
+
+.message.own {
+  text-align: right;
+}
+
+.message .content {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background-color: #f0f0f0;
+}
+
+.message.own .content {
+  background-color: #007bff;
+  color: white;
+}
+
+.message .timestamp {
+  font-size: 0.8em;
+  color: #666;
+  margin-left: 10px;
+}
+
+.input-box {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.input-box input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.input-box button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.input-box button:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  padding: 10px;
+}
