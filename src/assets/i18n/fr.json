@@ -47,7 +47,8 @@
     "CERTIFICATE_SCORE": "Score",
     "CERTIFICATE_DATE": "Date",
     "CERTIFICATE_DIRECTOR": "Directeur de la plateforme",
-    "CERTIFICATE_DOWNLOAD": "🎓 Télécharger le Certificat PDF"
+    "CERTIFICATE_DOWNLOAD": "🎓 Télécharger le Certificat PDF",
+    "SHOW_RESULT_NOW": "🎯 Afficher le résultat maintenant"
   }
 }
 

@@ -110,11 +110,11 @@ export class EvaluationComponent implements OnInit {
     alert("🚫 Coller est désactivé !");
   }
 
-  // @HostListener('document:contextmenu', ['$event'])
-  // handleRightClick(event: MouseEvent) {
-  //   event.preventDefault();
-  //   alert("🚫 Clic droit interdit !");
-  // }
+   @HostListener('document:contextmenu', ['$event'])
+  handleRightClick(event: MouseEvent) {
+     event.preventDefault();
+     alert("🚫 Clic droit interdit !");
+   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
@@ -263,6 +263,7 @@ export class EvaluationComponent implements OnInit {
   }
 
   calculateScore(): void {
+    if (this.showResult) return;
     clearInterval(this.interval);
     let score = 0;
     const totalQuestions = this.questions.length;
