@@ -1,9 +1,9 @@
-
 <app-sidebar></app-sidebar>
 <div id="content">
     <div class="candidate-container">
         <div class="card">
             <h2>{{ isEditMode ? 'Edit Candidate' : 'Add Candidate' }}</h2>
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
             <form (ngSubmit)="onSubmit()" #candidateForm="ngForm">
                 <!-- Email -->
                 <div class="form-group">
@@ -41,7 +41,7 @@
                         [(ngModel)]="candidate.phone"
                         name="phone"
                         required
-                        pattern="\+?[1-9]\d{1,14}"
+                        pattern="\\+[1-9]\\d{1,14}"
                         [class.invalid]="candidateForm.submitted && candidateForm.form.controls['phone']?.invalid"
                     />
                     <div
@@ -52,7 +52,7 @@
                             Phone number is required.
                         </span>
                         <span *ngIf="candidateForm.form.controls['phone']?.errors?.['pattern']">
-                            Please enter a valid phone number (e.g., +1234567890).
+                            Please enter a valid phone number starting with + (e.g., +1234567890).
                         </span>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
 
                 <!-- Form Actions -->
                 <div class="button-container">
-                    <button type="submit" class="btn-primary">
+                    <button type="submit" class="btn-primary" >
                         {{ isEditMode ? 'Update Candidate' : 'Create Candidate' }}
                     </button>
                     <button type="button" class="btn-secondary" (click)="onCancel()">Cancel</button>

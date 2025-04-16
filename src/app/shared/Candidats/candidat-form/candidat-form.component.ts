@@ -1,16 +1,14 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Candidate } from 'src/app/models/Candidate';
 import { Job } from 'src/app/models/Job';
 import { CandidateService } from 'src/app/Services/candidate.service';
 import { JobService } from 'src/app/Services/job.service';
-import { UsersService } from 'src/app/Services/users.service';
 
 @Component({
   selector: 'app-candidat-form',
   templateUrl: './candidat-form.component.html',
-  styleUrls: ['./candidat-form.component.css'],
+  styleUrls: ['./candidat-form.component.css']
 })
 export class CandidateFormComponent implements OnInit {
   candidate: Candidate = new Candidate();
@@ -18,7 +16,6 @@ export class CandidateFormComponent implements OnInit {
   isEditMode: boolean = false;
   jobId: number | null = null;
   selectedJobTitle: string | null = null;
-  profileInfo: any;
   errorMessage: string = '';
 
   constructor(
@@ -26,7 +23,6 @@ export class CandidateFormComponent implements OnInit {
     private jobService: JobService,
     private route: ActivatedRoute,
     private router: Router,
-    private readonly userService: UsersService,
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +38,10 @@ export class CandidateFormComponent implements OnInit {
             this.candidate.applicationDate = new Date(this.candidate.applicationDate).toISOString().slice(0, 16);
           }
         },
-        error: (err) => console.error('❌ Error fetching candidate:', err),
+        error: (err) => {
+          console.error('❌ Error fetching candidate:', err);
+          this.showError('Failed to load candidate data.');
+        },
       });
     }
 
@@ -70,7 +69,10 @@ export class CandidateFormComponent implements OnInit {
           }
         }
       },
-      error: (err) => console.error('❌ Error fetching jobs:', err),
+      error: (err) => {
+        console.error('❌ Error fetching jobs:', err);
+        this.showError('Failed to load jobs.');
+      },
     });
   }
 
@@ -79,7 +81,7 @@ export class CandidateFormComponent implements OnInit {
     if (input.files && input.files[0]) {
       const file = input.files[0];
       if (file.size > 5 * 1024 * 1024) {
-        alert('Resume too large! Max 5MB.');
+        this.showError('Resume too large! Max 5MB.');
         return;
       }
       this.candidateService.uploadResume(file).subscribe({
@@ -87,16 +89,15 @@ export class CandidateFormComponent implements OnInit {
           this.candidate.resumeUrl = url;
           console.log('Resume uploaded, URL:', url);
         },
-        error: (err) => console.error('Error uploading resume:', err),
+        error: (err) => {
+          console.error('Error uploading resume:', err);
+          this.showError('Failed to upload resume.');
+        },
       });
     }
   }
 
-  updateProfile(id: string) {
-    this.router.navigate(['/update', id]);
-  }
-
-  showError(mess: string) {
+  showError(mess: string): void {
     this.errorMessage = mess;
     setTimeout(() => {
       this.errorMessage = '';
@@ -120,7 +121,7 @@ export class CandidateFormComponent implements OnInit {
       resumeUrl: this.candidate.resumeUrl,
       applicationDate: this.candidate.applicationDate ? new Date(this.candidate.applicationDate).toISOString() : null,
       status: this.candidate.status,
-      jobId: this.candidate.jobId,
+      jobId: this.candidate.jobId
     };
 
     console.log('Payload sent:', JSON.stringify(candidateData, null, 2));
@@ -129,7 +130,7 @@ export class CandidateFormComponent implements OnInit {
       console.log('✏️ Updating candidate with ID:', this.candidate.id);
       this.candidateService.updateCandidate(this.candidate.id, candidateData).subscribe({
         next: () => {
-          alert(`Candidate updated successfully! Email sent to ${candidateData.email}.`);
+          alert("Candidate updated successfully! Email and SMS sent to ${candidateData.email} and ${candidateData.phone} from PidevFinal Team.");
           this.router.navigate(['/candidates']);
         },
         error: (err) => {
@@ -141,7 +142,7 @@ export class CandidateFormComponent implements OnInit {
       console.log('➕ Creating a new candidate');
       this.candidateService.createCandidate(candidateData).subscribe({
         next: () => {
-          alert('Application submitted successfully! A confirmation email has been sent to ' + candidateData.email);
+          alert("Application submitted successfully! Email and SMS sent to ${candidateData.email} and ${candidateData.phone} from PidevFinal Team.");
           this.router.navigate(['/candidates']);
         },
         error: (err) => {

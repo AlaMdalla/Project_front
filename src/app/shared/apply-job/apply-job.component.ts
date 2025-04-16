@@ -139,7 +139,7 @@ export class ApplyJobComponent {
       console.log('➕ Creating candidate');
       this.candidateService.createCandidate(candidateData).subscribe({
         next: () => {
-          alert('Application submitted successfully!');
+          alert("Candidate updated successfully! Email and SMS sent to ${candidateData.email} and ${candidateData.phone} from PidevFinal Team.");
           this.router.navigate(['/candidates']);
         },
         error: (err) => {
