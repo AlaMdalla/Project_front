@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Urls } from '../config/Urls';
 
@@ -9,30 +9,68 @@ const BASIC_URL = Urls.BASIC_URL;
   providedIn: 'root'
 })
 export class PostService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  createNewPost(formData: FormData): Observable<any> {
-    return this.http.post(BASIC_URL + `blog/posts`, formData, { observe: 'response' });
+  private getHeaders(userId?: number): HttpHeaders {
+    const token = localStorage.getItem('token');
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    if (userId) {
+      headers = headers.set('User-Id', userId.toString());
+    }
+    return headers;
+  }
+
+  createNewPost(userId: number, formData: FormData): Observable<any> {
+    return this.http.post(BASIC_URL + `blog/posts/create/${userId}`, formData, { observe: 'response' });
   }
 
   getAllPosts(): Observable<any> {
-    return this.http.get(BASIC_URL + `blog/posts`);
+    return this.http.get(BASIC_URL + `blog/posts`, {
+      headers: this.getHeaders()
+    });
   }
 
-  getPostById(postId: number): Observable<any> {
-    return this.http.get(BASIC_URL + `blog/posts/${postId}`);
+  getPostById(userId: number, postId: number): Observable<any> {
+    return this.http.get(BASIC_URL + `blog/posts/${postId}`, {
+        headers: this.getHeaders(userId)
+    });
+}
+
+  viewPost(userId: number, postId: number): Observable<any> {
+    return this.http.put(BASIC_URL + `blog/posts/${postId}/view`, {}, {
+      headers: this.getHeaders(userId)
+    });
   }
-  reactPost(postId: number, reaction: string): Observable<any> {
+
+  reactPost(userId: number, postId: number, reaction: string): Observable<any> {
     const params = new HttpParams().set('reaction', reaction);
-    return this.http.put(`${BASIC_URL}blog/posts/${postId}/react`, {}, { params });
+    return this.http.put(`${BASIC_URL}blog/posts/${postId}/react`, {}, {
+      headers: this.getHeaders(userId),
+      params
+    });
   }
 
-  deletePostById(postId: number): Observable<void> {
-    return this.http.delete<void>(BASIC_URL + `blog/posts/${postId}`);
+  deletePostById(userId: number, postId: number): Observable<void> {
+    return this.http.delete<void>(BASIC_URL + `blog/posts/${postId}`, {
+      headers: this.getHeaders(userId)
+    });
   }
-  updatePost(postId: number, formData: FormData): Observable<any> {
-    return this.http.put(BASIC_URL + `blog/posts/${postId}`, formData, { observe: 'response' });
+
+  updatePost(userId: number, postId: number, formData: FormData): Observable<any> {
+    return this.http.put(BASIC_URL + `blog/posts/${postId}`, formData, {
+      headers: this.getHeaders(userId),
+      observe: 'response'
+    });
   }
-  
-  
+
+  sharePostOnFacebook(userId: number, postId: number, accessToken: string): Observable<any> {
+    const params = new HttpParams()
+        .set('userId', userId.toString())
+        .set('accessToken', accessToken);
+    return this.http.post(BASIC_URL + `${postId}/share-on-facebook`, null, { params });
+}
+
 }

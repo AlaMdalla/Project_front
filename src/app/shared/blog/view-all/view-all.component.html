@@ -5,7 +5,7 @@
             <span class="btn-icon">+</span> Add Post
         </button>
     </div>
-  
+
     <!-- Filter Section -->
     <div class="filter-section">
         <div class="filter-group">
@@ -21,17 +21,16 @@
             </select>
         </div>
     </div>
-  
+
     <!-- Posts Grid -->
     <div class="posts-grid" *ngIf="displayedPosts.length > 0; else noPosts">
         <div *ngFor="let item of displayedPosts" class="post-card">
             <!-- Header with Avatar and Post Info -->
             <div class="post-header">
-                <img class="avatar-img" [src]="item.avatar" alt="Avatar" (error)="item.avatar = 'assets/img/default-avatar.jpg'">
                 <div class="post-meta">
                     <a class="post-title" routerLink="/view-post/{{ item.id }}">{{ item.title }}</a>
                     <p class="post-info">
-                        Posted by {{ item.postedBy }} in {{ item.category }} on {{ item.date | date: 'mediumDate' }}
+                        Posted by {{ item.name || 'Unknown User' }} in {{ item.category }} on {{ item.date | date: 'mediumDate' }}
                     </p>
                 </div>
                 <!-- Delete Button (for admins) -->
@@ -39,7 +38,7 @@
                     <clr-icon shape="trash"></clr-icon>
                 </button>
             </div>
-  
+
             <!-- Post Content and Image -->
             <div class="post-content">
                 <div class="post-image" *ngIf="item.img">
@@ -48,7 +47,7 @@
                 <div class="no-image" *ngIf="!item.img">No image available</div>
                 <p class="post-text">{{ item.content }}</p>
             </div>
-  
+
             <!-- Reactions and Actions -->
             <div class="post-actions">
                 <span class="reaction-info">
@@ -68,16 +67,16 @@
             </div>
         </div>
     </div>
-  
+
     <!-- No Posts Message -->
     <ng-template #noPosts>
         <div class="no-posts">No posts available.</div>
     </ng-template>
-  
+
     <!-- Pagination Controls -->
     <div class="pagination" *ngIf="totalItems > 0">
         <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn-page">Previous</button>
         <span>Page {{ currentPage }} of {{ totalPages }}</span>
         <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn-page">Next</button>
     </div>
-  </div>
+</div>

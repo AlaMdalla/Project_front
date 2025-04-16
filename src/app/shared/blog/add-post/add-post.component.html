@@ -2,7 +2,7 @@
 <div id="content">
   <div class="competition-container">
     <div class="card">
-      <form class="post-form">
+      <form class="post-form" [formGroup]="postForm" (ngSubmit)="createPost()">
         <h2>Create New Post</h2>
 
         <!-- Title -->
@@ -10,23 +10,14 @@
           <label for="title">Title:</label>
           <input 
             id="title" 
-            name="title" 
+            formControlName="title" 
             placeholder="Enter post title" 
             required 
             maxlength="100" />
-        </div>
-
-        <!-- Posted By -->
-        <div class="form-group">
-          <label for="postedBy">Posted By:</label>
-          <input 
-            id="postedBy" 
-            name="postedBy" 
-            placeholder="Enter your name" 
-            required 
-            pattern="[A-Za-z\s]+" 
-            minlength="2" 
-            maxlength="50" />
+          <div class="error-message" *ngIf="postForm.get('title')?.touched && postForm.get('title')?.invalid">
+            <span *ngIf="postForm.get('title')?.hasError('required')">Title is required.</span>
+            <span *ngIf="postForm.get('title')?.hasError('maxlength')">Title must not exceed 100 characters.</span>
+          </div>
         </div>
 
         <!-- Category -->
@@ -34,10 +25,14 @@
           <label for="category">Category:</label>
           <input 
             id="category" 
-            name="category" 
+            formControlName="category" 
             placeholder="Enter category" 
             required 
             maxlength="50" />
+          <div class="error-message" *ngIf="postForm.get('category')?.touched && postForm.get('category')?.invalid">
+            <span *ngIf="postForm.get('category')?.hasError('required')">Category is required.</span>
+            <span *ngIf="postForm.get('category')?.hasError('maxlength')">Category must not exceed 50 characters.</span>
+          </div>
         </div>
 
         <!-- Content -->
@@ -45,11 +40,25 @@
           <label for="content">Content:</label>
           <textarea 
             id="content" 
-            name="content" 
+            formControlName="content" 
             placeholder="Write your content here" 
             required 
             minlength="10" 
-            maxlength="5000"></textarea>
+            maxlength="5000"
+            (input)="onContentChange()"></textarea>
+          <div class="error-message" *ngIf="postForm.get('content')?.touched && postForm.get('content')?.invalid">
+            <span *ngIf="postForm.get('content')?.hasError('required')">Content is required.</span>
+            <span *ngIf="postForm.get('content')?.hasError('minlength')">Content must be at least 10 characters.</span>
+            <span *ngIf="postForm.get('content')?.hasError('maxlength')">Content must not exceed 5000 characters.</span>
+          </div>
+          <!-- Use Angular Material alert -->
+          <mat-card *ngIf="isToxicContent" class="alert-danger">
+            <mat-card-content>
+              <mat-icon class="alert-icon">error</mat-icon>
+              <span class="alert-message">{{ toxicityErrorMessage }}</span>
+              <mat-icon class="close-icon" (click)="isToxicContent = false">close</mat-icon>
+            </mat-card-content>
+          </mat-card>
         </div>
 
         <!-- Image Upload -->
@@ -59,13 +68,16 @@
             type="file" 
             id="image" 
             accept="image/*" 
-            class="file-input" />
-          <div class="preview-container"></div>
+            class="file-input" 
+            (change)="onFileChanged($event)" />
+          <div class="preview-container">
+            <img *ngIf="previewUrl" [src]="previewUrl" alt="Preview" style="max-width: 200px;" />
+          </div>
         </div>
 
         <div class="button-container">
-          <button type="submit" class="btn-primary">Create New Post</button>
-          <button type="button" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-primary" [disabled]="!postForm.valid || isToxicContent">Create Post</button>
+          <button type="button" class="btn-secondary" (click)="onCancel()">Cancel</button>
         </div>
       </form>
     </div>

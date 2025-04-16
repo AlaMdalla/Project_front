@@ -1,246 +1,344 @@
 /* Sidebar styling (assumed fixed) */
 app-sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px; /* Adjust this based on your actual sidebar width */
-    height: 100vh;
-    background: #ffffff; /* Example background, adjust as needed */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
-    z-index: 1000; /* Ensure it stays above content */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px; /* Adjust this based on your actual sidebar width */
+  height: 100vh;
+  background: #ffffff; /* Example background, adjust as needed */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  z-index: 1000; /* Ensure it stays above content */
+}
+
+/* Content area with sidebar */
+#content {
+  margin-top: 80px; /* Space for header if present */
+  margin-left: 250px; /* Match sidebar width to push content right */
+  padding: 40px 20px; /* Add padding for spacing */
+  min-height: 100vh;
+  background: #f9fafb; /* Lighter background */
+}
+
+/* Competitions container */
+.competitions-container {
+  max-width: 1200px; /* Wider for table */
+  width: 100%; /* Ensure it respects max-width */
+  margin: 0 auto;
+}
+
+/* Management header */
+.management-header {
+  display: flex;
+  justify-content: center; /* Center the header */
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+/* Header title */
+.management-header h2 {
+  font-size: 28px; /* Slightly larger for prominence */
+  color: #3b82f6; /* Lighter slate blue */
+  position: relative;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.management-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #2dd4bf; /* Softer teal underline */
+  border-radius: 2px;
+}
+
+.title-icon {
+  font-size: 24px;
+}
+
+/* Table wrapper */
+.table-wrapper {
+  overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  position: relative;
+}
+
+.table-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Table header */
+thead {
+  background: #fafafa; /* Light gray background for header */
+}
+
+th {
+  padding: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3b82f6; /* Lighter slate blue for headers */
+  text-align: left;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+th:hover {
+  background: #f1f5f9; /* Slightly darker gray on hover */
+}
+
+/* Header icons */
+.header-icon {
+  margin-right: 5px;
+  font-size: 16px;
+  color: #2dd4bf; /* Softer teal for icons */
+}
+
+/* Table body */
+tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+tbody tr:hover {
+  background: #f9fafc; /* Slightly lighter background on hover */
+}
+
+/* Table cells */
+td {
+  padding: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Edit and Delete buttons */
+.action-buttons button {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-buttons button:hover {
+  background: #2dd4bf; /* Softer teal on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+.action-buttons button:active {
+  background: #2563eb; /* Slightly darker blue for active state */
+  transform: scale(1);
+}
+
+/* Delete button specific styling */
+.action-buttons .btn-delete {
+  background: #dc3545; /* Red for Delete */
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.action-buttons .btn-delete:hover {
+  background: #ef5350; /* Lighter red on hover */
+  box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4);
+}
+
+.action-buttons .btn-delete:active {
+  background: #c0392b; /* Darker red for active state */
+}
+
+/* No data message */
+.no-data {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280; /* Gray for no-data text */
+  font-size: 16px;
+}
+
+.no-data-icon {
+  font-size: 24px;
+  color: #3b82f6; /* Slate blue for icon */
+  display: block;
+  margin-bottom: 10px;
+}
+
+.add-link {
+  color: #2dd4bf; /* Softer teal for link */
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.add-link:hover {
+  color: #5eead4; /* Lighter teal on hover */
+  text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  app-sidebar {
+    width: 100%; /* Full width on mobile */
+    height: auto; /* Adjust height */
+    position: relative; /* Stack above content */
+    box-shadow: none; /* Remove shadow for stacking */
   }
-  
-  /* Content area with sidebar */
+
   #content {
-    margin-top: 80px; /* Space for header if present */
-    margin-left: 250px; /* Match sidebar width to push content right */
-    padding: 40px 20px; /* Add padding for spacing */
-    min-height: 100vh;
-    background: #f9fafb; /* Lighter background */
+    margin-left: 0; /* Remove sidebar offset on mobile */
+    padding: 20px 10px;
   }
-  
-  /* Competitions container */
+
   .competitions-container {
-    max-width: 1200px; /* Wider for table */
-    width: 100%; /* Ensure it respects max-width */
-    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .management-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .action-buttons button {
+    width: 100%;
+    text-align: center;
+  }
+  :host ::ng-deep .btn-export {
+    background: linear-gradient(90deg, #34d399, #10b981);
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 3px 8px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s ease;
   }
   
-  /* Management header */
-  .management-header {
+  :host ::ng-deep .btn-export:hover {
+    background: linear-gradient(90deg, #2dd4bf, #0d9488);
+    box-shadow: 0 5px 12px rgba(16, 185, 129, 0.5);
+    transform: translateY(-2px);
+  }
+  
+  :host ::ng-deep .btn-export:active {
+    background: linear-gradient(90deg, #2dd4bf, #0d9488);
+    box-shadow: 0 2px 5px rgba(16, 185, 129, 0.2);
+    transform: translateY(0);
+  }
+  
+  :host ::ng-deep .btn-export .btn-icon {
+    font-size: 18px;
+    color: #ffffff;
+  }
+  
+  :host ::ng-deep .management-header {
     display: flex;
-    justify-content: center; /* Center the header */
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
   }
   
-  /* Header title */
-  .management-header h2 {
-    font-size: 28px; /* Slightly larger for prominence */
-    color: #3b82f6; /* Lighter slate blue */
-    position: relative;
-    font-weight: 700;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  :host ::ng-deep .table-wrapper {
+    overflow-x: auto;
   }
   
-  .management-header h2::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 4px;
-    background: #2dd4bf; /* Softer teal underline */
-    border-radius: 2px;
-  }
-  
-  .title-icon {
-    font-size: 24px;
-  }
-  
-  /* Table wrapper */
-  .table-wrapper {
-    overflow-x: auto; /* Enable horizontal scrolling on small screens */
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    background: #ffffff;
-    position: relative;
-  }
-  
-  .table-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
-  }
-  
-  /* Table styling */
-  table {
+  :host ::ng-deep table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  /* Table header */
-  thead {
-    background: #fafafa; /* Light gray background for header */
-  }
-  
-  th {
-    padding: 15px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #3b82f6; /* Lighter slate blue for headers */
+  :host ::ng-deep th, :host ::ng-deep td {
+    padding: 12px;
     text-align: left;
-    transition: all 0.3s ease;
-    position: relative;
+    border-bottom: 1px solid #ddd;
   }
   
-  th:hover {
-    background: #f1f5f9; /* Slightly darker gray on hover */
+  :host ::ng-deep th {
+    background-color: #f4f4f4;
   }
   
-  /* Header icons */
-  .header-icon {
-    margin-right: 5px;
-    font-size: 16px;
-    color: #2dd4bf; /* Softer teal for icons */
-  }
-  
-  /* Table body */
-  tbody tr {
-    border-bottom: 1px solid #eee;
-    transition: all 0.3s ease;
-  }
-  
-  tbody tr:hover {
-    background: #f9fafc; /* Slightly lighter background on hover */
-  }
-  
-  /* Table cells */
-  td {
-    padding: 15px;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  /* Action buttons */
-  .action-buttons {
+  :host ::ng-deep .action-buttons {
     display: flex;
-    gap: 10px;
+    gap: 8px;
   }
   
-  /* Edit and Delete buttons */
-  .action-buttons button {
-    background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+  :host ::ng-deep .btn-delete {
+    background-color: #dc3545;
     color: white;
-    padding: 8px 16px;
+    padding: 6px 12px;
     border: none;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
   }
   
-  .action-buttons button:hover {
-    background: #2dd4bf; /* Softer teal on hover */
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+  :host ::ng-deep .btn-delete:hover {
+    background-color: #c82333;
   }
   
-  .action-buttons button:active {
-    background: #2563eb; /* Slightly darker blue for active state */
-    transform: scale(1);
-  }
-  
-  /* Delete button specific styling */
-  .action-buttons .btn-delete {
-    background: #dc3545; /* Red for Delete */
-    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
-  }
-  
-  .action-buttons .btn-delete:hover {
-    background: #ef5350; /* Lighter red on hover */
-    box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4);
-  }
-  
-  .action-buttons .btn-delete:active {
-    background: #c0392b; /* Darker red for active state */
-  }
-  
-  /* No data message */
-  .no-data {
+  :host ::ng-deep .no-data {
     text-align: center;
-    padding: 40px 20px;
-    color: #6b7280; /* Gray for no-data text */
-    font-size: 16px;
+    padding: 20px;
   }
   
-  .no-data-icon {
+  :host ::ng-deep .no-data-icon {
     font-size: 24px;
-    color: #3b82f6; /* Slate blue for icon */
-    display: block;
-    margin-bottom: 10px;
+    margin-right: 8px;
   }
   
-  .add-link {
-    color: #2dd4bf; /* Softer teal for link */
+  :host ::ng-deep .add-link {
+    color: #007bff;
     text-decoration: none;
-    font-weight: 600;
   }
   
-  .add-link:hover {
-    color: #5eead4; /* Lighter teal on hover */
+  :host ::ng-deep .add-link:hover {
     text-decoration: underline;
   }
-  
-  /* Responsive design */
-  @media (max-width: 768px) {
-    app-sidebar {
-      width: 100%; /* Full width on mobile */
-      height: auto; /* Adjust height */
-      position: relative; /* Stack above content */
-      box-shadow: none; /* Remove shadow for stacking */
-    }
-  
-    #content {
-      margin-left: 0; /* Remove sidebar offset on mobile */
-      padding: 20px 10px;
-    }
-  
-    .competitions-container {
-      max-width: 100%;
-    }
-  
-    .management-header {
-      flex-direction: column;
-      gap: 10px;
-    }
-  
-    th,
-    td {
-      padding: 10px;
-      font-size: 12px;
-    }
-  
-    .action-buttons {
-      flex-direction: column;
-      gap: 5px;
-    }
-  
-    .action-buttons button {
-      width: 100%;
-      text-align: center;
-    }
-  }
+}
