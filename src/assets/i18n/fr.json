@@ -2,7 +2,14 @@
   "COURSE": {
     "AVAILABLE_COURSES": "Cours disponibles",
     "POSTED_ON": "Publié le",
-    "JOIN_COURSE": "Commencer le cours"
+    "JOIN_COURSE": "Commencer le cours",
+    "CONTENT_TITLE": "📝 Contenu du cours :",
+    "PREVIOUS": "⬅️ Précédent",
+    "NEXT": "Suivant ➡️",
+    "PAGE": "Page",
+    "NO_VIDEO_SUPPORT": "Votre navigateur ne supporte pas la vidéo.",
+    "GO_TO_EVAL": "🎯 Passer à l’évaluation",
+    "BACK": "Retour aux formations"
   },
 
   "TRAINING": {

@@ -1,6 +1,7 @@
 <div *ngIf="training" class="course-details">
   <!-- 🧠 Titre du cours -->
-  <h2>{{ training.title | translate}}</h2>
+  <h2>{{ training.title }}</h2>
+
   <!-- 🖼️ Image du cours -->
   <img
     [src]="'assets/img/' + training.idTraining + '.jpg'"
@@ -11,35 +12,38 @@
 
   <!-- ✅ Contenu du cours bien structuré et paginé -->
   <div *ngIf="formattedContent?.length" class="training-content-box">
-    <h3>📝 Course Content:</h3>
+    <h3>{{ 'COURSE.CONTENT_TITLE' | translate }}</h3>
     <ul>
       <li *ngFor="let line of paginatedContent">{{ line }}</li>
     </ul>
 
     <!-- Pagination Controls -->
     <div class="pagination-controls">
-      <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">⬅️</button>
-      <span>Page {{ currentPage }} / {{ totalPages }}</span>
-      <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">➡️</button>
+      <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+        {{ 'COURSE.PREVIOUS' | translate }}
+      </button>
+      <span>{{ 'COURSE.PAGE' | translate }} {{ currentPage }} / {{ totalPages }}</span>
+      <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">
+        {{ 'COURSE.NEXT' | translate }}
+      </button>
     </div>
   </div>
-
-
 
   <!-- 🎥 Vidéo du cours -->
   <video width="600" controls>
     <source [src]="'assets/videos/' + training.idTraining + '.mp4'" type="video/mp4" />
-    Votre navigateur ne supporte pas la vidéo.
+    {{ 'COURSE.NO_VIDEO_SUPPORT' | translate }}
   </video>
 
-
-    <!-- ✅ Bouton vers l’évaluation -->
+  <!-- ✅ Bouton vers l’évaluation -->
   <div class="text-center mt-4">
     <a [routerLink]="['/evaluation', training.idTraining]" class="btn btn-success">
-      🎯Go to evaluation
+      {{ 'COURSE.GO_TO_EVAL' | translate }}
     </a>
   </div>
 
   <!-- 🔙 Bouton de retour -->
-  <a routerLink="/formations" class="btn btn-outline-primary">⬅️back to trainings</a>
+  <a routerLink="/formations" class="btn btn-outline-primary">
+    ⬅️ {{ 'COURSE.BACK' | translate }}
+  </a>
 </div>
