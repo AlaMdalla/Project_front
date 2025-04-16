@@ -27,9 +27,15 @@
       <div class="competition-content">
         <h3 class="competition-title">{{ competition.title }}</h3>
         <p class="competition-date">
-          <clr-icon shape="clock"></clr-icon> Ended {{ '2025-08-20' | date:'MMM d, yyyy' }}
+          <clr-icon shape="clock"></clr-icon> Ended {{ competition.dateOfComp| date:'MMM d, yyyy' }}
         </p>
-        <a [routerLink]="['/Competition', competition.id]" class="join-button">Join</a>
+        <div class="button-group">
+          <a [routerLink]="['/Competition', competition.id]" class="join-button">Join</a>
+          <button class="calendar-button" (click)="scheduleMeeting(competition)">
+            <clr-icon shape="calendar"></clr-icon> Add to Calendar
+          </button>
+        </div>
+        
       </div>
     </div>
   </div>

@@ -1,6 +1,9 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Title } from 'chart.js';
 import { Competition } from 'src/app/models/Competition';
 import { CompetionService } from 'src/app/Services/competion.service';
+import { UsersService } from 'src/app/Services/users.service';
+declare var createGoogleEvent: any;
 
 @Component({
   selector: 'app-competitions',
@@ -17,13 +20,29 @@ export class CompetitionsComponent {
     searchTerm: string = '';
     pageSize: number = 3;
     currentPage: number = 1;
+    profileInfo: any;
+    email:any;
+
 
     @ViewChild('competitionsGrid', { static: false }) competitionsGrid!: ElementRef;
 
-    constructor(private competionService: CompetionService) {}
+    constructor(private competionService: CompetionService,private usersService:UsersService) {}
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         this.refresh();
+        try {
+            const token = localStorage.getItem('token')
+            if(!token){
+              throw new Error("No Token Found")
+            }
+        
+            this.profileInfo = await this.usersService.getYourProfile(token);
+            console.log(this.profileInfo)
+            this.email=this.profileInfo.ourUsers.email;
+           
+          } catch (error:any) {
+            console.log(error.message)
+          }
     }
     refresh(): void {
       this.isLoading = true;
@@ -74,6 +93,58 @@ export class CompetitionsComponent {
             }, 500);
         }
     }
+    scheduleMeeting(competion :Competition) {
+    console.log("dkhal")
+        const appointmentTime = new Date(competion.dateOfComp);
+        const startTime = appointmentTime.toISOString().slice(0, 18) + '-07:00';
+        const endTime = this.getEndTime(appointmentTime);
+    
+        const eventDetails = {
+          email: this.email,
+          startTime,
+          title:competion.title,
+          description:competion.description,
+          endTime
+        };
+    
+        console.info(eventDetails);
+        createGoogleEvent(eventDetails);
+      }
+    
+      getEndTime(appointmentTime: Date) {
+        appointmentTime.setHours(appointmentTime.getHours() + 1);
+        return appointmentTime.toISOString().slice(0, 18) + '-07:00';
+      }
+    
+      generateICSFile( competion :Competition) {
+        const datetimeValue = competion.dateOfComp;
+        const description=competion.description;
+        const title=competion.title;
+        const date = new Date(datetimeValue);
+        const endTime = new Date(date);
+        endTime.setHours(endTime.getHours() + 1);
+    
+        const formattedStartDate = date.toISOString().replace(/[-:]/g, '').slice(0, -5);
+        const formattedEndDate = endTime.toISOString().replace(/[-:]/g, '').slice(0, -5);
+    
+        const icsContent = `BEGIN:VCALENDAR
+    VERSION:2.0
+    BEGIN:VEVENT
+    DTSTAMP:${formattedStartDate}Z
+    DTSTART:${formattedStartDate}Z
+    DTEND:${formattedEndDate}Z
+    SUMMARY:Sample Event
+    DESCRIPTION:This is a sample event
+    LOCATION:Sample Location
+    END:VEVENT
+    END:VCALENDAR`;
+    
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = 'event.ics';
+        downloadLink.click();
+      }
 
     @HostListener('window:scroll', ['$event'])
     onWindowScroll(event: Event): void {
@@ -91,4 +162,5 @@ export class CompetitionsComponent {
                 this.isLoadingMore = false;
             }, 500);
         }}
+
 }

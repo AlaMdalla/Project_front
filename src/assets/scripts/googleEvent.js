@@ -3,6 +3,7 @@ const API_KEY="AIzaSyANwbhcT9w1CUHDUBwHyElwSlHtNdkbBTg";
 const DISCOVERY_DOC =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
   const SCOPES = "https://www.googleapis.com/auth/calendar";
+  const  name="";
   function gapiLoaded() {
     gapi.load("client", initializeGapiClient);
   }
@@ -36,9 +37,9 @@ const DISCOVERY_DOC =
   }
   function scheduleEvent(eventDetails) {
     const event = {
-      summary: "Google I/O 2015",
-      location: "800 Howard St., San Francisco, CA 94103",
-      description: "comppppp.",
+      summary:eventDetails.title,
+      location: "tunis",
+      description: eventDetails.description,
       start: { 
         
         dateTime: eventDetails.startTime,

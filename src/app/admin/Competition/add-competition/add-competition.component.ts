@@ -25,7 +25,9 @@ export class AddCompetitionComponent {
       description: ['', Validators.required],
       prices: [[]],
       problems: [[]],
-      image: ['']
+      image: [''],
+      dateOfComp: ['', Validators.required]  // <-- new field added
+
     });
   }
   ngOnInit() {

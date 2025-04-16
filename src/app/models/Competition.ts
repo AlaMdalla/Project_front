@@ -7,6 +7,7 @@ export interface Competition {
     prices: string[];  
     problems: Problem[];  
     image: string; 
+    dateOfComp: string;  // ⚠️ Format YYYY-MM-DD
 
       
   }

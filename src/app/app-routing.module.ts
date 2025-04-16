@@ -55,7 +55,8 @@ import { ChatComponent } from './chat/chat.component';
 import { adminGuard, usersGuard } from './Services/users.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
+
   { path: 'Problems', component: ListProblemComponent },
   { path: 'problemSubmission/:id', component: ProblemSubmitionComponent },
   { path: 'courses', component: CoursesComponent },
@@ -100,6 +101,8 @@ const routes: Routes = [
   { path: 'admin', component: HomeAdminComponent, canActivate: [adminGuard] },
   { path: 'addSubs', component: SubsCreateComponentComponent, canActivate: [adminGuard] },
   { path: 'updateSubs/:id', component: SubUpdateComponent, canActivate: [adminGuard] },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+
   { path: '**', component: LoginComponent } // Wildcard route for 404
 ];
 

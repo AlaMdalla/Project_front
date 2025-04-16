@@ -112,4 +112,5 @@ export class ListCompetitionComponent implements OnInit {
             this.applyPagination();
         }
     }
+    
 }

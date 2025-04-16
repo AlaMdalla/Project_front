@@ -23,6 +23,7 @@ export class BookingComponent {
   }
 
   scheduleMeeting() {
+    
     const appointmentTime = new Date(this.appointmentForm.value.appointmentTime);
     const startTime = appointmentTime.toISOString().slice(0, 18) + '-07:00';
     const endTime = this.getEndTime(appointmentTime);
