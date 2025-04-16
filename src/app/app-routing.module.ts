@@ -1,4 +1,4 @@
-// src/app/app-routing.module.ts
+// src/app/app-routing.module.tscourse-content
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 

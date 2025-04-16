@@ -1,240 +1,258 @@
-/* 🌟 Style global */
-:root {
-  --primary-color: #2F6CAD;
-  --primary-light: #93b9e1;
-  --primary-dark: #1e4670;
-  --text-color: #333;
-  --bg-gradient-start: #00b4d8;
-  --bg-gradient-end: #0077b6;
-  --bg-color: #f4f7fc;
-  --card-bg: rgba(255, 255, 255, 0.9); /* Fond translucide amélioré */
-  --border-color: #ccc;
-  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  --hover-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  --transition-duration: 0.4s;
-  --title-shadow: rgba(0, 123, 255, 0.4);
-}
-
-/* 🌟 Nouveau fond dégradé */
-body, html {
-  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-  color: var(--text-color);
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 🌟 Centrer le quiz */
-.evaluation-container {
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  padding: 3em;
-  max-width: 900px;
-  width: 95%;
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-  transition: all var(--transition-duration);
-}
-
-/* 🌟 Animation d'apparition */
-.evaluation-container:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--hover-shadow);
-}
-
-/* 🌟 Nouveau Style pour le Titre */
-h2 {
-  font-size: 2.4em;
-  font-weight: bold;
-  background: linear-gradient(90deg, #ff617e, #36d89f);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 1.5em;
-  text-align: center;
-  text-transform: uppercase;
-  text-shadow: 2px 2px 8px var(--title-shadow);
-  animation: fadeInFromTop 0.6s ease-out;
-  letter-spacing: 2px;
-}
-
-/* Animation subtile pour le titre */
-@keyframes fadeInFromTop {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 🌟 Barre de Progression */
-.progress-bar-container {
-  background-color: #e0e0e0;
+/* Evaluations section */
+.evaluations-section {
+  padding: 30px;
   border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 20px;
-  height: 12px;
-  width: 100%;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+  background-color: #f4f4f4;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px 0;
 }
 
-.progress-bar {
-  background-color: #36d89f;
-  height: 100%;
-  transition: width 0.4s;
-  box-shadow: 0 0 5px #36d89f, 0 0 15px #36d89f;
-}
-
-/* 🌟 Bouton stylisé */
-.submit-btn {
-  background: #ff6f61;
-  color: white;
-  font-size: 20px;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  display: block;
-  margin: 20px auto;
-  transition: background 0.3s, transform 0.3s;
-}
-
-.submit-btn:hover {
-  background: #36d89f;
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #36d89f, 0 0 20px #36d89f;
-}
-
-/* 🌟 Liste des options */
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-label {
-  display: block;
-  padding: 12px;
-  margin-bottom: 10px;
-  background-color: rgba(255, 255, 255, 0.85);
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-}
-
-label:hover {
-  background-color: #d0e6ff;
-  transform: scale(1.02);
-}
-
-/* 🌟 Résultat du test */
-.result-box {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 15px;
-  border-radius: 10px;
-  width: 60%;
-  margin: 20px auto;
-}
-
-.warning-box {
-  background-color: #ffcc00;
-  color: #4f4f00;
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 20px;
-  text-align: center;
-  font-weight: bold;
-}
-
-/* 🌟 Succès (vert) */
-.success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 2px solid #155724;
-}
-
-/* 🌟 Échec (rouge) */
-.fail {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 2px solid #721c24;
-}
-
-/* 🌟 Responsive Design */
-@media (max-width: 600px) {
-  .evaluation-container {
-    padding: 2em;
-  }
-  h2 {
-    font-size: 1.8em;
-  }
-}
-.evaluation-item {
-  padding: 1em;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ddd;
-  transition: transform 0.3s;
-}
-
-.evaluation-item:hover {
-  transform: scale(1.02);
-}
-
-.evaluation-header {
+/* Header section */
+.header-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 15px;
 }
 
-/* Niveau Facile */
-.easy {
-  color: #4CAF50; /* Vert */
+/* Section title */
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1e3a8a;
 }
 
-/* Niveau Intermédiaire */
-.medium {
-  color: #FF9800; /* Orange */
+/* Search and filter container */
+.search-filter-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-/* Niveau Difficile */
-.hard {
-  color: #F44336; /* Rouge */
+/* Filter label */
+.filter-label {
+  font-size: 14px;
+  color: #1f2937;
 }
-.btn.btn-secondary {
-  background-color: #4a90e2;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
+
+/* Difficulty filter */
+.difficulty-filter {
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #ffffff;
   cursor: pointer;
-  margin: 20px auto;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  outline: none;
+  width: 150px;
+}
+
+.difficulty-filter:hover {
+  border-color: #2dd4bf;
+}
+
+/* Evaluations grid */
+.evaluations-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Evaluation card */
+.evaluation-card {
+  background: white;
+  border-radius: 12px;
+  width: 350px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.evaluation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Evaluation content */
+.evaluation-content {
+  padding: 20px;
+}
+
+/* Evaluation title */
+.evaluation-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin-bottom: 8px;
+}
+
+/* Evaluation info */
+.evaluation-info {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+/* Level styling */
+.evaluation-info span.Beginner {
+  color: #2dd4bf;
+}
+.evaluation-info span.Intermediate {
+  color: #f59e0b;
+}
+.evaluation-info span.Advanced {
+  color: #ef4444;
+}
+
+/* Join button */
+.join-button {
+  background: #2dd4bf;
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
+}
+
+.join-button:hover {
+  background: #5eead4;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+/* No evaluations message */
+.no-evaluations {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Selected evaluation section */
+.selected-evaluation {
+  margin-top: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Timer box */
+.timer-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f9fafb;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 15px 0;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.timer-box clr-icon {
+  color: #2dd4bf;
+}
+
+/* Progress bar */
+.progress-bar-container {
+  background: #e0e0e0;
+  border-radius: 8px;
+  height: 10px;
+  margin: 15px 0;
+  overflow: hidden;
+}
+
+.progress-bar.question-progress {
+  background: #2dd4bf;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* Question card */
+.question-card {
+  background: #f9fafb;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.question-card h4 {
+  font-size: 1rem;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+/* Option label */
+.option-label {
   display: block;
-  transition: background 0.3s, transform 0.2s ease-in-out;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  font-size: 0.9rem;
+  color: #1f2937;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.option-label input {
+  margin-right: 8px;
+}
+
+/* Result box */
+.result-box {
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.result-box.success {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.result-box.fail {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Secondary button (PDF export) */
+.btn.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1e3a8a;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
 }
 
 .btn.btn-secondary:hover {
-  background-color: #357ab7;
-  transform: translateY(-2px);
+  background: #2dd4bf;
+  transform: scale(1.05);
 }
 
-.btn.btn-secondary:active {
-  transform: scale(0.98);
-  background-color: #2c6093;
+.btn.btn-secondary clr-icon {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
 }
-

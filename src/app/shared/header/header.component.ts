@@ -9,9 +9,11 @@ import { UsersService } from 'src/app/Services/users.service';
 })
 export class HeaderComponent {
   menuOpen = false;
+  isMenuOpen: boolean = false;
   constructor(private readonly userService:UsersService,
     private readonly router: Router){}
-
+    isSidebarOpen: boolean = false;
+    currentRoute: string = '';
     profileInitial: string = 'A'; // Default initial
     profileInfo: any;
     errorMessage: string = ''
@@ -64,5 +66,8 @@ export class HeaderComponent {
   }
   goToProfile() {
     this.router.navigate(['/profile']);
+}
+toggleSidebar() {
+  this.isSidebarOpen = !this.isSidebarOpen;
 }
 }

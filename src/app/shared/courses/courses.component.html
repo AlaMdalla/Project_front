@@ -1,21 +1,32 @@
 <section class="courses-section">
-  <h2>Available Courses</h2>
-  <div class="courses-list">
+  <!-- Header with title -->
+  <div class="header-section">
+    <h2 class="section-title">Available Courses</h2>
+  </div>
+
+  <!-- Courses grid -->
+  <div class="courses-grid" *ngIf="courses.length > 0; else noCourses">
     <div class="course-card" *ngFor="let course of courses">
-      <!-- 🔁 Image dynamique -->
-      <img
-        [src]="'assets/img/' + course.idTraining + '.jpg'"
-        alt="Course Image"
-        class="course-image"
-        onerror="this.onerror=null; this.src='assets/img/default.jpg';"
-      />
-      <h3>{{ course.title }}</h3>
-
-
-      <mat-card-subtitle> Posted On : {{course.trainingdate | date: 'medium'}}</mat-card-subtitle>
-
-      <!-- Join button -->
-      <button class="join-button"  (click)="openTrainingDetails(course.idTraining)">Join Now</button>
+      <div class="course-image">
+        <img
+          [src]="'assets/img/' + course.idTraining + '.jpg'"
+          alt="Course Image"
+          onerror="this.onerror=null; this.src='assets/img/default.jpg';"
+        />
+      </div>
+      <div class="course-content">
+        <h3 class="course-title">{{ course.title }}</h3>
+        <p class="course-date">
+          <i class="material-icons">calendar_today</i> Posted On: {{ course.trainingdate | date: 'MMM d, yyyy' }}
+        </p>
+        <button class="join-button" (click)="openTrainingDetails(course.idTraining)">
+          <i class="material-icons">play_arrow</i> Join Now
+        </button>
+      </div>
     </div>
   </div>
+
+  <ng-template #noCourses>
+    <p class="no-courses">No courses available at this time.</p>
+  </ng-template>
 </section>

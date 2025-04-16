@@ -5,13 +5,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import html2canvas from "html2canvas";
 import * as jsPDF from "jspdf";
+import { ClrIconModule } from '@clr/angular'; // Import Clarity Icon Module
 
 @Component({
   selector: 'app-evaluation',
   templateUrl: './evaluation.component.html',
   standalone: true,
   styleUrls: ['./evaluation.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule,ClrIconModule]
 })
 export class EvaluationComponent implements OnInit {
   evaluations: any[] = [];

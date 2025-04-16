@@ -1,43 +1,54 @@
 <header>
-  <div class="container">
+    <div class="container">
       <!-- Logo -->
       <div class="logo">
-          <a href="#">E-Learn</a>
+        <a routerLink="/">E-Learn</a>
       </div>
-
+  
       <!-- Navigation -->
-      <nav class="nav">
-          <ul class="nav-list">
-              <li><a routerLink="/">Home</a></li>
-              <li><a routerLink="/courses">Courses</a></li>
-              <li><a routerLink="/Problems">Problems</a></li>
-              <li><a routerLink="/Posts">Posts</a></li>
-              <li><a routerLink="/jobs">Jobs</a></li>
-              <li><a routerLink="/Competition">Competition</a></li>
-              <li><a routerLink="/contact">Contact</a></li>
-          </ul>
+      <nav class="nav" [ngClass]="{'active': isMenuOpen}">
+        <ul class="nav-list">
+          <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+          <li><a routerLink="/courses" routerLinkActive="active">Courses</a></li>
+          <li><a routerLink="/Problems" routerLinkActive="active">Problems</a></li>
+          <li><a routerLink="/Posts" routerLinkActive="active">Posts</a></li>
+          <li><a routerLink="/jobs" routerLinkActive="active">Jobs</a></li>
+          <li><a routerLink="/Competition" routerLinkActive acrescentar="active">Competition</a></li>
+          <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
+        </ul>
       </nav>
-
-      <!-- Profile Icon (Visible only when authenticated) -->
+  
+      <!-- Profile Icon (Visible when authenticated) -->
       <div class="profile-icon" *ngIf="isAuth">
-          <a (click)="goToProfile()" class="profile-link">
-            <span class="avatar-initial">{{ profileInfo?.ourUsers?.name?.charAt(0) | uppercase }}</span>
-          </a>
+        <a (click)="goToProfile()" class="profile-link">
+          <span class="avatar-initial">{{ profileInfo?.ourUsers?.name?.charAt(0) | uppercase }}</span>
+        </a>
       </div>
-
-      <!-- CTA Button -->
+  
+      <!-- CTA Buttons -->
       <div class="cta" *ngIf="!isAuth">
-          <a href="/login" class="cta-btn">Sign Up</a>
+        <a routerLink="/login" class="cta-btn">
+          <i class="material-icons">login</i> Sign Up
+        </a>
       </div>
       <div class="cta" *ngIf="isAuth">
-          <a (click)="logout()" class="cta-btn">Logout</a>
+        <a (click)="logout()" class="cta-btn">
+          <i class="material-icons">logout</i> Logout
+        </a>
       </div>
-
+      <div class="cta" *ngIf="isAuth">
+        <a routerLink="/admin" class="cta-btn">
+          <i class="material-icons">dashboard</i> Dashboard
+        </a>
+      </div>
+  
       <!-- Hamburger Menu (for mobile) -->
       <div class="hamburger" id="hamburger" (click)="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-  </div>
-</header>
+    </div>
+  </header>
+  
+  

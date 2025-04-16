@@ -25,7 +25,10 @@ export class CourseContentComponent implements OnInit {
   get totalPages(): number {
     return Math.ceil(this.formattedContent.length / this.pageSize);
   }
-
+  changePage(delta: number): void {
+    this.currentPage = Math.max(1, Math.min(this.currentPage + delta, this.totalPages));
+  }
+  
   ngOnInit(): void {
     this.trainingId = +this.route.snapshot.paramMap.get('id')!;
     this.trainingService.getTrainingById(this.trainingId).subscribe((data: Training) => {

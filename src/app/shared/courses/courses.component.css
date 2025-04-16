@@ -1,128 +1,123 @@
 /* Courses section */
 .courses-section {
-  margin-top: 200px; /* Adjust this based on the actual height of your header */
-
-  max-width: 1200px; /* Match Competitions Section width */
-  margin: 0 auto;
-  padding: 40px 0; /* Spacious padding for user-facing page */
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #f4f4f4;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px 0;
 }
 
-/* Header */
-.courses-section h2 {
-  font-size: 36px;
-  color: #1e3a8a; /* Deep navy blue for title */
-  text-align: center;
-  margin-bottom: 50px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  position: relative;
+/* Header section */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 15px;
 }
 
-.courses-section h2::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 4px;
-  background: #2dd4bf; /* Muted teal underline */
-  border-radius: 2px;
+/* Section title */
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1e3a8a;
 }
 
-/* Courses list (grid layout) */
-.courses-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
-  gap: 20px; /* Space between cards, matching Competitions Section */
+/* Courses grid */
+.courses-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 /* Course card */
 .course-card {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12); /* Match Competitions Section shadow */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
+  width: 350px;
   overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .course-card:hover {
-  transform: translateY(-5px); /* Match Competitions Section hover lift */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Match Competitions Section hover shadow */
-}
-
-.course-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Deep navy blue gradient, matching Competitions Section */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Course image */
-.course-image {
+.course-image img {
   width: 100%;
-  height: 200px; /* Match Competitions Section image height */
+  height: 200px;
   object-fit: cover;
-  transition: all 0.3s ease;
-}
-
-.course-image:hover {
-  transform: scale(1.05); /* Match Competitions Section image hover effect */
-  filter: brightness(1.05);
 }
 
 /* Course content */
-.course-card h3 {
-  font-size: 1.1rem; /* Match Competitions Section title size */
+.course-content {
+  padding: 20px;
+}
+
+/* Course title */
+.course-title {
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #1e3a8a; /* Deep navy blue for titles */
-  margin: 15px 20px 8px 20px; /* Match padding and margin style */
+  color: #1e3a8a;
+  margin-bottom: 8px;
 }
 
-.course-card p {
-  font-size: 14px;
-  color: #1f2937; /* Match text color for readability */
-  line-height: 1.6;
-  margin: 0 20px 15px 20px; /* Match padding and margin style */
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limit to 3 lines, matching Posts List */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* Course date */
+.course-date {
+  font-size: 0.9rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
-/* Course subtitle (Posted On) */
-.course-card mat-card-subtitle {
-  font-size: 13px;
-  color: #6b7280; /* Match subtitle color from Posts List */
-  font-weight: 500;
-  margin: 0 20px 15px 20px; /* Match padding and margin style */
+.course-date .material-icons {
+  font-size: 16px;
+  color: #2dd4bf;
 }
 
 /* Join button */
-.course-card .join-button {
-  display: block; /* Full-width button for better click area */
-  background: #2dd4bf; /* Solid muted teal, matching Competitions Section */
+.join-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #2dd4bf;
   color: white;
-  border: none;
+  text-decoration: none;
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 0.95rem;
-  font-weight: 600;
-  text-align: center;
-  margin: 0 20px 20px 20px; /* Match padding and margin style */
+  border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
-  cursor: pointer;
 }
 
-.course-card .join-button:hover {
-  background: #5eead4; /* Lighter teal on hover, matching Competitions Section */
+.join-button:hover {
+  background: #5eead4;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
+}
+
+.join-button .material-icons {
+  font-size: 20px;
+}
+
+/* No courses message */
+.no-courses {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }

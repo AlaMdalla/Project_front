@@ -1,92 +1,90 @@
-
-<section id="sidebar" class="sidebar">
-    <a href="#" class="brand">
-        <i class='bx bxs-graduation'></i> <!-- Changed to a more relevant icon -->
-        <span class="text">MatrixAdmin</span>
-    </a>
+<!-- Sidebar (Visible for authenticated users) -->
+<section id="sidebar" class="sidebar" [ngClass]="{'collapsed': !isSidebarOpen}" *ngIf="isAuth">
+    <div class="brand">
+      <i class="material-icons">school</i>
+      <span class="text">MatrixAdmin</span>
+    </div>
     <ul class="side-menu top">
-        <li [ngClass]="{'active': currentRoute === '/admin'}">
-            <a routerLink="/admin">
-                <i class='bx bxs-dashboard'></i>
-                <span class="text">Admin</span>
-            </a>
-        </li>
-        <li [ngClass]="{'active': currentRoute === '/addtraining'}">
-            <a routerLink="/addtraining">
-              <i class='bx bxs-trophy'></i>
-              <span class="text">Courses</span>
-            </a>
-          </li>
-        <li [ngClass]="{'active': currentRoute === '/users'}">
-            <a routerLink="/users">
-                <i class='bx bxs-user'></i>
-                <span class="text">Users</span>
-            </a>
-        </li>
-        <li [ngClass]="{'active': currentRoute === '/addCompetition'}">
-            <a routerLink="/addCompetition">
-                <i class='bx bxs-trophy'></i>
-                <span class="text">My Competition</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class='bx bxs-bar-chart-alt-2'></i>
-                <span class="text">Analytics</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class='bx bxs-message-dots'></i>
-                <span class="text">Message</span>
-            </a>
-        </li>
-        <li [ngClass]="{'active': currentRoute === '/addProblem'}">
-            <a routerLink="/addProblem">
-                <i class='bx bxs-bug'></i>
-                <span class="text">Problems</span>
-            </a>
-        </li>
-        <li [ngClass]="{'active': currentRoute === '/candidates'}">
-            <a routerLink="/candidates/">
-                <i class='bx bxs-group'></i>
-                <span class="text">Candidates</span>
-            </a>
-        </li>
-    
+      <li [ngClass]="{'active': currentRoute === '/admin'}">
+        <a routerLink="/admin">
+          <i class="material-icons">dashboard</i>
+          <span class="text">Admin</span>
+        </a>
+      </li>
+      <li [ngClass]="{'active': currentRoute === '/addtraining'}">
+        <a routerLink="/addtraining">
+          <i class="material-icons">library_books</i>
+          <span class="text">Courses</span>
+        </a>
+      </li>
+      <li [ngClass]="{'active': currentRoute === '/users'}">
+        <a routerLink="/users">
+          <i class="material-icons">people</i>
+          <span class="text">Users</span>
+        </a>
+      </li>
+      <li [ngClass]="{'active': currentRoute === '/addCompetition'}">
+        <a routerLink="/addCompetition">
+          <i class="material-icons">emoji_events</i>
+          <span class="text">My Competition</span>
+        </a>
+      </li>
+      <li>
+        <a href="jobs/new">
+          <i class="material-icons">bar_chart</i>
+          <span class="text">jobs</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="material-icons">message</i>
+          <span class="text">Message</span>
+        </a>
+      </li>
+      <li [ngClass]="{'active': currentRoute === '/addProblem'}">
+        <a routerLink="/addProblem">
+          <i class="material-icons">bug_report</i>
+          <span class="text">Problems</span>
+        </a>
+      </li>
+      <li [ngClass]="{'active': currentRoute === '/candidates'}">
+        <a routerLink="/candidates">
+          <i class="material-icons">groups</i>
+          <span class="text">Candidates</span>
+        </a>
+      </li>
       <li [ngClass]="{'active': currentRoute === '/reclamations'}">
-          <a routerLink="/reclamations/">
-              <i class='bx bxs-group'></i>
-              <span class="text">reclamations</span>
-          </a>
+        <a routerLink="/reclamations">
+          <i class="material-icons">feedback</i>
+          <span class="text">Reclamations</span>
+        </a>
       </li>
-  
-        <li [ngClass]="{'active': currentRoute === '/candidates'}">
-          <a routerLink="/addSubs">
-              <i class='bx bxs-group'></i>
-              <span class="text">Subscription</span>
-          </a>
+      <li [ngClass]="{'active': currentRoute === '/addSubs'}">
+        <a routerLink="/addSubs">
+          <i class="material-icons">subscriptions</i>
+          <span class="text">Subscription</span>
+        </a>
       </li>
-        <li [ngClass]="{'active': currentRoute === '/jobs/new'}">
-            <a routerLink="/jobs/new">
-                <i class='bx bxs-briefcase'></i>
-                <span class="text">Add Job</span>
-            </a>
-        </li>
+      <li [ngClass]="{'active': currentRoute === '/jobs/new'}">
+        <a routerLink="/jobs/new">
+          <i class="material-icons">work</i>
+          <span class="text">Add Job</span>
+        </a>
+      </li>
     </ul>
     <ul class="side-menu bottom">
-        <li>
-            <a href="#">
-                <i class='bx bxs-cog'></i>
-                <span class="text">Settings</span>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="logout">
-                <i class='bx bxs-log-out-circle'></i>
-                <span class="text">Logout</span>
-            </a>
-        </li>
+      <li>
+        <a href="#">
+          <i class="material-icons">settings</i>
+          <span class="text">Settings</span>
+        </a>
+      </li>
+      <li>
+     
+      </li>
     </ul>
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" (click)="toggleSidebar()">
+      <i class="material-icons">{{ isSidebarOpen ? 'chevron_left' : 'chevron_right' }}</i>
+    </button>
   </section>
-  
