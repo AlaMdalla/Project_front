@@ -80,6 +80,7 @@ import { CourseContentComponent } from './pages/course-content/course-content.co
 import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
 import { SimpleUserRegisterComponent } from './shared/simple-user-register/simple-user-register.component';
 import { ForgotPasswordComponentComponent } from './shared/forgot-password/forgot-password.component';
+import { ListjobsadminComponent } from './shared/listjobsadmin/listjobsadmin.component';
 
 // Translate loader factory
 export function HttpLoaderFactory(http: HttpClient) {
@@ -135,6 +136,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CourseContentComponent,
     ResetPasswordComponent,
     SimpleUserRegisterComponent,
+    ListjobsadminComponent,
   ],
   imports: [
     BrowserModule,

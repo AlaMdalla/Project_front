@@ -1,0 +1,87 @@
+.table-container {
+    overflow-x: auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .job-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  
+  .job-table th, .job-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .job-table th {
+    background-color: #f8f8f8;
+    font-weight: 600;
+  }
+  
+  .job-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+  
+  .status-open {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .status-closed {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .actions button {
+    margin-right: 6px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1976d2;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .actions button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .btn-delete {
+    background-color: #e53935;
+  }
+  
+  .pagination {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .pagination-btn {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .pagination-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination-info {
+    font-weight: 500;
+  }
+  

@@ -1,0 +1,57 @@
+<app-sidebar></app-sidebar>
+<div class="container">
+
+
+  <!-- Job List Table -->
+  <div class="table-container">
+    <table class="job-table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Department</th>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let job of paginatedJobs">
+          <td>
+            <img *ngIf="job.image" [src]="job.image" alt="Job Image" class="job-thumbnail" />
+          </td>
+          <td>{{ job.title }}</td>
+          <td>{{ job.department }}</td>
+          <td>
+            <a [href]="getGoogleMapsUrl(job.location)" target="_blank">
+              {{ job.location }}
+            </a>
+          </td>
+          <td>
+            <span [ngClass]="{'status-open': job.status === 'Open', 'status-closed': job.status === 'Closed'}">
+              {{ job.status }}
+            </span>
+          </td>
+          <td>{{ job.description || 'No description available.' }}</td>
+          <td class="actions">
+       
+            <button class="btn-delete" (click)="deleteJob(job.jobId)">🗑️</button>
+            <button 
+              [disabled]="job.status === 'Closed'" 
+              [routerLink]="['/jobs/edit', job.jobId]">
+              Update
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button class="pagination-btn" [disabled]="currentPage === 1" (click)="previousPage()">Previous</button>
+    <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button class="pagination-btn" [disabled]="currentPage === totalPages" (click)="nextPage()">Next</button>
+  </div>
+</div>
