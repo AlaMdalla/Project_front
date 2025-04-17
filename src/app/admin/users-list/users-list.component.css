@@ -5,106 +5,107 @@
     display: block;
     padding: 40px 20px; /* Add padding for spacing */
     min-height: 100vh;
-    background: #f9fafb; /* Lighter background for home page */
-}
-
-/* Sidebar styling (assumed to be a fixed sidebar) */
-app-sidebar {
+    background: #f9fafb; /* Lighter background for consistency */
+  }
+  
+  /* Sidebar styling */
+  app-sidebar {
     display: block; /* Ensure sidebar takes up space */
-}
-
-/* Container */
-.container {
-    max-width: 1200px; /* Wider for home page to accommodate table */
+  }
+  
+  /* Container */
+  .container {
+    max-width: 1200px; /* Wider container for table */
     margin: 0 auto;
-}
-
-/* Management header */
-.management-header {
+  }
+  
+  /* Management header */
+  .management-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-}
-
-/* Header title */
-.management-header h2 {
-    font-size: 28px; /* Slightly larger for prominence */
-    color: #3b82f6; /* Lighter slate blue for a friendlier tone */
-    position: relative;
+  }
+  
+  .management-header h2 {
+    font-size: 28px;
+    color: #3b82f6; /* Lighter slate blue */
     font-weight: 700;
-    text-align: center;
-}
-
-.management-header h2::after {
+    position: relative;
+    margin: 0;
+  }
+  
+  .management-header h2::after {
     content: '';
     position: absolute;
     bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
     width: 50px;
     height: 4px;
     background: #2dd4bf; /* Softer teal underline */
     border-radius: 2px;
-}
-
-/* Add User button */
-.management-header .reg-button {
-    background: #2dd4bf; /* Softer teal */
-    color: white;
+  }
+  
+  /* Add User button */
+  .reg-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 10px 20px;
     border: none;
     border-radius: 6px;
-    font-size: 15px;
+    background: #2dd4bf; /* Softer teal */
+    color: white;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
-    text-decoration: none; /* Ensure no underline */
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.management-header .reg-button:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .reg-button:hover {
     background: #5eead4; /* Lighter teal on hover */
-    transform: translateY(-2px);
+    transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
-}
-
-/* Error message */
-.error-message {
-    color: #dc3545; /* Red for error */
-    font-size: 14px;
+  }
+  
+  .reg-button:active {
+    background: #1e40af;
+    transform: scale(1);
+  }
+  
+  .btn-icon {
+    font-size: 16px;
+  }
+  
+  /* Error message */
+  .error-message {
+    color: #dc3545; /* Red for errors */
+    font-weight: 500;
     text-align: center;
     margin-bottom: 20px;
-}
-
-/* Filter section */
-.filter-section {
+  }
+  
+  /* Filter section */
+  .filter-section {
     margin-bottom: 20px;
+  }
+  
+  .filter-group {
     display: flex;
-    justify-content: flex-start;
-    gap: 20px;
-}
-
-/* Filter group */
-.filter-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Filter label */
-.filter-group label {
-    font-size: 14px;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 400px;
+  }
+  
+  .filter-group label {
+    font-size: 15px;
     font-weight: 600;
-    color: #3b82f6; /* Lighter slate blue for labels */
-}
-
-/* Filter input */
-.filter-group input {
-    padding: 8px 12px;
+    color: #3b82f6; /* Lighter slate blue */
+  }
+  
+  .filter-group input {
+    padding: 10px 15px;
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     font-size: 14px;
@@ -112,25 +113,27 @@ app-sidebar {
     background: #fafafa; /* Light gray background */
     transition: all 0.3s ease;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
-}
-
-.filter-group input:focus {
+  }
+  
+  .filter-group input:focus {
     border-color: #2dd4bf; /* Softer teal focus border */
     background: #ffffff;
     outline: none;
     box-shadow: 0 0 8px rgba(45, 212, 191, 0.2);
-}
-
-/* Table wrapper */
-.table-wrapper {
-    overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  }
+  
+  /* Table wrapper (card) */
+  .table-wrapper.card {
+    background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    background: #ffffff;
+    transition: all 0.3s ease;
     position: relative;
-}
-
-.table-wrapper::before {
+    overflow: hidden;
+    padding: 20px;
+  }
+  
+  .table-wrapper.card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -138,154 +141,140 @@ app-sidebar {
     width: 100%;
     height: 3px;
     background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
-}
-
-/* Table styling */
-table {
+  }
+  
+  .table-wrapper.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Table styling */
+  table {
     width: 100%;
     border-collapse: collapse;
-}
-
-/* Table header */
-thead {
-    background: #fafafa; /* Light gray background for header */
-}
-
-th {
-    padding: 15px;
-    font-size: 14px;
+  }
+  
+  thead {
+    background: #f1f5f9; /* Light slate background */
+  }
+  
+  th {
+    padding: 12px 15px;
+    font-size: 15px;
     font-weight: 600;
-    color: #3b82f6; /* Lighter slate blue for headers */
+    color: #3b82f6; /* Lighter slate blue */
     text-align: left;
     cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-th:hover {
-    background: #f1f5f9; /* Slightly darker gray on hover */
-}
-
-/* Sort icon */
-.sort-icon {
+    transition: background 0.3s ease;
+  }
+  
+  th:hover {
+    background: #e2e8f0; /* Slightly darker slate on hover */
+  }
+  
+  .sort-icon {
     margin-left: 5px;
     font-size: 12px;
-    color: #2dd4bf; /* Softer teal for sort icon */
-}
-
-/* Table body */
-tbody tr {
-    border-bottom: 1px solid #eee;
-    transition: all 0.3s ease;
-}
-
-tbody tr:hover {
-    background: #f9fafc; /* Slightly lighter background on hover */
-}
-
-/* Table cells */
-td {
-    padding: 15px;
+  }
+  
+  tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    transition: background 0.3s ease;
+  }
+  
+  tbody tr:hover {
+    background: #f9fafb; /* Light hover effect */
+  }
+  
+  td {
+    padding: 12px 15px;
     font-size: 14px;
-    color: #333;
-}
-
-/* Action buttons */
-.action-buttons {
+    color: #1f2937;
+  }
+  
+  /* Pagination */
+  .pagination {
     display: flex;
-    gap: 10px;
-}
-
-/* Update and Delete buttons */
-.action-buttons button {
-    background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
-    color: white;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .pagination-btn {
     padding: 8px 16px;
     border: none;
     border-radius: 6px;
-    font-size: 13px;
+    background: #3b82f6; /* Lighter slate blue */
+    color: white;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.action-buttons button:hover {
-    background: #2dd4bf; /* Softer teal on hover */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pagination-btn:disabled {
+    background: #b2bec3;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  .pagination-btn:not(:disabled):hover {
+    background: #60a5fa; /* Lighter blue on hover */
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
-}
-
-.action-buttons button:active {
-    background: #2563eb; /* Slightly darker blue for active state */
+  }
+  
+  .pagination-btn:not(:disabled):active {
+    background: #1e40af;
     transform: scale(1);
-}
-
-/* Delete button specific styling */
-.action-buttons .delete-button {
-    background: #dc3545; /* Red for Delete */
-    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
-}
-
-.action-buttons .delete-button:hover {
-    background: #ef5350; /* Lighter red on hover */
-    box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4);
-}
-
-.action-buttons .delete-button:active {
-    background: #c0392b; /* Darker red for active state */
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 768px) {
+  }
+  
+  .pagination-info {
+    font-size: 14px;
+    color: #1f2937;
+    font-weight: 500;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
     :host {
-        margin-left: 0; /* Remove sidebar margin on mobile */
-        padding: 20px 10px;
+      margin-left: 0; /* Remove sidebar margin on mobile */
+      padding: 20px 10px; /* Reduce padding */
     }
-
+  
     .container {
-        max-width: 100%;
+      max-width: 100%; /* Full width on mobile */
     }
-
+  
     .management-header {
-        flex-direction: column;
-        gap: 10px;
+      flex-direction: column;
+      gap: 15px;
+      align-items: flex-start;
     }
-
-    .management-header .reg-button {
-        width: 100%;
-        text-align: center;
+  
+    .reg-button {
+      width: 100%;
+      text-align: center;
     }
-
-    .filter-section {
-        flex-direction: column;
-        gap: 10px;
-    }
-
+  
     .filter-group {
-        flex-direction: column;
-        align-items: flex-start;
+      max-width: 100%;
     }
-
-    .filter-group input {
-        width: 100%;
+  
+    table {
+      display: block;
+      overflow-x: auto; /* Enable horizontal scroll for table */
     }
-
-    th, td {
-        padding: 10px;
-        font-size: 12px;
+  
+    .pagination {
+      flex-direction: column;
+      gap: 10px;
     }
-
-    .action-buttons {
-        flex-direction: column;
-        gap: 5px;
+  
+    .pagination-btn {
+      width: 100%;
+      text-align: center;
     }
-
-    .action-buttons button {
-        width: 100%;
-        text-align: center;
-    }
-}
+  }

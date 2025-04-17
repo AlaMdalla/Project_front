@@ -12,10 +12,16 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 export class UsersListComponent implements OnInit {
     users: any[] = []; // Original user data
     filteredUsers: any[] = []; // Filtered and sorted user data
+    paginatedUsers: any[] = []; // Users for the current page
     errorMessage: string = '';
     searchTerm: string = ''; // Bound to the filter input
     sortColumnName: string = ''; // Current column being sorted
     sortDirection: string = 'asc'; // Current sort direction ('asc' or 'desc')
+    
+    // Pagination properties
+    currentPage: number = 1;
+    pageSize: number = 4; // Number of users per page
+    totalPages: number = 1;
 
     constructor(
         private readonly userService: UsersService,
@@ -32,7 +38,8 @@ export class UsersListComponent implements OnInit {
             const response = await this.userService.getAllUsers(token);
             if (response && response.statusCode === 200 && response.ourUsersList) {
                 this.users = response.ourUsersList;
-                this.filteredUsers = [...this.users]; // Initialize filteredUsers
+                this.filteredUsers = [...this.users];
+                this.updatePagination();
             } else {
                 this.showError('No users found.');
             }
@@ -53,19 +60,19 @@ export class UsersListComponent implements OnInit {
                 user.city.toLowerCase().includes(term)
             );
         }
-        // Reapply sorting after filtering
+        // Reapply sorting and reset to first page
         if (this.sortColumnName) {
             this.sortColumn(this.sortColumnName);
         }
+        this.currentPage = 1; // Reset to first page after filtering
+        this.updatePagination();
     }
 
     // Sort users by column
     sortColumn(columnName: string) {
         if (this.sortColumnName === columnName) {
-            // Toggle direction if clicking the same column
             this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
         } else {
-            // Set new column and default to ascending
             this.sortColumnName = columnName;
             this.sortDirection = 'asc';
         }
@@ -77,6 +84,31 @@ export class UsersListComponent implements OnInit {
             if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
             return 0;
         });
+        this.updatePagination();
+    }
+
+    // Update paginated users
+    updatePagination() {
+        this.totalPages = Math.ceil(this.filteredUsers.length / this.pageSize);
+        const startIndex = (this.currentPage - 1) * this.pageSize;
+        const endIndex = startIndex + this.pageSize;
+        this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
+    }
+
+    // Navigate to previous page
+    previousPage() {
+        if (this.currentPage > 1) {
+            this.currentPage--;
+            this.updatePagination();
+        }
+    }
+
+    // Navigate to next page
+    nextPage() {
+        if (this.currentPage < this.totalPages) {
+            this.currentPage++;
+            this.updatePagination();
+        }
     }
 
     async deleteUser(userId: string) {
@@ -85,7 +117,6 @@ export class UsersListComponent implements OnInit {
             try {
                 const token: any = localStorage.getItem('token');
                 await this.userService.deleteUser(userId, token);
-                // Refresh the user list after deletion
                 this.loadUsers();
             } catch (error: any) {
                 this.showError(error.message);
@@ -100,7 +131,7 @@ export class UsersListComponent implements OnInit {
     showError(message: string) {
         this.errorMessage = message;
         setTimeout(() => {
-            this.errorMessage = ''; // Clear the error message after the specified duration
+            this.errorMessage = '';
         }, 3000);
     }
 }

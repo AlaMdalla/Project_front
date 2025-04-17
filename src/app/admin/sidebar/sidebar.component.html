@@ -17,6 +17,12 @@
           <span class="text">Courses</span>
         </a>
       </li>
+      <li [ngClass]="{'active': currentRoute === '/ajoutEvaluation'}">
+        <a routerLink="/ajoutEvaluation">
+          <i class="material-icons">library_books</i>
+          <span class="text">Evaluation</span>
+        </a>
+      </li>
       <li [ngClass]="{'active': currentRoute === '/users'}">
         <a routerLink="/users">
           <i class="material-icons">people</i>
