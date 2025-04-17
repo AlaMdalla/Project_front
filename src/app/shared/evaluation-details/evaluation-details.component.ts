@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import html2canvas from "html2canvas";
 import jsPDF from 'jspdf';
+import { TranslatePipe } from '@ngx-translate/core';
+import { UsersService } from 'src/app/Services/users.service';
 
 
 
@@ -13,7 +15,7 @@ import jsPDF from 'jspdf';
   templateUrl: './evaluation-details.component.html',
   styleUrls: ['./evaluation-details.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule,TranslatePipe]
 })
 export class EvaluationComponent implements OnInit {
   evaluations: any[] = [];
@@ -22,6 +24,7 @@ export class EvaluationComponent implements OnInit {
   userLevel: string = "Beginner";
   totalScore: number = 0;
   isPassed: boolean = false;
+  profileInfo: any;
   showResult: boolean = false;
   remainingTime: number = 60;
   maxTime: number = 60;
@@ -35,18 +38,34 @@ export class EvaluationComponent implements OnInit {
   selectedLevel: string = '';
   filteredEvaluations: any[] = [];
   today = new Date().toLocaleDateString();
-
+  isAuth: boolean=false;
   selectedNiveau: string = '';
 
   constructor(
     private evaluationService: EvaluationService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private readonly userService:UsersService,
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    try {
+      const token = localStorage.getItem('token')
+      this.isAuth=true;
 
+      if(!token){
+        throw new Error("No Token Found")
+        this.isAuth=false;
+
+      }
+
+      this.profileInfo = await this.userService.getYourProfile(token);
+     
+ 
+    } catch (error:any) {
+      console.log(error.message)
+    }
     const trainingId = this.route.snapshot.paramMap.get('id');
     if (trainingId) {
       this.evaluationService.getEvaluationsByTrainingId(+trainingId).subscribe(
@@ -109,11 +128,11 @@ export class EvaluationComponent implements OnInit {
     alert("🚫 Coller est désactivé !");
   }
 
-  // @HostListener('document:contextmenu', ['$event'])
-  // handleRightClick(event: MouseEvent) {
-  //   event.preventDefault();
-  //   alert("🚫 Clic droit interdit !");
-  // }
+   @HostListener('document:contextmenu', ['$event'])
+  handleRightClick(event: MouseEvent) {
+     event.preventDefault();
+     alert("🚫 Clic droit interdit !");
+   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
@@ -167,7 +186,7 @@ export class EvaluationComponent implements OnInit {
     if (this.isEvaluationAccessible(evaluation.niveau)) {
       this.selectedEvaluation = evaluation;
       this.questions = this.processQuestions(evaluation.questions || []);
-      this.remainingTime = evaluation.evaluationDuration;
+      this.remainingTime = evaluation.evaluationDuration * 60;
       this.maxTime = evaluation.evaluationDuration;
       this.startTimer();
     } else {
@@ -262,6 +281,7 @@ export class EvaluationComponent implements OnInit {
   }
 
   calculateScore(): void {
+    if (this.showResult) return;
     clearInterval(this.interval);
     let score = 0;
     const totalQuestions = this.questions.length;
@@ -273,7 +293,9 @@ export class EvaluationComponent implements OnInit {
     }
 
     this.totalScore = (score / totalQuestions) * 100;
-    this.isPassed = this.totalScore >= this.selectedEvaluation?.score;
+    // this.isPassed = this.totalScore >= this.selectedEvaluation?.score;
+    this.isPassed = this.totalScore >= 70;
+
     this.showResult = true;
   }
 
@@ -282,5 +304,4 @@ export class EvaluationComponent implements OnInit {
   }
 
   public currentDate: string = new Date().toLocaleDateString();
-
 }

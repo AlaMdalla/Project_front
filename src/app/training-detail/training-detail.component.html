@@ -1,10 +1,13 @@
 <div class="training-card" *ngIf="training">
-  <p><strong>Title :</strong> {{ training.title }}</p>
+  <p><strong>{{ 'TRAINING.TITLE' | translate }} :</strong> {{ training.title }}</p>
 
-  <p><strong>Date :</strong> {{ training.trainingdate }}</p>
-  <p><strong>Durée :</strong> {{ training.duration }}</p>
+  <p><strong>{{ 'TRAINING.DATE' | translate }} :</strong> {{ training.trainingdate }}</p>
+  <p><strong>{{ 'TRAINING.DURATION' | translate }} :</strong> {{ training.duration }}</p>
 
-  <a [routerLink]="['/course-content', training.idTraining]" class="btn btn-primary">Voir cours 📝</a>
-  <a [routerLink]="['/evaluation', training.idTraining]" class="btn btn-primary">Voir Évaluation👁️</a>
-
+  <a [routerLink]="['/course-content', training.idTraining]" class="btn btn-primary">
+    {{ 'TRAINING.GO_TO_COURSE' | translate }} 📝
+  </a>
+  <a [routerLink]="['/evaluation', training.idTraining]" class="btn btn-primary">
+    {{ 'TRAINING.SEE_EVAL' | translate }} 👁️
+  </a>
 </div>

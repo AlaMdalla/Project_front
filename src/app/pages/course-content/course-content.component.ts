@@ -14,8 +14,12 @@ export class CourseContentComponent implements OnInit {
   formattedContent: string[] = [];
   pageSize = 10; // nombre de lignes par page
   currentPage = 1;
-
+  rating = 3;
+  hoveredRating = 0;
+  stars = [1, 2, 3, 4, 5];
   constructor(private route: ActivatedRoute, private trainingService: TrainingService) {}
+
+
 
   get paginatedContent(): string[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -25,10 +29,7 @@ export class CourseContentComponent implements OnInit {
   get totalPages(): number {
     return Math.ceil(this.formattedContent.length / this.pageSize);
   }
-  changePage(delta: number): void {
-    this.currentPage = Math.max(1, Math.min(this.currentPage + delta, this.totalPages));
-  }
-  
+
   ngOnInit(): void {
     this.trainingId = +this.route.snapshot.paramMap.get('id')!;
     this.trainingService.getTrainingById(this.trainingId).subscribe((data: Training) => {

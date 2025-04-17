@@ -4,15 +4,17 @@ import { EvaluationService } from '../../Services/evaluation.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import html2canvas from "html2canvas";
-import * as jsPDF from "jspdf";
-import { ClrIconModule } from '@clr/angular'; // Import Clarity Icon Module
+import jsPDF from 'jspdf';
+import {TranslatePipe} from "@ngx-translate/core";
+
+
 
 @Component({
   selector: 'app-evaluation',
   templateUrl: './evaluation.component.html',
   standalone: true,
   styleUrls: ['./evaluation.component.css'],
-  imports: [CommonModule, FormsModule,ClrIconModule]
+  imports: [CommonModule, FormsModule, TranslatePipe]
 })
 export class EvaluationComponent implements OnInit {
   evaluations: any[] = [];
@@ -33,13 +35,16 @@ export class EvaluationComponent implements OnInit {
   answeredQuestions = 0;
   selectedLevel: string = '';
   filteredEvaluations: any[] = [];
+  today = new Date().toLocaleDateString();
 
   selectedNiveau: string = '';
+
   constructor(
     private evaluationService: EvaluationService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
 
@@ -91,6 +96,7 @@ export class EvaluationComponent implements OnInit {
       }
     });
   }
+
 // ✅ BLOQUER copier / coller / clic droit / raccourcis
   @HostListener('document:copy', ['$event'])
   handleCopy(event: ClipboardEvent) {
@@ -104,11 +110,11 @@ export class EvaluationComponent implements OnInit {
     alert("🚫 Coller est désactivé !");
   }
 
-  @HostListener('document:contextmenu', ['$event'])
+   @HostListener('document:contextmenu', ['$event'])
   handleRightClick(event: MouseEvent) {
-    event.preventDefault();
-    alert("🚫 Clic droit interdit !");
-  }
+     event.preventDefault();
+     alert("🚫 Clic droit interdit !");
+   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
@@ -121,23 +127,32 @@ export class EvaluationComponent implements OnInit {
 
   getLevelIcon(niveau: string): string {
     switch (niveau) {
-      case 'Beginner': return '🌶️';
-      case 'Intermediate': return '🌶️🌶️';
-      case 'Advanced': return '🌶️🌶️🌶️';
-      default: return '';
+      case 'Beginner':
+        return '🌶️';
+      case 'Intermediate':
+        return '🌶️🌶️';
+      case 'Advanced':
+        return '🌶️🌶️🌶️';
+      default:
+        return '';
     }
 
   }
 
   getLevelClass(niveau: string): string {
     switch (niveau) {
-      case 'Beginner': return 'easy';
-      case 'Intermediate': return 'medium';
-      case 'Advanced': return 'hard';
-      default: return '';
+      case 'Beginner':
+        return 'easy';
+      case 'Intermediate':
+        return 'medium';
+      case 'Advanced':
+        return 'hard';
+      default:
+        return '';
     }
 
   }
+
   // 🔍 Fonction de filtrage par niveau
   filterEvaluationsByNiveau(): void {
     if (this.selectedNiveau === '') {
@@ -146,13 +161,14 @@ export class EvaluationComponent implements OnInit {
       this.filteredEvaluations = this.evaluations.filter(e => e.niveau === this.selectedNiveau);
 
 
-    }  }
+    }
+  }
 
   selectEvaluation(evaluation: any): void {
     if (this.isEvaluationAccessible(evaluation.niveau)) {
       this.selectedEvaluation = evaluation;
       this.questions = this.processQuestions(evaluation.questions || []);
-      this.remainingTime = evaluation.evaluationDuration ;
+      this.remainingTime = evaluation.evaluationDuration * 60;
       this.maxTime = evaluation.evaluationDuration;
       this.startTimer();
     } else {
@@ -178,21 +194,54 @@ export class EvaluationComponent implements OnInit {
       }
     }, 1000);
   }
+
   generatePDF(): void {
-    const element = document.getElementById('resultToExport'); // L'élément HTML à exporter
-    if (!element) return;
+    const element = document.getElementById('pdf-certificate');
+    if (!element || !this.selectedEvaluation || !this.isPassed) return;
 
-    html2canvas(element).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF.default('p', 'mm', 'a4');
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    // 👇 Assure qu'on attend que tout soit prêt dans le DOM
+    setTimeout(() => {
+      html2canvas(element, { scale: 2, useCORS: true }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/jpeg');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      const dateStr = new Date().toLocaleDateString().replace(/\//g, '-');
-      pdf.save(`resultat_evaluation_${dateStr}.pdf`);
-    });
+        pdf.addImage(imgData, 'JPEG', 10, 10, pdfWidth - 20, pdfHeight);
+        const evaluationTitle = this.selectedEvaluation.description || 'Evaluation';
+        const fileName = `Certificat_${evaluationTitle.replace(/\s+/g, '_')}.pdf`;
+        pdf.save(fileName);
+      }).catch((error) => {
+        console.error("❌ Erreur lors de la génération du PDF :", error);
+      });
+    }, 100); // court délai pour s’assurer que le DOM est prêt
+  }
+
+  generateWithoutLogo(imgData: string, evaluationTitle: string, score: string, date: string): void {
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+
+    pdf.setFontSize(14);
+    pdf.setTextColor(0, 128, 0);
+    pdf.text('🎉 Félicitations ! Vous avez obtenu votre certificat.', pdfWidth / 2, 40, {align: 'center'});
+
+    pdf.setFontSize(12);
+    pdf.setTextColor(60, 60, 60);
+    pdf.text(`Date : ${date}`, 10, 50);
+    pdf.text(`Score : ${score}`, 10, 58);
+
+    pdf.addImage(imgData, 'JPEG', 10, 70, pdfWidth - 20, 100);
+
+    const fileName = `Certificat_${evaluationTitle.replace(/\s+/g, '_')}.pdf`;
+    pdf.save(fileName);
+  }
+
+
+// 🔎 Utilisé pour colorier les options selon leur validité
+  getOptionColor(question: any, option: string): string {
+    if (option === question.bonneReponse) return 'green';
+    if (option === question.selectedOption && option !== question.bonneReponse) return 'red';
+    return 'black';
   }
   processQuestions(questions: any[]): any[] {
     return questions.map(question => {
@@ -214,6 +263,7 @@ export class EvaluationComponent implements OnInit {
   }
 
   calculateScore(): void {
+    if (this.showResult) return;
     clearInterval(this.interval);
     let score = 0;
     const totalQuestions = this.questions.length;
@@ -225,11 +275,16 @@ export class EvaluationComponent implements OnInit {
     }
 
     this.totalScore = (score / totalQuestions) * 100;
-    this.isPassed = this.totalScore >= this.selectedEvaluation?.score;
+    // this.isPassed = this.totalScore >= this.selectedEvaluation?.score;
+    this.isPassed = this.totalScore >= 70;
+
     this.showResult = true;
   }
 
   autoSave(): void {
     localStorage.setItem('quizAnswers', JSON.stringify(this.answers));
   }
+
+  public currentDate: string = new Date().toLocaleDateString();
+
 }

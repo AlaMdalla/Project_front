@@ -1,58 +1,49 @@
-<section class="course-details-section" *ngIf="training">
-  <!-- Header with title -->
-  <div class="header-section">
-    <h2 class="section-title">{{ training.title }}</h2>
-  </div>
+<div *ngIf="training" class="course-details">
+  <!-- 🧠 Titre du cours -->
+  <h2>{{ training.title }}</h2>
 
-  <!-- Course image -->
-  <div class="course-image-container">
-    <img
-      [src]="'assets/img/' + training.idTraining + '.jpg'"
-      alt="Course Image"
-      onerror="this.onerror=null; this.src='assets/img/default.jpg';"
-      class="course-image"
-    />
-  </div>
+  <!-- 🖼️ Image du cours -->
+  <img
+    [src]="'assets/img/' + training.idTraining + '.jpg'"
+    alt="Image du cours"
+    width="400"
+    class="course-image"
+  />
 
-  <!-- Course content -->
-  <div *ngIf="formattedContent?.length" class="content-box">
-    <h3 class="content-title">
-      <i class="material-icons">description</i> Course Content
-    </h3>
-    <ul class="content-list">
+  <!-- ✅ Contenu du cours bien structuré et paginé -->
+  <div *ngIf="formattedContent?.length" class="training-content-box">
+    <h3>{{ 'COURSE.CONTENT_TITLE' | translate }}</h3>
+    <ul>
       <li *ngFor="let line of paginatedContent">{{ line }}</li>
     </ul>
 
-    <!-- Pagination controls -->
+    <!-- Pagination Controls -->
     <div class="pagination-controls">
-      <button
-        (click)="changePage(-1)"
-        [disabled]="currentPage === 1"
-        class="pagination-button"
-      >
-        <i class="material-icons">chevron_left</i>
+      <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+        {{ 'COURSE.PREVIOUS' | translate }}
       </button>
-      <span>Page {{ currentPage }} / {{ totalPages }}</span>
-      <button
-        (click)="changePage(1)"
-        [disabled]="currentPage === totalPages"
-        class="pagination-button"
-      >
-        <i class="material-icons">chevron_right</i>
+      <span>{{ 'COURSE.PAGE' | translate }} {{ currentPage }} / {{ totalPages }}</span>
+      <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">
+        {{ 'COURSE.NEXT' | translate }}
       </button>
     </div>
   </div>
 
-  <!-- Course video -->
-  <div class="video-container">
-    <video controls class="course-video">
-      <source [src]="'assets/videos/' + training.idTraining + '.mp4'" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+  <!-- 🎥 Vidéo du cours -->
+  <video width="600" controls>
+    <source [src]="'assets/videos/' + training.idTraining + '.mp4'" type="video/mp4" />
+    {{ 'COURSE.NO_VIDEO_SUPPORT' | translate }}
+  </video>
+
+  <!-- ✅ Bouton vers l’évaluation -->
+  <div class="text-center mt-4">
+    <a [routerLink]="['/evaluation', training.idTraining]" class="btn btn-success">
+      {{ 'COURSE.GO_TO_EVAL' | translate }}
+    </a>
   </div>
 
-  <!-- Back button -->
-  <a routerLink="/courses" class="btn btn-outline">
-    <i class="material-icons">arrow_back</i> Back to Courses
+  <!-- 🔙 Bouton de retour -->
+  <a routerLink="/courses" class="btn btn-outline-primary">
+    ⬅️ {{ 'COURSE.BACK' | translate }}
   </a>
-</section>
+</div>

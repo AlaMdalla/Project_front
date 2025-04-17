@@ -1,272 +1,361 @@
-/* Evaluations section */
-.evaluations-section {
-  padding: 30px;
-  border-radius: 12px;
-  background-color: #f4f4f4;
-  color: #333;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 20px 0;
+/* Ensure content area accounts for the sidebar and fixed header */
+:host {
+  margin-top: 80px; /* Match the header height to avoid overlap */
+  margin-left: 250px; /* Match sidebar width */
+  display: block;
+  padding: 40px 20px; /* Add padding for spacing */
+  min-height: 100vh;
+  background: #f9fafb; /* Lighter background for consistency */
 }
 
-/* Header section */
-.header-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 15px;
+/* Sidebar styling */
+app-sidebar {
+  display: block; /* Ensure sidebar takes up space */
+}
+
+/* Evaluation container */
+.evaluation-container {
+  max-width: 800px; /* Consistent with course details */
+  margin: 0 auto;
 }
 
 /* Section title */
-.section-title {
-  font-size: 1.8rem;
+.evaluation-container h2 {
+  font-size: 28px;
+  color: #3b82f6; /* Lighter slate blue */
+  font-weight: 700;
+  margin-bottom: 20px;
+  position: relative;
+  text-align: center;
+}
+
+.evaluation-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: #2dd4bf; /* Softer teal underline */
+  border-radius: 2px;
+}
+
+/* Filter section */
+.evaluation-container label {
+  font-size: 15px;
   font-weight: 600;
-  color: #1e3a8a;
+  color: #3b82f6; /* Lighter slate blue */
+  margin-bottom: 5px;
+  display: block;
 }
 
-/* Search and filter container */
-.search-filter-container {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* Filter label */
-.filter-label {
-  font-size: 14px;
-  color: #1f2937;
-}
-
-/* Difficulty filter */
-.difficulty-filter {
-  padding: 8px 12px;
+.evaluation-container select {
+  padding: 10px 15px;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
   font-size: 14px;
   color: #1f2937;
-  background: #ffffff;
-  cursor: pointer;
+  background: #fafafa; /* Light gray background */
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+
+.evaluation-container select:focus {
+  border-color: #2dd4bf; /* Softer teal focus border */
+  background: #ffffff;
   outline: none;
-  width: 150px;
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.2);
 }
 
-.difficulty-filter:hover {
-  border-color: #2dd4bf;
+/* Evaluation list */
+.evaluation-container ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
 }
 
-/* Evaluations grid */
-.evaluations-grid {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-/* Evaluation card */
-.evaluation-card {
-  background: white;
+.evaluation-container li {
+  background: #ffffff;
   border-radius: 12px;
-  width: 350px;
-  overflow: hidden;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.evaluation-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Evaluation content */
-.evaluation-content {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
 }
 
-/* Evaluation title */
-.evaluation-title {
-  font-size: 1.1rem;
+.evaluation-container li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.evaluation-container li h3 {
+  font-size: 20px;
+  color: #3b82f6; /* Lighter slate blue */
   font-weight: 600;
-  color: #1e3a8a;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-/* Evaluation info */
-.evaluation-info {
-  font-size: 0.9rem;
-  color: #6b7280;
-  margin-bottom: 8px;
+.evaluation-container li p {
+  font-size: 14px;
+  color: #1f2937;
+  margin: 5px 0;
+}
+
+.evaluation-container li p strong {
+  color: #3b82f6; /* Lighter slate blue */
 }
 
 /* Level styling */
-.evaluation-info span.beginner {
-  color: #2dd4bf;
-}
-.evaluation-info span.intermediate {
-  color: #f59e0b;
-}
-.evaluation-info span.advanced {
-  color: #ef4444;
+.evaluation-container li span.Beginner {
+  color: #2dd4bf; /* Softer teal */
+  font-weight: 500;
 }
 
-/* Join button */
-.join-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #2dd4bf;
-  color: white;
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 0.95rem;
+.evaluation-container li span.Intermediate {
+  color: #f59e0b; /* Amber for intermediate */
+  font-weight: 500;
+}
+
+.evaluation-container li span.Advanced {
+  color: #dc3545; /* Red for advanced */
+  font-weight: 500;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 20px;
   border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
 }
 
-.join-button:hover {
-  background: #5eead4;
+.btn-primary {
+  background: #3b82f6; /* Lighter slate blue */
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #60a5fa; /* Lighter blue on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary:active {
+  background: #1e40af;
+  transform: scale(1);
+}
+
+.btn-warning {
+  background: #f59e0b; /* Amber for show result */
+  color: white;
+}
+
+.btn-warning:hover {
+  background: #fbbf24; /* Lighter amber on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.btn-warning:active {
+  background: #d97706;
+  transform: scale(1);
+}
+
+.btn-success {
+  background: #2dd4bf; /* Softer teal */
+  color: white;
+}
+
+.btn-success:hover {
+  background: #5eead4; /* Lighter teal on hover */
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(94, 234, 212, 0.4);
 }
 
-.join-button .material-icons {
-  font-size: 20px;
-}
-
-/* No evaluations message */
-.no-evaluations {
-  text-align: center;
-  font-size: 1.1rem;
-  color: #6b7280;
-  margin-top: 30px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+.btn-success:active {
+  background: #1e40af;
+  transform: scale(1);
 }
 
 /* Selected evaluation section */
-.selected-evaluation {
-  margin-top: 30px;
-  padding: 20px;
-  background: white;
+.evaluation-container .card {
+  background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.evaluation-container .card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa); /* Lighter slate blue gradient */
+}
+
+.evaluation-container .evaluation-info {
+  font-size: 14px;
+  color: #1f2937;
+  margin: 5px 0;
+}
+
+.evaluation-container .evaluation-info strong {
+  color: #3b82f6; /* Lighter slate blue */
 }
 
 /* Timer box */
 .timer-box {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #f9fafb;
-  padding: 10px;
+  background: #f1f5f9; /* Light slate background */
+  padding: 15px;
   border-radius: 8px;
-  margin: 15px 0;
-  font-size: 1rem;
-  color: #1f2937;
+  text-align: center;
+  margin: 20px 0;
 }
 
-.timer-box .material-icons {
-  color: #2dd4bf;
-  font-size: 20px;
+.timer-box p {
+  font-size: 16px;
+  color: #3b82f6; /* Lighter slate blue */
+  margin: 0;
 }
 
 /* Progress bar */
 .progress-bar-container {
   background: #e0e0e0;
-  border-radius: 8px;
+  border-radius: 6px;
   height: 10px;
-  margin: 15px 0;
+  margin: 20px 0;
   overflow: hidden;
 }
 
-.progress-bar.question-progress {
-  background: #2dd4bf;
+.progress-bar {
+  background: #2dd4bf; /* Softer teal */
   height: 100%;
   transition: width 0.3s ease;
 }
 
-/* Question card */
-.question-card {
-  background: #f9fafb;
+.evaluation-container p {
+  font-size: 14px;
+  color: #1f2937;
+  text-align: center;
+}
+
+/* Questions wrapper */
+.questions-wrapper {
+  margin: 20px 0;
+}
+
+.questions {
+  background: #f1f5f9; /* Light slate background */
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.question-card h4 {
-  font-size: 1rem;
-  color: #1e3a8a;
+.questions h4 {
+  font-size: 18px;
+  color: #3b82f6; /* Lighter slate blue */
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
-/* Option label */
-.option-label {
-  display: block;
-  font-size: 0.9rem;
+.questions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.questions li {
+  background: none;
+  box-shadow: none;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.questions li label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
   color: #1f2937;
-  margin: 8px 0;
   cursor: pointer;
 }
 
-.option-label input {
-  margin-right: 8px;
+.questions li input[type="radio"] {
+  margin-right: 10px;
 }
 
 /* Result box */
 .result-box {
   padding: 20px;
   border-radius: 8px;
-  margin-top: 20px;
   text-align: center;
+  margin: 20px 0;
 }
 
 .result-box.success {
-  background: #d1fae5;
-  color: #065f46;
+  background: #d1fae5; /* Light teal for success */
+  border: 1px solid #2dd4bf;
 }
 
 .result-box.fail {
-  background: #fee2e2;
-  color: #991b1b;
+  background: #fee2e2; /* Light red for failure */
+  border: 1px solid #dc3545;
 }
 
-.result-box .material-icons {
-  font-size: 20px;
-  vertical-align: middle;
-  margin-right: 8px;
+.result-box p {
+  font-size: 16px;
+  color: #1f2937;
+  margin: 5px 0;
 }
 
-/* Success button (PDF download) */
-.btn.btn-success {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #065f46;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 15px;
+/* PDF certificate (adjusted for visibility in PDF rendering) */
+#pdf-certificate {
+  background: #ffffff;
+  border: 4px solid #333;
+  padding: 40px;
+  font-family: Arial, sans-serif;
+  width: 800px;
+  box-sizing: border-box;
 }
 
-.btn.btn-success:hover {
-  background: #2dd4bf;
-  transform: scale(1.05);
-}
+/* Responsive design */
+@media (max-width: 768px) {
+  :host {
+    margin-left: 0; /* Remove sidebar margin on mobile */
+    padding: 20px 10px; /* Reduce padding */
+  }
 
-.btn.btn-success .material-icons {
-  font-size: 20px;
-}
+  .evaluation-container {
+    max-width: 100%; /* Full width on mobile */
+  }
 
-/* PDF certificate (already styled inline for PDF rendering) */
+  .evaluation-container select {
+    max-width: 100%;
+  }
+
+  .evaluation-container li {
+    padding: 15px;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  #pdf-certificate {
+    width: 100%;
+    padding: 20px;
+  }
+}

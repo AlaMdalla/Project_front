@@ -1,64 +1,59 @@
-<section class="evaluations-section">
-  <!-- Header with title and filter -->
-  <div class="header-section">
-    <h2 class="section-title">Evaluations</h2>
-    <div class="search-filter-container">
-      <label for="niveau" class="filter-label">Filter by Level:</label>
-      <select id="niveau" [(ngModel)]="selectedNiveau" (change)="filterEvaluationsByNiveau()" class="difficulty-filter">
-        <option value="">All</option>
-        <option value="Beginner">Beginner</option>
-        <option value="Intermediate">Intermediate</option>
-        <option value="Advanced">Advanced</option>
-      </select>
-    </div>
-  </div>
+<div class="evaluation-container">
+  <h2>{{ 'EVALUATION.TITLE' | translate }}</h2>
 
-  <!-- Evaluations grid -->
-  <div class="evaluations-grid" *ngIf="filteredEvaluations.length > 0; else noEvaluations">
-    <div class="evaluation-card" *ngFor="let evaluation of filteredEvaluations">
-      <div class="evaluation-content">
-        <h3 class="evaluation-title">{{ evaluation.description }}</h3>
-        <p class="evaluation-info"><strong>Type:</strong> {{ evaluation.type }}</p>
-        <p class="evaluation-info"><strong>Duration:</strong> {{ evaluation.evaluationDuration }} minutes</p>
-        <p class="evaluation-info">
-          <strong>Level:</strong>
-          <span [ngClass]="getLevelClass(evaluation.niveau)">
-            {{ getLevelIcon(evaluation.niveau) }} {{ evaluation.niveau }}
-          </span>
-        </p>
-        <button (click)="selectEvaluation(evaluation)" class="join-button">Start Evaluation</button>
-      </div>
-    </div>
-  </div>
+  <label for="niveau">{{ 'EVALUATION.FILTER_LABEL' | translate }}</label>
+  <select id="niveau" [(ngModel)]="selectedNiveau" (change)="filterEvaluationsByNiveau()">
+    <option value="">{{ 'EVALUATION.FILTER_ALL' | translate }}</option>
+    <option value="Beginner">{{ 'EVALUATION.FILTER_BEGINNER' | translate }}</option>
+    <option value="Intermediate">{{ 'EVALUATION.FILTER_INTERMEDIATE' | translate }}</option>
+    <option value="Advanced">{{ 'EVALUATION.FILTER_ADVANCED' | translate }}</option>
+  </select>
 
-  <ng-template #noEvaluations>
-    <p class="no-evaluations">No evaluations available at this time.</p>
-  </ng-template>
+  <ul>
+    <li *ngFor="let evaluation of filteredEvaluations">
+      <h3>{{ evaluation.description }}</h3>
+      <p><strong>{{ 'EVALUATION.TYPE' | translate }} :</strong> {{ evaluation.type }}</p>
+      <p><strong>{{ 'EVALUATION.DURATION' | translate }} :</strong> {{ evaluation.evaluationDuration }} minutes</p>
+      <p>
+        <strong>{{ 'EVALUATION.LEVEL' | translate }} :</strong>
+        <span [ngClass]="getLevelClass(evaluation.niveau)">
+          {{ getLevelIcon(evaluation.niveau) }} {{ evaluation.niveau }}
+        </span>
+      </p>
+      <button (click)="selectEvaluation(evaluation)" class="btn btn-primary">
+        {{ 'EVALUATION.START_BUTTON' | translate }}
+      </button>
+    </li>
+  </ul>
 
-  <!-- Selected Evaluation Section -->
-  <div *ngIf="selectedEvaluation" class="selected-evaluation">
-    <h2 class="evaluation-title">{{ selectedEvaluation?.description }}</h2>
-    <p class="evaluation-info"><strong>Duration:</strong> {{ selectedEvaluation?.evaluationDuration }} minutes</p>
-    <p class="evaluation-info"><strong>Type:</strong> {{ selectedEvaluation?.type }}</p>
+  <!-- ✅ Section d'évaluation sélectionnée -->
+  <div *ngIf="selectedEvaluation">
+    <h2>{{ 'EVALUATION.EVAL_TITLE' | translate }} : {{ selectedEvaluation?.description }}</h2>
+    <p class="evaluation-info">
+      <strong>{{ 'EVALUATION.EVAL_DURATION' | translate }} :</strong> {{ selectedEvaluation?.evaluationDuration }} minutes
+    </p>
+    <p class="evaluation-info">
+      <strong>{{ 'EVALUATION.EVAL_TYPE' | translate }} :</strong> {{ selectedEvaluation?.type }}
+    </p>
 
-    <!-- Timer -->
+    <!-- ✅ Affichage du Chronomètre -->
     <div *ngIf="!showResult" class="timer-box">
-      <p><clr-icon shape="clock"></clr-icon> Time Remaining: {{ remainingTime }}</p>
+      <p>{{ 'EVALUATION.TIMER_LABEL' | translate }} : {{ remainingTime }}</p>
     </div>
 
-    <!-- Progress Bar -->
+    <!-- ✅ Barre de Progression des Questions -->
     <div class="progress-bar-container">
       <div class="progress-bar question-progress" [style.width.%]="getQuestionProgress()"></div>
     </div>
-    <p>Question Progress: {{ answeredQuestions }}/{{ questions.length }}</p>
+    <p>{{ 'EVALUATION.PROGRESS_LABEL' | translate }} : {{ answeredQuestions }}/{{ questions.length }}</p>
 
-    <!-- Questions -->
+    <h3>{{ 'EVALUATION.QUESTION_LIST_TITLE' | translate }}</h3>
     <div class="questions-wrapper">
-      <div *ngFor="let question of questions; let i = index" class="question-card">
-        <h4>Question {{ i + 1 }}: {{ question.questionText }}</h4>
+      <div *ngFor="let question of questions; let i = index" class="questions">
+        <h4>{{ 'EVALUATION.QUESTION' | translate }} {{ i + 1 }} : {{ question.questionText }}</h4>
         <ul>
           <li *ngFor="let option of question.options">
-            <label class="option-label">
+            <label>
               <input type="radio" name="question_{{ i }}" [value]="option" [(ngModel)]="question.selectedOption" (change)="onOptionSelect(question)">
               {{ option }}
             </label>
@@ -66,25 +61,57 @@
         </ul>
       </div>
     </div>
+    <!-- ✅ Bouton pour afficher le résultat avant la fin du chrono -->
+    <button *ngIf="showResult" (click)="calculateScore()" class="btn btn-warning">
+      {{ 'EVALUATION.SHOW_RESULT_NOW' | translate }}
+    </button>
 
-    <!-- Result -->
-    <div *ngIf="showResult" [ngClass]="{'success': isPassed, 'fail': !isPassed}" class="result-box">
-      <p>Score: {{ totalScore.toFixed(2) }}%</p>
-      <p *ngIf="isPassed">✅ Congratulations, you passed the evaluation!</p>
-      <p *ngIf="!isPassed">❌ Sorry, you did not pass the evaluation.</p>
+    <!-- ✅ Affichage dynamique du résultat -->
+    <div *ngIf="showResult" [ngClass]="{ 'success': isPassed, 'fail': !isPassed }" class="result-box">
+      <p>{{ 'EVALUATION.RESULT_SCORE' | translate }} : {{ totalScore.toFixed(2) }}%</p>
+      <p *ngIf="isPassed">{{ 'EVALUATION.RESULT_SUCCESS' | translate }}</p>
+      <p *ngIf="!isPassed">{{ 'EVALUATION.RESULT_FAIL' | translate }}</p>
     </div>
   </div>
 
-  <!-- Export Result -->
-  <div id="resultToExport" *ngIf="showResult" [ngClass]="{ 'success': isPassed, 'fail': !isPassed }" class="result-box">
-    <h2>Evaluation Result</h2>
-    <p><strong>Evaluation:</strong> {{ selectedEvaluation?.description }}</p>
-    <p><strong>Score:</strong> {{ totalScore.toFixed(2) }}%</p>
-    <p><strong>Status:</strong> {{ isPassed ? '✅ Passed' : '❌ Failed' }}</p>
+  <!-- 📄 Section pour PDF -->
+  <div id="pdf-certificate" style="position: absolute; left: -9999px; top: 0; width: 800px; background: #fff; padding: 40px; font-family: Arial, sans-serif; border: 4px solid #333;">
+    <!-- Logo -->
+    <div style="text-align: center; margin-bottom: 30px;">
+      <img src="assets/img/logo.jpg.jpg" alt="Logo" width="120" />
+    </div>
+
+    <!-- Titre principal -->
+    <h1 style="text-align: center; font-size: 28px; color: #333;">
+      {{ 'EVALUATION.CERTIFICATE_TITLE' | translate }}
+    </h1>
+
+    <!-- Description -->
+    <p style="text-align: center; font-size: 18px; margin-bottom: 40px;">
+      {{ 'EVALUATION.CERTIFICATE_DESCRIPTION' | translate }}
+      <strong style="font-size: 22px;">notre participant</strong><br />
+      {{ 'EVALUATION.CERTIFICATE_SUCCESS' | translate }}<br />
+      <strong style="font-size: 20px;">{{ selectedEvaluation?.description }}</strong>
+    </p>
+
+    <!-- Score et Date -->
+    <div style="display: flex; justify-content: space-between; margin: 30px 0;">
+      <p><strong>{{ 'EVALUATION.CERTIFICATE_SCORE' | translate }} :</strong> {{ totalScore.toFixed(2) }}%</p>
+      <p><strong>{{ 'EVALUATION.CERTIFICATE_DATE' | translate }} :</strong> {{ currentDate }}</p>
+    </div>
+
+    <!-- Cachet & Signature -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 40px;">
+      <img src="assets/img/stamp.png" alt="Cachet" width="80" />
+      <div style="text-align: right;">
+        <img src="assets/img/signature.png" alt="Signature" width="100" />
+        <p style="margin: 0; font-size: 12px;">{{ 'EVALUATION.CERTIFICATE_DIRECTOR' | translate }}</p>
+      </div>
+    </div>
   </div>
 
-  <!-- PDF Export Button -->
-  <button *ngIf="showResult" (click)="generatePDF()" class="btn btn-secondary">
-    <clr-icon shape="download"></clr-icon> Download Result as PDF
+  <!-- 📥 Bouton PDF -->
+  <button *ngIf="showResult && isPassed" (click)="generatePDF()" class="btn btn-success">
+    {{ 'EVALUATION.CERTIFICATE_DOWNLOAD' | translate }}
   </button>
-</section>
+</div>
