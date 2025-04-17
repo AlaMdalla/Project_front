@@ -53,9 +53,13 @@ import { ChatComponent } from './chat/chat.component';
 
 // Guards
 import { adminGuard, usersGuard } from './Services/users.guard';
+import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
+import { SimpleUserRegisterComponent } from './shared/simple-user-register/simple-user-register.component';
+import { ForgotPasswordComponentComponent } from './shared/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'reset-password :email', component: ResetPasswordComponent },
 
   { path: 'Problems', component: ListProblemComponent },
   { path: 'problemSubmission/:id', component: ProblemSubmitionComponent },
@@ -102,8 +106,12 @@ const routes: Routes = [
   { path: 'addSubs', component: SubsCreateComponentComponent, canActivate: [adminGuard] },
   { path: 'updateSubs/:id', component: SubUpdateComponent, canActivate: [adminGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'reset-password/:email', component: ResetPasswordComponent },
+    {path: 'UserRegister', component: SimpleUserRegisterComponent},
+    { path: 'forgot-password', component: ForgotPasswordComponentComponent },
 
   { path: '**', component: LoginComponent } // Wildcard route for 404
+
 ];
 
 @NgModule({

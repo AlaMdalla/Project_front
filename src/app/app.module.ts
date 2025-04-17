@@ -77,6 +77,9 @@ import { BookingComponent } from './shared/booking/booking.component';
 import { JobPopupComponent } from './shared/Job/job-popup/job-popup.component';
 import { QuizFailedComponent } from './quiz-failed/quiz-failed.component';
 import { CourseContentComponent } from './pages/course-content/course-content.component';
+import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
+import { SimpleUserRegisterComponent } from './shared/simple-user-register/simple-user-register.component';
+import { ForgotPasswordComponentComponent } from './shared/forgot-password/forgot-password.component';
 
 // Translate loader factory
 export function HttpLoaderFactory(http: HttpClient) {
@@ -130,11 +133,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     JobPopupComponent,
     QuizFailedComponent,
     CourseContentComponent,
+    ResetPasswordComponent,
+    SimpleUserRegisterComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     EvaluationComponent,
+    ForgotPasswordComponentComponent,
 
     CommonModule,
     FormsModule,
