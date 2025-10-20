@@ -1,0 +1,48 @@
+pipeline {
+  agent any
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+
+  stages {
+    stage('Install Dependencies') {
+      steps {
+        sh 'npm ci' // or 'npm install' if ci is not configured
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'npm run build --if-present'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        sh 'npm run test -- --watch=false --browsers=ChromeHeadless'
+      }
+    }
+
+    stage('SonarQube Scan') {
+      steps {
+        withSonarQubeEnv('sq1') {
+          sh '''
+            npx sonar-scanner \
+              -Dsonar.projectKey=angular-project \
+              -Dsonar.sources=src \
+              -Dsonar.host.url=$SONAR_HOST_URL \
+              -Dsonar.login=$SONAR_AUTH_TOKEN
+          '''
+        }
+      }
+    }
+
+    stage('Quality Gate') {
+      steps {
+        timeout(time: 2, unit: 'MINUTES') {
+          waitForQualityGate abortPipeline: true
+        }
+      }
+    }
+  }
+}
