@@ -31,7 +31,7 @@
     "@webcomponents/webcomponentsjs": "^2.8.0",
     "chart.js": "^4.4.9",
     "html2canvas": "^1.4.1",
-    "jspdf": "^3.0.1",
+    "jspdf": "^4.1.0",
     "rxjs": "~7.8.0",
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
